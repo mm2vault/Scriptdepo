@@ -182,13 +182,10 @@
             font-weight: 700;
         }
         .rank-badge.admin { background: var(--red); color: white; }
-        .rank-badge.mod { background: var(--blue); color: white; }
-        .rank-badge.vip { background: var(--yellow); color: #0a0a0f; }
-        .rank-badge.legend { background: var(--purple); color: white; }
+        .rank-badge.user { background: var(--text3); color: white; }
 
         .hidden { display: none !important; }
 
-        /* Theme Toggle */
         .theme-toggle {
             background: none;
             border: none;
@@ -450,8 +447,6 @@
         .badge-new { background: #00d4aa; color: #0a0a0f; }
         .badge-featured { background: #ff8c00; color: white; }
         .badge-version { background: rgba(255,255,255,0.05); color: var(--text2); border: 1px solid var(--border); }
-        .badge-pending { background: #f59e0b; color: #0a0a0f; }
-        .badge-approved { background: #10b981; color: white; }
 
         .script-card .meta {
             display: flex;
@@ -1044,7 +1039,6 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Admin Panel */
         .admin-panel {
             background: var(--bg2);
             border: 1px solid var(--border);
@@ -1076,7 +1070,6 @@
             color: var(--red);
         }
 
-        /* Notification Badge */
         .notification-dot {
             width: 8px;
             height: 8px;
@@ -1090,21 +1083,6 @@
             0% { opacity: 1; transform: scale(1); }
             50% { opacity: 0.5; transform: scale(0.8); }
             100% { opacity: 1; transform: scale(1); }
-        }
-
-        /* Loading Spinner */
-        .spinner {
-            border: 3px solid var(--border);
-            border-top: 3px solid var(--red);
-            border-radius: 50%;
-            width: 30px;
-            height: 30px;
-            animation: spin 0.8s linear infinite;
-            margin: 20px auto;
-        }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
         }
     </style>
 </head>
@@ -1124,7 +1102,7 @@
                 <button onclick="showProfile()" id="navProfile" class="hidden"><i class="fas fa-user"></i> Profil</button>
                 <button onclick="showFavorites()" id="navFavorites" class="hidden"><i class="fas fa-star"></i> Favoriler</button>
                 <button onclick="showLeaderboard()"><i class="fas fa-trophy"></i> Liderlik</button>
-                <button onclick="showAdminPanel()" id="navAdmin" class="hidden"><i class="fas fa-shield-alt"></i> Admin <span id="adminNotif" class="notification-dot hidden"></span></button>
+                <button onclick="showAdminPanel()" id="navAdmin" class="hidden"><i class="fas fa-shield-alt"></i> Admin</button>
 
                 <span style="width:1px;height:24px;background:var(--border);margin:0 4px;"></span>
 
@@ -1244,8 +1222,6 @@
             getCurrentUser() { return JSON.parse(localStorage.getItem('rbx_pro_currentUser') || 'null'); },
             setCurrentUser(u) { localStorage.setItem('rbx_pro_currentUser', JSON.stringify(u)); },
             logout() { localStorage.removeItem('rbx_pro_currentUser'); },
-            getNotifications() { return JSON.parse(localStorage.getItem('rbx_pro_notifications') || '[]'); },
-            saveNotifications(n) { localStorage.setItem('rbx_pro_notifications', JSON.stringify(n)); },
             getTheme() { return localStorage.getItem('rbx_pro_theme') || 'dark'; },
             setTheme(t) { localStorage.setItem('rbx_pro_theme', t); }
         };
@@ -1272,8 +1248,10 @@
 
         function getCurrentUser() { return DB.getCurrentUser(); }
         function isLoggedIn() { return getCurrentUser() !== null; }
-        function isAdmin() { const u = getCurrentUser(); return u && (u.rank === 'admin' || u.rank === 'mod'); }
-        function isMod() { const u = getCurrentUser(); return u && (u.rank === 'admin' || u.rank === 'mod'); }
+        function isAdmin() { 
+            const u = getCurrentUser(); 
+            return u && u.rank === 'admin'; 
+        }
 
         function escapeHtml(text) {
             if (!text) return '';
@@ -1285,13 +1263,13 @@
         function isNew(dateStr) { return (new Date() - new Date(dateStr)) < 86400000; }
 
         function getRankBadge(rank) {
-            const map = { 'admin': 'admin', 'mod': 'mod', 'vip': 'vip', 'legend': 'legend' };
-            return map[rank] || '';
+            const map = { 'admin': 'admin', 'user': 'user' };
+            return map[rank] || 'user';
         }
 
         function getRankText(rank) {
-            const map = { 'admin': 'Admin', 'mod': 'Mod', 'vip': 'VIP', 'legend': 'Efsane' };
-            return map[rank] || '';
+            const map = { 'admin': 'Admin', 'user': 'Kullanıcı' };
+            return map[rank] || 'Kullanıcı';
         }
 
         function generateId() { return Date.now() + Math.floor(Math.random() * 1000); }
@@ -1361,13 +1339,11 @@
             let users = DB.getUsers();
             if (users.length === 0) {
                 users = [
-                    { id: 1, username: 'admin', password: 'admin123', email: 'admin@roblox.com', rank: 'admin',
+                    { id: 1, username: 'admin', password: 'admin123', email: 'mm2ultimatehib@gmail.com', rank: 'admin',
                         created: new Date().toISOString() },
-                    { id: 2, username: 'scriptmaster', password: '123456', email: 'master@roblox.com', rank: 'vip',
+                    { id: 2, username: 'scriptmaster', password: '123456', email: 'master@roblox.com', rank: 'user',
                         created: new Date().toISOString() },
-                    { id: 3, username: 'moderator', password: 'mod123', email: 'mod@roblox.com', rank: 'mod',
-                        created: new Date().toISOString() },
-                    { id: 4, username: 'legend_user', password: 'legend123', email: 'legend@roblox.com', rank: 'legend',
+                    { id: 3, username: 'moderator', password: 'mod123', email: 'mod@roblox.com', rank: 'user',
                         created: new Date().toISOString() }
                 ];
                 DB.saveUsers(users);
@@ -1391,8 +1367,7 @@
                     created: new Date().toISOString(),
                     updated: new Date().toISOString(),
                     featured: true,
-                    approved: true,
-                    pending: false
+                    approved: true
                 }, {
                     id: 2,
                     title: '🤖 Auto Clicker Pro',
@@ -1409,8 +1384,7 @@
                     created: new Date(Date.now() - 86400000).toISOString(),
                     updated: new Date(Date.now() - 86400000).toISOString(),
                     featured: false,
-                    approved: true,
-                    pending: false
+                    approved: true
                 }, {
                     id: 3,
                     title: '🎯 Aimbot Ultra',
@@ -1427,8 +1401,7 @@
                     created: new Date(Date.now() - 172800000).toISOString(),
                     updated: new Date(Date.now() - 172800000).toISOString(),
                     featured: false,
-                    approved: true,
-                    pending: false
+                    approved: true
                 }, {
                     id: 4,
                     title: '🦅 Fly Mode v2',
@@ -1445,8 +1418,7 @@
                     created: new Date(Date.now() - 259200000).toISOString(),
                     updated: new Date(Date.now() - 259200000).toISOString(),
                     featured: false,
-                    approved: true,
-                    pending: false
+                    approved: true
                 }, {
                     id: 5,
                     title: '💨 Speed Hack Ultra',
@@ -1463,46 +1435,13 @@
                     created: new Date(Date.now() - 345600000).toISOString(),
                     updated: new Date(Date.now() - 345600000).toISOString(),
                     featured: false,
-                    approved: true,
-                    pending: false
-                }, {
-                    id: 6,
-                    title: '🖥️ GUI Menu v3',
-                    content: '-- GUI Menu v3\n-- Kullanıcı arayüzü\n\nlocal screenGui = Instance.new("ScreenGui")\nlocal mainFrame = Instance.new("Frame")\nmainFrame.Size = UDim2.new(0, 300, 0, 400)\nmainFrame.Position = UDim2.new(0.5, -150, 0.5, -200)\nmainFrame.BackgroundColor3 = Color3.new(0.1, 0.1, 0.2)\nmainFrame.Parent = screenGui\nscreenGui.Parent = game.Players.LocalPlayer.PlayerGui',
-                    language: 'Lua',
-                    category: 'GUI',
-                    version: 'v3.0',
-                    tags: ['gui', 'ui'],
-                    links: [],
-                    downloads: 98,
-                    likes: 15,
-                    userId: 3,
-                    username: 'moderator',
-                    created: new Date(Date.now() - 432000000).toISOString(),
-                    updated: new Date(Date.now() - 432000000).toISOString(),
-                    featured: false,
-                    approved: true,
-                    pending: false
+                    approved: true
                 }];
                 sample.forEach(s => { scripts.push(s); });
                 DB.saveScripts(scripts);
             }
 
-            // Ensure all scripts have approved and pending fields
-            let allScripts = DB.getScripts();
-            let changed = false;
-            allScripts.forEach(s => {
-                if (s.approved === undefined) { s.approved = true;
-                    changed = true; }
-                if (s.pending === undefined) { s.pending = false;
-                    changed = true; }
-                if (s.updated === undefined) { s.updated = s.created;
-                    changed = true; }
-            });
-            if (changed) DB.saveScripts(allScripts);
-
             updateStats();
-            updateAdminNotif();
         }
 
         // ============================================================
@@ -1543,7 +1482,7 @@
         }
 
         function updateStats() {
-            const scripts = DB.getScripts().filter(s => s.approved !== false);
+            const scripts = DB.getScripts();
             const users = DB.getUsers();
             const likes = DB.getLikes();
             const favs = DB.getFavorites();
@@ -1551,17 +1490,6 @@
             document.getElementById('statUsers').textContent = users.length;
             document.getElementById('statLikes').textContent = likes.length;
             document.getElementById('statFavorites').textContent = favs.length;
-        }
-
-        function updateAdminNotif() {
-            const reports = DB.getReports();
-            const pending = DB.getScripts().filter(s => s.pending === true);
-            const dot = document.getElementById('adminNotif');
-            if (reports.length > 0 || pending.length > 0) {
-                dot.classList.remove('hidden');
-            } else {
-                dot.classList.add('hidden');
-            }
         }
 
         // ============================================================
@@ -1574,7 +1502,7 @@
         const PER_PAGE = 6;
 
         function getFilteredAndSorted() {
-            let scripts = DB.getScripts().filter(s => s.approved !== false);
+            let scripts = DB.getScripts();
 
             if (currentFilter !== 'all') {
                 scripts = scripts.filter(s => s.category === currentFilter);
@@ -1640,7 +1568,6 @@
                 const isOwner = user && s.userId === user.id;
                 const preview = s.content.substring(0, 180) + (s.content.length > 180 ? '...' : '');
                 const tags = s.tags || [];
-                const isPending = s.pending === true;
 
                 html += `
                     <div class="script-card fade-in">
@@ -1653,7 +1580,6 @@
                                 ${s.downloads > 100 ? '<span class="badge badge-popular">🔥 Popüler</span>' : ''}
                                 ${isNew(s.created) ? '<span class="badge badge-new">✨ Yeni</span>' : ''}
                                 ${s.version ? `<span class="badge badge-version">${s.version}</span>` : ''}
-                                ${isPending ? '<span class="badge badge-pending">⏳ Onay Bekliyor</span>' : ''}
                             </div>
                         </div>
                         <div class="meta">
@@ -1675,7 +1601,7 @@
                             ${isOwner || isAdmin() ? `<button class="btn-delete" onclick="deleteScript(${s.id})"><i class="fas fa-trash"></i></button>` : ''}
                             ${s.links && s.links.length > 0 ? `<button class="btn-link" onclick="window.open('${s.links[0]}','_blank')"><i class="fas fa-link"></i></button>` : ''}
                             <button class="btn-report" onclick="reportScript(${s.id})"><i class="fas fa-flag"></i></button>
-                            ${isAdmin() && isPending ? `<button class="btn-approve" onclick="approveScript(${s.id})"><i class="fas fa-check"></i></button>` : ''}
+                            ${isAdmin() ? `<button class="btn-admin" onclick="featureScript(${s.id})"><i class="fas fa-star"></i></button>` : ''}
                         </div>
                     </div>
                 `;
@@ -1722,6 +1648,8 @@
             updateStats();
             document.querySelectorAll('.nav button').forEach(b => b.classList.remove('active'));
             document.getElementById('navHome').classList.add('active');
+            document.getElementById('content').innerHTML = `<div class="script-grid" id="scriptGrid"></div><div class="pagination" id="pagination"></div>`;
+            renderScripts();
         }
 
         function filterScripts(category) {
@@ -1757,7 +1685,6 @@
             const s = scripts.find(s => s.id === id);
             if (!s) { showToast('Script bulunamadı!', 'error'); return; }
 
-            // Track view
             let viewed = DB.getViewed();
             if (!viewed.includes(id)) {
                 viewed.push(id);
@@ -1772,7 +1699,6 @@
             const isFav = favorites.includes(id);
             const isLiked = likes.includes(id);
             const isOwner = user && s.userId === user.id;
-            const isPending = s.pending === true;
 
             let commentHTML = comments.length === 0 ?
                 '<p style="color:var(--text3);">Henüz yorum yok.</p>' :
@@ -1804,7 +1730,6 @@
                                 <span class="badge ${getCategoryBadge(s.category)}">${s.category || 'Diğer'}</span>
                                 ${s.featured ? '<span class="badge badge-featured">⭐ Öne Çıkan</span>' : ''}
                                 ${s.version ? `<span class="badge badge-version">${s.version}</span>` : ''}
-                                ${isPending ? '<span class="badge badge-pending">⏳ Onay Bekliyor</span>' : ''}
                             </div>
                         </div>
                         <div class="detail-meta">
@@ -1832,8 +1757,7 @@
                             ${isOwner || isAdmin() ? `<button class="btn-edit" onclick="editScript(${s.id})"><i class="fas fa-edit"></i> Düzenle</button>` : ''}
                             ${isOwner || isAdmin() ? `<button class="btn-delete" onclick="deleteScript(${s.id})"><i class="fas fa-trash"></i> Sil</button>` : ''}
                             <button class="btn-report" onclick="reportScript(${s.id})"><i class="fas fa-flag"></i> Raporla</button>
-                            ${isAdmin() && isPending ? `<button class="btn-approve" onclick="approveScript(${s.id})"><i class="fas fa-check"></i> Onayla</button>` : ''}
-                            ${isAdmin() && !isPending ? `<button class="btn-admin" onclick="featureScript(${s.id})"><i class="fas fa-star"></i> ${s.featured ? 'Öne Çıkarmayı Kaldır' : 'Öne Çıkar'}</button>` : ''}
+                            ${isAdmin() ? `<button class="btn-admin" onclick="featureScript(${s.id})"><i class="fas fa-star"></i> ${s.featured ? 'Öne Çıkarmayı Kaldır' : 'Öne Çıkar'}</button>` : ''}
                         </div>
                     </div>
 
@@ -1908,7 +1832,6 @@
                                 <button type="button" class="btn-cancel-modal" onclick="goHome()">İptal</button>
                             </div>
                         </form>
-                        <p style="color:var(--text3);font-size:12px;margin-top:12px;">⚠️ Scriptler admin onayından sonra yayınlanır.</p>
                     </div>
                 </div>
             `;
@@ -1945,39 +1868,19 @@
                 created: new Date().toISOString(),
                 updated: new Date().toISOString(),
                 featured: false,
-                approved: false,
-                pending: true
+                approved: true
             });
             DB.saveScripts(scripts);
-            showToast('🎮 Script başarıyla yüklendi! Admin onayı bekleniyor.', 'success', 'Harika!');
+            showToast('🎮 Script başarıyla yüklendi!', 'success', 'Harika!');
             updateStats();
-            updateAdminNotif();
             goHome();
         }
 
         // ============================================================
         // ADMIN FUNCTIONS
         // ============================================================
-        function approveScript(id) {
-            const scripts = DB.getScripts();
-            const s = scripts.find(s => s.id === id);
-            if (s) {
-                s.approved = true;
-                s.pending = false;
-                s.updated = new Date().toISOString();
-                DB.saveScripts(scripts);
-                updateAdminNotif();
-                showToast('✅ Script onaylandı!', 'success', 'Admin İşlemi');
-                // Refresh current view
-                if (document.querySelector('.detail-view')) {
-                    showDetail(id);
-                } else {
-                    renderScripts();
-                }
-            }
-        }
-
         function featureScript(id) {
+            if (!isAdmin()) { showToast('Bu işlem için admin yetkisi gerekli!', 'error'); return; }
             const scripts = DB.getScripts();
             const s = scripts.find(s => s.id === id);
             if (s) {
@@ -1997,25 +1900,11 @@
             if (!isAdmin()) { showToast('Bu sayfaya erişim yetkin yok!', 'error'); return; }
 
             const reports = DB.getReports();
-            const pendingScripts = DB.getScripts().filter(s => s.pending === true);
             const allUsers = DB.getUsers();
             const allScripts = DB.getScripts();
 
             document.getElementById('heroSection').style.display = 'none';
             document.querySelectorAll('.nav button').forEach(b => b.classList.remove('active'));
-
-            let pendingHTML = pendingScripts.length === 0 ?
-                '<p style="color:var(--text3);">Onay bekleyen script yok.</p>' :
-                pendingScripts.map(s => `
-                    <div style="background:var(--bg);padding:12px 16px;border-radius:8px;margin-bottom:8px;border:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
-                        <div><strong>${s.title}</strong> <span style="color:var(--text3);font-size:12px;">${s.username}</span></div>
-                        <div style="display:flex;gap:6px;">
-                            <button class="btn-approve" onclick="approveScript(${s.id})"><i class="fas fa-check"></i> Onayla</button>
-                            <button class="btn-delete" onclick="deleteScript(${s.id})"><i class="fas fa-trash"></i> Sil</button>
-                            <button class="btn-view" onclick="showDetail(${s.id})"><i class="fas fa-eye"></i> Gör</button>
-                        </div>
-                    </div>
-                `).join('');
 
             let reportsHTML = reports.length === 0 ?
                 '<p style="color:var(--text3);">Bildirim yok.</p>' :
@@ -2043,15 +1932,9 @@
                         <h3><i class="fas fa-chart-bar" style="color:var(--blue);"></i> İstatistikler</h3>
                         <div class="admin-stats">
                             <div>📜 Toplam Script: <span>${allScripts.length}</span></div>
-                            <div>⏳ Onay Bekleyen: <span>${pendingScripts.length}</span></div>
                             <div>👥 Toplam Kullanıcı: <span>${allUsers.length}</span></div>
                             <div>🚩 Bildirimler: <span>${reports.length}</span></div>
                         </div>
-                    </div>
-
-                    <div class="admin-panel">
-                        <h3><i class="fas fa-clock" style="color:var(--yellow);"></i> Onay Bekleyen Scriptler</h3>
-                        ${pendingHTML}
                     </div>
 
                     <div class="admin-panel">
@@ -2076,7 +1959,6 @@
             let reports = DB.getReports();
             reports = reports.filter(r => r !== id);
             DB.saveReports(reports);
-            updateAdminNotif();
             showToast('📋 Bildirim çözüldü.', 'success', 'Admin');
             showAdminPanel();
         }
@@ -2123,7 +2005,6 @@
                         if (data.viewed) DB.saveViewed(data.viewed);
                         showToast('✅ Yedek başarıyla yüklendi!', 'success', 'Geri Yükleme');
                         updateStats();
-                        updateAdminNotif();
                         goHome();
                     } catch (err) {
                         showToast('❌ Geçersiz dosya!', 'error', 'Hata');
@@ -2198,15 +2079,6 @@
                                 <label><i class="fas fa-code-branch"></i> Versiyon</label>
                                 <input type="text" id="editScriptVersion" value="${s.version || 'v1.0'}">
                             </div>
-                            ${isAdmin() ? `
-                                <div class="form-group">
-                                    <label><i class="fas fa-check"></i> Durum</label>
-                                    <select id="editScriptStatus">
-                                        <option value="approved" ${s.approved ? 'selected' : ''}>✅ Onaylı</option>
-                                        <option value="pending" ${s.pending ? 'selected' : ''}>⏳ Beklemede</option>
-                                    </select>
-                                </div>
-                            ` : ''}
                             <div class="form-actions">
                                 <button type="submit" class="btn-submit"><i class="fas fa-save"></i> Güncelle</button>
                                 <button type="button" class="btn-cancel-modal" onclick="showDetail(${id})">İptal</button>
@@ -2238,18 +2110,8 @@
                 s.links = link ? [link] : [];
                 s.version = version || 'v1.0';
                 s.updated = new Date().toISOString();
-
-                if (isAdmin()) {
-                    const status = document.getElementById('editScriptStatus').value;
-                    if (status === 'approved') { s.approved = true;
-                        s.pending = false; }
-                    if (status === 'pending') { s.approved = false;
-                        s.pending = true; }
-                }
-
                 DB.saveScripts(scripts);
                 showToast('✅ Script güncellendi!', 'success', 'Başarılı');
-                updateAdminNotif();
                 showDetail(id);
             }
         }
@@ -2265,7 +2127,6 @@
             const comments = DB.getComments().filter(c => c.userId === user.id);
             const favorites = DB.getFavorites();
 
-            // Stats
             const totalDownloads = scripts.reduce((sum, s) => sum + (s.downloads || 0), 0);
             const totalLikes = scripts.reduce((sum, s) => sum + (s.likes || 0), 0);
 
@@ -2323,7 +2184,7 @@
             if (!isLoggedIn()) { showToast('Lütfen giriş yapın!', 'error');
                 showLogin(); return; }
             const favs = DB.getFavorites();
-            const scripts = DB.getScripts().filter(s => favs.includes(s.id) && s.approved !== false);
+            const scripts = DB.getScripts().filter(s => favs.includes(s.id));
             document.getElementById('heroSection').style.display = 'none';
             document.querySelectorAll('.nav button').forEach(b => b.classList.remove('active'));
 
@@ -2356,7 +2217,7 @@
         // LİDERLİK TABLOSU
         // ============================================================
         function showLeaderboard() {
-            const scripts = DB.getScripts().filter(s => s.approved !== false);
+            const scripts = DB.getScripts();
             const sorted = [...scripts].sort((a, b) => (b.downloads || 0) - (a.downloads || 0));
             const top = sorted.slice(0, 10);
 
@@ -2414,7 +2275,6 @@
             DB.saveReports(reports);
             showToast('Script silindi!', 'success', 'Tamam');
             updateStats();
-            updateAdminNotif();
             goHome();
         }
 
@@ -2498,7 +2358,6 @@
             if (reports.includes(id)) { showToast('Zaten raporlanmış.', 'info', 'Bilgi'); return; }
             reports.push(id);
             DB.saveReports(reports);
-            updateAdminNotif();
             showToast('🚩 Raporlandı! Admin inceliyor.', 'warning', 'Rapor');
         }
 
@@ -2529,7 +2388,6 @@
                 showToast('❤️ Yorum beğenildi!', 'success', 'Harika!');
             }
             DB.saveCommentLikes(likes);
-            // Refresh detail view
             const scriptId = DB.getComments().find(c => c.id === commentId)?.scriptId;
             if (scriptId) showDetail(scriptId);
         }
@@ -2539,7 +2397,6 @@
             let comments = DB.getComments().filter(c => c.id !== commentId);
             DB.saveComments(comments);
             showToast('Yorum silindi.', 'info', 'Bilgi');
-            // Refresh
             const scriptId = DB.getComments().find(c => c.scriptId)?.scriptId;
             if (scriptId) showDetail(scriptId);
         }
@@ -2569,7 +2426,7 @@
                     </div>
                 </form>
                 <div class="form-footer">Hesabın yok mu? <a onclick="closeModal();showRegister();">Kayıt ol</a></div>
-                <div class="form-footer" style="font-size:12px;color:var(--text3);">🔑 Demo: admin / admin123</div>
+                <div class="form-footer" style="font-size:12px;color:var(--text3);">🔑 Admin: admin / admin123</div>
             `);
         }
 
@@ -2627,8 +2484,15 @@
             if (p.length < 4) { showToast('Şifre en az 4 karakter!', 'error'); return; }
             const users = DB.getUsers();
             if (users.find(u2 => u2.username === u)) { showToast('Bu kullanıcı adı alınmış!', 'error'); return; }
+            
+            // Kullanıcı rolü: admin sadece özel email ile
+            let rank = 'user';
+            if (e === 'mm2ultimatehib@gmail.com' || u === 'admin') {
+                rank = 'admin';
+            }
+            
             const newId = users.length > 0 ? Math.max(...users.map(u2 => u2.id)) + 1 : 1;
-            users.push({ id: newId, username: u, password: p, email: e || '', rank: 'user', created: new Date()
+            users.push({ id: newId, username: u, password: p, email: e || '', rank: rank, created: new Date()
                     .toISOString() });
             DB.saveUsers(users);
             closeModal();
@@ -2663,12 +2527,10 @@
         goHome();
 
         console.log('🎮 Roblox Script Hub Pro v2.0 çalışıyor!');
-        console.log('👤 Admin: admin / admin123');
-        console.log('👤 Mod: moderator / mod123');
+        console.log('👤 Admin: admin / admin123 (Email: mm2ultimatehib@gmail.com)');
         console.log('📊 Script sayısı:', DB.getScripts().length);
         console.log('👥 Kullanıcı sayısı:', DB.getUsers().length);
         console.log('🔥 Tüm özellikler aktif!');
-        console.log('📦 Yedekleme, admin paneli, sayfalama, tema vs.');
     </script>
 
 </body>
