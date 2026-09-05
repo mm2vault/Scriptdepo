@@ -6,6 +6,14 @@
     <title>🎮 Roblox Script Hub Pro</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Firebase App (Core) -->
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+    <!-- Firebase Auth -->
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+    <!-- Firebase Firestore -->
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+
     <style>
         /* ============================================================
            RESET & VARIABLES
@@ -143,6 +151,63 @@
         }
         .btn-outline-nav:hover { border-color: var(--red) !important; color: white !important; }
 
+        .btn-google {
+            background: #4285F4 !important;
+            color: white !important;
+            padding: 10px 20px !important;
+            border-radius: 8px !important;
+            font-weight: 600 !important;
+            border: none !important;
+            cursor: pointer !important;
+            display: flex !important;
+            align-items: center !important;
+            gap: 10px !important;
+            width: 100% !important;
+            justify-content: center !important;
+            transition: var(--transition) !important;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+        }
+        .btn-google:hover { background: #357ae8 !important; transform: scale(1.02) !important; }
+        .btn-google i { font-size: 18px; }
+
+        .btn-github {
+            background: #24292e !important;
+            color: white !important;
+            padding: 10px 20px !important;
+            border-radius: 8px !important;
+            font-weight: 600 !important;
+            border: none !important;
+            cursor: pointer !important;
+            display: flex !important;
+            align-items: center !important;
+            gap: 10px !important;
+            width: 100% !important;
+            justify-content: center !important;
+            transition: var(--transition) !important;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+        }
+        .btn-github:hover { background: #1a1e22 !important; transform: scale(1.02) !important; }
+        .btn-github i { font-size: 18px; }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            margin: 12px 0;
+            color: var(--text3);
+            font-size: 13px;
+        }
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid var(--border);
+        }
+        .divider::before { margin-right: 12px; }
+        .divider::after { margin-left: 12px; }
+
         .user-badge {
             display: flex;
             align-items: center;
@@ -167,12 +232,23 @@
             font-size: 13px;
             font-weight: 700;
             color: white;
+            overflow: hidden;
+        }
+        .user-badge .avatar img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            object-fit: cover;
         }
 
         .user-badge .name {
             font-size: 13px;
             font-weight: 600;
             color: var(--text);
+            max-width: 100px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
 
         .user-badge .rank-badge {
@@ -196,6 +272,19 @@
             padding: 4px 8px;
         }
         .theme-toggle:hover { color: var(--text); transform: rotate(30deg); }
+
+        .loading-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 0.8s ease-in-out infinite;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
 
         /* ============================================================
            HERO
@@ -542,9 +631,6 @@
         .btn-back { background: var(--bg); color: var(--text2); border: 1px solid var(--border) !important; }
         .btn-back:hover { border-color: var(--text3) !important; color: var(--text); }
 
-        .btn-approve { background: #10b981; color: white; }
-        .btn-approve:hover { background: #059669; transform: scale(1.04); }
-
         .btn-admin { background: var(--purple); color: white; }
         .btn-admin:hover { background: #6d28d9; transform: scale(1.04); }
 
@@ -624,7 +710,7 @@
             border: 1px solid var(--border);
             border-radius: var(--radius);
             padding: 28px;
-            max-width: 580px;
+            max-width: 420px;
             width: 100%;
             max-height: 90vh;
             overflow-y: auto;
@@ -675,7 +761,7 @@
         }
         .form-group label i { margin-right: 6px; color: var(--red); }
 
-        .form-group input, .form-group textarea, .form-group select {
+        .form-group input {
             width: 100%;
             padding: 10px 14px;
             background: var(--bg);
@@ -687,16 +773,10 @@
             transition: var(--transition);
         }
 
-        .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+        .form-group input:focus {
             outline: none;
             border-color: var(--red);
             box-shadow: 0 0 0 3px rgba(255,55,95,0.1);
-        }
-
-        .form-group textarea {
-            min-height: 120px;
-            font-family: 'Courier New', monospace;
-            resize: vertical;
         }
 
         .form-actions {
@@ -730,174 +810,6 @@
             font-size: 13px;
         }
         .form-footer a { color: var(--red); text-decoration: none; font-weight: 600; cursor: pointer; }
-
-        /* ============================================================
-           DETAIL VIEW
-           ============================================================ */
-        .detail-view .detail-code {
-            background: var(--bg);
-            padding: 20px;
-            border-radius: 8px;
-            font-family: 'Courier New', monospace;
-            font-size: 13px;
-            white-space: pre-wrap;
-            overflow-x: auto;
-            border: 1px solid var(--border);
-            margin: 12px 0;
-            max-height: 400px;
-            overflow-y: auto;
-            color: var(--text2);
-            line-height: 1.8;
-        }
-
-        .detail-view .detail-meta {
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-            font-size: 13px;
-            color: var(--text2);
-            padding: 12px 0;
-            border-bottom: 1px solid var(--border);
-            margin-bottom: 12px;
-        }
-        .detail-view .detail-meta i { margin-right: 4px; color: var(--text3); }
-
-        .detail-view .detail-actions {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-            margin: 12px 0;
-        }
-
-        .detail-view .detail-actions button {
-            padding: 8px 18px;
-            border-radius: 8px;
-            border: none;
-            font-size: 13px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            font-family: 'Inter', sans-serif;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .detail-view .detail-links {
-            margin: 12px 0;
-            padding: 12px 16px;
-            background: var(--bg);
-            border-radius: 8px;
-            border: 1px solid var(--border);
-        }
-        .detail-view .detail-links a { color: var(--blue); text-decoration: none; margin-right: 12px; }
-        .detail-view .detail-links a:hover { text-decoration: underline; }
-
-        .detail-view .detail-tags {
-            display: flex;
-            gap: 4px;
-            flex-wrap: wrap;
-            margin: 8px 0;
-        }
-        .detail-view .detail-tags .tag {
-            padding: 2px 12px;
-            border-radius: 12px;
-            font-size: 11px;
-            background: rgba(255,55,95,0.08);
-            border: 1px solid rgba(255,55,95,0.1);
-            color: var(--text2);
-        }
-
-        /* COMMENTS */
-        .comments-section { margin-top: 20px; }
-
-        .comments-section h3 {
-            font-size: 17px;
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: var(--text);
-        }
-        .comments-section h3 i { color: var(--red); }
-
-        .comment-item {
-            background: var(--bg);
-            padding: 12px 16px;
-            border-radius: 8px;
-            margin-bottom: 10px;
-            border: 1px solid var(--border);
-            transition: var(--transition);
-        }
-
-        .comment-item .comment-header {
-            display: flex;
-            justify-content: space-between;
-            font-size: 12px;
-            color: var(--text3);
-            margin-bottom: 4px;
-        }
-        .comment-item .comment-header strong { color: var(--text); }
-
-        .comment-item p {
-            color: var(--text2);
-            font-size: 13px;
-            line-height: 1.6;
-        }
-
-        .comment-item .comment-actions {
-            display: flex;
-            gap: 8px;
-            margin-top: 6px;
-        }
-        .comment-item .comment-actions button {
-            background: none;
-            border: none;
-            color: var(--text3);
-            font-size: 12px;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-        .comment-item .comment-actions button:hover { color: var(--red); }
-
-        .comment-form {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 16px;
-        }
-
-        .comment-form textarea {
-            flex: 1;
-            padding: 10px 14px;
-            background: var(--bg);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            color: var(--text);
-            font-size: 13px;
-            resize: vertical;
-            min-height: 50px;
-            font-family: 'Inter', sans-serif;
-            transition: var(--transition);
-        }
-        .comment-form textarea:focus {
-            outline: none;
-            border-color: var(--red);
-        }
-
-        .comment-form button {
-            padding: 10px 20px;
-            border-radius: 8px;
-            border: none;
-            background: var(--red);
-            color: white;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-        .comment-form button:hover {
-            background: var(--red2);
-            transform: scale(1.04);
-        }
 
         /* ============================================================
            TOAST
@@ -1069,21 +981,6 @@
             font-weight: 700;
             color: var(--red);
         }
-
-        .notification-dot {
-            width: 8px;
-            height: 8px;
-            background: var(--red);
-            border-radius: 50%;
-            display: inline-block;
-            margin-left: 4px;
-            animation: pulse 1.5s infinite;
-        }
-        @keyframes pulse {
-            0% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.5; transform: scale(0.8); }
-            100% { opacity: 1; transform: scale(1); }
-        }
     </style>
 </head>
 <body>
@@ -1094,7 +991,7 @@
         <header class="header">
             <div class="logo" onclick="goHome()">
                 <i class="fas fa-gamepad"></i>
-                ScriptHub <span style="font-size:12px;background:var(--red);color:white;padding:2px 8px;border-radius:4px;-webkit-text-fill-color:white;">PRO</span>
+                ScriptHub <span style="font-size:12px;background:var(--red);color:white;padding:2px 8px;border-radius:4px;-webkit-text-fill-color:white;">🔥</span>
             </div>
             <nav class="nav" id="mainNav">
                 <button class="active" onclick="goHome()" id="navHome"><i class="fas fa-home"></i> Ana Sayfa</button>
@@ -1128,7 +1025,7 @@
         <div class="hero" id="heroSection">
             <div class="hero-content">
                 <h1>🎮 Roblox Script Hub Pro</h1>
-                <p>Binlerce Roblox scriptini keşfet, paylaş ve kullan. Topluluğun en iyi scriptleri tek platformda!</p>
+                <p>Binlerce Roblox scriptini keşfet, paylaş ve kullan. Firebase ile güvenli giriş!</p>
                 <div class="hero-actions">
                     <button class="btn-primary" onclick="showUpload()"><i class="fas fa-rocket"></i> Script Paylaş</button>
                     <button class="btn-secondary" onclick="showLeaderboard()"><i class="fas fa-trophy"></i> Liderlik</button>
@@ -1182,7 +1079,7 @@
                 <a href="#"><i class="fab fa-twitter"></i></a>
                 <a href="#"><i class="fab fa-youtube"></i></a>
             </div>
-            <p>🎮 Roblox Script Hub Pro v2.0</p>
+            <p>🎮 Roblox Script Hub Pro v3.0 🔥 Firebase</p>
             <p class="disclaimer">⚠️ Sadece eğitim amaçlıdır. Roblox ToS'a uygun kullanın.</p>
         </footer>
     </div>
@@ -1196,15 +1093,31 @@
     <div class="toast-container" id="toastContainer"></div>
 
     <!-- ============================================================
-    JAVASCRIPT - TAM SÜRÜM
+    JAVASCRIPT - FIREBASE
     ============================================================ -->
     <script>
         // ============================================================
-        // DATABASE
+        // FIREBASE CONFIG - SENİN CONFIG'İN
+        // ============================================================
+        const firebaseConfig = {
+            apiKey: "AIzaSyDKdE947q36KwQxkrxbUzpmoynaMsssWB8",
+            authDomain: "scripthub-b95d1.firebaseapp.com",
+            projectId: "scripthub-b95d1",
+            storageBucket: "scripthub-b95d1.firebasestorage.app",
+            messagingSenderId: "435891213405",
+            appId: "1:435891213405:web:522b592d921689882629b4",
+            measurementId: "G-PVXHHBYLGR"
+        };
+
+        // Firebase'i başlat
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+
+        // ============================================================
+        // DATABASE (LocalStorage yedek)
         // ============================================================
         const DB = {
-            getUsers() { return JSON.parse(localStorage.getItem('rbx_pro_users') || '[]'); },
-            saveUsers(u) { localStorage.setItem('rbx_pro_users', JSON.stringify(u)); },
             getScripts() { return JSON.parse(localStorage.getItem('rbx_pro_scripts') || '[]'); },
             saveScripts(s) { localStorage.setItem('rbx_pro_scripts', JSON.stringify(s)); },
             getComments() { return JSON.parse(localStorage.getItem('rbx_pro_comments') || '[]'); },
@@ -1221,7 +1134,6 @@
             saveViewed(v) { localStorage.setItem('rbx_pro_viewed', JSON.stringify(v)); },
             getCurrentUser() { return JSON.parse(localStorage.getItem('rbx_pro_currentUser') || 'null'); },
             setCurrentUser(u) { localStorage.setItem('rbx_pro_currentUser', JSON.stringify(u)); },
-            logout() { localStorage.removeItem('rbx_pro_currentUser'); },
             getTheme() { return localStorage.getItem('rbx_pro_theme') || 'dark'; },
             setTheme(t) { localStorage.setItem('rbx_pro_theme', t); }
         };
@@ -1248,9 +1160,9 @@
 
         function getCurrentUser() { return DB.getCurrentUser(); }
         function isLoggedIn() { return getCurrentUser() !== null; }
-        function isAdmin() { 
-            const u = getCurrentUser(); 
-            return u && u.rank === 'admin'; 
+        function isAdmin() {
+            const u = getCurrentUser();
+            return u && u.rank === 'admin';
         }
 
         function escapeHtml(text) {
@@ -1268,7 +1180,7 @@
         }
 
         function getRankText(rank) {
-            const map = { 'admin': 'Admin', 'user': 'Kullanıcı' };
+            const map = { 'admin': 'Admin 🛡️', 'user': 'Kullanıcı' };
             return map[rank] || 'Kullanıcı';
         }
 
@@ -1283,7 +1195,7 @@
             DB.setTheme(next);
             document.documentElement.setAttribute('data-theme', next === 'dark' ? '' : 'light');
             document.querySelector('.theme-toggle i').className = next === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
-            showToast('Tema değiştirildi: ' + (next === 'dark' ? 'Karanlık' : 'Aydınlık'), 'info', 'Tema');
+            showToast('Tema: ' + (next === 'dark' ? 'Karanlık' : 'Aydınlık'), 'info', 'Tema');
         }
 
         function initTheme() {
@@ -1333,115 +1245,142 @@
         }
 
         // ============================================================
-        // INIT
+        // FIREBASE AUTH
         // ============================================================
-        function initData() {
-            let users = DB.getUsers();
-            if (users.length === 0) {
-                users = [
-                    { id: 1, username: 'admin', password: 'admin123', email: 'mm2ultimatehib@gmail.com', rank: 'admin',
-                        created: new Date().toISOString() },
-                    { id: 2, username: 'scriptmaster', password: '123456', email: 'master@roblox.com', rank: 'user',
-                        created: new Date().toISOString() },
-                    { id: 3, username: 'moderator', password: 'mod123', email: 'mod@roblox.com', rank: 'user',
-                        created: new Date().toISOString() }
-                ];
-                DB.saveUsers(users);
-            }
+        // Dinleme: Kullanıcı durumu değiştiğinde
+        auth.onAuthStateChanged(user => {
+            if (user) {
+                // Kullanıcı giriş yaptı
+                console.log('✅ Firebase ile giriş yapıldı:', user.displayName || user.email);
 
-            let scripts = DB.getScripts();
-            if (scripts.length === 0) {
-                const sample = [{
-                    id: 1,
-                    title: '🛡️ Ultimate ESP v3.0',
-                    content: '-- Ultimate ESP Script\n-- Tüm oyuncuları gösterir\n\nlocal Players = game:GetService("Players")\nlocal RunService = game:GetService("RunService")\n\nfor _, player in pairs(Players:GetPlayers()) do\n    if player ~= Players.LocalPlayer then\n        local highlight = Instance.new("Highlight")\n        highlight.Parent = player.Character\n        highlight.FillColor = Color3.new(1, 0.2, 0.2)\n        highlight.FillTransparency = 0.5\n        highlight.OutlineColor = Color3.new(1, 1, 1)\n    end\nend',
-                    language: 'Lua',
-                    category: 'ESP',
-                    version: 'v3.0',
-                    tags: ['xray', 'wallhack'],
-                    links: ['https://pastebin.com/raw/abc123'],
-                    downloads: 342,
-                    likes: 45,
-                    userId: 1,
-                    username: 'admin',
-                    created: new Date().toISOString(),
-                    updated: new Date().toISOString(),
-                    featured: true,
-                    approved: true
-                }, {
-                    id: 2,
-                    title: '🤖 Auto Clicker Pro',
-                    content: '-- Auto Clicker Pro\n-- Otomatik tıklama\n\nlocal mouse = game.Players.LocalPlayer:GetMouse()\nlocal enabled = false\n\nmouse.KeyDown:Connect(function(key)\n    if key == "F1" then\n        enabled = not enabled\n        print(enabled and "Aktif" or "Pasif")\n    end\nend)\n\nwhile true do\n    if enabled then\n        mouse1click()\n        wait(0.05)\n    end\n    wait()\nend',
-                    language: 'Lua',
-                    category: 'Otomasyon',
-                    version: 'v2.1',
-                    tags: ['clicker', 'auto'],
-                    links: [],
-                    downloads: 215,
-                    likes: 32,
-                    userId: 1,
-                    username: 'admin',
-                    created: new Date(Date.now() - 86400000).toISOString(),
-                    updated: new Date(Date.now() - 86400000).toISOString(),
-                    featured: false,
-                    approved: true
-                }, {
-                    id: 3,
-                    title: '🎯 Aimbot Ultra',
-                    content: '-- Aimbot Ultra\n-- Otomatik hedef alma\n\nlocal Players = game:GetService("Players")\nlocal lp = Players.LocalPlayer\n\nRunService.RenderStepped:Connect(function()\n    local target = getClosestPlayer()\n    if target then\n        lp.Character.HumanoidRootPart.CFrame = CFrame.new(lp.Character.HumanoidRootPart.Position, target.Character.HumanoidRootPart.Position)\n    end\nend)',
-                    language: 'Lua',
-                    category: 'Aimbot',
-                    version: 'v2.0',
-                    tags: ['aimbot', 'lock'],
-                    links: ['https://pastebin.com/raw/def456'],
-                    downloads: 187,
-                    likes: 28,
-                    userId: 2,
-                    username: 'scriptmaster',
-                    created: new Date(Date.now() - 172800000).toISOString(),
-                    updated: new Date(Date.now() - 172800000).toISOString(),
-                    featured: false,
-                    approved: true
-                }, {
-                    id: 4,
-                    title: '🦅 Fly Mode v2',
-                    content: '-- Fly Mode v2\n-- Uçma modu\n\nlocal player = game.Players.LocalPlayer\nlocal char = player.Character\nlocal humanoid = char.Humanoid\nlocal flying = false\n\ngame:GetService("UserInputService").InputBegan:Connect(function(input)\n    if input.KeyCode == Enum.KeyCode.F then\n        flying = not flying\n        humanoid.PlatformStand = flying\n        print(flying and "Fly Aktif" or "Fly Pasif")\n    end\nend)',
-                    language: 'Lua',
-                    category: 'Fly',
-                    version: 'v2.0',
-                    tags: ['fly', 'noclip'],
-                    links: [],
-                    downloads: 156,
-                    likes: 22,
-                    userId: 2,
-                    username: 'scriptmaster',
-                    created: new Date(Date.now() - 259200000).toISOString(),
-                    updated: new Date(Date.now() - 259200000).toISOString(),
-                    featured: false,
-                    approved: true
-                }, {
-                    id: 5,
-                    title: '💨 Speed Hack Ultra',
-                    content: '-- Speed Hack Ultra\n-- Hızlandırma\n\nlocal player = game.Players.LocalPlayer\nlocal humanoid = player.Character.Humanoid\n\nhumanoid.WalkSpeed = humanoid.WalkSpeed * 2.5\nhumanoid.JumpPower = humanoid.JumpPower * 1.5\n\nprint("Speed: " .. humanoid.WalkSpeed)',
-                    language: 'Lua',
-                    category: 'Speed',
-                    version: 'v1.5',
-                    tags: ['speed', 'boost'],
-                    links: [],
-                    downloads: 134,
-                    likes: 18,
-                    userId: 2,
-                    username: 'scriptmaster',
-                    created: new Date(Date.now() - 345600000).toISOString(),
-                    updated: new Date(Date.now() - 345600000).toISOString(),
-                    featured: false,
-                    approved: true
-                }];
-                sample.forEach(s => { scripts.push(s); });
-                DB.saveScripts(scripts);
-            }
+                // Firestore'dan kullanıcı bilgilerini al veya oluştur
+                const userRef = db.collection('users').doc(user.uid);
+                userRef.get().then(doc => {
+                    let userData;
+                    if (!doc.exists) {
+                        // Yeni kullanıcı - Firestore'a kaydet
+                        const rank = user.email === 'mm2ultimatehib@gmail.com' ? 'admin' : 'user';
+                        userData = {
+                            uid: user.uid,
+                            username: user.displayName || user.email.split('@')[0],
+                            email: user.email,
+                            rank: rank,
+                            photoURL: user.photoURL || '',
+                            created: new Date().toISOString()
+                        };
+                        userRef.set(userData);
+                    } else {
+                        userData = doc.data();
+                    }
 
-            updateStats();
+                    // LocalStorage'a kaydet
+                    const localUser = {
+                        id: user.uid,
+                        username: userData.username || user.displayName || user.email.split('@')[0],
+                        email: user.email,
+                        rank: userData.rank || (user.email === 'mm2ultimatehib@gmail.com' ? 'admin' : 'user'),
+                        photoURL: user.photoURL || ''
+                    };
+                    DB.setCurrentUser(localUser);
+                    updateNav();
+                    updateStats();
+                    // Eğer ana sayfada değilse ana sayfaya git
+                    if (!document.querySelector('.detail-view') && !document.querySelector('.admin-panel')) {
+                        goHome();
+                    }
+                    showToast('🎮 Hoş geldin, ' + localUser.username + '!', 'success', 'Hoş Geldin!');
+                }).catch(err => {
+                    console.error('Firestore hatası:', err);
+                });
+
+            } else {
+                // Kullanıcı çıkış yaptı
+                console.log('👋 Kullanıcı çıkış yaptı');
+                DB.logout();
+                updateNav();
+                goHome();
+            }
+        });
+
+        // ============================================================
+        // AUTH FONKSİYONLARI
+        // ============================================================
+
+        // Google ile Giriş
+        function loginWithGoogle() {
+            const provider = new firebase.auth.GoogleAuthProvider();
+            auth.signInWithPopup(provider)
+                .then((result) => {
+                    closeModal();
+                    showToast('🎉 Google ile giriş başarılı!', 'success');
+                })
+                .catch((err) => {
+                    showToast('❌ Google giriş hatası: ' + err.message, 'error');
+                });
+        }
+
+        // GitHub ile Giriş
+        function loginWithGitHub() {
+            const provider = new firebase.auth.GithubAuthProvider();
+            auth.signInWithPopup(provider)
+                .then((result) => {
+                    closeModal();
+                    showToast('🎉 GitHub ile giriş başarılı!', 'success');
+                })
+                .catch((err) => {
+                    showToast('❌ GitHub giriş hatası: ' + err.message, 'error');
+                });
+        }
+
+        // Email/Şifre ile Giriş
+        function loginWithEmail(email, password) {
+            auth.signInWithEmailAndPassword(email, password)
+                .then(() => {
+                    closeModal();
+                    showToast('🎉 Giriş başarılı!', 'success');
+                })
+                .catch((err) => {
+                    showToast('❌ ' + err.message, 'error');
+                });
+        }
+
+        // Kayıt Ol (Email/Şifre)
+        function registerWithEmail(email, password, username) {
+            auth.createUserWithEmailAndPassword(email, password)
+                .then((userCredential) => {
+                    const user = userCredential.user;
+                    // Kullanıcı profilini güncelle
+                    user.updateProfile({
+                        displayName: username
+                    }).then(() => {
+                        // Firestore'a kaydet (onAuthStateChanged zaten yapacak ama garantilemek için)
+                        const rank = email === 'mm2ultimatehib@gmail.com' ? 'admin' : 'user';
+                        db.collection('users').doc(user.uid).set({
+                            uid: user.uid,
+                            username: username,
+                            email: email,
+                            rank: rank,
+                            photoURL: '',
+                            created: new Date().toISOString()
+                        });
+                        closeModal();
+                        showToast('🎉 Kayıt başarılı! Giriş yapılıyor...', 'success');
+                    });
+                })
+                .catch((err) => {
+                    showToast('❌ ' + err.message, 'error');
+                });
+        }
+
+        // Çıkış Yap
+        function logout() {
+            if (!confirm('Çıkış yapmak istediğine emin misin?')) return;
+            auth.signOut().then(() => {
+                DB.logout();
+                updateNav();
+                showToast('Çıkış yapıldı.', 'info', 'Güle güle!');
+                goHome();
+            });
         }
 
         // ============================================================
@@ -1458,8 +1397,14 @@
             if (user) {
                 authBtns.classList.add('hidden');
                 userBadge.classList.remove('hidden');
-                userName.textContent = user.username;
-                userAvatar.textContent = user.username.charAt(0).toUpperCase();
+                userName.textContent = user.username || 'Kullanıcı';
+                // Avatar
+                if (user.photoURL) {
+                    userAvatar.innerHTML = `<img src="${user.photoURL}" alt="avatar">`;
+                } else {
+                    userAvatar.textContent = (user.username || 'K').charAt(0).toUpperCase();
+                    userAvatar.style.background = 'linear-gradient(135deg, var(--red), var(--purple))';
+                }
                 userRank.textContent = getRankText(user.rank);
                 userRank.className = 'rank-badge ' + getRankBadge(user.rank);
                 document.getElementById('navUpload').classList.remove('hidden');
@@ -1483,11 +1428,15 @@
 
         function updateStats() {
             const scripts = DB.getScripts();
-            const users = DB.getUsers();
             const likes = DB.getLikes();
             const favs = DB.getFavorites();
+            // Kullanıcı sayısını Firebase'den al
+            db.collection('users').get().then(snapshot => {
+                document.getElementById('statUsers').textContent = snapshot.size || 0;
+            }).catch(() => {
+                document.getElementById('statUsers').textContent = '?';
+            });
             document.getElementById('statScripts').textContent = scripts.length;
-            document.getElementById('statUsers').textContent = users.length;
             document.getElementById('statLikes').textContent = likes.length;
             document.getElementById('statFavorites').textContent = favs.length;
         }
@@ -1648,6 +1597,7 @@
             updateStats();
             document.querySelectorAll('.nav button').forEach(b => b.classList.remove('active'));
             document.getElementById('navHome').classList.add('active');
+            // Content'i sıfırla
             document.getElementById('content').innerHTML = `<div class="script-grid" id="scriptGrid"></div><div class="pagination" id="pagination"></div>`;
             renderScripts();
         }
@@ -1800,11 +1750,11 @@
                             </div>
                             <div class="form-group">
                                 <label><i class="fas fa-code"></i> Kod *</label>
-                                <textarea id="scriptContent" placeholder="Lua kodunu yapıştır..." required></textarea>
+                                <textarea id="scriptContent" placeholder="Lua kodunu yapıştır..." required style="width:100%;padding:10px 14px;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:13px;font-family:'Courier New',monospace;min-height:120px;resize:vertical;"></textarea>
                             </div>
                             <div class="form-group">
                                 <label><i class="fas fa-tag"></i> Kategori</label>
-                                <select id="scriptCategory">
+                                <select id="scriptCategory" style="width:100%;padding:10px 14px;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:13px;">
                                     <option value="ESP">👁️ ESP</option>
                                     <option value="Otomasyon">⚡ Otomasyon</option>
                                     <option value="Aimbot">🎯 Aimbot</option>
@@ -1863,12 +1813,11 @@
                 links: link ? [link] : [],
                 downloads: 0,
                 likes: 0,
-                userId: user.id,
-                username: user.username,
+                userId: user.id || user.uid || 'unknown',
+                username: user.username || 'Kullanıcı',
                 created: new Date().toISOString(),
                 updated: new Date().toISOString(),
-                featured: false,
-                approved: true
+                featured: false
             });
             DB.saveScripts(scripts);
             showToast('🎮 Script başarıyla yüklendi!', 'success', 'Harika!');
@@ -1900,8 +1849,11 @@
             if (!isAdmin()) { showToast('Bu sayfaya erişim yetkin yok!', 'error'); return; }
 
             const reports = DB.getReports();
-            const allUsers = DB.getUsers();
             const allScripts = DB.getScripts();
+            let usersCount = 0;
+            db.collection('users').get().then(snapshot => {
+                usersCount = snapshot.size;
+            }).catch(() => {});
 
             document.getElementById('heroSection').style.display = 'none';
             document.querySelectorAll('.nav button').forEach(b => b.classList.remove('active'));
@@ -1932,7 +1884,7 @@
                         <h3><i class="fas fa-chart-bar" style="color:var(--blue);"></i> İstatistikler</h3>
                         <div class="admin-stats">
                             <div>📜 Toplam Script: <span>${allScripts.length}</span></div>
-                            <div>👥 Toplam Kullanıcı: <span>${allUsers.length}</span></div>
+                            <div>👥 Toplam Kullanıcı: <span id="adminUserCount">${usersCount || '...'}</span></div>
                             <div>🚩 Bildirimler: <span>${reports.length}</span></div>
                         </div>
                     </div>
@@ -1953,6 +1905,12 @@
                 </div>
             `;
             closeModal();
+
+            // Kullanıcı sayısını güncelle
+            db.collection('users').get().then(snapshot => {
+                const el = document.getElementById('adminUserCount');
+                if (el) el.textContent = snapshot.size;
+            }).catch(() => {});
         }
 
         function resolveReport(id) {
@@ -1965,7 +1923,6 @@
 
         function backupData() {
             const data = {
-                users: DB.getUsers(),
                 scripts: DB.getScripts(),
                 comments: DB.getComments(),
                 favorites: DB.getFavorites(),
@@ -1995,7 +1952,6 @@
                 reader.onload = function(ev) {
                     try {
                         const data = JSON.parse(ev.target.result);
-                        if (data.users) DB.saveUsers(data.users);
                         if (data.scripts) DB.saveScripts(data.scripts);
                         if (data.comments) DB.saveComments(data.comments);
                         if (data.favorites) DB.saveFavorites(data.favorites);
@@ -2052,11 +2008,11 @@
                             </div>
                             <div class="form-group">
                                 <label><i class="fas fa-code"></i> Kod *</label>
-                                <textarea id="editScriptContent" required>${escapeHtml(s.content)}</textarea>
+                                <textarea id="editScriptContent" required style="width:100%;padding:10px 14px;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:13px;font-family:'Courier New',monospace;min-height:120px;resize:vertical;">${escapeHtml(s.content)}</textarea>
                             </div>
                             <div class="form-group">
                                 <label><i class="fas fa-tag"></i> Kategori</label>
-                                <select id="editScriptCategory">
+                                <select id="editScriptCategory" style="width:100%;padding:10px 14px;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:13px;">
                                     <option value="ESP" ${s.category === 'ESP' ? 'selected' : ''}>👁️ ESP</option>
                                     <option value="Otomasyon" ${s.category === 'Otomasyon' ? 'selected' : ''}>⚡ Otomasyon</option>
                                     <option value="Aimbot" ${s.category === 'Aimbot' ? 'selected' : ''}>🎯 Aimbot</option>
@@ -2123,8 +2079,8 @@
             if (!isLoggedIn()) { showToast('Lütfen giriş yapın!', 'error');
                 showLogin(); return; }
             const user = getCurrentUser();
-            const scripts = DB.getScripts().filter(s => s.userId === user.id);
-            const comments = DB.getComments().filter(c => c.userId === user.id);
+            const scripts = DB.getScripts().filter(s => s.userId === user.id || s.userId === user.uid);
+            const comments = DB.getComments().filter(c => c.userId === user.id || c.userId === user.uid);
             const favorites = DB.getFavorites();
 
             const totalDownloads = scripts.reduce((sum, s) => sum + (s.downloads || 0), 0);
@@ -2155,11 +2111,13 @@
                     </div>
                     <div style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:24px;margin-bottom:20px;">
                         <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
-                            <div style="width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,var(--red),var(--purple));display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:700;color:white;">${user.username.charAt(0).toUpperCase()}</div>
+                            <div style="width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,var(--red),var(--purple));display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:700;color:white;overflow:hidden;">
+                                ${user.photoURL ? `<img src="${user.photoURL}" style="width:60px;height:60px;object-fit:cover;">` : user.username.charAt(0).toUpperCase()}
+                            </div>
                             <div>
                                 <h2 style="font-size:22px;font-weight:800;color:var(--text);">${user.username}</h2>
                                 <p style="color:var(--text2);"><i class="fas fa-envelope"></i> ${user.email || 'Email girilmemiş'}</p>
-                                <p style="color:var(--text3);font-size:13px;"><i class="fas fa-calendar"></i> Katılım: ${formatDate(user.created)}</p>
+                                <p style="color:var(--text3);font-size:13px;"><i class="fas fa-shield-alt"></i> Rol: ${getRankText(user.rank)}</p>
                             </div>
                         </div>
                         <div style="display:flex;gap:24px;margin-top:16px;padding-top:16px;border-top:1px solid var(--border);flex-wrap:wrap;">
@@ -2259,7 +2217,9 @@
         // ============================================================
         function deleteScript(id) {
             if (!confirm('Bu scripti silmek istediğine emin misin?')) return;
-            if (!isAdmin() && !(getCurrentUser() && DB.getScripts().find(s => s.id === id)?.userId === getCurrentUser().id)) {
+            const user = getCurrentUser();
+            const script = DB.getScripts().find(s => s.id === id);
+            if (!isAdmin() && !(user && (script?.userId === user.id || script?.userId === user.uid))) {
                 showToast('Bu scripti silme yetkin yok!', 'error');
                 return;
             }
@@ -2367,8 +2327,14 @@
             const user = getCurrentUser();
             if (!content) { showToast('Yorum boş olamaz!', 'error'); return; }
             const comments = DB.getComments();
-            const newComment = { id: generateId(), scriptId, userId: user.id, username: user.username, content,
-                created: new Date().toISOString() };
+            const newComment = {
+                id: generateId(),
+                scriptId,
+                userId: user.id || user.uid || 'unknown',
+                username: user.username || 'Kullanıcı',
+                content,
+                created: new Date().toISOString()
+            };
             comments.push(newComment);
             DB.saveComments(comments);
             input.value = '';
@@ -2402,7 +2368,7 @@
         }
 
         // ============================================================
-        // GİRİŞ & KAYIT
+        // GİRİŞ & KAYIT MODALLARI
         // ============================================================
         function showLogin() {
             if (isLoggedIn()) { showToast('Zaten giriş yaptın!', 'info');
@@ -2412,21 +2378,31 @@
                     <h2><i class="fas fa-sign-in-alt" style="color:var(--red);"></i> Giriş</h2>
                     <button class="modal-close" onclick="closeModal()">×</button>
                 </div>
-                <form onsubmit="loginUser();return false;">
+                
+                <button class="btn-google" onclick="loginWithGoogle()">
+                    <i class="fab fa-google"></i> Google ile Giriş
+                </button>
+                
+                <button class="btn-github" onclick="loginWithGitHub()" style="margin-top:8px;">
+                    <i class="fab fa-github"></i> GitHub ile Giriş
+                </button>
+                
+                <div class="divider">veya</div>
+                
+                <form onsubmit="loginWithEmail(document.getElementById('loginEmail').value, document.getElementById('loginPassword').value);return false;">
                     <div class="form-group">
-                        <label>Kullanıcı Adı</label>
-                        <input type="text" id="loginUsername" placeholder="Kullanıcı adı..." required>
+                        <label><i class="fas fa-envelope"></i> Email</label>
+                        <input type="email" id="loginEmail" placeholder="Email adresiniz" required>
                     </div>
                     <div class="form-group">
-                        <label>Şifre</label>
-                        <input type="password" id="loginPassword" placeholder="Şifre..." required>
+                        <label><i class="fas fa-lock"></i> Şifre</label>
+                        <input type="password" id="loginPassword" placeholder="Şifreniz" required>
                     </div>
                     <div class="form-actions">
                         <button type="submit" class="btn-submit"><i class="fas fa-sign-in-alt"></i> Giriş Yap</button>
                     </div>
                 </form>
                 <div class="form-footer">Hesabın yok mu? <a onclick="closeModal();showRegister();">Kayıt ol</a></div>
-                <div class="form-footer" style="font-size:12px;color:var(--text3);">🔑 Admin: admin / admin123</div>
             `);
         }
 
@@ -2438,18 +2414,29 @@
                     <h2><i class="fas fa-user-plus" style="color:var(--red);"></i> Kayıt</h2>
                     <button class="modal-close" onclick="closeModal()">×</button>
                 </div>
-                <form onsubmit="registerUser();return false;">
+                
+                <button class="btn-google" onclick="loginWithGoogle()">
+                    <i class="fab fa-google"></i> Google ile Kayıt
+                </button>
+                
+                <button class="btn-github" onclick="loginWithGitHub()" style="margin-top:8px;">
+                    <i class="fab fa-github"></i> GitHub ile Kayıt
+                </button>
+                
+                <div class="divider">veya</div>
+                
+                <form onsubmit="registerWithEmail(document.getElementById('registerEmail').value, document.getElementById('registerPassword').value, document.getElementById('registerUsername').value);return false;">
                     <div class="form-group">
-                        <label>Kullanıcı Adı *</label>
-                        <input type="text" id="registerUsername" placeholder="Kullanıcı adı..." required>
+                        <label><i class="fas fa-user"></i> Kullanıcı Adı *</label>
+                        <input type="text" id="registerUsername" placeholder="Kullanıcı adınız" required>
                     </div>
                     <div class="form-group">
-                        <label>Email</label>
-                        <input type="email" id="registerEmail" placeholder="Email">
+                        <label><i class="fas fa-envelope"></i> Email *</label>
+                        <input type="email" id="registerEmail" placeholder="Email adresiniz" required>
                     </div>
                     <div class="form-group">
-                        <label>Şifre *</label>
-                        <input type="password" id="registerPassword" placeholder="En az 4 karakter..." required>
+                        <label><i class="fas fa-lock"></i> Şifre *</label>
+                        <input type="password" id="registerPassword" placeholder="En az 6 karakter" required minlength="6">
                     </div>
                     <div class="form-actions">
                         <button type="submit" class="btn-submit"><i class="fas fa-user-plus"></i> Kayıt Ol</button>
@@ -2459,79 +2446,130 @@
             `);
         }
 
-        function loginUser() {
-            const u = document.getElementById('loginUsername').value.trim();
-            const p = document.getElementById('loginPassword').value.trim();
-            const user = DB.getUsers().find(u2 => u2.username === u && u2.password === p);
-            if (user) {
-                DB.setCurrentUser({ id: user.id, username: user.username, email: user.email || '', rank: user.rank ||
-                        'user', created: user.created });
-                updateNav();
-                closeModal();
-                showToast('🎮 Hoş geldin, ' + user.username + '!', 'success', 'Hoş Geldin!');
-                updateStats();
-                goHome();
-            } else {
-                showToast('Kullanıcı adı veya şifre hatalı!', 'error', 'Hata');
-            }
-        }
-
-        function registerUser() {
-            const u = document.getElementById('registerUsername').value.trim();
-            const e = document.getElementById('registerEmail').value.trim();
-            const p = document.getElementById('registerPassword').value.trim();
-            if (!u || !p) { showToast('Kullanıcı adı ve şifre zorunlu!', 'error'); return; }
-            if (p.length < 4) { showToast('Şifre en az 4 karakter!', 'error'); return; }
-            const users = DB.getUsers();
-            if (users.find(u2 => u2.username === u)) { showToast('Bu kullanıcı adı alınmış!', 'error'); return; }
-            
-            // Kullanıcı rolü: admin sadece özel email ile
-            let rank = 'user';
-            if (e === 'mm2ultimatehib@gmail.com' || u === 'admin') {
-                rank = 'admin';
-            }
-            
-            const newId = users.length > 0 ? Math.max(...users.map(u2 => u2.id)) + 1 : 1;
-            users.push({ id: newId, username: u, password: p, email: e || '', rank: rank, created: new Date()
-                    .toISOString() });
-            DB.saveUsers(users);
-            closeModal();
-            showToast('🎮 Kayıt başarılı! Şimdi giriş yap.', 'success', 'Başarılı!');
-            showLogin();
-        }
-
-        function logout() {
-            if (!confirm('Çıkış yapmak istediğine emin misin?')) return;
-            DB.logout();
-            updateNav();
-            showToast('Çıkış yapıldı.', 'info', 'Güle güle!');
-            goHome();
-        }
-
         // ============================================================
         // MODAL
         // ============================================================
-        function openModal(html) { document.getElementById('modalContent').innerHTML = html;
-            document.getElementById('modal').classList.add('active'); }
+        function openModal(html) {
+            document.getElementById('modalContent').innerHTML = html;
+            document.getElementById('modal').classList.add('active');
+        }
 
-        function closeModal() { document.getElementById('modal').classList.remove('active'); }
-        document.getElementById('modal').addEventListener('click', function(e) { if (e.target === this) closeModal(); });
-        document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeModal(); });
+        function closeModal() {
+            document.getElementById('modal').classList.remove('active');
+        }
+        document.getElementById('modal').addEventListener('click', function(e) {
+            if (e.target === this) closeModal();
+        });
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') closeModal();
+        });
 
         // ============================================================
-        // START
+        // INIT - BAŞLAT
         // ============================================================
-        initTheme();
-        initData();
-        updateNav();
-        goHome();
+        function initDemoScripts() {
+            let scripts = DB.getScripts();
+            if (scripts.length === 0) {
+                const sample = [{
+                    id: 1,
+                    title: '🛡️ Ultimate ESP v3.0',
+                    content: '-- Ultimate ESP Script\n-- Tüm oyuncuları gösterir\n\nlocal Players = game:GetService("Players")\nlocal RunService = game:GetService("RunService")\n\nfor _, player in pairs(Players:GetPlayers()) do\n    if player ~= Players.LocalPlayer then\n        local highlight = Instance.new("Highlight")\n        highlight.Parent = player.Character\n        highlight.FillColor = Color3.new(1, 0.2, 0.2)\n        highlight.FillTransparency = 0.5\n        highlight.OutlineColor = Color3.new(1, 1, 1)\n    end\nend',
+                    language: 'Lua',
+                    category: 'ESP',
+                    version: 'v3.0',
+                    tags: ['xray', 'wallhack'],
+                    links: ['https://pastebin.com/raw/abc123'],
+                    downloads: 342,
+                    likes: 45,
+                    userId: 'admin',
+                    username: 'admin',
+                    created: new Date().toISOString(),
+                    updated: new Date().toISOString(),
+                    featured: true
+                }, {
+                    id: 2,
+                    title: '🤖 Auto Clicker Pro',
+                    content: '-- Auto Clicker Pro\n-- Otomatik tıklama\n\nlocal mouse = game.Players.LocalPlayer:GetMouse()\nlocal enabled = false\n\nmouse.KeyDown:Connect(function(key)\n    if key == "F1" then\n        enabled = not enabled\n        print(enabled and "Aktif" or "Pasif")\n    end\nend)\n\nwhile true do\n    if enabled then\n        mouse1click()\n        wait(0.05)\n    end\n    wait()\nend',
+                    language: 'Lua',
+                    category: 'Otomasyon',
+                    version: 'v2.1',
+                    tags: ['clicker', 'auto'],
+                    links: [],
+                    downloads: 215,
+                    likes: 32,
+                    userId: 'admin',
+                    username: 'admin',
+                    created: new Date(Date.now() - 86400000).toISOString(),
+                    updated: new Date(Date.now() - 86400000).toISOString(),
+                    featured: false
+                }, {
+                    id: 3,
+                    title: '🎯 Aimbot Ultra',
+                    content: '-- Aimbot Ultra\n-- Otomatik hedef alma\n\nlocal Players = game:GetService("Players")\nlocal lp = Players.LocalPlayer\n\nRunService.RenderStepped:Connect(function()\n    local target = getClosestPlayer()\n    if target then\n        lp.Character.HumanoidRootPart.CFrame = CFrame.new(lp.Character.HumanoidRootPart.Position, target.Character.HumanoidRootPart.Position)\n    end\nend)',
+                    language: 'Lua',
+                    category: 'Aimbot',
+                    version: 'v2.0',
+                    tags: ['aimbot', 'lock'],
+                    links: ['https://pastebin.com/raw/def456'],
+                    downloads: 187,
+                    likes: 28,
+                    userId: 'admin',
+                    username: 'admin',
+                    created: new Date(Date.now() - 172800000).toISOString(),
+                    updated: new Date(Date.now() - 172800000).toISOString(),
+                    featured: false
+                }, {
+                    id: 4,
+                    title: '🦅 Fly Mode v2',
+                    content: '-- Fly Mode v2\n-- Uçma modu\n\nlocal player = game.Players.LocalPlayer\nlocal char = player.Character\nlocal humanoid = char.Humanoid\nlocal flying = false\n\ngame:GetService("UserInputService").InputBegan:Connect(function(input)\n    if input.KeyCode == Enum.KeyCode.F then\n        flying = not flying\n        humanoid.PlatformStand = flying\n        print(flying and "Fly Aktif" or "Fly Pasif")\n    end\nend)',
+                    language: 'Lua',
+                    category: 'Fly',
+                    version: 'v2.0',
+                    tags: ['fly', 'noclip'],
+                    links: [],
+                    downloads: 156,
+                    likes: 22,
+                    userId: 'admin',
+                    username: 'admin',
+                    created: new Date(Date.now() - 259200000).toISOString(),
+                    updated: new Date(Date.now() - 259200000).toISOString(),
+                    featured: false
+                }, {
+                    id: 5,
+                    title: '💨 Speed Hack Ultra',
+                    content: '-- Speed Hack Ultra\n-- Hızlandırma\n\nlocal player = game.Players.LocalPlayer\nlocal humanoid = player.Character.Humanoid\n\nhumanoid.WalkSpeed = humanoid.WalkSpeed * 2.5\nhumanoid.JumpPower = humanoid.JumpPower * 1.5\n\nprint("Speed: " .. humanoid.WalkSpeed)',
+                    language: 'Lua',
+                    category: 'Speed',
+                    version: 'v1.5',
+                    tags: ['speed', 'boost'],
+                    links: [],
+                    downloads: 134,
+                    likes: 18,
+                    userId: 'admin',
+                    username: 'admin',
+                    created: new Date(Date.now() - 345600000).toISOString(),
+                    updated: new Date(Date.now() - 345600000).toISOString(),
+                    featured: false
+                }];
+                sample.forEach(s => { scripts.push(s); });
+                DB.saveScripts(scripts);
+            }
+        }
 
-        console.log('🎮 Roblox Script Hub Pro v2.0 çalışıyor!');
-        console.log('👤 Admin: admin / admin123 (Email: mm2ultimatehib@gmail.com)');
-        console.log('📊 Script sayısı:', DB.getScripts().length);
-        console.log('👥 Kullanıcı sayısı:', DB.getUsers().length);
-        console.log('🔥 Tüm özellikler aktif!');
+        function init() {
+            initTheme();
+            initDemoScripts();
+            updateNav();
+            updateStats();
+            goHome();
+            console.log('🎮 Roblox Script Hub Pro v3.0 🔥 Firebase');
+            console.log('✅ Firebase ile giriş sistemi aktif!');
+            console.log('👑 Admin: mm2ultimatehib@gmail.com');
+            console.log('📊 Script sayısı:', DB.getScripts().length);
+        }
+
+        // Sayfa yüklendiğinde başlat
+        document.addEventListener('DOMContentLoaded', init);
     </script>
-
 </body>
 </html>
