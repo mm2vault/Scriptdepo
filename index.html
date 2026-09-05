@@ -1,0 +1,1203 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ScriptPaylaş - Kod Paylaşım Platformu</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            background: #0d1117;
+            color: #c9d1d9;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* HEADER */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #30363d;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: #58a6ff;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo span {
+            background: #238636;
+            color: white;
+            font-size: 12px;
+            padding: 2px 10px;
+            border-radius: 12px;
+        }
+
+        .nav {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .nav a {
+            color: #8b949e;
+            text-decoration: none;
+            font-size: 14px;
+            padding: 5px 0;
+            transition: color 0.3s;
+        }
+
+        .nav a:hover {
+            color: #58a6ff;
+        }
+
+        .btn {
+            padding: 8px 20px;
+            border-radius: 6px;
+            border: none;
+            font-size: 14px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+
+        .btn-primary {
+            background: #238636;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #2ea043;
+        }
+
+        .btn-danger {
+            background: #da3633;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #f85149;
+        }
+
+        .btn-secondary {
+            background: #21262d;
+            color: #c9d1d9;
+            border: 1px solid #30363d;
+        }
+
+        .btn-secondary:hover {
+            background: #30363d;
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: #58a6ff;
+            border: 1px solid #58a6ff;
+        }
+
+        .btn-outline:hover {
+            background: #58a6ff;
+            color: #0d1117;
+        }
+
+        /* CARDS */
+        .card {
+            background: #161b22;
+            border-radius: 8px;
+            border: 1px solid #30363d;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .card-title {
+            color: #58a6ff;
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 20px;
+        }
+
+        .script-card {
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 8px;
+            padding: 20px;
+            transition: transform 0.2s;
+        }
+
+        .script-card:hover {
+            transform: translateY(-4px);
+            border-color: #58a6ff;
+        }
+
+        .script-card h3 {
+            color: #58a6ff;
+            margin-bottom: 8px;
+            font-size: 18px;
+        }
+
+        .script-card .meta {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            font-size: 13px;
+            color: #8b949e;
+            margin: 10px 0;
+        }
+
+        .script-card .code-preview {
+            background: #0d1117;
+            padding: 12px;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            max-height: 150px;
+            overflow-y: auto;
+            border: 1px solid #30363d;
+            margin: 10px 0;
+            color: #e6edf3;
+        }
+
+        .tag {
+            display: inline-block;
+            background: #21262d;
+            padding: 2px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            color: #8b949e;
+            border: 1px solid #30363d;
+        }
+
+        .tag-python {
+            background: #3572A5;
+            color: white;
+            border-color: #3572A5;
+        }
+
+        .tag-javascript {
+            background: #f1e05a;
+            color: #0d1117;
+            border-color: #f1e05a;
+        }
+
+        .tag-php {
+            background: #4F5D95;
+            color: white;
+            border-color: #4F5D95;
+        }
+
+        .tag-html {
+            background: #e34c26;
+            color: white;
+            border-color: #e34c26;
+        }
+
+        .tag-css {
+            background: #563d7c;
+            color: white;
+            border-color: #563d7c;
+        }
+
+        .tag-shell {
+            background: #89e051;
+            color: #0d1117;
+            border-color: #89e051;
+        }
+
+        .tag-ruby {
+            background: #701516;
+            color: white;
+            border-color: #701516;
+        }
+
+        .tag-go {
+            background: #00ADD8;
+            color: white;
+            border-color: #00ADD8;
+        }
+
+        .tag-java {
+            background: #b07219;
+            color: white;
+            border-color: #b07219;
+        }
+
+        .tag-cpp {
+            background: #f34b7d;
+            color: white;
+            border-color: #f34b7d;
+        }
+
+        .tag-c {
+            background: #555555;
+            color: white;
+            border-color: #555555;
+        }
+
+        .tag-rust {
+            background: #dea584;
+            color: #0d1117;
+            border-color: #dea584;
+        }
+
+        .script-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 12px;
+            flex-wrap: wrap;
+        }
+
+        .script-actions .btn {
+            font-size: 13px;
+            padding: 6px 16px;
+        }
+
+        /* FORM */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 6px;
+            color: #8b949e;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            background: #0d1117;
+            color: #c9d1d9;
+            border: 1px solid #30363d;
+            border-radius: 6px;
+            font-size: 14px;
+            font-family: inherit;
+        }
+
+        .form-group textarea {
+            min-height: 200px;
+            font-family: 'Courier New', monospace;
+            resize: vertical;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #58a6ff;
+            box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.2);
+        }
+
+        .form-group select option {
+            background: #0d1117;
+        }
+
+        /* MODAL */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 12px;
+            padding: 30px;
+            max-width: 600px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .modal-header h2 {
+            color: #58a6ff;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            color: #8b949e;
+            font-size: 28px;
+            cursor: pointer;
+            padding: 0 10px;
+        }
+
+        .modal-close:hover {
+            color: #f85149;
+        }
+
+        /* EMPTY STATE */
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #8b949e;
+        }
+
+        .empty-state .emoji {
+            font-size: 64px;
+            margin-bottom: 20px;
+        }
+
+        .empty-state h3 {
+            color: #c9d1d9;
+            margin-bottom: 10px;
+        }
+
+        /* ALERT */
+        .alert {
+            padding: 12px 20px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .alert.show {
+            display: block;
+        }
+
+        .alert-success {
+            background: #0f2d1a;
+            border: 1px solid #238636;
+            color: #3fb950;
+        }
+
+        .alert-error {
+            background: #2d0f0f;
+            border: 1px solid #da3633;
+            color: #f85149;
+        }
+
+        .alert-info {
+            background: #0f1d2d;
+            border: 1px solid #1f6feb;
+            color: #58a6ff;
+        }
+
+        /* DETAIL VIEW */
+        .detail-code {
+            background: #0d1117;
+            padding: 20px;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            white-space: pre-wrap;
+            overflow-x: auto;
+            border: 1px solid #30363d;
+            margin: 15px 0;
+            max-height: 500px;
+            overflow-y: auto;
+            color: #e6edf3;
+            line-height: 1.6;
+        }
+
+        .comment-item {
+            background: #0d1117;
+            padding: 12px 16px;
+            border-radius: 6px;
+            margin: 10px 0;
+            border: 1px solid #30363d;
+        }
+
+        .comment-item .comment-meta {
+            display: flex;
+            gap: 15px;
+            font-size: 13px;
+            color: #8b949e;
+            margin-bottom: 5px;
+        }
+
+        .comment-item .comment-meta strong {
+            color: #58a6ff;
+        }
+
+        /* FOOTER */
+        .footer {
+            text-align: center;
+            padding: 30px 0;
+            border-top: 1px solid #30363d;
+            margin-top: 40px;
+            color: #8b949e;
+            font-size: 14px;
+        }
+
+        .footer a {
+            color: #58a6ff;
+            text-decoration: none;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                align-items: stretch;
+                text-align: center;
+            }
+
+            .nav {
+                justify-content: center;
+            }
+
+            .card-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .modal-content {
+                padding: 20px;
+                margin: 10px;
+            }
+
+            .script-actions {
+                justify-content: center;
+            }
+
+            .logo {
+                font-size: 22px;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 10px;
+            }
+
+            .nav {
+                gap: 10px;
+            }
+
+            .nav a {
+                font-size: 13px;
+            }
+
+            .btn {
+                padding: 6px 14px;
+                font-size: 13px;
+            }
+        }
+
+        /* SCROLLBAR */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #0d1117;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #30363d;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #484f58;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- HEADER -->
+        <header class="header">
+            <a href="#" class="logo" onclick="showHome()">
+                📜 ScriptPaylaş
+                <span>Beta</span>
+            </a>
+            <nav class="nav" id="mainNav">
+                <a href="#" onclick="showHome()">Ana Sayfa</a>
+                <a href="#" onclick="showUpload()">📤 Yükle</a>
+                <a href="#" onclick="showProfile()">👤 Profil</a>
+                <a href="#" onclick="logout()" id="logoutBtn" style="display:none;">🚪 Çıkış</a>
+                <a href="#" onclick="showLogin()" id="loginBtn">🔑 Giriş</a>
+                <a href="#" onclick="showRegister()" id="registerBtn">📝 Kayıt</a>
+                <span id="userDisplay" style="color:#58a6ff;font-weight:bold;display:none;"></span>
+            </nav>
+        </header>
+
+        <!-- ALERT -->
+        <div id="alert" class="alert"></div>
+
+        <!-- CONTENT -->
+        <div id="content">
+            <!-- Ana Sayfa buraya gelecek -->
+        </div>
+
+        <!-- FOOTER -->
+        <footer class="footer">
+            <p>© 2024 ScriptPaylaş - Açık Kaynak Kod Paylaşım Platformu</p>
+            <p style="font-size:12px;margin-top:5px;">
+                ⭐ <a href="#" onclick="alert('GitHub\'da yıldız vermeyi unutma! ⭐')">GitHub'da Yıldızla</a>
+            </p>
+        </footer>
+    </div>
+
+    <!-- MODAL -->
+    <div id="modal" class="modal">
+        <div class="modal-content" id="modalContent">
+            <!-- Modal içeriği dinamik -->
+        </div>
+    </div>
+
+    <script>
+        // ============= VERİTABANI (localStorage) =============
+        const DB = {
+            getUsers() {
+                return JSON.parse(localStorage.getItem('users') || '[]');
+            },
+            saveUsers(users) {
+                localStorage.setItem('users', JSON.stringify(users));
+            },
+            getScripts() {
+                return JSON.parse(localStorage.getItem('scripts') || '[]');
+            },
+            saveScripts(scripts) {
+                localStorage.setItem('scripts', JSON.stringify(scripts));
+            },
+            getComments() {
+                return JSON.parse(localStorage.getItem('comments') || '[]');
+            },
+            saveComments(comments) {
+                localStorage.setItem('comments', JSON.stringify(comments));
+            },
+            getCurrentUser() {
+                return JSON.parse(localStorage.getItem('currentUser') || 'null');
+            },
+            setCurrentUser(user) {
+                localStorage.setItem('currentUser', JSON.stringify(user));
+            },
+            logout() {
+                localStorage.removeItem('currentUser');
+            }
+        };
+
+        // ============= BAŞLANGIÇ VERİLERİ =============
+        function initData() {
+            let users = DB.getUsers();
+            if (users.length === 0) {
+                users.push({
+                    id: 1,
+                    username: 'admin',
+                    password: 'admin123',
+                    email: 'admin@script.com',
+                    created: new Date().toISOString()
+                });
+                DB.saveUsers(users);
+            }
+
+            let scripts = DB.getScripts();
+            if (scripts.length === 0) {
+                scripts.push({
+                    id: 1,
+                    title: 'Merhaba Dünya',
+                    content: 'print("Merhaba Dünya!")\n\n# Bu bir örnek Python scriptidir.\n# Kendi scriptlerini paylaşmaya başla!',
+                    language: 'Python',
+                    userId: 1,
+                    username: 'admin',
+                    created: new Date().toISOString()
+                });
+                DB.saveScripts(scripts);
+            }
+        }
+
+        // ============= YARDIMCI FONKSİYONLAR =============
+        function getLanguageTag(lang) {
+            const map = {
+                'Python': 'tag-python',
+                'JavaScript': 'tag-javascript',
+                'PHP': 'tag-php',
+                'HTML/CSS': 'tag-html',
+                'Shell': 'tag-shell',
+                'Ruby': 'tag-ruby',
+                'Go': 'tag-go',
+                'Java': 'tag-java',
+                'C++': 'tag-cpp',
+                'C': 'tag-c',
+                'Rust': 'tag-rust'
+            };
+            return map[lang] || '';
+        }
+
+        function formatDate(dateStr) {
+            const d = new Date(dateStr);
+            return d.toLocaleDateString('tr-TR') + ' ' + d.toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' });
+        }
+
+        function showAlert(message, type = 'info') {
+            const alert = document.getElementById('alert');
+            alert.className = `alert alert-${type} show`;
+            alert.textContent = message;
+            setTimeout(() => {
+                alert.classList.remove('show');
+            }, 5000);
+        }
+
+        function getCurrentUser() {
+            return DB.getCurrentUser();
+        }
+
+        function isLoggedIn() {
+            return getCurrentUser() !== null;
+        }
+
+        function updateNav() {
+            const user = getCurrentUser();
+            const loginBtn = document.getElementById('loginBtn');
+            const registerBtn = document.getElementById('registerBtn');
+            const logoutBtn = document.getElementById('logoutBtn');
+            const userDisplay = document.getElementById('userDisplay');
+
+            if (user) {
+                loginBtn.style.display = 'none';
+                registerBtn.style.display = 'none';
+                logoutBtn.style.display = 'inline';
+                userDisplay.style.display = 'inline';
+                userDisplay.textContent = '👤 ' + user.username;
+            } else {
+                loginBtn.style.display = 'inline';
+                registerBtn.style.display = 'inline';
+                logoutBtn.style.display = 'none';
+                userDisplay.style.display = 'none';
+            }
+        }
+
+        // ============= SAYFA RENDERLARI =============
+
+        // ANA SAYFA
+        function showHome() {
+            const scripts = DB.getScripts();
+            const content = document.getElementById('content');
+
+            if (scripts.length === 0) {
+                content.innerHTML = `
+                    <div class="empty-state">
+                        <div class="emoji">📭</div>
+                        <h3>Henüz script yok!</h3>
+                        <p>İlk scripti sen paylaşmak ister misin?</p>
+                        <br>
+                        <button class="btn btn-primary" onclick="showUpload()">📤 Script Yükle</button>
+                    </div>
+                `;
+                return;
+            }
+
+            let cards = '';
+            scripts.forEach(s => {
+                const preview = s.content.substring(0, 200) + (s.content.length > 200 ? '...' : '');
+                const tagClass = getLanguageTag(s.language);
+                cards += `
+                    <div class="script-card">
+                        <h3>${s.title}</h3>
+                        <div class="meta">
+                            <span>👤 ${s.username}</span>
+                            <span>📅 ${formatDate(s.created)}</span>
+                            <span class="tag ${tagClass}">${s.language || 'Bilinmiyor'}</span>
+                        </div>
+                        <div class="code-preview">${escapeHtml(preview)}</div>
+                        <div class="script-actions">
+                            <button class="btn btn-primary" onclick="showDetail(${s.id})">🔍 İncele</button>
+                            ${s.userId === (getCurrentUser()?.id || -1) ? `<button class="btn btn-danger" onclick="deleteScript(${s.id})">🗑️ Sil</button>` : ''}
+                        </div>
+                    </div>
+                `;
+            });
+
+            content.innerHTML = `
+                <h2 style="margin-bottom:20px;">📜 Paylaşılan Scriptler (${scripts.length})</h2>
+                <div class="card-grid">${cards}</div>
+            `;
+
+            closeModal();
+        }
+
+        // DETAY SAYFASI
+        function showDetail(id) {
+            const scripts = DB.getScripts();
+            const script = scripts.find(s => s.id === id);
+            if (!script) {
+                showAlert('Script bulunamadı!', 'error');
+                return;
+            }
+
+            const comments = DB.getComments().filter(c => c.scriptId === id);
+            const currentUser = getCurrentUser();
+
+            let commentHTML = '';
+            if (comments.length === 0) {
+                commentHTML = '<p style="color:#8b949e;">Henüz yorum yok.</p>';
+            } else {
+                comments.forEach(c => {
+                    commentHTML += `
+                        <div class="comment-item">
+                            <div class="comment-meta">
+                                <strong>${c.username}</strong>
+                                <span>${formatDate(c.created)}</span>
+                            </div>
+                            <p>${escapeHtml(c.content)}</p>
+                        </div>
+                    `;
+                });
+            }
+
+            const content = document.getElementById('content');
+            content.innerHTML = `
+                <div class="card">
+                    <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;">
+                        <h2 class="card-title">${script.title}</h2>
+                        <span class="tag ${getLanguageTag(script.language)}">${script.language || 'Bilinmiyor'}</span>
+                    </div>
+                    <div class="meta" style="color:#8b949e;font-size:14px;margin:10px 0;">
+                        <span>👤 ${script.username}</span>
+                        <span>📅 ${formatDate(script.created)}</span>
+                    </div>
+                    <div class="detail-code">${escapeHtml(script.content)}</div>
+                    <div style="margin-top:15px;display:flex;gap:10px;flex-wrap:wrap;">
+                        <button class="btn btn-secondary" onclick="showHome()">⬅ Geri</button>
+                        ${script.userId === (currentUser?.id || -1) ? `<button class="btn btn-danger" onclick="deleteScript(${script.id})">🗑️ Sil</button>` : ''}
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3 style="color:#58a6ff;margin-bottom:15px;">💬 Yorumlar (${comments.length})</h3>
+                    ${currentUser ? `
+                        <form onsubmit="addComment(${script.id});return false;">
+                            <div class="form-group">
+                                <textarea name="comment" placeholder="Yorum yaz..." required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">📨 Gönder</button>
+                        </form>
+                    ` : `
+                        <p>Yorum yapmak için <a href="#" onclick="showLogin()" style="color:#58a6ff;">giriş yapın</a></p>
+                    `}
+                    <hr style="border-color:#30363d;margin:20px 0;">
+                    ${commentHTML}
+                </div>
+            `;
+
+            closeModal();
+        }
+
+        // YÜKLEME SAYFASI
+        function showUpload() {
+            if (!isLoggedIn()) {
+                showAlert('Lütfen önce giriş yapın!', 'error');
+                showLogin();
+                return;
+            }
+
+            const content = document.getElementById('content');
+            content.innerHTML = `
+                <div class="card" style="max-width:700px;margin:0 auto;">
+                    <h2 class="card-title">📤 Script Yükle</h2>
+                    <form onsubmit="uploadScript();return false;">
+                        <div class="form-group">
+                            <label>Başlık *</label>
+                            <input type="text" id="scriptTitle" placeholder="Script başlığı..." required>
+                        </div>
+                        <div class="form-group">
+                            <label>Kod *</label>
+                            <textarea id="scriptContent" placeholder="Script kodunu yapıştır..." required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Dil</label>
+                            <select id="scriptLanguage">
+                                <option value="">Seçiniz</option>
+                                <option>Python</option>
+                                <option>JavaScript</option>
+                                <option>PHP</option>
+                                <option>HTML/CSS</option>
+                                <option>Shell</option>
+                                <option>Ruby</option>
+                                <option>Go</option>
+                                <option>Java</option>
+                                <option>C++</option>
+                                <option>C</option>
+                                <option>Rust</option>
+                                <option>Diğer</option>
+                            </select>
+                        </div>
+                        <div style="display:flex;gap:10px;flex-wrap:wrap;">
+                            <button type="submit" class="btn btn-primary">📤 Yayınla</button>
+                            <button type="button" class="btn btn-secondary" onclick="showHome()">İptal</button>
+                        </div>
+                    </form>
+                </div>
+            `;
+
+            closeModal();
+        }
+
+        // PROFİL SAYFASI
+        function showProfile() {
+            if (!isLoggedIn()) {
+                showAlert('Lütfen önce giriş yapın!', 'error');
+                showLogin();
+                return;
+            }
+
+            const user = getCurrentUser();
+            const scripts = DB.getScripts().filter(s => s.userId === user.id);
+
+            let cards = '';
+            if (scripts.length === 0) {
+                cards = `
+                    <div class="empty-state" style="padding:30px 20px;">
+                        <div class="emoji">📝</div>
+                        <h3>Henüz scriptin yok!</h3>
+                        <p>İlk scriptini paylaşmaya ne dersin?</p>
+                        <br>
+                        <button class="btn btn-primary" onclick="showUpload()">📤 Script Yükle</button>
+                    </div>
+                `;
+            } else {
+                scripts.forEach(s => {
+                    cards += `
+                        <div class="script-card">
+                            <h3>${s.title}</h3>
+                            <div class="meta">
+                                <span>📅 ${formatDate(s.created)}</span>
+                                <span class="tag ${getLanguageTag(s.language)}">${s.language || 'Bilinmiyor'}</span>
+                            </div>
+                            <div class="script-actions">
+                                <button class="btn btn-primary" onclick="showDetail(${s.id})">🔍 Görüntüle</button>
+                                <button class="btn btn-danger" onclick="deleteScript(${s.id})">🗑️ Sil</button>
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+
+            const content = document.getElementById('content');
+            content.innerHTML = `
+                <div style="margin-bottom:20px;">
+                    <h2>👤 ${user.username}</h2>
+                    <p style="color:#8b949e;">📧 ${user.email || 'Email girilmemiş'}</p>
+                    <p style="color:#8b949e;font-size:14px;">📜 ${scripts.length} script paylaşıldı</p>
+                </div>
+                <h3 style="margin-bottom:15px;">📜 Scriptlerim</h3>
+                <div class="card-grid">${cards}</div>
+            `;
+
+            closeModal();
+        }
+
+        // GİRİŞ SAYFASI
+        function showLogin() {
+            if (isLoggedIn()) {
+                showAlert('Zaten giriş yaptınız!', 'info');
+                showHome();
+                return;
+            }
+
+            openModal(`
+                <div class="modal-header">
+                    <h2>🔑 Giriş</h2>
+                    <button class="modal-close" onclick="closeModal()">×</button>
+                </div>
+                <form onsubmit="loginUser();return false;">
+                    <div class="form-group">
+                        <label>Kullanıcı Adı</label>
+                        <input type="text" id="loginUsername" placeholder="Kullanıcı adı..." required>
+                    </div>
+                    <div class="form-group">
+                        <label>Şifre</label>
+                        <input type="password" id="loginPassword" placeholder="Şifre..." required>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width:100%;">Giriş Yap</button>
+                </form>
+                <div style="text-align:center;margin-top:15px;">
+                    <a href="#" onclick="closeModal();showRegister();" style="color:#58a6ff;">Hesabın yok mu? Kayıt ol</a>
+                </div>
+                <div style="text-align:center;margin-top:10px;font-size:13px;color:#8b949e;">
+                    Test: admin / admin123
+                </div>
+            `);
+        }
+
+        // KAYIT SAYFASI
+        function showRegister() {
+            if (isLoggedIn()) {
+                showAlert('Zaten giriş yaptınız!', 'info');
+                showHome();
+                return;
+            }
+
+            openModal(`
+                <div class="modal-header">
+                    <h2>📝 Kayıt</h2>
+                    <button class="modal-close" onclick="closeModal()">×</button>
+                </div>
+                <form onsubmit="registerUser();return false;">
+                    <div class="form-group">
+                        <label>Kullanıcı Adı *</label>
+                        <input type="text" id="registerUsername" placeholder="Kullanıcı adı..." required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="registerEmail" placeholder="Email (opsiyonel)">
+                    </div>
+                    <div class="form-group">
+                        <label>Şifre *</label>
+                        <input type="password" id="registerPassword" placeholder="Şifre..." required>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width:100%;">Kayıt Ol</button>
+                </form>
+                <div style="text-align:center;margin-top:15px;">
+                    <a href="#" onclick="closeModal();showLogin();" style="color:#58a6ff;">Zaten hesabın var mı? Giriş yap</a>
+                </div>
+            `);
+        }
+
+        // ============= İŞLEM FONKSİYONLARI =============
+
+        // Script Yükle
+        function uploadScript() {
+            const title = document.getElementById('scriptTitle').value.trim();
+            const content = document.getElementById('scriptContent').value.trim();
+            const language = document.getElementById('scriptLanguage').value;
+            const user = getCurrentUser();
+
+            if (!title || !content) {
+                showAlert('Başlık ve kod zorunludur!', 'error');
+                return;
+            }
+
+            const scripts = DB.getScripts();
+            const newId = scripts.length > 0 ? Math.max(...scripts.map(s => s.id)) + 1 : 1;
+
+            scripts.push({
+                id: newId,
+                title: title,
+                content: content,
+                language: language,
+                userId: user.id,
+                username: user.username,
+                created: new Date().toISOString()
+            });
+
+            DB.saveScripts(scripts);
+            showAlert('Script başarıyla yüklendi! 🎉', 'success');
+            showHome();
+        }
+
+        // Script Sil
+        function deleteScript(id) {
+            if (!confirm('Bu scripti silmek istediğine emin misin?')) return;
+
+            let scripts = DB.getScripts();
+            scripts = scripts.filter(s => s.id !== id);
+            DB.saveScripts(scripts);
+
+            // Yorumları da sil
+            let comments = DB.getComments();
+            comments = comments.filter(c => c.scriptId !== id);
+            DB.saveComments(comments);
+
+            showAlert('Script silindi!', 'success');
+            showHome();
+        }
+
+        // Yorum Ekle
+        function addComment(scriptId) {
+            const form = document.querySelector('form[onsubmit*="addComment"]');
+            const textarea = form.querySelector('textarea[name="comment"]');
+            const content = textarea.value.trim();
+            const user = getCurrentUser();
+
+            if (!content) {
+                showAlert('Yorum boş olamaz!', 'error');
+                return;
+            }
+
+            const comments = DB.getComments();
+            comments.push({
+                id: Date.now(),
+                scriptId: scriptId,
+                userId: user.id,
+                username: user.username,
+                content: content,
+                created: new Date().toISOString()
+            });
+
+            DB.saveComments(comments);
+            textarea.value = '';
+            showAlert('Yorum eklendi!', 'success');
+            showDetail(scriptId);
+        }
+
+        // Giriş
+        function loginUser() {
+            const username = document.getElementById('loginUsername').value.trim();
+            const password = document.getElementById('loginPassword').value.trim();
+
+            const users = DB.getUsers();
+            const user = users.find(u => u.username === username && u.password === password);
+
+            if (user) {
+                DB.setCurrentUser({
+                    id: user.id,
+                    username: user.username,
+                    email: user.email || ''
+                });
+                updateNav();
+                closeModal();
+                showAlert('Hoş geldin, ' + user.username + '! 👋', 'success');
+                showHome();
+            } else {
+                showAlert('Kullanıcı adı veya şifre hatalı!', 'error');
+            }
+        }
+
+        // Kayıt
+        function registerUser() {
+            const username = document.getElementById('registerUsername').value.trim();
+            const email = document.getElementById('registerEmail').value.trim();
+            const password = document.getElementById('registerPassword').value.trim();
+
+            if (!username || !password) {
+                showAlert('Kullanıcı adı ve şifre zorunludur!', 'error');
+                return;
+            }
+
+            if (password.length < 4) {
+                showAlert('Şifre en az 4 karakter olmalı!', 'error');
+                return;
+            }
+
+            const users = DB.getUsers();
+            if (users.find(u => u.username === username)) {
+                showAlert('Bu kullanıcı adı zaten alınmış!', 'error');
+                return;
+            }
+
+            const newId = users.length > 0 ? Math.max(...users.map(u => u.id)) + 1 : 1;
+            users.push({
+                id: newId,
+                username: username,
+                password: password,
+                email: email || '',
+                created: new Date().toISOString()
+            });
+
+            DB.saveUsers(users);
+            closeModal();
+            showAlert('Kayıt başarılı! Şimdi giriş yapabilirsin.', 'success');
+            showLogin();
+        }
+
+        // Çıkış
+        function logout() {
+            if (!confirm('Çıkış yapmak istediğine emin misin?')) return;
+            DB.logout();
+            updateNav();
+            showAlert('Çıkış yapıldı.', 'info');
+            showHome();
+        }
+
+        // ============= MODAL İŞLEMLERİ =============
+        function openModal(html) {
+            const modal = document.getElementById('modal');
+            document.getElementById('modalContent').innerHTML = html;
+            modal.classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('modal').classList.remove('active');
+        }
+
+        // Modal dışına tıklayınca kapat
+        document.getElementById('modal').addEventListener('click', function(e) {
+            if (e.target === this) closeModal();
+        });
+
+        // ESC ile kapat
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') closeModal();
+        });
+
+        // ============= HTML ESCAPE =============
+        function escapeHtml(text) {
+            if (!text) return '';
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // ============= BAŞLAT =============
+        initData();
+        updateNav();
+
+        // Sayfa yüklenince ana sayfayı göster
+        showHome();
+
+        // URL'den gelen parametreleri kontrol et
+        if (window.location.hash === '#upload') {
+            setTimeout(showUpload, 100);
+        } else if (window.location.hash === '#login') {
+            setTimeout(showLogin, 100);
+        } else if (window.location.hash === '#register') {
+            setTimeout(showRegister, 100);
+        }
+
+        console.log('🚀 ScriptPaylaş çalışıyor!');
+        console.log('👤 Admin: admin / admin123');
+        console.log('📊 Script sayısı:', DB.getScripts().length);
+        console.log('👥 Kullanıcı sayısı:', DB.getUsers().length);
+    </script>
+
+</body>
+</html>
