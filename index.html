@@ -3,13 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🎮 Roblox Script Hub Pro</title>
+    <title>🎮 Roblox Script Hub</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
         /* ============================================================
-           ROOT
+           RESET & VARIABLES
            ============================================================ */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
         :root {
             --bg: #0a0a12;
             --bg2: #111122;
@@ -25,17 +27,9 @@
             --green: #00d4aa;
             --purple: #7c3aed;
             --yellow: #fbbf24;
-            --orange: #ff8c00;
-            --pink: #ff6b9d;
-            --shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            --shadow: 0 8px 32px rgba(0,0,0,0.4);
             --radius: 12px;
-            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+            --transition: all 0.3s ease;
         }
 
         body {
@@ -44,24 +38,13 @@
             color: var(--text);
             min-height: 100vh;
             padding: 16px;
-            overflow-x: hidden;
         }
 
-        ::-webkit-scrollbar {
-            width: 4px;
-        }
-        ::-webkit-scrollbar-track {
-            background: var(--bg);
-        }
-        ::-webkit-scrollbar-thumb {
-            background: var(--red);
-            border-radius: 10px;
-        }
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: var(--bg); }
+        ::-webkit-scrollbar-thumb { background: var(--red); border-radius: 10px; }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
+        .container { max-width: 1200px; margin: 0 auto; }
 
         /* ============================================================
            HEADER
@@ -95,10 +78,7 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-        .logo i {
-            -webkit-text-fill-color: white;
-            font-size: 28px;
-        }
+        .logo i { -webkit-text-fill-color: white; font-size: 28px; }
 
         .nav {
             display: flex;
@@ -107,8 +87,7 @@
             flex-wrap: wrap;
         }
 
-        .nav button,
-        .nav a {
+        .nav button {
             padding: 6px 14px;
             border-radius: 8px;
             border: none;
@@ -119,19 +98,16 @@
             cursor: pointer;
             transition: var(--transition);
             font-family: 'Inter', sans-serif;
-            text-decoration: none;
             display: flex;
             align-items: center;
             gap: 6px;
         }
 
-        .nav button:hover,
-        .nav a:hover {
+        .nav button:hover {
             color: white;
             background: rgba(255, 55, 95, 0.08);
         }
-        .nav button.active,
-        .nav a.active {
+        .nav button.active {
             color: white;
             background: rgba(255, 55, 95, 0.12);
             border: 1px solid rgba(255, 55, 95, 0.2);
@@ -144,19 +120,13 @@
             border-radius: 8px !important;
             font-weight: 600 !important;
         }
-        .btn-nav:hover {
-            background: var(--red2) !important;
-            transform: scale(1.05);
-        }
+        .btn-nav:hover { background: var(--red2) !important; transform: scale(1.05); }
 
         .btn-outline-nav {
             border: 1px solid var(--border) !important;
             background: transparent !important;
         }
-        .btn-outline-nav:hover {
-            border-color: var(--red) !important;
-            color: white !important;
-        }
+        .btn-outline-nav:hover { border-color: var(--red) !important; color: white !important; }
 
         .user-badge {
             display: flex;
@@ -169,9 +139,7 @@
             cursor: pointer;
             transition: var(--transition);
         }
-        .user-badge:hover {
-            border-color: rgba(255, 55, 95, 0.3);
-        }
+        .user-badge:hover { border-color: rgba(255, 55, 95, 0.3); }
 
         .user-badge .avatar {
             width: 30px;
@@ -184,18 +152,6 @@
             font-size: 13px;
             font-weight: 700;
             color: white;
-            position: relative;
-        }
-
-        .user-badge .avatar .online-dot {
-            position: absolute;
-            bottom: -2px;
-            right: -2px;
-            width: 10px;
-            height: 10px;
-            background: var(--green);
-            border-radius: 50%;
-            border: 2px solid var(--bg2);
         }
 
         .user-badge .name {
@@ -204,24 +160,17 @@
             color: white;
         }
 
-        .user-badge .badge-rank {
+        .user-badge .rank-badge {
             font-size: 10px;
             padding: 2px 8px;
             border-radius: 10px;
             font-weight: 700;
         }
-        .badge-rank.admin {
-            background: var(--red);
-            color: white;
-        }
-        .badge-rank.vip {
-            background: var(--yellow);
-            color: #0a0a0f;
-        }
-        .badge-rank.legend {
-            background: var(--purple);
-            color: white;
-        }
+        .rank-badge.admin { background: var(--red); color: white; }
+        .rank-badge.vip { background: var(--yellow); color: #0a0a0f; }
+        .rank-badge.legend { background: var(--purple); color: white; }
+
+        .hidden { display: none !important; }
 
         /* ============================================================
            HERO
@@ -243,33 +192,11 @@
             right: -20%;
             width: 400px;
             height: 400px;
-            background: radial-gradient(circle, rgba(255, 55, 95, 0.06), transparent 70%);
+            background: radial-gradient(circle, rgba(255,55,95,0.06), transparent 70%);
             border-radius: 50%;
-            animation: heroGlow 6s ease-in-out infinite;
         }
 
-        @keyframes heroGlow {
-            0%,
-            100% {
-                transform: translate(0, 0) scale(1);
-            }
-            50% {
-                transform: translate(-20px, 10px) scale(1.1);
-            }
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 1;
-        }
-
-        .hero-top {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            flex-wrap: wrap;
-            gap: 16px;
-        }
+        .hero-content { position: relative; z-index: 1; }
 
         .hero h1 {
             font-family: 'Orbitron', sans-serif;
@@ -316,7 +243,6 @@
         .hero-actions .btn-primary:hover {
             background: var(--red2);
             transform: scale(1.04);
-            box-shadow: 0 4px 20px rgba(255, 55, 95, 0.3);
         }
 
         .hero-actions .btn-secondary {
@@ -347,84 +273,6 @@
         .hero-stats .stat .label {
             color: var(--text3);
             font-size: 13px;
-        }
-
-        .hero-stats .stat .number.online {
-            color: var(--green);
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0%,
-            100% {
-                opacity: 1;
-            }
-            50% {
-                opacity: 0.6;
-            }
-        }
-
-        /* ============================================================
-           WEEKLY SCRIPT
-           ============================================================ */
-        .weekly-script {
-            background: linear-gradient(135deg, var(--bg3), var(--bg4));
-            border-radius: var(--radius);
-            padding: 20px 24px;
-            border: 1px solid var(--yellow);
-            margin-bottom: 24px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 16px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .weekly-script::before {
-            content: '🏆';
-            position: absolute;
-            right: -20px;
-            top: -20px;
-            font-size: 80px;
-            opacity: 0.1;
-        }
-
-        .weekly-script .left {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
-
-        .weekly-script .left .icon {
-            font-size: 32px;
-        }
-
-        .weekly-script .left .info h4 {
-            font-size: 14px;
-            color: var(--yellow);
-            font-weight: 600;
-        }
-
-        .weekly-script .left .info h3 {
-            font-size: 18px;
-            font-weight: 700;
-        }
-
-        .weekly-script .right button {
-            padding: 8px 20px;
-            border-radius: 8px;
-            border: none;
-            background: var(--yellow);
-            color: #0a0a0f;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            font-family: 'Inter', sans-serif;
-        }
-        .weekly-script .right button:hover {
-            transform: scale(1.05);
         }
 
         /* ============================================================
@@ -474,12 +322,6 @@
             padding: 4px 14px;
             border-radius: 20px;
             border: 1px solid var(--border);
-            transition: var(--transition);
-        }
-
-        .filter-bar .search-box:focus-within {
-            border-color: var(--red);
-            box-shadow: 0 0 0 3px rgba(255, 55, 95, 0.1);
         }
 
         .filter-bar .search-box input {
@@ -492,12 +334,8 @@
             width: 140px;
             font-family: 'Inter', sans-serif;
         }
-        .filter-bar .search-box input::placeholder {
-            color: var(--text3);
-        }
-        .filter-bar .search-box i {
-            color: var(--text3);
-        }
+        .filter-bar .search-box input::placeholder { color: var(--text3); }
+        .filter-bar .search-box i { color: var(--text3); }
 
         .filter-bar .sort-select {
             padding: 6px 14px;
@@ -508,7 +346,6 @@
             font-size: 12px;
             font-family: 'Inter', sans-serif;
             cursor: pointer;
-            transition: var(--transition);
         }
         .filter-bar .sort-select:focus {
             outline: none;
@@ -535,7 +372,7 @@
         .script-card:hover {
             transform: translateY(-4px);
             border-color: rgba(255, 55, 95, 0.3);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            box-shadow: var(--shadow);
         }
 
         .script-card .top {
@@ -568,63 +405,19 @@
             letter-spacing: 0.3px;
         }
 
-        .badge-lua {
-            background: #000080;
-            color: white;
-        }
-        .badge-esp {
-            background: #7c3aed;
-            color: white;
-        }
-        .badge-otomasyon {
-            background: #00d4aa;
-            color: #0a0a0f;
-        }
-        .badge-aimbot {
-            background: var(--red);
-            color: white;
-        }
-        .badge-fly {
-            background: #00b2ff;
-            color: white;
-        }
-        .badge-speed {
-            background: #fbbf24;
-            color: #0a0a0f;
-        }
-        .badge-gui {
-            background: #ec4899;
-            color: white;
-        }
-        .badge-utility {
-            background: #3b82f6;
-            color: white;
-        }
-        .badge-diger {
-            background: #6a6a8a;
-            color: white;
-        }
-        .badge-popular {
-            background: #fbbf24;
-            color: #0a0a0f;
-        }
-        .badge-new {
-            background: #00d4aa;
-            color: #0a0a0f;
-        }
-        .badge-featured {
-            background: #ff8c00;
-            color: white;
-        }
-        .badge-version {
-            background: rgba(255, 255, 255, 0.05);
-            color: var(--text2);
-            border: 1px solid var(--border);
-        }
-        .badge-rated {
-            background: var(--yellow);
-            color: #0a0a0f;
-        }
+        .badge-lua { background: #000080; color: white; }
+        .badge-esp { background: #7c3aed; color: white; }
+        .badge-otomasyon { background: #00d4aa; color: #0a0a0f; }
+        .badge-aimbot { background: var(--red); color: white; }
+        .badge-fly { background: #00b2ff; color: white; }
+        .badge-speed { background: #fbbf24; color: #0a0a0f; }
+        .badge-gui { background: #ec4899; color: white; }
+        .badge-utility { background: #3b82f6; color: white; }
+        .badge-diger { background: #6a6a8a; color: white; }
+        .badge-popular { background: #fbbf24; color: #0a0a0f; }
+        .badge-new { background: #00d4aa; color: #0a0a0f; }
+        .badge-featured { background: #ff8c00; color: white; }
+        .badge-version { background: rgba(255,255,255,0.05); color: var(--text2); border: 1px solid var(--border); }
 
         .script-card .meta {
             display: flex;
@@ -634,20 +427,8 @@
             color: var(--text3);
             margin-bottom: 10px;
         }
-        .script-card .meta i {
-            width: 14px;
-        }
-        .script-card .meta .likes {
-            color: var(--red);
-        }
-
-        .script-card .stars {
-            display: flex;
-            gap: 2px;
-            margin-bottom: 6px;
-            color: var(--yellow);
-            font-size: 14px;
-        }
+        .script-card .meta i { width: 14px; }
+        .script-card .meta .likes { color: var(--red); }
 
         .script-card .tags {
             display: flex;
@@ -659,8 +440,8 @@
             padding: 2px 10px;
             border-radius: 12px;
             font-size: 10px;
-            background: rgba(255, 55, 95, 0.08);
-            border: 1px solid rgba(255, 55, 95, 0.1);
+            background: rgba(255,55,95,0.08);
+            border: 1px solid rgba(255,55,95,0.1);
             color: var(--text2);
         }
 
@@ -700,102 +481,37 @@
             gap: 4px;
         }
 
-        .btn-view {
-            background: var(--blue);
-            color: white;
-        }
-        .btn-view:hover {
-            background: #0099dd;
-            transform: scale(1.04);
-        }
+        .btn-view { background: var(--blue); color: white; }
+        .btn-view:hover { background: #0099dd; transform: scale(1.04); }
 
-        .btn-copy {
-            background: var(--bg);
-            color: var(--text2);
-            border: 1px solid var(--border) !important;
-        }
-        .btn-copy:hover {
-            border-color: var(--red) !important;
-            color: white;
-        }
+        .btn-copy { background: var(--bg); color: var(--text2); border: 1px solid var(--border) !important; }
+        .btn-copy:hover { border-color: var(--red) !important; color: white; }
 
-        .btn-download {
-            background: var(--green);
-            color: #0a0a0f;
-        }
-        .btn-download:hover {
-            background: #00b894;
-            transform: scale(1.04);
-        }
+        .btn-download { background: var(--green); color: #0a0a0f; }
+        .btn-download:hover { background: #00b894; transform: scale(1.04); }
 
-        .btn-fav {
-            background: transparent;
-            color: var(--text3);
-            border: 1px solid var(--border) !important;
-        }
-        .btn-fav:hover {
-            border-color: var(--yellow) !important;
-            color: var(--yellow);
-        }
-        .btn-fav.active {
-            border-color: var(--yellow) !important;
-            color: var(--yellow);
-            background: rgba(251, 191, 36, 0.05);
-        }
+        .btn-fav { background: transparent; color: var(--text3); border: 1px solid var(--border) !important; }
+        .btn-fav:hover { border-color: var(--yellow) !important; color: var(--yellow); }
+        .btn-fav.active { border-color: var(--yellow) !important; color: var(--yellow); background: rgba(251,191,36,0.05); }
 
-        .btn-like {
-            background: transparent;
-            color: var(--text3);
-            border: 1px solid var(--border) !important;
-        }
-        .btn-like:hover {
-            border-color: var(--red) !important;
-            color: var(--red);
-        }
-        .btn-like.active {
-            border-color: var(--red) !important;
-            color: var(--red);
-            background: rgba(255, 55, 95, 0.05);
-        }
+        .btn-like { background: transparent; color: var(--text3); border: 1px solid var(--border) !important; }
+        .btn-like:hover { border-color: var(--red) !important; color: var(--red); }
+        .btn-like.active { border-color: var(--red) !important; color: var(--red); background: rgba(255,55,95,0.05); }
 
-        .btn-delete {
-            background: rgba(255, 55, 95, 0.1);
-            color: var(--red);
-        }
-        .btn-delete:hover {
-            background: rgba(255, 55, 95, 0.2);
-            transform: scale(1.04);
-        }
+        .btn-delete { background: rgba(255,55,95,0.1); color: var(--red); }
+        .btn-delete:hover { background: rgba(255,55,95,0.2); transform: scale(1.04); }
 
-        .btn-edit {
-            background: rgba(0, 178, 255, 0.1);
-            color: var(--blue);
-            border: 1px solid rgba(0, 178, 255, 0.15) !important;
-        }
-        .btn-edit:hover {
-            background: rgba(0, 178, 255, 0.2);
-            transform: scale(1.04);
-        }
+        .btn-edit { background: rgba(0,178,255,0.1); color: var(--blue); border: 1px solid rgba(0,178,255,0.15) !important; }
+        .btn-edit:hover { background: rgba(0,178,255,0.2); transform: scale(1.04); }
 
-        .btn-report {
-            background: transparent;
-            color: var(--text3);
-            border: none !important;
-            font-size: 11px !important;
-        }
-        .btn-report:hover {
-            color: var(--red);
-        }
+        .btn-report { background: transparent; color: var(--text3); border: none !important; font-size: 11px !important; }
+        .btn-report:hover { color: var(--red); }
 
-        .btn-link {
-            background: rgba(124, 58, 237, 0.1);
-            color: var(--purple);
-            border: 1px solid rgba(124, 58, 237, 0.15) !important;
-        }
-        .btn-link:hover {
-            background: rgba(124, 58, 237, 0.2);
-            transform: scale(1.04);
-        }
+        .btn-link { background: rgba(124,58,237,0.1); color: var(--purple); border: 1px solid rgba(124,58,237,0.15) !important; }
+        .btn-link:hover { background: rgba(124,58,237,0.2); transform: scale(1.04); }
+
+        .btn-back { background: var(--bg); color: var(--text2); border: 1px solid var(--border) !important; }
+        .btn-back:hover { border-color: var(--text3) !important; color: white; }
 
         /* ============================================================
            EMPTY
@@ -805,20 +521,9 @@
             padding: 60px 20px;
             grid-column: 1 / -1;
         }
-        .empty-state .emoji {
-            font-size: 60px;
-            display: block;
-            margin-bottom: 16px;
-        }
-        .empty-state h3 {
-            font-size: 20px;
-            margin-bottom: 8px;
-        }
-        .empty-state p {
-            color: var(--text2);
-            max-width: 400px;
-            margin: 0 auto 16px;
-        }
+        .empty-state .emoji { font-size: 60px; display: block; margin-bottom: 16px; }
+        .empty-state h3 { font-size: 20px; margin-bottom: 8px; }
+        .empty-state p { color: var(--text2); max-width: 400px; margin: 0 auto 16px; }
 
         /* ============================================================
            MODAL
@@ -830,16 +535,14 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.85);
+            background: rgba(0,0,0,0.85);
             backdrop-filter: blur(8px);
             z-index: 1000;
             justify-content: center;
             align-items: center;
             padding: 20px;
         }
-        .modal.active {
-            display: flex;
-        }
+        .modal.active { display: flex; }
 
         .modal-content {
             background: var(--bg2);
@@ -854,14 +557,8 @@
         }
 
         @keyframes modalIn {
-            from {
-                opacity: 0;
-                transform: scale(0.9) translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1) translateY(0);
-            }
+            from { opacity: 0; transform: scale(0.9) translateY(20px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
         }
 
         .modal-header {
@@ -877,11 +574,8 @@
             display: flex;
             align-items: center;
             gap: 10px;
-            color: var(--text);
         }
-        .modal-header h2 i {
-            color: var(--red);
-        }
+        .modal-header h2 i { color: var(--red); }
 
         .modal-close {
             background: none;
@@ -891,14 +585,9 @@
             cursor: pointer;
             transition: var(--transition);
         }
-        .modal-close:hover {
-            color: var(--red);
-            transform: rotate(90deg);
-        }
+        .modal-close:hover { color: var(--red); transform: rotate(90deg); }
 
-        .form-group {
-            margin-bottom: 16px;
-        }
+        .form-group { margin-bottom: 16px; }
 
         .form-group label {
             display: block;
@@ -907,14 +596,9 @@
             font-weight: 600;
             color: var(--text2);
         }
-        .form-group label i {
-            margin-right: 6px;
-            color: var(--red);
-        }
+        .form-group label i { margin-right: 6px; color: var(--red); }
 
-        .form-group input,
-        .form-group textarea,
-        .form-group select {
+        .form-group input, .form-group textarea, .form-group select {
             width: 100%;
             padding: 10px 14px;
             background: var(--bg);
@@ -926,12 +610,10 @@
             transition: var(--transition);
         }
 
-        .form-group input:focus,
-        .form-group textarea:focus,
-        .form-group select:focus {
+        .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
             outline: none;
             border-color: var(--red);
-            box-shadow: 0 0 0 3px rgba(255, 55, 95, 0.1);
+            box-shadow: 0 0 0 3px rgba(255,55,95,0.1);
         }
 
         .form-group textarea {
@@ -958,24 +640,11 @@
             flex: 1;
         }
 
-        .btn-submit {
-            background: var(--red);
-            color: white;
-        }
-        .btn-submit:hover {
-            background: var(--red2);
-            transform: scale(1.02);
-        }
+        .btn-submit { background: var(--red); color: white; }
+        .btn-submit:hover { background: var(--red2); transform: scale(1.02); }
 
-        .btn-cancel-modal {
-            background: var(--bg);
-            color: var(--text2);
-            border: 1px solid var(--border);
-        }
-        .btn-cancel-modal:hover {
-            border-color: var(--text3);
-            color: white;
-        }
+        .btn-cancel-modal { background: var(--bg); color: var(--text2); border: 1px solid var(--border); }
+        .btn-cancel-modal:hover { border-color: var(--text3); color: white; }
 
         .form-footer {
             text-align: center;
@@ -983,11 +652,7 @@
             color: var(--text3);
             font-size: 13px;
         }
-        .form-footer a {
-            color: var(--red);
-            text-decoration: none;
-            font-weight: 600;
-        }
+        .form-footer a { color: var(--red); text-decoration: none; font-weight: 600; }
 
         /* ============================================================
            DETAIL VIEW
@@ -1018,10 +683,7 @@
             border-bottom: 1px solid var(--border);
             margin-bottom: 12px;
         }
-        .detail-view .detail-meta i {
-            margin-right: 4px;
-            color: var(--text3);
-        }
+        .detail-view .detail-meta i { margin-right: 4px; color: var(--text3); }
 
         .detail-view .detail-actions {
             display: flex;
@@ -1044,6 +706,104 @@
             gap: 6px;
         }
 
+        .detail-view .detail-links {
+            margin: 12px 0;
+            padding: 12px 16px;
+            background: var(--bg);
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+        .detail-view .detail-links a { color: var(--blue); text-decoration: none; margin-right: 12px; }
+        .detail-view .detail-links a:hover { text-decoration: underline; }
+
+        .detail-view .detail-tags {
+            display: flex;
+            gap: 4px;
+            flex-wrap: wrap;
+            margin: 8px 0;
+        }
+        .detail-view .detail-tags .tag {
+            padding: 2px 12px;
+            border-radius: 12px;
+            font-size: 11px;
+            background: rgba(255,55,95,0.08);
+            border: 1px solid rgba(255,55,95,0.1);
+            color: var(--text2);
+        }
+
+        /* COMMENTS */
+        .comments-section { margin-top: 20px; }
+
+        .comments-section h3 {
+            font-size: 17px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .comments-section h3 i { color: var(--red); }
+
+        .comment-item {
+            background: var(--bg);
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            border: 1px solid var(--border);
+        }
+
+        .comment-item .comment-header {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: var(--text3);
+            margin-bottom: 4px;
+        }
+        .comment-item .comment-header strong { color: white; }
+
+        .comment-item p {
+            color: var(--text2);
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .comment-form {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+
+        .comment-form textarea {
+            flex: 1;
+            padding: 10px 14px;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: white;
+            font-size: 13px;
+            resize: vertical;
+            min-height: 50px;
+            font-family: 'Inter', sans-serif;
+        }
+        .comment-form textarea:focus {
+            outline: none;
+            border-color: var(--red);
+        }
+
+        .comment-form button {
+            padding: 10px 20px;
+            border-radius: 8px;
+            border: none;
+            background: var(--red);
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .comment-form button:hover {
+            background: var(--red2);
+            transform: scale(1.04);
+        }
+
         /* ============================================================
            TOAST
            ============================================================ */
@@ -1054,207 +814,63 @@
             z-index: 9999;
             display: flex;
             flex-direction: column;
-            gap: 12px;
-            max-width: 400px;
-            width: 100%;
+            gap: 10px;
         }
 
         .toast {
-            padding: 14px 20px;
+            padding: 12px 20px;
             border-radius: var(--radius);
             color: white;
             font-weight: 500;
-            animation: toastSlide 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            animation: toastIn 0.3s ease;
             font-size: 13px;
             font-family: 'Inter', sans-serif;
             display: flex;
             align-items: center;
-            gap: 12px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            gap: 10px;
+            box-shadow: var(--shadow);
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            position: relative;
-            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.05);
             cursor: pointer;
         }
 
-        .toast::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 4px;
-            height: 100%;
-            border-radius: 0 4px 4px 0;
-        }
+        .toast-success { background: linear-gradient(135deg, rgba(0,212,170,0.95), rgba(0,184,148,0.95)); }
+        .toast-error { background: linear-gradient(135deg, rgba(255,55,95,0.95), rgba(204,0,32,0.95)); }
+        .toast-info { background: linear-gradient(135deg, rgba(0,178,255,0.95), rgba(0,153,221,0.95)); }
+        .toast-warning { background: linear-gradient(135deg, rgba(251,191,36,0.95), rgba(245,158,11,0.95)); color: #0a0a0f; }
 
-        .toast-success {
-            background: linear-gradient(135deg, rgba(0, 212, 170, 0.95), rgba(0, 184, 148, 0.95));
-        }
-        .toast-success::before {
-            background: #00d4aa;
-        }
-
-        .toast-error {
-            background: linear-gradient(135deg, rgba(255, 55, 95, 0.95), rgba(204, 0, 32, 0.95));
-        }
-        .toast-error::before {
-            background: var(--red);
-        }
-
-        .toast-info {
-            background: linear-gradient(135deg, rgba(0, 178, 255, 0.95), rgba(0, 153, 221, 0.95));
-        }
-        .toast-info::before {
-            background: var(--blue);
-        }
-
-        .toast-warning {
-            background: linear-gradient(135deg, rgba(251, 191, 36, 0.95), rgba(245, 158, 11, 0.95));
-            color: #0a0a0f;
-        }
-        .toast-warning::before {
-            background: var(--yellow);
-        }
-
-        .toast .toast-icon {
-            font-size: 20px;
-            flex-shrink: 0;
-        }
-
-        .toast .toast-content {
-            flex: 1;
-        }
-
-        .toast .toast-content .toast-title {
-            font-weight: 700;
-            font-size: 14px;
-        }
-
-        .toast .toast-content .toast-message {
-            font-weight: 400;
-            opacity: 0.9;
-            font-size: 13px;
-        }
-
+        .toast .toast-icon { font-size: 18px; flex-shrink: 0; }
+        .toast .toast-content { flex: 1; }
+        .toast .toast-content .toast-title { font-weight: 700; font-size: 14px; }
+        .toast .toast-content .toast-message { opacity: 0.9; font-size: 13px; }
         .toast .toast-close {
             background: none;
             border: none;
-            color: rgba(255, 255, 255, 0.6);
+            color: rgba(255,255,255,0.6);
             cursor: pointer;
             font-size: 16px;
             padding: 0 4px;
             transition: var(--transition);
-            flex-shrink: 0;
         }
-        .toast .toast-close:hover {
-            color: white;
-        }
+        .toast .toast-close:hover { color: white; }
 
         .toast .toast-progress {
             position: absolute;
             bottom: 0;
             left: 0;
             height: 3px;
-            background: rgba(255, 255, 255, 0.3);
+            background: rgba(255,255,255,0.3);
             animation: progressBar 4s linear forwards;
         }
 
         @keyframes progressBar {
-            from {
-                width: 100%;
-            }
-            to {
-                width: 0%;
-            }
+            from { width: 100%; }
+            to { width: 0%; }
         }
 
-        @keyframes toastSlide {
-            from {
-                opacity: 0;
-                transform: translateX(40px) scale(0.95);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0) scale(1);
-            }
-        }
-
-        /* ============================================================
-           NOTIFICATION CENTER
-           ============================================================ */
-        .notification-btn {
-            position: relative;
-        }
-
-        .notification-btn .badge-count {
-            position: absolute;
-            top: -4px;
-            right: -4px;
-            background: var(--red);
-            color: white;
-            font-size: 9px;
-            padding: 1px 6px;
-            border-radius: 10px;
-            font-weight: 700;
-            min-width: 18px;
-            text-align: center;
-        }
-
-        .notification-dropdown {
-            position: absolute;
-            top: 100%;
-            right: 0;
-            background: var(--bg2);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 12px;
-            min-width: 300px;
-            max-width: 380px;
-            max-height: 400px;
-            overflow-y: auto;
-            display: none;
-            z-index: 200;
-            box-shadow: var(--shadow);
-            margin-top: 8px;
-        }
-
-        .notification-dropdown.show {
-            display: block;
-            animation: modalIn 0.2s ease;
-        }
-
-        .notification-dropdown .notif-item {
-            padding: 8px 12px;
-            border-radius: 8px;
-            display: flex;
-            gap: 10px;
-            align-items: flex-start;
-            border-bottom: 1px solid var(--border);
-            transition: var(--transition);
-            cursor: pointer;
-        }
-
-        .notification-dropdown .notif-item:hover {
-            background: rgba(255, 55, 95, 0.05);
-        }
-
-        .notification-dropdown .notif-item .notif-icon {
-            font-size: 16px;
-            margin-top: 2px;
-        }
-
-        .notification-dropdown .notif-item .notif-text {
-            font-size: 13px;
-            color: var(--text2);
-        }
-        .notification-dropdown .notif-item .notif-text strong {
-            color: white;
-        }
-
-        .notification-dropdown .notif-item .notif-time {
-            font-size: 11px;
-            color: var(--text3);
+        @keyframes toastIn {
+            from { opacity: 0; transform: translateX(40px) scale(0.95); }
+            to { opacity: 1; transform: translateX(0) scale(1); }
         }
 
         /* ============================================================
@@ -1296,171 +912,33 @@
            RESPONSIVE
            ============================================================ */
         @media (max-width: 768px) {
-            .header {
-                flex-direction: column;
-                align-items: stretch;
-                gap: 8px;
-                padding: 10px 14px;
-            }
-            .nav {
-                justify-content: center;
-            }
-            .nav button,
-            .nav a {
-                font-size: 12px;
-                padding: 4px 10px;
-            }
-            .hero {
-                padding: 24px 20px;
-            }
-            .hero h1 {
-                font-size: 26px;
-            }
-            .hero-stats {
-                gap: 20px;
-            }
-            .hero-stats .stat .number {
-                font-size: 20px;
-            }
-            .filter-bar {
-                flex-direction: column;
-                align-items: stretch;
-            }
-            .filter-bar .search-box {
-                margin-left: 0;
-            }
-            .filter-bar .search-box input {
-                width: 100%;
-            }
-            .script-grid {
-                grid-template-columns: 1fr;
-            }
-            .modal-content {
-                padding: 20px;
-                margin: 8px;
-            }
-            .form-actions {
-                flex-direction: column;
-            }
-            .toast-container {
-                left: 16px;
-                right: 16px;
-                bottom: 16px;
-                max-width: unset;
-            }
-            .weekly-script {
-                flex-direction: column;
-                text-align: center;
-            }
-            .weekly-script .left {
-                flex-direction: column;
-                text-align: center;
-            }
-            .notification-dropdown {
-                position: fixed;
-                top: auto;
-                bottom: 80px;
-                left: 16px;
-                right: 16px;
-                max-width: unset;
-                max-height: 60vh;
-            }
+            .header { flex-direction: column; align-items: stretch; gap: 8px; padding: 10px 14px; }
+            .nav { justify-content: center; }
+            .nav button { font-size: 12px; padding: 4px 10px; }
+            .hero { padding: 24px 20px; }
+            .hero h1 { font-size: 26px; }
+            .hero-stats { gap: 20px; }
+            .hero-stats .stat .number { font-size: 20px; }
+            .filter-bar { flex-direction: column; align-items: stretch; }
+            .filter-bar .search-box { margin-left: 0; }
+            .filter-bar .search-box input { width: 100%; }
+            .script-grid { grid-template-columns: 1fr; }
+            .modal-content { padding: 20px; margin: 8px; }
+            .form-actions { flex-direction: column; }
+            .toast-container { left: 16px; right: 16px; bottom: 16px; }
         }
 
         @media (max-width: 480px) {
-            .hero h1 {
-                font-size: 22px;
-            }
-            .hero-actions button {
-                font-size: 12px;
-                padding: 8px 16px;
-            }
-            .script-card .actions button {
-                font-size: 11px;
-                padding: 4px 10px;
-            }
-            .nav button,
-            .nav a {
-                font-size: 11px;
-                padding: 4px 8px;
-            }
+            .hero h1 { font-size: 22px; }
+            .hero-actions button { font-size: 12px; padding: 8px 16px; }
+            .script-card .actions button { font-size: 11px; padding: 4px 10px; }
+            .nav button { font-size: 11px; padding: 4px 8px; }
         }
 
-        .fade-in {
-            animation: fadeIn 0.4s ease;
-        }
+        .fade-in { animation: fadeIn 0.4s ease; }
         @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(12px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .hidden {
-            display: none !important;
-        }
-
-        /* ============================================================
-           ACHIEVEMENTS
-           ============================================================ */
-        .achievement-popup {
-            position: fixed;
-            top: 80px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: linear-gradient(135deg, var(--bg3), var(--bg4));
-            border: 1px solid var(--yellow);
-            border-radius: var(--radius);
-            padding: 16px 24px;
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            z-index: 9998;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
-            animation: achievementSlide 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            max-width: 90%;
-        }
-
-        .achievement-popup .ach-icon {
-            font-size: 32px;
-        }
-
-        .achievement-popup .ach-text h4 {
-            color: var(--yellow);
-            font-size: 14px;
-        }
-
-        .achievement-popup .ach-text p {
-            color: var(--text2);
-            font-size: 13px;
-        }
-
-        @keyframes achievementSlide {
-            from {
-                opacity: 0;
-                transform: translateX(-50%) translateY(-20px) scale(0.9);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(-50%) translateY(0) scale(1);
-            }
-        }
-
-        .toast-success .toast-progress {
-            background: rgba(255, 255, 255, 0.4);
-        }
-        .toast-error .toast-progress {
-            background: rgba(255, 255, 255, 0.3);
-        }
-        .toast-info .toast-progress {
-            background: rgba(255, 255, 255, 0.3);
-        }
-        .toast-warning .toast-progress {
-            background: rgba(0, 0, 0, 0.2);
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
@@ -1470,17 +948,16 @@
 
         <!-- ============ HEADER ============ -->
         <header class="header">
-            <div class="logo" onclick="showHome()">
+            <div class="logo" onclick="goHome()">
                 <i class="fas fa-gamepad"></i>
                 ScriptHub
             </div>
             <nav class="nav" id="mainNav">
-                <button class="active" onclick="showHome()" id="navHome"><i class="fas fa-home"></i> Ana Sayfa</button>
+                <button class="active" onclick="goHome()" id="navHome"><i class="fas fa-home"></i> Ana Sayfa</button>
                 <button onclick="showUpload()" id="navUpload" class="hidden"><i class="fas fa-upload"></i> Yükle</button>
                 <button onclick="showProfile()" id="navProfile" class="hidden"><i class="fas fa-user"></i> Profil</button>
                 <button onclick="showFavorites()" id="navFavorites" class="hidden"><i class="fas fa-star"></i> Favoriler</button>
                 <button onclick="showLeaderboard()"><i class="fas fa-trophy"></i> Liderlik</button>
-                <button onclick="showAchievements()"><i class="fas fa-medal"></i> Başarımlar</button>
 
                 <span style="width:1px;height:24px;background:var(--border);margin:0 4px;"></span>
 
@@ -1490,12 +967,9 @@
                 </div>
 
                 <div id="userBadge" class="user-badge hidden" onclick="showProfile()">
-                    <div class="avatar" id="userAvatar">
-                        A
-                        <span class="online-dot"></span>
-                    </div>
+                    <div class="avatar" id="userAvatar">A</div>
                     <span class="name" id="userName"></span>
-                    <span class="badge-rank" id="userRank"></span>
+                    <span class="rank-badge" id="userRank"></span>
                     <button onclick="event.stopPropagation();logout();" style="background:none;border:none;color:var(--text3);cursor:pointer;padding:2px 6px;">
                         <i class="fas fa-sign-out-alt"></i>
                     </button>
@@ -1506,43 +980,18 @@
         <!-- ============ HERO ============ -->
         <div class="hero" id="heroSection">
             <div class="hero-content">
-                <div class="hero-top">
-                    <div>
-                        <h1>🎮 Roblox Script Hub</h1>
-                        <p>Binlerce Roblox scriptini keşfet, paylaş ve kullan. Topluluğun en iyi scriptleri tek platformda!</p>
-                        <div class="hero-actions">
-                            <button class="btn-primary" onclick="showUpload()"><i class="fas fa-rocket"></i> Script Paylaş</button>
-                            <button class="btn-secondary" onclick="showLeaderboard()"><i class="fas fa-trophy"></i> Liderlik</button>
-                            <button class="btn-secondary" onclick="showAchievements()"><i class="fas fa-medal"></i> Başarımlar</button>
-                        </div>
-                    </div>
-                    <div style="background:var(--bg3);border-radius:var(--radius);padding:12px 20px;border:1px solid var(--border);text-align:center;min-width:120px;">
-                        <div style="font-size:28px;font-weight:900;color:var(--green);">42</div>
-                        <div style="color:var(--text3);font-size:12px;">🟢 Aktif Kullanıcı</div>
-                    </div>
+                <h1>🎮 Roblox Script Hub</h1>
+                <p>Binlerce Roblox scriptini keşfet, paylaş ve kullan. Topluluğun en iyi scriptleri tek platformda!</p>
+                <div class="hero-actions">
+                    <button class="btn-primary" onclick="showUpload()"><i class="fas fa-rocket"></i> Script Paylaş</button>
+                    <button class="btn-secondary" onclick="showLeaderboard()"><i class="fas fa-trophy"></i> Liderlik</button>
                 </div>
                 <div class="hero-stats">
                     <div class="stat"><span class="number" id="statScripts">0</span><span class="label">📜 Script</span></div>
                     <div class="stat"><span class="number" id="statUsers">0</span><span class="label">👥 Kullanıcı</span></div>
                     <div class="stat"><span class="number" id="statLikes">0</span><span class="label">❤️ Beğeni</span></div>
                     <div class="stat"><span class="number" id="statFavorites">0</span><span class="label">⭐ Favori</span></div>
-                    <div class="stat"><span class="number online" id="statOnline">42</span><span class="label">🟢 Online</span></div>
                 </div>
-            </div>
-        </div>
-
-        <!-- ============ HAFTANIN SCRİPTİ ============ -->
-        <div class="weekly-script" id="weeklyScript">
-            <div class="left">
-                <div class="icon">🏆</div>
-                <div class="info">
-                    <h4>📅 HAFTANIN SCRİPTİ</h4>
-                    <h3 id="weeklyTitle">Ultimate ESP v3.0</h3>
-                    <div style="color:var(--text3);font-size:13px;">👤 admin • ⭐ 4.9 ★</div>
-                </div>
-            </div>
-            <div class="right">
-                <button onclick="showDetail(1)"><i class="fas fa-eye"></i> İncele</button>
             </div>
         </div>
 
@@ -1568,7 +1017,6 @@
                 <option value="newest">📅 En Yeni</option>
                 <option value="popular">🔥 En Popüler</option>
                 <option value="likes">❤️ En Çok Beğeni</option>
-                <option value="rated">⭐ En Yüksek Puan</option>
             </select>
         </div>
 
@@ -1585,7 +1033,7 @@
                 <a href="#"><i class="fab fa-twitter"></i></a>
                 <a href="#"><i class="fab fa-youtube"></i></a>
             </div>
-            <p>🎮 Roblox Script Hub • v3.0</p>
+            <p>🎮 Roblox Script Hub</p>
             <p class="disclaimer">⚠️ Sadece eğitim amaçlıdır. Roblox ToS'a uygun kullanın.</p>
         </footer>
     </div>
@@ -1595,307 +1043,33 @@
         <div class="modal-content" id="modalContent"></div>
     </div>
 
-    <!-- ============ TOAST CONTAINER ============ -->
+    <!-- ============ TOAST ============ -->
     <div class="toast-container" id="toastContainer"></div>
 
     <!-- ============================================================
-    JAVASCRIPT - HER ŞEY ÇALIŞIYOR
+    JAVASCRIPT - HER ŞEY ÇALIŞIYOR!
     ============================================================ -->
     <script>
         // ============================================================
         // DATABASE
         // ============================================================
         const DB = {
-            getUsers() { return JSON.parse(localStorage.getItem('rbx_users3') || '[]'); },
-            saveUsers(u) { localStorage.setItem('rbx_users3', JSON.stringify(u)); },
-            getScripts() { return JSON.parse(localStorage.getItem('rbx_scripts3') || '[]'); },
-            saveScripts(s) { localStorage.setItem('rbx_scripts3', JSON.stringify(s)); },
-            getComments() { return JSON.parse(localStorage.getItem('rbx_comments3') || '[]'); },
-            saveComments(c) { localStorage.setItem('rbx_comments3', JSON.stringify(c)); },
-            getFavorites() { return JSON.parse(localStorage.getItem('rbx_favorites3') || '[]'); },
-            saveFavorites(f) { localStorage.setItem('rbx_favorites3', JSON.stringify(f)); },
-            getLikes() { return JSON.parse(localStorage.getItem('rbx_likes3') || '[]'); },
-            saveLikes(l) { localStorage.setItem('rbx_likes3', JSON.stringify(l)); },
-            getRatings() { return JSON.parse(localStorage.getItem('rbx_ratings3') || '[]'); },
-            saveRatings(r) { localStorage.setItem('rbx_ratings3', JSON.stringify(r)); },
-            getAchievements() { return JSON.parse(localStorage.getItem('rbx_achievements3') || '[]'); },
-            saveAchievements(a) { localStorage.setItem('rbx_achievements3', JSON.stringify(a)); },
-            getCurrentUser() { return JSON.parse(localStorage.getItem('rbx_currentUser3') || 'null'); },
-            setCurrentUser(u) { localStorage.setItem('rbx_currentUser3', JSON.stringify(u)); },
-            logout() { localStorage.removeItem('rbx_currentUser3'); },
-            getReports() { return JSON.parse(localStorage.getItem('rbx_reports3') || '[]'); },
-            saveReports(r) { localStorage.setItem('rbx_reports3', JSON.stringify(r)); },
-            getNotifications() { return JSON.parse(localStorage.getItem('rbx_notifications3') || '[]'); },
-            saveNotifications(n) { localStorage.setItem('rbx_notifications3', JSON.stringify(n)); }
+            getUsers() { return JSON.parse(localStorage.getItem('rbx_final_users') || '[]'); },
+            saveUsers(u) { localStorage.setItem('rbx_final_users', JSON.stringify(u)); },
+            getScripts() { return JSON.parse(localStorage.getItem('rbx_final_scripts') || '[]'); },
+            saveScripts(s) { localStorage.setItem('rbx_final_scripts', JSON.stringify(s)); },
+            getComments() { return JSON.parse(localStorage.getItem('rbx_final_comments') || '[]'); },
+            saveComments(c) { localStorage.setItem('rbx_final_comments', JSON.stringify(c)); },
+            getFavorites() { return JSON.parse(localStorage.getItem('rbx_final_favorites') || '[]'); },
+            saveFavorites(f) { localStorage.setItem('rbx_final_favorites', JSON.stringify(f)); },
+            getLikes() { return JSON.parse(localStorage.getItem('rbx_final_likes') || '[]'); },
+            saveLikes(l) { localStorage.setItem('rbx_final_likes', JSON.stringify(l)); },
+            getCurrentUser() { return JSON.parse(localStorage.getItem('rbx_final_currentUser') || 'null'); },
+            setCurrentUser(u) { localStorage.setItem('rbx_final_currentUser', JSON.stringify(u)); },
+            logout() { localStorage.removeItem('rbx_final_currentUser'); },
+            getReports() { return JSON.parse(localStorage.getItem('rbx_final_reports') || '[]'); },
+            saveReports(r) { localStorage.setItem('rbx_final_reports', JSON.stringify(r)); }
         };
-
-        // ============================================================
-        // TOAST SİSTEMİ (Gelişmiş)
-        // ============================================================
-        function showToast(message, type = 'success', title = '') {
-            const container = document.getElementById('toastContainer');
-            const toast = document.createElement('div');
-            toast.className = `toast toast-${type}`;
-
-            const icons = {
-                success: '✅',
-                error: '❌',
-                info: 'ℹ️',
-                warning: '⚠️'
-            };
-
-            const titles = {
-                success: 'Başarılı!',
-                error: 'Hata!',
-                info: 'Bilgi',
-                warning: 'Uyarı'
-            };
-
-            toast.innerHTML = `
-                <div class="toast-icon">${icons[type] || 'ℹ️'}</div>
-                <div class="toast-content">
-                    <div class="toast-title">${title || titles[type] || 'Bilgi'}</div>
-                    <div class="toast-message">${message}</div>
-                </div>
-                <button class="toast-close" onclick="this.parentElement.remove()">✕</button>
-                <div class="toast-progress"></div>
-            `;
-
-            container.appendChild(toast);
-
-            // Ses efekti (hafif)
-            if (type === 'success') {
-                // Kısa vibrasyon (mobil)
-                if (navigator.vibrate) navigator.vibrate(30);
-            }
-
-            // Otomatik kapat
-            setTimeout(() => {
-                if (toast.parentElement) {
-                    toast.style.opacity = '0';
-                    toast.style.transform = 'translateX(40px)';
-                    setTimeout(() => toast.remove(), 300);
-                }
-            }, 4000);
-
-            // Tıkla kapat
-            toast.addEventListener('click', () => {
-                toast.style.opacity = '0';
-                toast.style.transform = 'translateX(40px)';
-                setTimeout(() => toast.remove(), 300);
-            });
-
-            return toast;
-        }
-
-        // ============================================================
-        // BAŞARIM SİSTEMİ
-        // ============================================================
-        function unlockAchievement(id, name, icon, desc) {
-            const achievements = DB.getAchievements();
-            if (achievements.includes(id)) return;
-
-            achievements.push(id);
-            DB.saveAchievements(achievements);
-
-            // Achievement popup göster
-            const popup = document.createElement('div');
-            popup.className = 'achievement-popup';
-            popup.innerHTML = `
-                <div class="ach-icon">${icon}</div>
-                <div class="ach-text">
-                    <h4>🏆 Başarım Kazanıldı!</h4>
-                    <p><strong>${name}</strong> - ${desc}</p>
-                </div>
-            `;
-            document.body.appendChild(popup);
-
-            // Ses
-            if (navigator.vibrate) navigator.vibrate([50, 100, 50]);
-
-            setTimeout(() => {
-                popup.style.opacity = '0';
-                popup.style.transform = 'translateX(-50%) translateY(-30px)';
-                setTimeout(() => popup.remove(), 500);
-            }, 4000);
-
-            // Bildirim ekle
-            addNotification(`🎉 Başarım kazandın: ${name}`, 'achievement');
-            showToast(`🏆 ${name} başarımını kazandın!`, 'success', 'Yeni Başarım!');
-        }
-
-        // ============================================================
-        // BİLDİRİM SİSTEMİ
-        // ============================================================
-        function addNotification(text, type = 'info') {
-            const notifs = DB.getNotifications();
-            notifs.push({
-                id: Date.now(),
-                text: text,
-                type: type,
-                read: false,
-                time: new Date().toISOString()
-            });
-            DB.saveNotifications(notifs);
-            updateNotificationBadge();
-        }
-
-        function updateNotificationBadge() {
-            const notifs = DB.getNotifications();
-            const unread = notifs.filter(n => !n.read).length;
-            const badge = document.querySelector('.notification-btn .badge-count');
-            if (badge) {
-                badge.textContent = unread;
-                badge.style.display = unread > 0 ? 'inline' : 'none';
-            }
-        }
-
-        // ============================================================
-        // INIT DATA
-        // ============================================================
-        function initData() {
-            let users = DB.getUsers();
-            if (users.length === 0) {
-                users.push({ id: 1, username: 'admin', password: 'admin123', email: 'admin@roblox.com', rank: 'admin',
-                    created: new Date().toISOString() });
-                users.push({ id: 2, username: 'scriptmaster', password: '123456', email: 'master@roblox.com', rank: 'vip',
-                    created: new Date().toISOString() });
-                users.push({ id: 3, username: 'lua_god', password: 'lua123', email: 'god@roblox.com', rank: 'legend',
-                    created: new Date().toISOString() });
-                DB.saveUsers(users);
-            }
-
-            let scripts = DB.getScripts();
-            if (scripts.length === 0) {
-                const sample = [{
-                    id: 1,
-                    title: '🛡️ Ultimate ESP v3.0',
-                    content: '-- Ultimate ESP Script\n-- Tüm oyuncuları gösterir\n\nlocal Players = game:GetService("Players")\nlocal RunService = game:GetService("RunService")\n\nfor _, player in pairs(Players:GetPlayers()) do\n    if player ~= Players.LocalPlayer then\n        local highlight = Instance.new("Highlight")\n        highlight.Parent = player.Character\n        highlight.FillColor = Color3.new(1, 0.2, 0.2)\n        highlight.FillTransparency = 0.5\n        highlight.OutlineColor = Color3.new(1, 1, 1)\n    end\nend',
-                    language: 'Lua',
-                    category: 'ESP',
-                    version: 'v3.0',
-                    tags: ['xray', 'wallhack'],
-                    links: ['https://pastebin.com/raw/abc123'],
-                    downloads: 342,
-                    likes: 45,
-                    rating: 4.9,
-                    userId: 1,
-                    username: 'admin',
-                    created: new Date().toISOString(),
-                    featured: true
-                }, {
-                    id: 2,
-                    title: '🤖 Auto Clicker Pro',
-                    content: '-- Auto Clicker Pro\n-- Otomatik tıklama\n\nlocal mouse = game.Players.LocalPlayer:GetMouse()\nlocal enabled = false\n\nmouse.KeyDown:Connect(function(key)\n    if key == "F1" then\n        enabled = not enabled\n        print(enabled and "Aktif" or "Pasif")\n    end\nend)\n\nwhile true do\n    if enabled then\n        mouse1click()\n        wait(0.05)\n    end\n    wait()\nend',
-                    language: 'Lua',
-                    category: 'Otomasyon',
-                    version: 'v2.1',
-                    tags: ['clicker', 'auto'],
-                    links: [],
-                    downloads: 215,
-                    likes: 32,
-                    rating: 4.5,
-                    userId: 1,
-                    username: 'admin',
-                    created: new Date(Date.now() - 86400000).toISOString(),
-                    featured: false
-                }, {
-                    id: 3,
-                    title: '🎯 Aimbot Ultra',
-                    content: '-- Aimbot Ultra\n-- Otomatik hedef alma\n\nlocal Players = game:GetService("Players")\nlocal lp = Players.LocalPlayer\n\nRunService.RenderStepped:Connect(function()\n    local target = getClosestPlayer()\n    if target then\n        lp.Character.HumanoidRootPart.CFrame = CFrame.new(lp.Character.HumanoidRootPart.Position, target.Character.HumanoidRootPart.Position)\n    end\nend)',
-                    language: 'Lua',
-                    category: 'Aimbot',
-                    version: 'v2.0',
-                    tags: ['aimbot', 'lock'],
-                    links: ['https://pastebin.com/raw/def456'],
-                    downloads: 187,
-                    likes: 28,
-                    rating: 4.3,
-                    userId: 2,
-                    username: 'scriptmaster',
-                    created: new Date(Date.now() - 172800000).toISOString(),
-                    featured: false
-                }, {
-                    id: 4,
-                    title: '🦅 Fly Mode v2',
-                    content: '-- Fly Mode v2\n-- Uçma modu\n\nlocal player = game.Players.LocalPlayer\nlocal char = player.Character\nlocal humanoid = char.Humanoid\nlocal flying = false\n\ngame:GetService("UserInputService").InputBegan:Connect(function(input)\n    if input.KeyCode == Enum.KeyCode.F then\n        flying = not flying\n        humanoid.PlatformStand = flying\n        print(flying and "Fly Aktif" or "Fly Pasif")\n    end\nend)',
-                    language: 'Lua',
-                    category: 'Fly',
-                    version: 'v2.0',
-                    tags: ['fly', 'noclip'],
-                    links: [],
-                    downloads: 156,
-                    likes: 22,
-                    rating: 4.7,
-                    userId: 2,
-                    username: 'scriptmaster',
-                    created: new Date(Date.now() - 259200000).toISOString(),
-                    featured: false
-                }, {
-                    id: 5,
-                    title: '💨 Speed Hack Ultra',
-                    content: '-- Speed Hack Ultra\n-- Hızlandırma\n\nlocal player = game.Players.LocalPlayer\nlocal humanoid = player.Character.Humanoid\n\nhumanoid.WalkSpeed = humanoid.WalkSpeed * 2.5\nhumanoid.JumpPower = humanoid.JumpPower * 1.5\n\nprint("Speed: " .. humanoid.WalkSpeed)',
-                    language: 'Lua',
-                    category: 'Speed',
-                    version: 'v1.5',
-                    tags: ['speed', 'boost'],
-                    links: [],
-                    downloads: 134,
-                    likes: 18,
-                    rating: 4.1,
-                    userId: 3,
-                    username: 'lua_god',
-                    created: new Date(Date.now() - 345600000).toISOString(),
-                    featured: false
-                }];
-                sample.forEach(s => { scripts.push(s); });
-                DB.saveScripts(scripts);
-            }
-
-            let comments = DB.getComments();
-            if (comments.length === 0) {
-                comments.push({ id: 1, scriptId: 1, userId: 2, username: 'scriptmaster', content: '🔥 Harika script! Çok işe yarıyor.',
-                    created: new Date().toISOString() });
-                comments.push({ id: 2, scriptId: 1, userId: 1, username: 'admin', content: '⭐ 10/10! Tavsiye ederim.',
-                    created: new Date().toISOString() });
-                DB.saveComments(comments);
-            }
-
-            updateStats();
-            updateNotificationBadge();
-
-            // Başlangıç başarımları
-            const user = getCurrentUser();
-            if (user) {
-                checkAchievements(user.id);
-            }
-        }
-
-        // ============================================================
-        // BAŞARIM KONTROL
-        // ============================================================
-        function checkAchievements(userId) {
-            const scripts = DB.getScripts();
-            const userScripts = scripts.filter(s => s.userId === userId);
-            const likes = DB.getLikes();
-            const favs = DB.getFavorites();
-
-            if (userScripts.length >= 1) {
-                unlockAchievement('first_script', 'İlk Script', '📝', 'İlk scriptini paylaştın!');
-            }
-            if (userScripts.length >= 5) {
-                unlockAchievement('script_master', 'Script Ustası', '🏅', '5 script paylaştın!');
-            }
-            if (likes.length >= 10) {
-                unlockAchievement('popular', 'Popüler', '🔥', '10 beğeni aldın!');
-            }
-            if (favs.length >= 5) {
-                unlockAchievement('collector', 'Koleksiyoncu', '⭐', '5 script favoriledin!');
-            }
-            if (scripts.length >= 10) {
-                unlockAchievement('contributor', 'Katkıda Bulunan', '🤝', 'Topluluğa katkı sağladın!');
-            }
-        }
 
         // ============================================================
         // HELPERS
@@ -1918,7 +1092,6 @@
         }
 
         function getCurrentUser() { return DB.getCurrentUser(); }
-
         function isLoggedIn() { return getCurrentUser() !== null; }
 
         function escapeHtml(text) {
@@ -1931,7 +1104,7 @@
         function isNew(dateStr) { return (new Date() - new Date(dateStr)) < 86400000; }
 
         function getRankBadge(rank) {
-            const map = { 'admin': 'badge-rank admin', 'vip': 'badge-rank vip', 'legend': 'badge-rank legend' };
+            const map = { 'admin': 'rank-badge admin', 'vip': 'rank-badge vip', 'legend': 'rank-badge legend' };
             return map[rank] || '';
         }
 
@@ -1940,6 +1113,147 @@
             return map[rank] || '';
         }
 
+        // ============================================================
+        // TOAST
+        // ============================================================
+        function showToast(message, type = 'success', title = '') {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = `toast toast-${type}`;
+
+            const icons = { success: '✅', error: '❌', info: 'ℹ️', warning: '⚠️' };
+            const titles = { success: 'Başarılı!', error: 'Hata!', info: 'Bilgi', warning: 'Uyarı' };
+
+            toast.innerHTML = `
+                <div class="toast-icon">${icons[type] || 'ℹ️'}</div>
+                <div class="toast-content">
+                    <div class="toast-title">${title || titles[type] || 'Bilgi'}</div>
+                    <div class="toast-message">${message}</div>
+                </div>
+                <button class="toast-close" onclick="this.parentElement.remove()">✕</button>
+                <div class="toast-progress"></div>
+            `;
+
+            container.appendChild(toast);
+
+            setTimeout(() => {
+                if (toast.parentElement) {
+                    toast.style.opacity = '0';
+                    toast.style.transform = 'translateX(40px)';
+                    setTimeout(() => toast.remove(), 300);
+                }
+            }, 4000);
+
+            toast.addEventListener('click', () => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateX(40px)';
+                setTimeout(() => toast.remove(), 300);
+            });
+
+            return toast;
+        }
+
+        // ============================================================
+        // INIT
+        // ============================================================
+        function initData() {
+            let users = DB.getUsers();
+            if (users.length === 0) {
+                users.push({ id: 1, username: 'admin', password: 'admin123', email: 'admin@roblox.com', rank: 'admin',
+                    created: new Date().toISOString() });
+                users.push({ id: 2, username: 'scriptmaster', password: '123456', email: 'master@roblox.com', rank: 'vip',
+                    created: new Date().toISOString() });
+                DB.saveUsers(users);
+            }
+
+            let scripts = DB.getScripts();
+            if (scripts.length === 0) {
+                const sample = [{
+                    id: 1,
+                    title: '🛡️ Ultimate ESP v3.0',
+                    content: '-- Ultimate ESP Script\n-- Tüm oyuncuları gösterir\n\nlocal Players = game:GetService("Players")\nlocal RunService = game:GetService("RunService")\n\nfor _, player in pairs(Players:GetPlayers()) do\n    if player ~= Players.LocalPlayer then\n        local highlight = Instance.new("Highlight")\n        highlight.Parent = player.Character\n        highlight.FillColor = Color3.new(1, 0.2, 0.2)\n        highlight.FillTransparency = 0.5\n        highlight.OutlineColor = Color3.new(1, 1, 1)\n    end\nend',
+                    language: 'Lua',
+                    category: 'ESP',
+                    version: 'v3.0',
+                    tags: ['xray', 'wallhack'],
+                    links: ['https://pastebin.com/raw/abc123'],
+                    downloads: 342,
+                    likes: 45,
+                    userId: 1,
+                    username: 'admin',
+                    created: new Date().toISOString(),
+                    featured: true
+                }, {
+                    id: 2,
+                    title: '🤖 Auto Clicker Pro',
+                    content: '-- Auto Clicker Pro\n-- Otomatik tıklama\n\nlocal mouse = game.Players.LocalPlayer:GetMouse()\nlocal enabled = false\n\nmouse.KeyDown:Connect(function(key)\n    if key == "F1" then\n        enabled = not enabled\n        print(enabled and "Aktif" or "Pasif")\n    end\nend)\n\nwhile true do\n    if enabled then\n        mouse1click()\n        wait(0.05)\n    end\n    wait()\nend',
+                    language: 'Lua',
+                    category: 'Otomasyon',
+                    version: 'v2.1',
+                    tags: ['clicker', 'auto'],
+                    links: [],
+                    downloads: 215,
+                    likes: 32,
+                    userId: 1,
+                    username: 'admin',
+                    created: new Date(Date.now() - 86400000).toISOString(),
+                    featured: false
+                }, {
+                    id: 3,
+                    title: '🎯 Aimbot Ultra',
+                    content: '-- Aimbot Ultra\n-- Otomatik hedef alma\n\nlocal Players = game:GetService("Players")\nlocal lp = Players.LocalPlayer\n\nRunService.RenderStepped:Connect(function()\n    local target = getClosestPlayer()\n    if target then\n        lp.Character.HumanoidRootPart.CFrame = CFrame.new(lp.Character.HumanoidRootPart.Position, target.Character.HumanoidRootPart.Position)\n    end\nend)',
+                    language: 'Lua',
+                    category: 'Aimbot',
+                    version: 'v2.0',
+                    tags: ['aimbot', 'lock'],
+                    links: ['https://pastebin.com/raw/def456'],
+                    downloads: 187,
+                    likes: 28,
+                    userId: 2,
+                    username: 'scriptmaster',
+                    created: new Date(Date.now() - 172800000).toISOString(),
+                    featured: false
+                }, {
+                    id: 4,
+                    title: '🦅 Fly Mode v2',
+                    content: '-- Fly Mode v2\n-- Uçma modu\n\nlocal player = game.Players.LocalPlayer\nlocal char = player.Character\nlocal humanoid = char.Humanoid\nlocal flying = false\n\ngame:GetService("UserInputService").InputBegan:Connect(function(input)\n    if input.KeyCode == Enum.KeyCode.F then\n        flying = not flying\n        humanoid.PlatformStand = flying\n        print(flying and "Fly Aktif" or "Fly Pasif")\n    end\nend)',
+                    language: 'Lua',
+                    category: 'Fly',
+                    version: 'v2.0',
+                    tags: ['fly', 'noclip'],
+                    links: [],
+                    downloads: 156,
+                    likes: 22,
+                    userId: 2,
+                    username: 'scriptmaster',
+                    created: new Date(Date.now() - 259200000).toISOString(),
+                    featured: false
+                }, {
+                    id: 5,
+                    title: '💨 Speed Hack Ultra',
+                    content: '-- Speed Hack Ultra\n-- Hızlandırma\n\nlocal player = game.Players.LocalPlayer\nlocal humanoid = player.Character.Humanoid\n\nhumanoid.WalkSpeed = humanoid.WalkSpeed * 2.5\nhumanoid.JumpPower = humanoid.JumpPower * 1.5\n\nprint("Speed: " .. humanoid.WalkSpeed)',
+                    language: 'Lua',
+                    category: 'Speed',
+                    version: 'v1.5',
+                    tags: ['speed', 'boost'],
+                    links: [],
+                    downloads: 134,
+                    likes: 18,
+                    userId: 2,
+                    username: 'scriptmaster',
+                    created: new Date(Date.now() - 345600000).toISOString(),
+                    featured: false
+                }];
+                sample.forEach(s => { scripts.push(s); });
+                DB.saveScripts(scripts);
+            }
+
+            updateStats();
+        }
+
+        // ============================================================
+        // NAV
+        // ============================================================
         function updateNav() {
             const user = getCurrentUser();
             const authBtns = document.getElementById('authButtons');
@@ -1952,10 +1266,9 @@
                 authBtns.classList.add('hidden');
                 userBadge.classList.remove('hidden');
                 userName.textContent = user.username;
-                userAvatar.innerHTML = user.username.charAt(0).toUpperCase() +
-                    '<span class="online-dot"></span>';
+                userAvatar.textContent = user.username.charAt(0).toUpperCase();
                 userRank.textContent = getRankText(user.rank);
-                userRank.className = 'badge-rank ' + getRankBadge(user.rank);
+                userRank.className = 'rank-badge ' + getRankBadge(user.rank);
                 document.getElementById('navUpload').classList.remove('hidden');
                 document.getElementById('navProfile').classList.remove('hidden');
                 document.getElementById('navFavorites').classList.remove('hidden');
@@ -1977,11 +1290,10 @@
             document.getElementById('statUsers').textContent = users.length;
             document.getElementById('statLikes').textContent = likes.length;
             document.getElementById('statFavorites').textContent = favs.length;
-            document.getElementById('statOnline').textContent = Math.floor(Math.random() * 30) + 20;
         }
 
         // ============================================================
-        // RENDER
+        // RENDER SCRIPTS
         // ============================================================
         let currentFilter = 'all';
         let currentSearch = '';
@@ -2015,23 +1327,9 @@
                 case 'likes':
                     scripts.sort((a, b) => (b.likes || 0) - (a.likes || 0));
                     break;
-                case 'rated':
-                    scripts.sort((a, b) => (b.rating || 0) - (a.rating || 0));
-                    break;
             }
 
             return scripts;
-        }
-
-        function renderStars(rating) {
-            const full = Math.floor(rating || 0);
-            const half = (rating || 0) % 1 >= 0.5 ? 1 : 0;
-            const empty = 5 - full - half;
-            let html = '';
-            for (let i = 0; i < full; i++) html += '★';
-            if (half) html += '☆';
-            for (let i = 0; i < empty; i++) html += '☆';
-            return html;
         }
 
         function renderScripts() {
@@ -2040,7 +1338,7 @@
 
             if (scripts.length === 0) {
                 grid.innerHTML =
-                    `<div class="empty-state"><span class="emoji">🔍</span><h3>Hiç script bulunamadı</h3><p>${currentSearch ? 'Arama kriterlerine uygun script yok.' : 'Henüz bu kategoride script yok.'}</p><button class="btn btn-view" onclick="showUpload()"><i class="fas fa-upload"></i> İlk Scripti Paylaş</button></div>`;
+                    `<div class="empty-state"><span class="emoji">🔍</span><h3>Hiç script bulunamadı</h3><p>${currentSearch ? 'Arama kriterlerine uygun script yok.' : 'Henüz bu kategoride script yok.'}</p><button class="btn-view" onclick="showUpload()"><i class="fas fa-upload"></i> İlk Scripti Paylaş</button></div>`;
                 return;
             }
 
@@ -2055,7 +1353,6 @@
                 const isOwner = user && s.userId === user.id;
                 const preview = s.content.substring(0, 180) + (s.content.length > 180 ? '...' : '');
                 const tags = s.tags || [];
-                const rating = s.rating || 0;
 
                 html += `
                     <div class="script-card fade-in">
@@ -2068,10 +1365,8 @@
                                 ${s.downloads > 100 ? '<span class="badge badge-popular">🔥 Popüler</span>' : ''}
                                 ${isNew(s.created) ? '<span class="badge badge-new">✨ Yeni</span>' : ''}
                                 ${s.version ? `<span class="badge badge-version">${s.version}</span>` : ''}
-                                ${rating >= 4.5 ? `<span class="badge badge-rated">⭐ ${rating}</span>` : ''}
                             </div>
                         </div>
-                        <div class="stars">${renderStars(rating)}</div>
                         <div class="meta">
                             <span><i class="fas fa-user"></i> ${s.username}</span>
                             <span><i class="fas fa-clock"></i> ${formatDate(s.created)}</span>
@@ -2098,17 +1393,20 @@
         }
 
         // ============================================================
-        // PAGE FUNCTIONS
+        // SAYFA FONKSİYONLARI
         // ============================================================
-        function showHome() {
+        function goHome() {
+            document.getElementById('heroSection').style.display = 'block';
             currentFilter = 'all';
             currentSearch = '';
             document.getElementById('searchInput').value = '';
-            document.getElementById('heroSection').style.display = 'block';
             document.querySelectorAll('.filter-btn').forEach(b => b.classList.toggle('active', b.dataset.filter === 'all'));
             renderScripts();
             closeModal();
             updateStats();
+            // Aktif butonu güncelle
+            document.querySelectorAll('.nav button').forEach(b => b.classList.remove('active'));
+            document.getElementById('navHome').classList.add('active');
         }
 
         function filterScripts(category) {
@@ -2134,48 +1432,7 @@
         }
 
         // ============================================================
-        // BAŞARIMLAR SAYFASI
-        // ============================================================
-        function showAchievements() {
-            const allAchievements = [
-                { id: 'first_script', name: 'İlk Script', icon: '📝', desc: 'İlk scriptini paylaş!' },
-                { id: 'script_master', name: 'Script Ustası', icon: '🏅', desc: '5 script paylaş!' },
-                { id: 'popular', name: 'Popüler', icon: '🔥', desc: '10 beğeni al!' },
-                { id: 'collector', name: 'Koleksiyoncu', icon: '⭐', desc: '5 script favorile!' },
-                { id: 'contributor', name: 'Katkıda Bulunan', icon: '🤝', desc: 'Topluluğa katkı sağla!' }
-            ];
-
-            const userAchievements = DB.getAchievements();
-
-            document.getElementById('heroSection').style.display = 'none';
-
-            let html = '';
-            allAchievements.forEach(a => {
-                const unlocked = userAchievements.includes(a.id);
-                html += `
-                    <div style="background:var(--bg2);border:1px solid ${unlocked ? 'var(--yellow)' : 'var(--border)'};border-radius:var(--radius);padding:16px 20px;display:flex;align-items:center;gap:16px;margin-bottom:10px;opacity:${unlocked ? '1' : '0.5'};">
-                        <div style="font-size:28px;">${a.icon}</div>
-                        <div style="flex:1;">
-                            <div style="font-weight:700;">${a.name} ${unlocked ? '✅' : '🔒'}</div>
-                            <div style="color:var(--text2);font-size:13px;">${a.desc}</div>
-                        </div>
-                        <div style="font-size:12px;color:var(--text3);">${unlocked ? '✔️ Kazanıldı' : '🔒 Kilitli'}</div>
-                    </div>
-                `;
-            });
-
-            document.getElementById('content').innerHTML = `
-                <div class="fade-in">
-                    <h2 style="font-size:22px;font-weight:800;margin-bottom:16px;"><i class="fas fa-medal" style="color:var(--yellow);"></i> Başarımlar</h2>
-                    ${html}
-                    <div style="margin-top:16px;text-align:center;"><button class="btn-copy" onclick="showHome()" style="padding:8px 20px;border-radius:8px;border:1px solid var(--border);background:transparent;color:var(--text2);cursor:pointer;"><i class="fas fa-arrow-left"></i> Ana Sayfa</button></div>
-                </div>
-            `;
-            closeModal();
-        }
-
-        // ============================================================
-        // DETAIL
+        // DETAY SAYFASI
         // ============================================================
         function showDetail(id) {
             const scripts = DB.getScripts();
@@ -2189,7 +1446,6 @@
             const isFav = favorites.includes(id);
             const isLiked = likes.includes(id);
             const isOwner = user && s.userId === user.id;
-            const rating = s.rating || 0;
 
             let commentHTML = comments.length === 0 ?
                 '<p style="color:var(--text3);">Henüz yorum yok.</p>' :
@@ -2198,6 +1454,7 @@
                 ).join('');
 
             document.getElementById('heroSection').style.display = 'none';
+            document.querySelectorAll('.nav button').forEach(b => b.classList.remove('active'));
 
             document.getElementById('content').innerHTML = `
                 <div class="detail-view fade-in">
@@ -2211,7 +1468,6 @@
                                 ${s.version ? `<span class="badge badge-version">${s.version}</span>` : ''}
                             </div>
                         </div>
-                        <div class="stars" style="font-size:18px;color:var(--yellow);">${renderStars(rating)} <span style="color:var(--text2);font-size:14px;margin-left:8px;">${rating || 0} / 5</span></div>
                         <div class="detail-meta">
                             <span><i class="fas fa-user"></i> ${s.username}</span>
                             <span><i class="fas fa-clock"></i> ${formatDate(s.created)}</span>
@@ -2232,7 +1488,7 @@
                             <button class="btn-download" onclick="downloadScript(${s.id})"><i class="fas fa-download"></i> İndir</button>
                             <button class="btn-fav ${isFav ? 'active' : ''}" onclick="toggleFavorite(${s.id})"><i class="fas ${isFav ? 'fa-star' : 'fa-star-o'}"></i> ${isFav ? 'Çıkar' : 'Ekle'}</button>
                             <button class="btn-like ${isLiked ? 'active' : ''}" onclick="toggleLike(${s.id})"><i class="fas ${isLiked ? 'fa-heart' : 'fa-heart-o'}"></i> ${isLiked ? 'Beğenme' : 'Beğen'}</button>
-                            <button class="btn-copy" onclick="showHome()"><i class="fas fa-arrow-left"></i> Geri</button>
+                            <button class="btn-back" onclick="goHome()"><i class="fas fa-arrow-left"></i> Ana Sayfa</button>
                             ${isOwner ? `<button class="btn-edit" onclick="editScript(${s.id})"><i class="fas fa-edit"></i> Düzenle</button>` : ''}
                             ${isOwner ? `<button class="btn-delete" onclick="deleteScript(${s.id})"><i class="fas fa-trash"></i> Sil</button>` : ''}
                             <button class="btn-report" onclick="reportScript(${s.id})"><i class="fas fa-flag"></i> Raporla</button>
@@ -2255,16 +1511,21 @@
         }
 
         // ============================================================
-        // UPLOAD
+        // YÜKLEME SAYFASI
         // ============================================================
         function showUpload() {
             if (!isLoggedIn()) { showToast('Lütfen giriş yapın!', 'error');
                 showLogin(); return; }
             document.getElementById('heroSection').style.display = 'none';
+            document.querySelectorAll('.nav button').forEach(b => b.classList.remove('active'));
+
             document.getElementById('content').innerHTML = `
                 <div class="fade-in" style="max-width:600px;margin:0 auto;">
                     <div style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:28px;">
-                        <h2 style="font-size:22px;font-weight:800;margin-bottom:6px;"><i class="fas fa-upload" style="color:var(--red);"></i> Script Yükle</h2>
+                        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+                            <h2 style="font-size:22px;font-weight:800;"><i class="fas fa-upload" style="color:var(--red);"></i> Script Yükle</h2>
+                            <button class="btn-back" onclick="goHome()"><i class="fas fa-arrow-left"></i> Ana Sayfa</button>
+                        </div>
                         <p style="color:var(--text2);margin-bottom:20px;">Scriptini paylaş ve topluluğa katkıda bulun! 🚀</p>
                         <form onsubmit="uploadScript();return false;">
                             <div class="form-group">
@@ -2302,7 +1563,7 @@
                             </div>
                             <div class="form-actions">
                                 <button type="submit" class="btn-submit"><i class="fas fa-rocket"></i> Yayınla</button>
-                                <button type="button" class="btn-cancel-modal" onclick="showHome()">İptal</button>
+                                <button type="button" class="btn-cancel-modal" onclick="goHome()">İptal</button>
                             </div>
                         </form>
                     </div>
@@ -2336,25 +1597,19 @@
                 links: link ? [link] : [],
                 downloads: 0,
                 likes: 0,
-                rating: 0,
                 userId: user.id,
                 username: user.username,
                 created: new Date().toISOString(),
                 featured: false
             });
             DB.saveScripts(scripts);
-
-            // Başarım kontrol
-            checkAchievements(user.id);
-
             showToast('🎮 Script başarıyla yüklendi!', 'success', 'Harika!');
-            addNotification(`📝 ${user.username} yeni script paylaştı: ${title}`, 'script');
             updateStats();
-            showHome();
+            goHome();
         }
 
         // ============================================================
-        // EDIT SCRIPT
+        // DÜZENLEME SAYFASI
         // ============================================================
         function editScript(id) {
             const scripts = DB.getScripts();
@@ -2362,10 +1617,15 @@
             if (!s) { showToast('Script bulunamadı!', 'error'); return; }
 
             document.getElementById('heroSection').style.display = 'none';
+            document.querySelectorAll('.nav button').forEach(b => b.classList.remove('active'));
+
             document.getElementById('content').innerHTML = `
                 <div class="fade-in" style="max-width:600px;margin:0 auto;">
                     <div style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:28px;">
-                        <h2 style="font-size:22px;font-weight:800;margin-bottom:6px;"><i class="fas fa-edit" style="color:var(--blue);"></i> Script Düzenle</h2>
+                        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+                            <h2 style="font-size:22px;font-weight:800;"><i class="fas fa-edit" style="color:var(--blue);"></i> Script Düzenle</h2>
+                            <button class="btn-back" onclick="goHome()"><i class="fas fa-arrow-left"></i> Ana Sayfa</button>
+                        </div>
                         <p style="color:var(--text2);margin-bottom:20px;">Scriptini güncelle! 🔧</p>
                         <form onsubmit="updateScript(${id});return false;">
                             <div class="form-group">
@@ -2438,7 +1698,7 @@
         }
 
         // ============================================================
-        // PROFILE
+        // PROFİL SAYFASI
         // ============================================================
         function showProfile() {
             if (!isLoggedIn()) { showToast('Lütfen giriş yapın!', 'error');
@@ -2447,12 +1707,12 @@
             const scripts = DB.getScripts().filter(s => s.userId === user.id);
             const comments = DB.getComments().filter(c => c.userId === user.id);
             const favorites = DB.getFavorites();
-            const achievements = DB.getAchievements();
 
             document.getElementById('heroSection').style.display = 'none';
+            document.querySelectorAll('.nav button').forEach(b => b.classList.remove('active'));
 
             let cards = scripts.length === 0 ?
-                `<div class="empty-state" style="grid-column:1/-1;"><span class="emoji">📝</span><h3>Henüz scriptin yok!</h3><button class="btn btn-view" onclick="showUpload()"><i class="fas fa-upload"></i> Script Yükle</button></div>` :
+                `<div class="empty-state" style="grid-column:1/-1;"><span class="emoji">📝</span><h3>Henüz scriptin yok!</h3><button class="btn-view" onclick="showUpload()"><i class="fas fa-upload"></i> Script Yükle</button></div>` :
                 scripts.map(s => `
                     <div class="script-card">
                         <div class="top"><h3>${s.title}</h3><span class="badge ${getCategoryBadge(s.category)}">${s.category || 'Diğer'}</span></div>
@@ -2467,6 +1727,10 @@
 
             document.getElementById('content').innerHTML = `
                 <div class="fade-in">
+                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:10px;">
+                        <h2 style="font-size:22px;font-weight:800;"><i class="fas fa-user" style="color:var(--red);"></i> Profil</h2>
+                        <button class="btn-back" onclick="goHome()"><i class="fas fa-arrow-left"></i> Ana Sayfa</button>
+                    </div>
                     <div style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:24px;margin-bottom:20px;">
                         <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
                             <div style="width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,var(--red),var(--purple));display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:700;color:white;">${user.username.charAt(0).toUpperCase()}</div>
@@ -2474,7 +1738,6 @@
                                 <h2 style="font-size:22px;font-weight:800;">${user.username}</h2>
                                 <p style="color:var(--text2);"><i class="fas fa-envelope"></i> ${user.email || 'Email girilmemiş'}</p>
                                 <p style="color:var(--text3);font-size:13px;"><i class="fas fa-calendar"></i> Katılım: ${formatDate(user.created)}</p>
-                                <p style="color:var(--yellow);font-size:13px;"><i class="fas fa-medal"></i> ${achievements.length} Başarım</p>
                             </div>
                         </div>
                         <div style="display:flex;gap:24px;margin-top:16px;padding-top:16px;border-top:1px solid var(--border);flex-wrap:wrap;">
@@ -2491,7 +1754,7 @@
         }
 
         // ============================================================
-        // FAVORITES
+        // FAVORİLER SAYFASI
         // ============================================================
         function showFavorites() {
             if (!isLoggedIn()) { showToast('Lütfen giriş yapın!', 'error');
@@ -2499,6 +1762,7 @@
             const favs = DB.getFavorites();
             const scripts = DB.getScripts().filter(s => favs.includes(s.id));
             document.getElementById('heroSection').style.display = 'none';
+            document.querySelectorAll('.nav button').forEach(b => b.classList.remove('active'));
 
             let html = scripts.length === 0 ?
                 `<div class="empty-state" style="grid-column:1/-1;"><span class="emoji">⭐</span><h3>Favori scriptin yok</h3><p>Beğendiğin scriptleri favorilere ekle.</p></div>` :
@@ -2515,7 +1779,10 @@
 
             document.getElementById('content').innerHTML = `
                 <div class="fade-in">
-                    <h2 style="font-size:22px;font-weight:800;margin-bottom:16px;"><i class="fas fa-star" style="color:#fbbf24;"></i> Favorilerim (${scripts.length})</h2>
+                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:10px;">
+                        <h2 style="font-size:22px;font-weight:800;"><i class="fas fa-star" style="color:#fbbf24;"></i> Favorilerim (${scripts.length})</h2>
+                        <button class="btn-back" onclick="goHome()"><i class="fas fa-arrow-left"></i> Ana Sayfa</button>
+                    </div>
                     <div class="script-grid">${html}</div>
                 </div>
             `;
@@ -2523,7 +1790,7 @@
         }
 
         // ============================================================
-        // LEADERBOARD
+        // LİDERLİK TABLOSU
         // ============================================================
         function showLeaderboard() {
             const scripts = DB.getScripts();
@@ -2531,6 +1798,7 @@
             const top = sorted.slice(0, 5);
 
             document.getElementById('heroSection').style.display = 'none';
+            document.querySelectorAll('.nav button').forEach(b => b.classList.remove('active'));
 
             const medals = ['🥇', '🥈', '🥉', '4️⃣', '5️⃣'];
             let html = top.length === 0 ?
@@ -2540,7 +1808,7 @@
                         <span style="font-size:28px;">${medals[i] || '🏅'}</span>
                         <div style="flex:1;">
                             <strong style="font-size:15px;">${s.title}</strong>
-                            <div style="color:var(--text3);font-size:12px;">👤 ${s.username} • ${s.category || 'Diğer'} • ❤️ ${s.likes || 0} • ⭐ ${s.rating || 0}</div>
+                            <div style="color:var(--text3);font-size:12px;">👤 ${s.username} • ${s.category || 'Diğer'} • ❤️ ${s.likes || 0}</div>
                         </div>
                         <div style="text-align:right;">
                             <div style="font-size:20px;font-weight:700;color:var(--red);">${s.downloads || 0}</div>
@@ -2552,16 +1820,18 @@
 
             document.getElementById('content').innerHTML = `
                 <div class="fade-in">
-                    <h2 style="font-size:22px;font-weight:800;margin-bottom:16px;"><i class="fas fa-trophy" style="color:#fbbf24;"></i> En Popüler Scriptler</h2>
+                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:10px;">
+                        <h2 style="font-size:22px;font-weight:800;"><i class="fas fa-trophy" style="color:#fbbf24;"></i> En Popüler Scriptler</h2>
+                        <button class="btn-back" onclick="goHome()"><i class="fas fa-arrow-left"></i> Ana Sayfa</button>
+                    </div>
                     ${html}
-                    <div style="margin-top:16px;text-align:center;"><button class="btn-copy" onclick="showHome()" style="padding:8px 20px;border-radius:8px;border:1px solid var(--border);background:transparent;color:var(--text2);cursor:pointer;"><i class="fas fa-arrow-left"></i> Ana Sayfa</button></div>
                 </div>
             `;
             closeModal();
         }
 
         // ============================================================
-        // ACTIONS
+        // AKSİYONLAR
         // ============================================================
         function deleteScript(id) {
             if (!confirm('Bu scripti silmek istediğine emin misin?')) return;
@@ -2575,7 +1845,7 @@
             DB.saveFavorites(favs);
             showToast('Script silindi!', 'success', 'Tamam');
             updateStats();
-            showHome();
+            goHome();
         }
 
         function copyScript(id) {
@@ -2614,11 +1884,6 @@
             } else {
                 favs.push(id);
                 showToast('⭐ Favorilere eklendi!', 'success', 'Harika!');
-                // Başarım kontrol
-                if (favs.length >= 5) {
-                    const user = getCurrentUser();
-                    if (user) checkAchievements(user.id);
-                }
             }
             DB.saveFavorites(favs);
             updateStats();
@@ -2634,11 +1899,6 @@
             } else {
                 likes.push(id);
                 showToast('❤️ Beğendin!', 'success', 'Harika!');
-                // Başarım kontrol
-                if (likes.length >= 10) {
-                    const user = getCurrentUser();
-                    if (user) checkAchievements(user.id);
-                }
             }
             DB.saveLikes(likes);
 
@@ -2678,11 +1938,11 @@
         }
 
         // ============================================================
-        // AUTH
+        // GİRİŞ & KAYIT
         // ============================================================
         function showLogin() {
             if (isLoggedIn()) { showToast('Zaten giriş yaptın!', 'info');
-                showHome(); return; }
+                goHome(); return; }
             openModal(`
                 <div class="modal-header">
                     <h2><i class="fas fa-sign-in-alt" style="color:var(--red);"></i> Giriş</h2>
@@ -2708,7 +1968,7 @@
 
         function showRegister() {
             if (isLoggedIn()) { showToast('Zaten giriş yaptın!', 'info');
-                showHome(); return; }
+                goHome(); return; }
             openModal(`
                 <div class="modal-header">
                     <h2><i class="fas fa-user-plus" style="color:var(--red);"></i> Kayıt</h2>
@@ -2745,11 +2005,8 @@
                 updateNav();
                 closeModal();
                 showToast('🎮 Hoş geldin, ' + user.username + '!', 'success', 'Hoş Geldin!');
-                addNotification(`👤 ${user.username} giriş yaptı`, 'user');
                 updateStats();
-                // Başarım kontrol
-                checkAchievements(user.id);
-                showHome();
+                goHome();
             } else {
                 showToast('Kullanıcı adı veya şifre hatalı!', 'error', 'Hata');
             }
@@ -2774,14 +2031,10 @@
 
         function logout() {
             if (!confirm('Çıkış yapmak istediğine emin misin?')) return;
-            const user = getCurrentUser();
-            if (user) {
-                addNotification(`👤 ${user.username} çıkış yaptı`, 'user');
-            }
             DB.logout();
             updateNav();
             showToast('Çıkış yapıldı.', 'info', 'Güle güle!');
-            showHome();
+            goHome();
         }
 
         // ============================================================
@@ -2799,18 +2052,12 @@
         // ============================================================
         initData();
         updateNav();
-        showHome();
+        goHome();
 
-        console.log('🎮 Roblox Script Hub Pro çalışıyor!');
+        console.log('🎮 Roblox Script Hub çalışıyor!');
         console.log('👤 Admin: admin / admin123');
         console.log('📊 Script sayısı:', DB.getScripts().length);
         console.log('👥 Kullanıcı sayısı:', DB.getUsers().length);
-        console.log('🏆 Başarım sayısı:', DB.getAchievements().length);
-
-        // Hoş geldin bildirimi
-        setTimeout(() => {
-            showToast('🎮 Roblox Script Hub\'a hoş geldin!', 'info', 'Hoş Geldin!');
-        }, 1000);
     </script>
 
 </body>
