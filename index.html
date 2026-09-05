@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🎮 Roblox Script Hub</title>
+    <title>🎮 Roblox Script Hub Pro</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
@@ -30,6 +30,19 @@
             --shadow: 0 8px 32px rgba(0,0,0,0.4);
             --radius: 12px;
             --transition: all 0.3s ease;
+            --card-bg: var(--bg2);
+        }
+
+        [data-theme="light"] {
+            --bg: #f0f2f5;
+            --bg2: #ffffff;
+            --bg3: #e8eaed;
+            --bg4: #d0d4d9;
+            --text: #1a1a2e;
+            --text2: #4a4a6a;
+            --text3: #8a8aaa;
+            --border: rgba(0, 0, 0, 0.1);
+            --card-bg: #ffffff;
         }
 
         body {
@@ -38,9 +51,10 @@
             color: var(--text);
             min-height: 100vh;
             padding: 16px;
+            transition: var(--transition);
         }
 
-        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: var(--bg); }
         ::-webkit-scrollbar-thumb { background: var(--red); border-radius: 10px; }
 
@@ -64,6 +78,7 @@
             top: 12px;
             z-index: 100;
             backdrop-filter: blur(10px);
+            transition: var(--transition);
         }
 
         .logo {
@@ -157,7 +172,7 @@
         .user-badge .name {
             font-size: 13px;
             font-weight: 600;
-            color: white;
+            color: var(--text);
         }
 
         .user-badge .rank-badge {
@@ -167,10 +182,23 @@
             font-weight: 700;
         }
         .rank-badge.admin { background: var(--red); color: white; }
+        .rank-badge.mod { background: var(--blue); color: white; }
         .rank-badge.vip { background: var(--yellow); color: #0a0a0f; }
         .rank-badge.legend { background: var(--purple); color: white; }
 
         .hidden { display: none !important; }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            background: none;
+            border: none;
+            color: var(--text2);
+            font-size: 18px;
+            cursor: pointer;
+            transition: var(--transition);
+            padding: 4px 8px;
+        }
+        .theme-toggle:hover { color: var(--text); transform: rotate(30deg); }
 
         /* ============================================================
            HERO
@@ -183,6 +211,7 @@
             margin-bottom: 24px;
             position: relative;
             overflow: hidden;
+            transition: var(--transition);
         }
 
         .hero::before {
@@ -247,7 +276,7 @@
 
         .hero-actions .btn-secondary {
             background: var(--bg3);
-            color: white;
+            color: var(--text);
             border: 1px solid var(--border);
         }
         .hero-actions .btn-secondary:hover {
@@ -288,6 +317,7 @@
             border-radius: var(--radius);
             border: 1px solid var(--border);
             align-items: center;
+            transition: var(--transition);
         }
 
         .filter-bar .filter-btn {
@@ -304,13 +334,13 @@
         }
 
         .filter-bar .filter-btn:hover {
-            color: white;
+            color: var(--text);
             border-color: var(--border);
         }
         .filter-bar .filter-btn.active {
             background: rgba(255, 55, 95, 0.12);
             border-color: var(--red);
-            color: white;
+            color: var(--text);
         }
 
         .filter-bar .search-box {
@@ -322,12 +352,13 @@
             padding: 4px 14px;
             border-radius: 20px;
             border: 1px solid var(--border);
+            transition: var(--transition);
         }
 
         .filter-bar .search-box input {
             background: none;
             border: none;
-            color: white;
+            color: var(--text);
             padding: 6px 0;
             font-size: 13px;
             outline: none;
@@ -346,6 +377,7 @@
             font-size: 12px;
             font-family: 'Inter', sans-serif;
             cursor: pointer;
+            transition: var(--transition);
         }
         .filter-bar .sort-select:focus {
             outline: none;
@@ -362,7 +394,7 @@
         }
 
         .script-card {
-            background: var(--bg2);
+            background: var(--card-bg);
             border-radius: var(--radius);
             border: 1px solid var(--border);
             padding: 20px;
@@ -386,7 +418,7 @@
         .script-card .top h3 {
             font-size: 16px;
             font-weight: 700;
-            color: white;
+            color: var(--text);
         }
 
         .script-card .top .badges {
@@ -418,6 +450,8 @@
         .badge-new { background: #00d4aa; color: #0a0a0f; }
         .badge-featured { background: #ff8c00; color: white; }
         .badge-version { background: rgba(255,255,255,0.05); color: var(--text2); border: 1px solid var(--border); }
+        .badge-pending { background: #f59e0b; color: #0a0a0f; }
+        .badge-approved { background: #10b981; color: white; }
 
         .script-card .meta {
             display: flex;
@@ -485,7 +519,7 @@
         .btn-view:hover { background: #0099dd; transform: scale(1.04); }
 
         .btn-copy { background: var(--bg); color: var(--text2); border: 1px solid var(--border) !important; }
-        .btn-copy:hover { border-color: var(--red) !important; color: white; }
+        .btn-copy:hover { border-color: var(--red) !important; color: var(--text); }
 
         .btn-download { background: var(--green); color: #0a0a0f; }
         .btn-download:hover { background: #00b894; transform: scale(1.04); }
@@ -511,7 +545,53 @@
         .btn-link:hover { background: rgba(124,58,237,0.2); transform: scale(1.04); }
 
         .btn-back { background: var(--bg); color: var(--text2); border: 1px solid var(--border) !important; }
-        .btn-back:hover { border-color: var(--text3) !important; color: white; }
+        .btn-back:hover { border-color: var(--text3) !important; color: var(--text); }
+
+        .btn-approve { background: #10b981; color: white; }
+        .btn-approve:hover { background: #059669; transform: scale(1.04); }
+
+        .btn-admin { background: var(--purple); color: white; }
+        .btn-admin:hover { background: #6d28d9; transform: scale(1.04); }
+
+        /* ============================================================
+           PAGINATION
+           ============================================================ */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 24px;
+            padding: 16px 0;
+            flex-wrap: wrap;
+        }
+
+        .pagination button {
+            padding: 8px 16px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            background: var(--bg2);
+            color: var(--text2);
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+        }
+
+        .pagination button:hover {
+            border-color: var(--red);
+            color: var(--text);
+        }
+
+        .pagination button.active {
+            background: var(--red);
+            color: white;
+            border-color: var(--red);
+        }
+
+        .pagination button:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
 
         /* ============================================================
            EMPTY
@@ -522,7 +602,7 @@
             grid-column: 1 / -1;
         }
         .empty-state .emoji { font-size: 60px; display: block; margin-bottom: 16px; }
-        .empty-state h3 { font-size: 20px; margin-bottom: 8px; }
+        .empty-state h3 { font-size: 20px; margin-bottom: 8px; color: var(--text); }
         .empty-state p { color: var(--text2); max-width: 400px; margin: 0 auto 16px; }
 
         /* ============================================================
@@ -549,11 +629,12 @@
             border: 1px solid var(--border);
             border-radius: var(--radius);
             padding: 28px;
-            max-width: 520px;
+            max-width: 580px;
             width: 100%;
             max-height: 90vh;
             overflow-y: auto;
             animation: modalIn 0.3s ease;
+            transition: var(--transition);
         }
 
         @keyframes modalIn {
@@ -574,6 +655,7 @@
             display: flex;
             align-items: center;
             gap: 10px;
+            color: var(--text);
         }
         .modal-header h2 i { color: var(--red); }
 
@@ -604,7 +686,7 @@
             background: var(--bg);
             border: 1px solid var(--border);
             border-radius: 8px;
-            color: white;
+            color: var(--text);
             font-size: 13px;
             font-family: 'Inter', sans-serif;
             transition: var(--transition);
@@ -644,7 +726,7 @@
         .btn-submit:hover { background: var(--red2); transform: scale(1.02); }
 
         .btn-cancel-modal { background: var(--bg); color: var(--text2); border: 1px solid var(--border); }
-        .btn-cancel-modal:hover { border-color: var(--text3); color: white; }
+        .btn-cancel-modal:hover { border-color: var(--text3); color: var(--text); }
 
         .form-footer {
             text-align: center;
@@ -652,7 +734,7 @@
             color: var(--text3);
             font-size: 13px;
         }
-        .form-footer a { color: var(--red); text-decoration: none; font-weight: 600; }
+        .form-footer a { color: var(--red); text-decoration: none; font-weight: 600; cursor: pointer; }
 
         /* ============================================================
            DETAIL VIEW
@@ -740,6 +822,7 @@
             display: flex;
             align-items: center;
             gap: 8px;
+            color: var(--text);
         }
         .comments-section h3 i { color: var(--red); }
 
@@ -749,6 +832,7 @@
             border-radius: 8px;
             margin-bottom: 10px;
             border: 1px solid var(--border);
+            transition: var(--transition);
         }
 
         .comment-item .comment-header {
@@ -758,13 +842,28 @@
             color: var(--text3);
             margin-bottom: 4px;
         }
-        .comment-item .comment-header strong { color: white; }
+        .comment-item .comment-header strong { color: var(--text); }
 
         .comment-item p {
             color: var(--text2);
             font-size: 13px;
             line-height: 1.6;
         }
+
+        .comment-item .comment-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 6px;
+        }
+        .comment-item .comment-actions button {
+            background: none;
+            border: none;
+            color: var(--text3);
+            font-size: 12px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .comment-item .comment-actions button:hover { color: var(--red); }
 
         .comment-form {
             display: flex;
@@ -778,11 +877,12 @@
             background: var(--bg);
             border: 1px solid var(--border);
             border-radius: 8px;
-            color: white;
+            color: var(--text);
             font-size: 13px;
             resize: vertical;
             min-height: 50px;
             font-family: 'Inter', sans-serif;
+            transition: var(--transition);
         }
         .comment-form textarea:focus {
             outline: none;
@@ -832,6 +932,8 @@
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255,255,255,0.05);
             cursor: pointer;
+            min-width: 280px;
+            position: relative;
         }
 
         .toast-success { background: linear-gradient(135deg, rgba(0,212,170,0.95), rgba(0,184,148,0.95)); }
@@ -926,6 +1028,7 @@
             .modal-content { padding: 20px; margin: 8px; }
             .form-actions { flex-direction: column; }
             .toast-container { left: 16px; right: 16px; bottom: 16px; }
+            .toast { min-width: auto; }
         }
 
         @media (max-width: 480px) {
@@ -940,6 +1043,69 @@
             from { opacity: 0; transform: translateY(12px); }
             to { opacity: 1; transform: translateY(0); }
         }
+
+        /* Admin Panel */
+        .admin-panel {
+            background: var(--bg2);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .admin-panel h3 {
+            color: var(--text);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .admin-panel .admin-stats {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 16px;
+        }
+        .admin-panel .admin-stats div {
+            background: var(--bg);
+            padding: 8px 16px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+        .admin-panel .admin-stats div span {
+            font-weight: 700;
+            color: var(--red);
+        }
+
+        /* Notification Badge */
+        .notification-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--red);
+            border-radius: 50%;
+            display: inline-block;
+            margin-left: 4px;
+            animation: pulse 1.5s infinite;
+        }
+        @keyframes pulse {
+            0% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(0.8); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        /* Loading Spinner */
+        .spinner {
+            border: 3px solid var(--border);
+            border-top: 3px solid var(--red);
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 0.8s linear infinite;
+            margin: 20px auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
     </style>
 </head>
 <body>
@@ -950,7 +1116,7 @@
         <header class="header">
             <div class="logo" onclick="goHome()">
                 <i class="fas fa-gamepad"></i>
-                ScriptHub
+                ScriptHub <span style="font-size:12px;background:var(--red);color:white;padding:2px 8px;border-radius:4px;-webkit-text-fill-color:white;">PRO</span>
             </div>
             <nav class="nav" id="mainNav">
                 <button class="active" onclick="goHome()" id="navHome"><i class="fas fa-home"></i> Ana Sayfa</button>
@@ -958,8 +1124,11 @@
                 <button onclick="showProfile()" id="navProfile" class="hidden"><i class="fas fa-user"></i> Profil</button>
                 <button onclick="showFavorites()" id="navFavorites" class="hidden"><i class="fas fa-star"></i> Favoriler</button>
                 <button onclick="showLeaderboard()"><i class="fas fa-trophy"></i> Liderlik</button>
+                <button onclick="showAdminPanel()" id="navAdmin" class="hidden"><i class="fas fa-shield-alt"></i> Admin <span id="adminNotif" class="notification-dot hidden"></span></button>
 
                 <span style="width:1px;height:24px;background:var(--border);margin:0 4px;"></span>
+
+                <button class="theme-toggle" onclick="toggleTheme()" title="Tema değiştir"><i class="fas fa-moon"></i></button>
 
                 <div id="authButtons">
                     <button class="btn-outline-nav" onclick="showLogin()"><i class="fas fa-sign-in-alt"></i> Giriş</button>
@@ -980,7 +1149,7 @@
         <!-- ============ HERO ============ -->
         <div class="hero" id="heroSection">
             <div class="hero-content">
-                <h1>🎮 Roblox Script Hub</h1>
+                <h1>🎮 Roblox Script Hub Pro</h1>
                 <p>Binlerce Roblox scriptini keşfet, paylaş ve kullan. Topluluğun en iyi scriptleri tek platformda!</p>
                 <div class="hero-actions">
                     <button class="btn-primary" onclick="showUpload()"><i class="fas fa-rocket"></i> Script Paylaş</button>
@@ -1017,12 +1186,14 @@
                 <option value="newest">📅 En Yeni</option>
                 <option value="popular">🔥 En Popüler</option>
                 <option value="likes">❤️ En Çok Beğeni</option>
+                <option value="downloads">⬇️ En Çok İndirilen</option>
             </select>
         </div>
 
         <!-- ============ CONTENT ============ -->
         <div id="content">
             <div class="script-grid" id="scriptGrid"></div>
+            <div class="pagination" id="pagination"></div>
         </div>
 
         <!-- ============ FOOTER ============ -->
@@ -1033,7 +1204,7 @@
                 <a href="#"><i class="fab fa-twitter"></i></a>
                 <a href="#"><i class="fab fa-youtube"></i></a>
             </div>
-            <p>🎮 Roblox Script Hub</p>
+            <p>🎮 Roblox Script Hub Pro v2.0</p>
             <p class="disclaimer">⚠️ Sadece eğitim amaçlıdır. Roblox ToS'a uygun kullanın.</p>
         </footer>
     </div>
@@ -1047,28 +1218,36 @@
     <div class="toast-container" id="toastContainer"></div>
 
     <!-- ============================================================
-    JAVASCRIPT - HER ŞEY ÇALIŞIYOR!
+    JAVASCRIPT - TAM SÜRÜM
     ============================================================ -->
     <script>
         // ============================================================
         // DATABASE
         // ============================================================
         const DB = {
-            getUsers() { return JSON.parse(localStorage.getItem('rbx_final_users') || '[]'); },
-            saveUsers(u) { localStorage.setItem('rbx_final_users', JSON.stringify(u)); },
-            getScripts() { return JSON.parse(localStorage.getItem('rbx_final_scripts') || '[]'); },
-            saveScripts(s) { localStorage.setItem('rbx_final_scripts', JSON.stringify(s)); },
-            getComments() { return JSON.parse(localStorage.getItem('rbx_final_comments') || '[]'); },
-            saveComments(c) { localStorage.setItem('rbx_final_comments', JSON.stringify(c)); },
-            getFavorites() { return JSON.parse(localStorage.getItem('rbx_final_favorites') || '[]'); },
-            saveFavorites(f) { localStorage.setItem('rbx_final_favorites', JSON.stringify(f)); },
-            getLikes() { return JSON.parse(localStorage.getItem('rbx_final_likes') || '[]'); },
-            saveLikes(l) { localStorage.setItem('rbx_final_likes', JSON.stringify(l)); },
-            getCurrentUser() { return JSON.parse(localStorage.getItem('rbx_final_currentUser') || 'null'); },
-            setCurrentUser(u) { localStorage.setItem('rbx_final_currentUser', JSON.stringify(u)); },
-            logout() { localStorage.removeItem('rbx_final_currentUser'); },
-            getReports() { return JSON.parse(localStorage.getItem('rbx_final_reports') || '[]'); },
-            saveReports(r) { localStorage.setItem('rbx_final_reports', JSON.stringify(r)); }
+            getUsers() { return JSON.parse(localStorage.getItem('rbx_pro_users') || '[]'); },
+            saveUsers(u) { localStorage.setItem('rbx_pro_users', JSON.stringify(u)); },
+            getScripts() { return JSON.parse(localStorage.getItem('rbx_pro_scripts') || '[]'); },
+            saveScripts(s) { localStorage.setItem('rbx_pro_scripts', JSON.stringify(s)); },
+            getComments() { return JSON.parse(localStorage.getItem('rbx_pro_comments') || '[]'); },
+            saveComments(c) { localStorage.setItem('rbx_pro_comments', JSON.stringify(c)); },
+            getFavorites() { return JSON.parse(localStorage.getItem('rbx_pro_favorites') || '[]'); },
+            saveFavorites(f) { localStorage.setItem('rbx_pro_favorites', JSON.stringify(f)); },
+            getLikes() { return JSON.parse(localStorage.getItem('rbx_pro_likes') || '[]'); },
+            saveLikes(l) { localStorage.setItem('rbx_pro_likes', JSON.stringify(l)); },
+            getReports() { return JSON.parse(localStorage.getItem('rbx_pro_reports') || '[]'); },
+            saveReports(r) { localStorage.setItem('rbx_pro_reports', JSON.stringify(r)); },
+            getCommentLikes() { return JSON.parse(localStorage.getItem('rbx_pro_comment_likes') || '[]'); },
+            saveCommentLikes(cl) { localStorage.setItem('rbx_pro_comment_likes', JSON.stringify(cl)); },
+            getViewed() { return JSON.parse(localStorage.getItem('rbx_pro_viewed') || '[]'); },
+            saveViewed(v) { localStorage.setItem('rbx_pro_viewed', JSON.stringify(v)); },
+            getCurrentUser() { return JSON.parse(localStorage.getItem('rbx_pro_currentUser') || 'null'); },
+            setCurrentUser(u) { localStorage.setItem('rbx_pro_currentUser', JSON.stringify(u)); },
+            logout() { localStorage.removeItem('rbx_pro_currentUser'); },
+            getNotifications() { return JSON.parse(localStorage.getItem('rbx_pro_notifications') || '[]'); },
+            saveNotifications(n) { localStorage.setItem('rbx_pro_notifications', JSON.stringify(n)); },
+            getTheme() { return localStorage.getItem('rbx_pro_theme') || 'dark'; },
+            setTheme(t) { localStorage.setItem('rbx_pro_theme', t); }
         };
 
         // ============================================================
@@ -1093,6 +1272,8 @@
 
         function getCurrentUser() { return DB.getCurrentUser(); }
         function isLoggedIn() { return getCurrentUser() !== null; }
+        function isAdmin() { const u = getCurrentUser(); return u && (u.rank === 'admin' || u.rank === 'mod'); }
+        function isMod() { const u = getCurrentUser(); return u && (u.rank === 'admin' || u.rank === 'mod'); }
 
         function escapeHtml(text) {
             if (!text) return '';
@@ -1104,13 +1285,33 @@
         function isNew(dateStr) { return (new Date() - new Date(dateStr)) < 86400000; }
 
         function getRankBadge(rank) {
-            const map = { 'admin': 'rank-badge admin', 'vip': 'rank-badge vip', 'legend': 'rank-badge legend' };
+            const map = { 'admin': 'admin', 'mod': 'mod', 'vip': 'vip', 'legend': 'legend' };
             return map[rank] || '';
         }
 
         function getRankText(rank) {
-            const map = { 'admin': 'Admin', 'vip': 'VIP', 'legend': 'Efsane' };
+            const map = { 'admin': 'Admin', 'mod': 'Mod', 'vip': 'VIP', 'legend': 'Efsane' };
             return map[rank] || '';
+        }
+
+        function generateId() { return Date.now() + Math.floor(Math.random() * 1000); }
+
+        // ============================================================
+        // THEME
+        // ============================================================
+        function toggleTheme() {
+            const current = DB.getTheme();
+            const next = current === 'dark' ? 'light' : 'dark';
+            DB.setTheme(next);
+            document.documentElement.setAttribute('data-theme', next === 'dark' ? '' : 'light');
+            document.querySelector('.theme-toggle i').className = next === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
+            showToast('Tema değiştirildi: ' + (next === 'dark' ? 'Karanlık' : 'Aydınlık'), 'info', 'Tema');
+        }
+
+        function initTheme() {
+            const theme = DB.getTheme();
+            document.documentElement.setAttribute('data-theme', theme === 'dark' ? '' : 'light');
+            document.querySelector('.theme-toggle i').className = theme === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
         }
 
         // ============================================================
@@ -1159,10 +1360,16 @@
         function initData() {
             let users = DB.getUsers();
             if (users.length === 0) {
-                users.push({ id: 1, username: 'admin', password: 'admin123', email: 'admin@roblox.com', rank: 'admin',
-                    created: new Date().toISOString() });
-                users.push({ id: 2, username: 'scriptmaster', password: '123456', email: 'master@roblox.com', rank: 'vip',
-                    created: new Date().toISOString() });
+                users = [
+                    { id: 1, username: 'admin', password: 'admin123', email: 'admin@roblox.com', rank: 'admin',
+                        created: new Date().toISOString() },
+                    { id: 2, username: 'scriptmaster', password: '123456', email: 'master@roblox.com', rank: 'vip',
+                        created: new Date().toISOString() },
+                    { id: 3, username: 'moderator', password: 'mod123', email: 'mod@roblox.com', rank: 'mod',
+                        created: new Date().toISOString() },
+                    { id: 4, username: 'legend_user', password: 'legend123', email: 'legend@roblox.com', rank: 'legend',
+                        created: new Date().toISOString() }
+                ];
                 DB.saveUsers(users);
             }
 
@@ -1182,7 +1389,10 @@
                     userId: 1,
                     username: 'admin',
                     created: new Date().toISOString(),
-                    featured: true
+                    updated: new Date().toISOString(),
+                    featured: true,
+                    approved: true,
+                    pending: false
                 }, {
                     id: 2,
                     title: '🤖 Auto Clicker Pro',
@@ -1197,7 +1407,10 @@
                     userId: 1,
                     username: 'admin',
                     created: new Date(Date.now() - 86400000).toISOString(),
-                    featured: false
+                    updated: new Date(Date.now() - 86400000).toISOString(),
+                    featured: false,
+                    approved: true,
+                    pending: false
                 }, {
                     id: 3,
                     title: '🎯 Aimbot Ultra',
@@ -1212,7 +1425,10 @@
                     userId: 2,
                     username: 'scriptmaster',
                     created: new Date(Date.now() - 172800000).toISOString(),
-                    featured: false
+                    updated: new Date(Date.now() - 172800000).toISOString(),
+                    featured: false,
+                    approved: true,
+                    pending: false
                 }, {
                     id: 4,
                     title: '🦅 Fly Mode v2',
@@ -1227,7 +1443,10 @@
                     userId: 2,
                     username: 'scriptmaster',
                     created: new Date(Date.now() - 259200000).toISOString(),
-                    featured: false
+                    updated: new Date(Date.now() - 259200000).toISOString(),
+                    featured: false,
+                    approved: true,
+                    pending: false
                 }, {
                     id: 5,
                     title: '💨 Speed Hack Ultra',
@@ -1242,13 +1461,48 @@
                     userId: 2,
                     username: 'scriptmaster',
                     created: new Date(Date.now() - 345600000).toISOString(),
-                    featured: false
+                    updated: new Date(Date.now() - 345600000).toISOString(),
+                    featured: false,
+                    approved: true,
+                    pending: false
+                }, {
+                    id: 6,
+                    title: '🖥️ GUI Menu v3',
+                    content: '-- GUI Menu v3\n-- Kullanıcı arayüzü\n\nlocal screenGui = Instance.new("ScreenGui")\nlocal mainFrame = Instance.new("Frame")\nmainFrame.Size = UDim2.new(0, 300, 0, 400)\nmainFrame.Position = UDim2.new(0.5, -150, 0.5, -200)\nmainFrame.BackgroundColor3 = Color3.new(0.1, 0.1, 0.2)\nmainFrame.Parent = screenGui\nscreenGui.Parent = game.Players.LocalPlayer.PlayerGui',
+                    language: 'Lua',
+                    category: 'GUI',
+                    version: 'v3.0',
+                    tags: ['gui', 'ui'],
+                    links: [],
+                    downloads: 98,
+                    likes: 15,
+                    userId: 3,
+                    username: 'moderator',
+                    created: new Date(Date.now() - 432000000).toISOString(),
+                    updated: new Date(Date.now() - 432000000).toISOString(),
+                    featured: false,
+                    approved: true,
+                    pending: false
                 }];
                 sample.forEach(s => { scripts.push(s); });
                 DB.saveScripts(scripts);
             }
 
+            // Ensure all scripts have approved and pending fields
+            let allScripts = DB.getScripts();
+            let changed = false;
+            allScripts.forEach(s => {
+                if (s.approved === undefined) { s.approved = true;
+                    changed = true; }
+                if (s.pending === undefined) { s.pending = false;
+                    changed = true; }
+                if (s.updated === undefined) { s.updated = s.created;
+                    changed = true; }
+            });
+            if (changed) DB.saveScripts(allScripts);
+
             updateStats();
+            updateAdminNotif();
         }
 
         // ============================================================
@@ -1272,17 +1526,24 @@
                 document.getElementById('navUpload').classList.remove('hidden');
                 document.getElementById('navProfile').classList.remove('hidden');
                 document.getElementById('navFavorites').classList.remove('hidden');
+
+                if (isAdmin()) {
+                    document.getElementById('navAdmin').classList.remove('hidden');
+                } else {
+                    document.getElementById('navAdmin').classList.add('hidden');
+                }
             } else {
                 authBtns.classList.remove('hidden');
                 userBadge.classList.add('hidden');
                 document.getElementById('navUpload').classList.add('hidden');
                 document.getElementById('navProfile').classList.add('hidden');
                 document.getElementById('navFavorites').classList.add('hidden');
+                document.getElementById('navAdmin').classList.add('hidden');
             }
         }
 
         function updateStats() {
-            const scripts = DB.getScripts();
+            const scripts = DB.getScripts().filter(s => s.approved !== false);
             const users = DB.getUsers();
             const likes = DB.getLikes();
             const favs = DB.getFavorites();
@@ -1292,15 +1553,28 @@
             document.getElementById('statFavorites').textContent = favs.length;
         }
 
+        function updateAdminNotif() {
+            const reports = DB.getReports();
+            const pending = DB.getScripts().filter(s => s.pending === true);
+            const dot = document.getElementById('adminNotif');
+            if (reports.length > 0 || pending.length > 0) {
+                dot.classList.remove('hidden');
+            } else {
+                dot.classList.add('hidden');
+            }
+        }
+
         // ============================================================
         // RENDER SCRIPTS
         // ============================================================
         let currentFilter = 'all';
         let currentSearch = '';
         let currentSort = 'newest';
+        let currentPage = 1;
+        const PER_PAGE = 6;
 
         function getFilteredAndSorted() {
-            let scripts = DB.getScripts();
+            let scripts = DB.getScripts().filter(s => s.approved !== false);
 
             if (currentFilter !== 'all') {
                 scripts = scripts.filter(s => s.category === currentFilter);
@@ -1322,23 +1596,36 @@
                     scripts.sort((a, b) => new Date(b.created) - new Date(a.created));
                     break;
                 case 'popular':
-                    scripts.sort((a, b) => (b.downloads || 0) - (a.downloads || 0));
+                    scripts.sort((a, b) => (b.downloads || 0) - (a.downloads || 0) || a.id - b.id);
                     break;
                 case 'likes':
-                    scripts.sort((a, b) => (b.likes || 0) - (a.likes || 0));
+                    scripts.sort((a, b) => (b.likes || 0) - (a.likes || 0) || a.id - b.id);
                     break;
+                case 'downloads':
+                    scripts.sort((a, b) => (b.downloads || 0) - (a.downloads || 0) || a.id - b.id);
+                    break;
+                default:
+                    scripts.sort((a, b) => new Date(b.created) - new Date(a.created));
             }
 
             return scripts;
         }
 
         function renderScripts() {
-            const scripts = getFilteredAndSorted();
+            const allScripts = getFilteredAndSorted();
+            const totalPages = Math.ceil(allScripts.length / PER_PAGE);
+            if (currentPage > totalPages) currentPage = Math.max(1, totalPages);
+
+            const start = (currentPage - 1) * PER_PAGE;
+            const end = start + PER_PAGE;
+            const scripts = allScripts.slice(start, end);
+
             const grid = document.getElementById('scriptGrid');
 
             if (scripts.length === 0) {
                 grid.innerHTML =
                     `<div class="empty-state"><span class="emoji">🔍</span><h3>Hiç script bulunamadı</h3><p>${currentSearch ? 'Arama kriterlerine uygun script yok.' : 'Henüz bu kategoride script yok.'}</p><button class="btn-view" onclick="showUpload()"><i class="fas fa-upload"></i> İlk Scripti Paylaş</button></div>`;
+                document.getElementById('pagination').innerHTML = '';
                 return;
             }
 
@@ -1353,6 +1640,7 @@
                 const isOwner = user && s.userId === user.id;
                 const preview = s.content.substring(0, 180) + (s.content.length > 180 ? '...' : '');
                 const tags = s.tags || [];
+                const isPending = s.pending === true;
 
                 html += `
                     <div class="script-card fade-in">
@@ -1365,11 +1653,13 @@
                                 ${s.downloads > 100 ? '<span class="badge badge-popular">🔥 Popüler</span>' : ''}
                                 ${isNew(s.created) ? '<span class="badge badge-new">✨ Yeni</span>' : ''}
                                 ${s.version ? `<span class="badge badge-version">${s.version}</span>` : ''}
+                                ${isPending ? '<span class="badge badge-pending">⏳ Onay Bekliyor</span>' : ''}
                             </div>
                         </div>
                         <div class="meta">
                             <span><i class="fas fa-user"></i> ${s.username}</span>
                             <span><i class="fas fa-clock"></i> ${formatDate(s.created)}</span>
+                            ${s.updated && s.updated !== s.created ? `<span><i class="fas fa-edit"></i> ${formatDate(s.updated)}</span>` : ''}
                             <span><i class="fas fa-eye"></i> ${s.downloads || 0}</span>
                             <span class="likes"><i class="fas fa-heart"></i> ${s.likes || 0}</span>
                         </div>
@@ -1381,15 +1671,40 @@
                             <button class="btn-download" onclick="downloadScript(${s.id})"><i class="fas fa-download"></i></button>
                             <button class="btn-fav ${isFav ? 'active' : ''}" onclick="toggleFavorite(${s.id})"><i class="fas ${isFav ? 'fa-star' : 'fa-star-o'}"></i></button>
                             <button class="btn-like ${isLiked ? 'active' : ''}" onclick="toggleLike(${s.id})"><i class="fas ${isLiked ? 'fa-heart' : 'fa-heart-o'}"></i></button>
-                            ${isOwner ? `<button class="btn-edit" onclick="editScript(${s.id})"><i class="fas fa-edit"></i></button>` : ''}
-                            ${isOwner ? `<button class="btn-delete" onclick="deleteScript(${s.id})"><i class="fas fa-trash"></i></button>` : ''}
+                            ${isOwner || isAdmin() ? `<button class="btn-edit" onclick="editScript(${s.id})"><i class="fas fa-edit"></i></button>` : ''}
+                            ${isOwner || isAdmin() ? `<button class="btn-delete" onclick="deleteScript(${s.id})"><i class="fas fa-trash"></i></button>` : ''}
                             ${s.links && s.links.length > 0 ? `<button class="btn-link" onclick="window.open('${s.links[0]}','_blank')"><i class="fas fa-link"></i></button>` : ''}
                             <button class="btn-report" onclick="reportScript(${s.id})"><i class="fas fa-flag"></i></button>
+                            ${isAdmin() && isPending ? `<button class="btn-approve" onclick="approveScript(${s.id})"><i class="fas fa-check"></i></button>` : ''}
                         </div>
                     </div>
                 `;
             });
             grid.innerHTML = html;
+
+            // Pagination
+            const pagination = document.getElementById('pagination');
+            if (totalPages > 1) {
+                let phtml = `<button onclick="goToPage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>‹</button>`;
+                for (let i = 1; i <= totalPages; i++) {
+                    phtml +=
+                        `<button class="${i === currentPage ? 'active' : ''}" onclick="goToPage(${i})">${i}</button>`;
+                }
+                phtml +=
+                    `<button onclick="goToPage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}>›</button>`;
+                pagination.innerHTML = phtml;
+            } else {
+                pagination.innerHTML = '';
+            }
+        }
+
+        function goToPage(page) {
+            const allScripts = getFilteredAndSorted();
+            const totalPages = Math.ceil(allScripts.length / PER_PAGE);
+            if (page < 1 || page > totalPages) return;
+            currentPage = page;
+            renderScripts();
+            window.scrollTo({ top: document.getElementById('content').offsetTop - 100, behavior: 'smooth' });
         }
 
         // ============================================================
@@ -1399,24 +1714,26 @@
             document.getElementById('heroSection').style.display = 'block';
             currentFilter = 'all';
             currentSearch = '';
+            currentPage = 1;
             document.getElementById('searchInput').value = '';
             document.querySelectorAll('.filter-btn').forEach(b => b.classList.toggle('active', b.dataset.filter === 'all'));
             renderScripts();
             closeModal();
             updateStats();
-            // Aktif butonu güncelle
             document.querySelectorAll('.nav button').forEach(b => b.classList.remove('active'));
             document.getElementById('navHome').classList.add('active');
         }
 
         function filterScripts(category) {
             currentFilter = category;
+            currentPage = 1;
             document.querySelectorAll('.filter-btn').forEach(b => b.classList.toggle('active', b.dataset.filter === category));
             renderScripts();
         }
 
         function searchScripts(query) {
             currentSearch = query.toLowerCase().trim();
+            currentPage = 1;
             document.getElementById('clearSearch').style.display = currentSearch ? 'inline' : 'none';
             renderScripts();
         }
@@ -1428,6 +1745,7 @@
 
         function sortScripts(sort) {
             currentSort = sort;
+            currentPage = 1;
             renderScripts();
         }
 
@@ -1439,19 +1757,39 @@
             const s = scripts.find(s => s.id === id);
             if (!s) { showToast('Script bulunamadı!', 'error'); return; }
 
+            // Track view
+            let viewed = DB.getViewed();
+            if (!viewed.includes(id)) {
+                viewed.push(id);
+                DB.saveViewed(viewed);
+            }
+
             const comments = DB.getComments().filter(c => c.scriptId === id);
+            const commentLikes = DB.getCommentLikes();
             const user = getCurrentUser();
             const favorites = DB.getFavorites();
             const likes = DB.getLikes();
             const isFav = favorites.includes(id);
             const isLiked = likes.includes(id);
             const isOwner = user && s.userId === user.id;
+            const isPending = s.pending === true;
 
             let commentHTML = comments.length === 0 ?
                 '<p style="color:var(--text3);">Henüz yorum yok.</p>' :
-                comments.map(c =>
-                    `<div class="comment-item"><div class="comment-header"><strong>${c.username}</strong> <span>${formatDate(c.created)}</span></div><p>${escapeHtml(c.content)}</p></div>`
-                ).join('');
+                comments.map(c => {
+                    const liked = commentLikes.includes(c.id);
+                    return `<div class="comment-item">
+                        <div class="comment-header">
+                            <strong>${c.username}</strong>
+                            <span>${formatDate(c.created)}</span>
+                        </div>
+                        <p>${escapeHtml(c.content)}</p>
+                        <div class="comment-actions">
+                            <button onclick="likeComment(${c.id})"><i class="fas ${liked ? 'fa-heart' : 'fa-heart-o'}"></i> ${liked ? 'Beğendin' : 'Beğen'}</button>
+                            ${user && c.userId === user.id ? `<button onclick="deleteComment(${c.id})" style="color:var(--red);"><i class="fas fa-trash"></i></button>` : ''}
+                        </div>
+                    </div>`;
+                }).join('');
 
             document.getElementById('heroSection').style.display = 'none';
             document.querySelectorAll('.nav button').forEach(b => b.classList.remove('active'));
@@ -1460,17 +1798,19 @@
                 <div class="detail-view fade-in">
                     <div style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:24px;">
                         <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:10px;">
-                            <h2 style="font-size:22px;font-weight:800;">${s.title}</h2>
+                            <h2 style="font-size:22px;font-weight:800;color:var(--text);">${s.title}</h2>
                             <div style="display:flex;gap:6px;flex-wrap:wrap;">
                                 <span class="badge badge-lua">Lua</span>
                                 <span class="badge ${getCategoryBadge(s.category)}">${s.category || 'Diğer'}</span>
                                 ${s.featured ? '<span class="badge badge-featured">⭐ Öne Çıkan</span>' : ''}
                                 ${s.version ? `<span class="badge badge-version">${s.version}</span>` : ''}
+                                ${isPending ? '<span class="badge badge-pending">⏳ Onay Bekliyor</span>' : ''}
                             </div>
                         </div>
                         <div class="detail-meta">
                             <span><i class="fas fa-user"></i> ${s.username}</span>
                             <span><i class="fas fa-clock"></i> ${formatDate(s.created)}</span>
+                            ${s.updated && s.updated !== s.created ? `<span><i class="fas fa-edit"></i> Güncellendi: ${formatDate(s.updated)}</span>` : ''}
                             <span><i class="fas fa-eye"></i> ${s.downloads || 0}</span>
                             <span><i class="fas fa-heart" style="color:var(--red);"></i> ${s.likes || 0}</span>
                             <span><i class="fas fa-star"></i> ${isFav ? 'Favorilerde' : 'Favori değil'}</span>
@@ -1489,9 +1829,11 @@
                             <button class="btn-fav ${isFav ? 'active' : ''}" onclick="toggleFavorite(${s.id})"><i class="fas ${isFav ? 'fa-star' : 'fa-star-o'}"></i> ${isFav ? 'Çıkar' : 'Ekle'}</button>
                             <button class="btn-like ${isLiked ? 'active' : ''}" onclick="toggleLike(${s.id})"><i class="fas ${isLiked ? 'fa-heart' : 'fa-heart-o'}"></i> ${isLiked ? 'Beğenme' : 'Beğen'}</button>
                             <button class="btn-back" onclick="goHome()"><i class="fas fa-arrow-left"></i> Ana Sayfa</button>
-                            ${isOwner ? `<button class="btn-edit" onclick="editScript(${s.id})"><i class="fas fa-edit"></i> Düzenle</button>` : ''}
-                            ${isOwner ? `<button class="btn-delete" onclick="deleteScript(${s.id})"><i class="fas fa-trash"></i> Sil</button>` : ''}
+                            ${isOwner || isAdmin() ? `<button class="btn-edit" onclick="editScript(${s.id})"><i class="fas fa-edit"></i> Düzenle</button>` : ''}
+                            ${isOwner || isAdmin() ? `<button class="btn-delete" onclick="deleteScript(${s.id})"><i class="fas fa-trash"></i> Sil</button>` : ''}
                             <button class="btn-report" onclick="reportScript(${s.id})"><i class="fas fa-flag"></i> Raporla</button>
+                            ${isAdmin() && isPending ? `<button class="btn-approve" onclick="approveScript(${s.id})"><i class="fas fa-check"></i> Onayla</button>` : ''}
+                            ${isAdmin() && !isPending ? `<button class="btn-admin" onclick="featureScript(${s.id})"><i class="fas fa-star"></i> ${s.featured ? 'Öne Çıkarmayı Kaldır' : 'Öne Çıkar'}</button>` : ''}
                         </div>
                     </div>
 
@@ -1523,7 +1865,7 @@
                 <div class="fade-in" style="max-width:600px;margin:0 auto;">
                     <div style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:28px;">
                         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
-                            <h2 style="font-size:22px;font-weight:800;"><i class="fas fa-upload" style="color:var(--red);"></i> Script Yükle</h2>
+                            <h2 style="font-size:22px;font-weight:800;color:var(--text);"><i class="fas fa-upload" style="color:var(--red);"></i> Script Yükle</h2>
                             <button class="btn-back" onclick="goHome()"><i class="fas fa-arrow-left"></i> Ana Sayfa</button>
                         </div>
                         <p style="color:var(--text2);margin-bottom:20px;">Scriptini paylaş ve topluluğa katkıda bulun! 🚀</p>
@@ -1566,6 +1908,7 @@
                                 <button type="button" class="btn-cancel-modal" onclick="goHome()">İptal</button>
                             </div>
                         </form>
+                        <p style="color:var(--text3);font-size:12px;margin-top:12px;">⚠️ Scriptler admin onayından sonra yayınlanır.</p>
                     </div>
                 </div>
             `;
@@ -1600,12 +1943,203 @@
                 userId: user.id,
                 username: user.username,
                 created: new Date().toISOString(),
-                featured: false
+                updated: new Date().toISOString(),
+                featured: false,
+                approved: false,
+                pending: true
             });
             DB.saveScripts(scripts);
-            showToast('🎮 Script başarıyla yüklendi!', 'success', 'Harika!');
+            showToast('🎮 Script başarıyla yüklendi! Admin onayı bekleniyor.', 'success', 'Harika!');
             updateStats();
+            updateAdminNotif();
             goHome();
+        }
+
+        // ============================================================
+        // ADMIN FUNCTIONS
+        // ============================================================
+        function approveScript(id) {
+            const scripts = DB.getScripts();
+            const s = scripts.find(s => s.id === id);
+            if (s) {
+                s.approved = true;
+                s.pending = false;
+                s.updated = new Date().toISOString();
+                DB.saveScripts(scripts);
+                updateAdminNotif();
+                showToast('✅ Script onaylandı!', 'success', 'Admin İşlemi');
+                // Refresh current view
+                if (document.querySelector('.detail-view')) {
+                    showDetail(id);
+                } else {
+                    renderScripts();
+                }
+            }
+        }
+
+        function featureScript(id) {
+            const scripts = DB.getScripts();
+            const s = scripts.find(s => s.id === id);
+            if (s) {
+                s.featured = !s.featured;
+                s.updated = new Date().toISOString();
+                DB.saveScripts(scripts);
+                showToast(s.featured ? '⭐ Script öne çıkarıldı!' : '⭐ Öne çıkarma kaldırıldı.', 'success', 'Admin İşlemi');
+                if (document.querySelector('.detail-view')) {
+                    showDetail(id);
+                } else {
+                    renderScripts();
+                }
+            }
+        }
+
+        function showAdminPanel() {
+            if (!isAdmin()) { showToast('Bu sayfaya erişim yetkin yok!', 'error'); return; }
+
+            const reports = DB.getReports();
+            const pendingScripts = DB.getScripts().filter(s => s.pending === true);
+            const allUsers = DB.getUsers();
+            const allScripts = DB.getScripts();
+
+            document.getElementById('heroSection').style.display = 'none';
+            document.querySelectorAll('.nav button').forEach(b => b.classList.remove('active'));
+
+            let pendingHTML = pendingScripts.length === 0 ?
+                '<p style="color:var(--text3);">Onay bekleyen script yok.</p>' :
+                pendingScripts.map(s => `
+                    <div style="background:var(--bg);padding:12px 16px;border-radius:8px;margin-bottom:8px;border:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
+                        <div><strong>${s.title}</strong> <span style="color:var(--text3);font-size:12px;">${s.username}</span></div>
+                        <div style="display:flex;gap:6px;">
+                            <button class="btn-approve" onclick="approveScript(${s.id})"><i class="fas fa-check"></i> Onayla</button>
+                            <button class="btn-delete" onclick="deleteScript(${s.id})"><i class="fas fa-trash"></i> Sil</button>
+                            <button class="btn-view" onclick="showDetail(${s.id})"><i class="fas fa-eye"></i> Gör</button>
+                        </div>
+                    </div>
+                `).join('');
+
+            let reportsHTML = reports.length === 0 ?
+                '<p style="color:var(--text3);">Bildirim yok.</p>' :
+                reports.map(id => {
+                    const s = allScripts.find(sc => sc.id === id);
+                    return s ? `
+                        <div style="background:var(--bg);padding:12px 16px;border-radius:8px;margin-bottom:8px;border:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
+                            <div><strong>${s.title}</strong> <span style="color:var(--text3);font-size:12px;">${s.username}</span></div>
+                            <div style="display:flex;gap:6px;">
+                                <button class="btn-view" onclick="showDetail(${s.id})"><i class="fas fa-eye"></i> İncele</button>
+                                <button class="btn-delete" onclick="resolveReport(${id})"><i class="fas fa-check"></i> Çözüldü</button>
+                            </div>
+                        </div>
+                    ` : '';
+                }).join('');
+
+            document.getElementById('content').innerHTML = `
+                <div class="fade-in">
+                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:10px;">
+                        <h2 style="font-size:22px;font-weight:800;color:var(--text);"><i class="fas fa-shield-alt" style="color:var(--red);"></i> Admin Paneli</h2>
+                        <button class="btn-back" onclick="goHome()"><i class="fas fa-arrow-left"></i> Ana Sayfa</button>
+                    </div>
+
+                    <div class="admin-panel">
+                        <h3><i class="fas fa-chart-bar" style="color:var(--blue);"></i> İstatistikler</h3>
+                        <div class="admin-stats">
+                            <div>📜 Toplam Script: <span>${allScripts.length}</span></div>
+                            <div>⏳ Onay Bekleyen: <span>${pendingScripts.length}</span></div>
+                            <div>👥 Toplam Kullanıcı: <span>${allUsers.length}</span></div>
+                            <div>🚩 Bildirimler: <span>${reports.length}</span></div>
+                        </div>
+                    </div>
+
+                    <div class="admin-panel">
+                        <h3><i class="fas fa-clock" style="color:var(--yellow);"></i> Onay Bekleyen Scriptler</h3>
+                        ${pendingHTML}
+                    </div>
+
+                    <div class="admin-panel">
+                        <h3><i class="fas fa-flag" style="color:var(--red);"></i> Bildirimler (${reports.length})</h3>
+                        ${reportsHTML}
+                    </div>
+
+                    <div class="admin-panel">
+                        <h3><i class="fas fa-database" style="color:var(--green);"></i> Veri Yönetimi</h3>
+                        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                            <button class="btn-download" onclick="backupData()"><i class="fas fa-download"></i> Yedek Al</button>
+                            <button class="btn-view" onclick="restoreData()"><i class="fas fa-upload"></i> Yedek Yükle</button>
+                            <button class="btn-delete" onclick="clearAllData()"><i class="fas fa-trash"></i> Tüm Verileri Temizle</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            closeModal();
+        }
+
+        function resolveReport(id) {
+            let reports = DB.getReports();
+            reports = reports.filter(r => r !== id);
+            DB.saveReports(reports);
+            updateAdminNotif();
+            showToast('📋 Bildirim çözüldü.', 'success', 'Admin');
+            showAdminPanel();
+        }
+
+        function backupData() {
+            const data = {
+                users: DB.getUsers(),
+                scripts: DB.getScripts(),
+                comments: DB.getComments(),
+                favorites: DB.getFavorites(),
+                likes: DB.getLikes(),
+                reports: DB.getReports(),
+                commentLikes: DB.getCommentLikes(),
+                viewed: DB.getViewed()
+            };
+            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `roblox_script_hub_backup_${new Date().toISOString().slice(0,10)}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+            showToast('💾 Yedek başarıyla alındı!', 'success', 'Yedekleme');
+        }
+
+        function restoreData() {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = '.json';
+            input.onchange = function(e) {
+                const file = e.target.files[0];
+                if (!file) return;
+                const reader = new FileReader();
+                reader.onload = function(ev) {
+                    try {
+                        const data = JSON.parse(ev.target.result);
+                        if (data.users) DB.saveUsers(data.users);
+                        if (data.scripts) DB.saveScripts(data.scripts);
+                        if (data.comments) DB.saveComments(data.comments);
+                        if (data.favorites) DB.saveFavorites(data.favorites);
+                        if (data.likes) DB.saveLikes(data.likes);
+                        if (data.reports) DB.saveReports(data.reports);
+                        if (data.commentLikes) DB.saveCommentLikes(data.commentLikes);
+                        if (data.viewed) DB.saveViewed(data.viewed);
+                        showToast('✅ Yedek başarıyla yüklendi!', 'success', 'Geri Yükleme');
+                        updateStats();
+                        updateAdminNotif();
+                        goHome();
+                    } catch (err) {
+                        showToast('❌ Geçersiz dosya!', 'error', 'Hata');
+                    }
+                };
+                reader.readAsText(file);
+            };
+            input.click();
+        }
+
+        function clearAllData() {
+            if (!confirm('TÜM veriler silinecek! Emin misiniz?')) return;
+            if (!confirm('GERÇEKTEN emin misiniz? Bu işlem geri alınamaz!')) return;
+            localStorage.clear();
+            showToast('🗑️ Tüm veriler temizlendi! Sayfa yenileniyor...', 'warning', 'Uyarı');
+            setTimeout(() => location.reload(), 1500);
         }
 
         // ============================================================
@@ -1615,6 +2149,10 @@
             const scripts = DB.getScripts();
             const s = scripts.find(s => s.id === id);
             if (!s) { showToast('Script bulunamadı!', 'error'); return; }
+            if (!isAdmin() && !(getCurrentUser() && s.userId === getCurrentUser().id)) {
+                showToast('Bu scripti düzenleme yetkin yok!', 'error');
+                return;
+            }
 
             document.getElementById('heroSection').style.display = 'none';
             document.querySelectorAll('.nav button').forEach(b => b.classList.remove('active'));
@@ -1623,10 +2161,9 @@
                 <div class="fade-in" style="max-width:600px;margin:0 auto;">
                     <div style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:28px;">
                         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
-                            <h2 style="font-size:22px;font-weight:800;"><i class="fas fa-edit" style="color:var(--blue);"></i> Script Düzenle</h2>
+                            <h2 style="font-size:22px;font-weight:800;color:var(--text);"><i class="fas fa-edit" style="color:var(--blue);"></i> Script Düzenle</h2>
                             <button class="btn-back" onclick="goHome()"><i class="fas fa-arrow-left"></i> Ana Sayfa</button>
                         </div>
-                        <p style="color:var(--text2);margin-bottom:20px;">Scriptini güncelle! 🔧</p>
                         <form onsubmit="updateScript(${id});return false;">
                             <div class="form-group">
                                 <label><i class="fas fa-heading"></i> Başlık *</label>
@@ -1661,6 +2198,15 @@
                                 <label><i class="fas fa-code-branch"></i> Versiyon</label>
                                 <input type="text" id="editScriptVersion" value="${s.version || 'v1.0'}">
                             </div>
+                            ${isAdmin() ? `
+                                <div class="form-group">
+                                    <label><i class="fas fa-check"></i> Durum</label>
+                                    <select id="editScriptStatus">
+                                        <option value="approved" ${s.approved ? 'selected' : ''}>✅ Onaylı</option>
+                                        <option value="pending" ${s.pending ? 'selected' : ''}>⏳ Beklemede</option>
+                                    </select>
+                                </div>
+                            ` : ''}
                             <div class="form-actions">
                                 <button type="submit" class="btn-submit"><i class="fas fa-save"></i> Güncelle</button>
                                 <button type="button" class="btn-cancel-modal" onclick="showDetail(${id})">İptal</button>
@@ -1691,8 +2237,19 @@
                 s.tags = tags;
                 s.links = link ? [link] : [];
                 s.version = version || 'v1.0';
+                s.updated = new Date().toISOString();
+
+                if (isAdmin()) {
+                    const status = document.getElementById('editScriptStatus').value;
+                    if (status === 'approved') { s.approved = true;
+                        s.pending = false; }
+                    if (status === 'pending') { s.approved = false;
+                        s.pending = true; }
+                }
+
                 DB.saveScripts(scripts);
                 showToast('✅ Script güncellendi!', 'success', 'Başarılı');
+                updateAdminNotif();
                 showDetail(id);
             }
         }
@@ -1707,6 +2264,10 @@
             const scripts = DB.getScripts().filter(s => s.userId === user.id);
             const comments = DB.getComments().filter(c => c.userId === user.id);
             const favorites = DB.getFavorites();
+
+            // Stats
+            const totalDownloads = scripts.reduce((sum, s) => sum + (s.downloads || 0), 0);
+            const totalLikes = scripts.reduce((sum, s) => sum + (s.likes || 0), 0);
 
             document.getElementById('heroSection').style.display = 'none';
             document.querySelectorAll('.nav button').forEach(b => b.classList.remove('active'));
@@ -1728,25 +2289,27 @@
             document.getElementById('content').innerHTML = `
                 <div class="fade-in">
                     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:10px;">
-                        <h2 style="font-size:22px;font-weight:800;"><i class="fas fa-user" style="color:var(--red);"></i> Profil</h2>
+                        <h2 style="font-size:22px;font-weight:800;color:var(--text);"><i class="fas fa-user" style="color:var(--red);"></i> Profil</h2>
                         <button class="btn-back" onclick="goHome()"><i class="fas fa-arrow-left"></i> Ana Sayfa</button>
                     </div>
                     <div style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:24px;margin-bottom:20px;">
                         <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
                             <div style="width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,var(--red),var(--purple));display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:700;color:white;">${user.username.charAt(0).toUpperCase()}</div>
                             <div>
-                                <h2 style="font-size:22px;font-weight:800;">${user.username}</h2>
+                                <h2 style="font-size:22px;font-weight:800;color:var(--text);">${user.username}</h2>
                                 <p style="color:var(--text2);"><i class="fas fa-envelope"></i> ${user.email || 'Email girilmemiş'}</p>
                                 <p style="color:var(--text3);font-size:13px;"><i class="fas fa-calendar"></i> Katılım: ${formatDate(user.created)}</p>
                             </div>
                         </div>
                         <div style="display:flex;gap:24px;margin-top:16px;padding-top:16px;border-top:1px solid var(--border);flex-wrap:wrap;">
-                            <div><span style="font-size:20px;font-weight:700;">${scripts.length}</span> <span style="color:var(--text3);">Script</span></div>
-                            <div><span style="font-size:20px;font-weight:700;">${comments.length}</span> <span style="color:var(--text3);">Yorum</span></div>
-                            <div><span style="font-size:20px;font-weight:700;">${favorites.length}</span> <span style="color:var(--text3);">Favori</span></div>
+                            <div><span style="font-size:20px;font-weight:700;color:var(--text);">${scripts.length}</span> <span style="color:var(--text3);">Script</span></div>
+                            <div><span style="font-size:20px;font-weight:700;color:var(--text);">${comments.length}</span> <span style="color:var(--text3);">Yorum</span></div>
+                            <div><span style="font-size:20px;font-weight:700;color:var(--text);">${favorites.length}</span> <span style="color:var(--text3);">Favori</span></div>
+                            <div><span style="font-size:20px;font-weight:700;color:var(--text);">${totalDownloads}</span> <span style="color:var(--text3);">Toplam İndirme</span></div>
+                            <div><span style="font-size:20px;font-weight:700;color:var(--text);">${totalLikes}</span> <span style="color:var(--text3);">Toplam Beğeni</span></div>
                         </div>
                     </div>
-                    <h3 style="margin-bottom:12px;"><i class="fas fa-archive" style="color:var(--red);"></i> Scriptlerim (${scripts.length})</h3>
+                    <h3 style="margin-bottom:12px;color:var(--text);"><i class="fas fa-archive" style="color:var(--red);"></i> Scriptlerim (${scripts.length})</h3>
                     <div class="script-grid">${cards}</div>
                 </div>
             `;
@@ -1760,7 +2323,7 @@
             if (!isLoggedIn()) { showToast('Lütfen giriş yapın!', 'error');
                 showLogin(); return; }
             const favs = DB.getFavorites();
-            const scripts = DB.getScripts().filter(s => favs.includes(s.id));
+            const scripts = DB.getScripts().filter(s => favs.includes(s.id) && s.approved !== false);
             document.getElementById('heroSection').style.display = 'none';
             document.querySelectorAll('.nav button').forEach(b => b.classList.remove('active'));
 
@@ -1780,7 +2343,7 @@
             document.getElementById('content').innerHTML = `
                 <div class="fade-in">
                     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:10px;">
-                        <h2 style="font-size:22px;font-weight:800;"><i class="fas fa-star" style="color:#fbbf24;"></i> Favorilerim (${scripts.length})</h2>
+                        <h2 style="font-size:22px;font-weight:800;color:var(--text);"><i class="fas fa-star" style="color:#fbbf24;"></i> Favorilerim (${scripts.length})</h2>
                         <button class="btn-back" onclick="goHome()"><i class="fas fa-arrow-left"></i> Ana Sayfa</button>
                     </div>
                     <div class="script-grid">${html}</div>
@@ -1793,21 +2356,21 @@
         // LİDERLİK TABLOSU
         // ============================================================
         function showLeaderboard() {
-            const scripts = DB.getScripts();
+            const scripts = DB.getScripts().filter(s => s.approved !== false);
             const sorted = [...scripts].sort((a, b) => (b.downloads || 0) - (a.downloads || 0));
-            const top = sorted.slice(0, 5);
+            const top = sorted.slice(0, 10);
 
             document.getElementById('heroSection').style.display = 'none';
             document.querySelectorAll('.nav button').forEach(b => b.classList.remove('active'));
 
-            const medals = ['🥇', '🥈', '🥉', '4️⃣', '5️⃣'];
+            const medals = ['🥇', '🥈', '🥉', '4️⃣', '5️⃣', '6️⃣', '7️⃣', '8️⃣', '9️⃣', '🔟'];
             let html = top.length === 0 ?
                 '<p style="text-align:center;color:var(--text3);padding:40px;">Henüz veri yok.</p>' :
                 top.map((s, i) => `
                     <div style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:14px 18px;margin-bottom:10px;display:flex;align-items:center;gap:14px;transition:var(--transition);">
                         <span style="font-size:28px;">${medals[i] || '🏅'}</span>
                         <div style="flex:1;">
-                            <strong style="font-size:15px;">${s.title}</strong>
+                            <strong style="font-size:15px;color:var(--text);">${s.title}</strong>
                             <div style="color:var(--text3);font-size:12px;">👤 ${s.username} • ${s.category || 'Diğer'} • ❤️ ${s.likes || 0}</div>
                         </div>
                         <div style="text-align:right;">
@@ -1821,7 +2384,7 @@
             document.getElementById('content').innerHTML = `
                 <div class="fade-in">
                     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:10px;">
-                        <h2 style="font-size:22px;font-weight:800;"><i class="fas fa-trophy" style="color:#fbbf24;"></i> En Popüler Scriptler</h2>
+                        <h2 style="font-size:22px;font-weight:800;color:var(--text);"><i class="fas fa-trophy" style="color:#fbbf24;"></i> En Popüler Scriptler</h2>
                         <button class="btn-back" onclick="goHome()"><i class="fas fa-arrow-left"></i> Ana Sayfa</button>
                     </div>
                     ${html}
@@ -1835,6 +2398,10 @@
         // ============================================================
         function deleteScript(id) {
             if (!confirm('Bu scripti silmek istediğine emin misin?')) return;
+            if (!isAdmin() && !(getCurrentUser() && DB.getScripts().find(s => s.id === id)?.userId === getCurrentUser().id)) {
+                showToast('Bu scripti silme yetkin yok!', 'error');
+                return;
+            }
             let scripts = DB.getScripts().filter(s => s.id !== id);
             DB.saveScripts(scripts);
             let comments = DB.getComments().filter(c => c.scriptId !== id);
@@ -1843,8 +2410,11 @@
             DB.saveLikes(likes);
             let favs = DB.getFavorites().filter(f => f !== id);
             DB.saveFavorites(favs);
+            let reports = DB.getReports().filter(r => r !== id);
+            DB.saveReports(reports);
             showToast('Script silindi!', 'success', 'Tamam');
             updateStats();
+            updateAdminNotif();
             goHome();
         }
 
@@ -1865,10 +2435,11 @@
         }
 
         function downloadScript(id) {
-            const s = DB.getScripts().find(s => s.id === id);
+            const scripts = DB.getScripts();
+            const s = scripts.find(s => s.id === id);
             if (s) {
                 s.downloads = (s.downloads || 0) + 1;
-                DB.saveScripts(DB.getScripts());
+                DB.saveScripts(scripts);
                 showToast('⬇️ Script indiriliyor...', 'success', 'İndirme');
                 updateStats();
                 renderScripts();
@@ -1887,29 +2458,37 @@
             }
             DB.saveFavorites(favs);
             updateStats();
-            renderScripts();
+            if (document.querySelector('.detail-view')) {
+                showDetail(id);
+            } else {
+                renderScripts();
+            }
         }
 
         function toggleLike(id) {
             let likes = DB.getLikes();
             const idx = likes.indexOf(id);
+            const scripts = DB.getScripts();
+            const s = scripts.find(s => s.id === id);
+
             if (idx > -1) {
                 likes.splice(idx, 1);
+                if (s) s.likes = Math.max(0, (s.likes || 0) - 1);
                 showToast('❤️ Beğenin geri alındı', 'info', 'Bilgi');
             } else {
                 likes.push(id);
+                if (s) s.likes = (s.likes || 0) + 1;
                 showToast('❤️ Beğendin!', 'success', 'Harika!');
             }
-            DB.saveLikes(likes);
 
-            const scripts = DB.getScripts();
-            const s = scripts.find(s => s.id === id);
-            if (s) {
-                s.likes = likes.filter(l => l === id).length;
-                DB.saveScripts(scripts);
-            }
+            DB.saveLikes(likes);
+            DB.saveScripts(scripts);
             updateStats();
-            renderScripts();
+            if (document.querySelector('.detail-view')) {
+                showDetail(id);
+            } else {
+                renderScripts();
+            }
         }
 
         function reportScript(id) {
@@ -1919,6 +2498,7 @@
             if (reports.includes(id)) { showToast('Zaten raporlanmış.', 'info', 'Bilgi'); return; }
             reports.push(id);
             DB.saveReports(reports);
+            updateAdminNotif();
             showToast('🚩 Raporlandı! Admin inceliyor.', 'warning', 'Rapor');
         }
 
@@ -1928,13 +2508,40 @@
             const user = getCurrentUser();
             if (!content) { showToast('Yorum boş olamaz!', 'error'); return; }
             const comments = DB.getComments();
-            comments.push({ id: Date.now(), scriptId, userId: user.id, username: user.username, content,
-                created: new Date().toISOString() });
+            const newComment = { id: generateId(), scriptId, userId: user.id, username: user.username, content,
+                created: new Date().toISOString() };
+            comments.push(newComment);
             DB.saveComments(comments);
             input.value = '';
             showToast('💬 Yorum eklendi!', 'success', 'Başarılı');
             updateStats();
             showDetail(scriptId);
+        }
+
+        function likeComment(commentId) {
+            let likes = DB.getCommentLikes();
+            const idx = likes.indexOf(commentId);
+            if (idx > -1) {
+                likes.splice(idx, 1);
+                showToast('Yorum beğenisi kaldırıldı', 'info', 'Bilgi');
+            } else {
+                likes.push(commentId);
+                showToast('❤️ Yorum beğenildi!', 'success', 'Harika!');
+            }
+            DB.saveCommentLikes(likes);
+            // Refresh detail view
+            const scriptId = DB.getComments().find(c => c.id === commentId)?.scriptId;
+            if (scriptId) showDetail(scriptId);
+        }
+
+        function deleteComment(commentId) {
+            if (!confirm('Yorumu silmek istediğine emin misin?')) return;
+            let comments = DB.getComments().filter(c => c.id !== commentId);
+            DB.saveComments(comments);
+            showToast('Yorum silindi.', 'info', 'Bilgi');
+            // Refresh
+            const scriptId = DB.getComments().find(c => c.scriptId)?.scriptId;
+            if (scriptId) showDetail(scriptId);
         }
 
         // ============================================================
@@ -1961,8 +2568,8 @@
                         <button type="submit" class="btn-submit"><i class="fas fa-sign-in-alt"></i> Giriş Yap</button>
                     </div>
                 </form>
-                <div class="form-footer">Hesabın yok mu? <a href="#" onclick="closeModal();showRegister();">Kayıt ol</a></div>
-                <div class="form-footer" style="font-size:12px;color:var(--text3);">🔑 admin / admin123</div>
+                <div class="form-footer">Hesabın yok mu? <a onclick="closeModal();showRegister();">Kayıt ol</a></div>
+                <div class="form-footer" style="font-size:12px;color:var(--text3);">🔑 Demo: admin / admin123</div>
             `);
         }
 
@@ -1991,7 +2598,7 @@
                         <button type="submit" class="btn-submit"><i class="fas fa-user-plus"></i> Kayıt Ol</button>
                     </div>
                 </form>
-                <div class="form-footer">Zaten hesabın var mı? <a href="#" onclick="closeModal();showLogin();">Giriş yap</a></div>
+                <div class="form-footer">Zaten hesabın var mı? <a onclick="closeModal();showLogin();">Giriş yap</a></div>
             `);
         }
 
@@ -2050,14 +2657,18 @@
         // ============================================================
         // START
         // ============================================================
+        initTheme();
         initData();
         updateNav();
         goHome();
 
-        console.log('🎮 Roblox Script Hub çalışıyor!');
+        console.log('🎮 Roblox Script Hub Pro v2.0 çalışıyor!');
         console.log('👤 Admin: admin / admin123');
+        console.log('👤 Mod: moderator / mod123');
         console.log('📊 Script sayısı:', DB.getScripts().length);
         console.log('👥 Kullanıcı sayısı:', DB.getUsers().length);
+        console.log('🔥 Tüm özellikler aktif!');
+        console.log('📦 Yedekleme, admin paneli, sayfalama, tema vs.');
     </script>
 
 </body>
