@@ -3,294 +3,550 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Roblox Script Paylaş</title>
+    <title>🎮 Roblox Script Hub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        /* ============ RESET & VARIABLES ============ */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #12121a;
+            --bg-card: #1a1a2e;
+            --bg-card-hover: #222240;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0b8;
+            --text-muted: #6a6a82;
+            --roblox-red: #ff375f;
+            --roblox-red-dark: #cc0020;
+            --roblox-blue: #00b2ff;
+            --roblox-green: #00d4aa;
+            --roblox-purple: #7c3aed;
+            --roblox-yellow: #fbbf24;
+            --border-color: #2a2a42;
+            --shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            --radius: 16px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
-            background: #0d1117;
-            color: #c9d1d9;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
             min-height: 100vh;
+            background-image: 
+                radial-gradient(ellipse at 10% 20%, rgba(255, 55, 95, 0.05) 0%, transparent 50%),
+                radial-gradient(ellipse at 90% 80%, rgba(0, 178, 255, 0.05) 0%, transparent 50%);
         }
 
+        /* ============ SCROLLBAR ============ */
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg-primary); }
+        ::-webkit-scrollbar-thumb { background: var(--roblox-red); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--roblox-red-dark); }
+
+        /* ============ CONTAINER ============ */
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 20px 24px;
         }
 
-        /* HEADER */
+        /* ============ HEADER ============ */
         .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px 0;
-            border-bottom: 1px solid #30363d;
+            padding: 16px 24px;
+            background: var(--bg-secondary);
+            border-radius: var(--radius);
+            border: 1px solid var(--border-color);
             margin-bottom: 30px;
-            flex-wrap: wrap;
-            gap: 15px;
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 20px;
+            z-index: 100;
+            box-shadow: var(--shadow);
         }
 
         .logo {
-            font-size: 28px;
-            font-weight: bold;
-            color: #58a6ff;
-            text-decoration: none;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
+            text-decoration: none;
+            font-size: 26px;
+            font-weight: 800;
+            color: white;
         }
 
-        .logo .roblox-icon {
-            background: #1e1e2d;
-            padding: 4px 12px;
-            border-radius: 8px;
+        .logo-icon {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, var(--roblox-red), var(--roblox-red-dark));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            color: white;
+            box-shadow: 0 4px 20px rgba(255, 55, 95, 0.3);
+        }
+
+        .logo span {
+            background: linear-gradient(135deg, var(--roblox-red), var(--roblox-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             font-size: 14px;
-            color: #ff0000;
-            border: 1px solid #ff0000;
+            font-weight: 600;
+            margin-left: 4px;
         }
 
         .nav {
             display: flex;
-            gap: 20px;
             align-items: center;
+            gap: 8px;
             flex-wrap: wrap;
         }
 
-        .nav a {
-            color: #8b949e;
+        .nav a, .nav button {
+            color: var(--text-secondary);
             text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 10px;
             font-size: 14px;
-            padding: 5px 0;
-            transition: color 0.3s;
-        }
-
-        .nav a:hover {
-            color: #58a6ff;
-        }
-
-        .btn {
-            padding: 8px 20px;
-            border-radius: 6px;
+            font-weight: 500;
+            transition: var(--transition);
+            background: none;
             border: none;
-            font-size: 14px;
             cursor: pointer;
-            text-decoration: none;
-            display: inline-block;
-            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav a:hover, .nav button:hover {
+            color: white;
+            background: rgba(255, 55, 95, 0.1);
+        }
+
+        .nav a.active {
+            color: white;
+            background: rgba(255, 55, 95, 0.15);
+        }
+
+        .nav .user-badge {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 6px 14px 6px 6px;
+            border-radius: 30px;
+            background: rgba(255, 55, 95, 0.1);
+            border: 1px solid rgba(255, 55, 95, 0.2);
+        }
+
+        .user-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--roblox-red), var(--roblox-purple));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 700;
+            color: white;
+        }
+
+        .nav .btn-primary {
+            background: linear-gradient(135deg, var(--roblox-red), var(--roblox-red-dark));
+            color: white;
+            padding: 10px 24px;
+            border-radius: 12px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .nav .btn-primary:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 20px rgba(255, 55, 95, 0.4);
+        }
+
+        .nav .btn-outline {
+            background: transparent;
+            color: var(--text-secondary);
+            border: 1px solid var(--border-color);
+            padding: 10px 20px;
+            border-radius: 12px;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .nav .btn-outline:hover {
+            border-color: var(--roblox-red);
+            color: white;
+        }
+
+        /* ============ HERO ============ */
+        .hero {
+            background: linear-gradient(135deg, var(--bg-secondary), var(--bg-card));
+            border-radius: var(--radius);
+            padding: 50px 40px;
+            border: 1px solid var(--border-color);
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(255, 55, 95, 0.1), transparent 70%);
+            border-radius: 50%;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 42px;
+            font-weight: 800;
+            margin-bottom: 12px;
+            background: linear-gradient(135deg, #fff 30%, var(--roblox-red));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            color: var(--text-secondary);
+            font-size: 18px;
+            max-width: 600px;
+            line-height: 1.7;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 40px;
+            margin-top: 25px;
+        }
+
+        .hero-stats .stat {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .hero-stats .stat .number {
+            font-size: 28px;
+            font-weight: 700;
+            color: white;
+        }
+
+        .hero-stats .stat .label {
+            color: var(--text-muted);
+            font-size: 13px;
+        }
+
+        /* ============ FILTER BAR ============ */
+        .filter-bar {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 25px;
+            padding: 16px 20px;
+            background: var(--bg-secondary);
+            border-radius: var(--radius);
+            border: 1px solid var(--border-color);
+        }
+
+        .filter-bar .filter-btn {
+            padding: 8px 18px;
+            border-radius: 30px;
+            border: 1px solid var(--border-color);
+            background: transparent;
+            color: var(--text-secondary);
+            font-size: 13px;
+            cursor: pointer;
+            transition: var(--transition);
             font-weight: 500;
         }
 
-        .btn-primary {
-            background: #238636;
+        .filter-bar .filter-btn:hover {
+            border-color: var(--roblox-red);
             color: white;
         }
 
-        .btn-primary:hover {
-            background: #2ea043;
-        }
-
-        .btn-danger {
-            background: #da3633;
+        .filter-bar .filter-btn.active {
+            background: var(--roblox-red);
+            border-color: var(--roblox-red);
             color: white;
         }
 
-        .btn-danger:hover {
-            background: #f85149;
+        .filter-bar .search-box {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--bg-primary);
+            padding: 6px 16px;
+            border-radius: 30px;
+            border: 1px solid var(--border-color);
         }
 
-        .btn-roblox {
-            background: #ff0000;
+        .filter-bar .search-box input {
+            background: none;
+            border: none;
             color: white;
+            padding: 8px 0;
+            font-size: 14px;
+            outline: none;
+            width: 180px;
         }
 
-        .btn-roblox:hover {
-            background: #cc0000;
+        .filter-bar .search-box input::placeholder {
+            color: var(--text-muted);
         }
 
-        .btn-secondary {
-            background: #21262d;
-            color: #c9d1d9;
-            border: 1px solid #30363d;
+        .filter-bar .search-box i {
+            color: var(--text-muted);
         }
 
-        .btn-secondary:hover {
-            background: #30363d;
-        }
-
-        .btn-outline {
-            background: transparent;
-            color: #58a6ff;
-            border: 1px solid #58a6ff;
-        }
-
-        .btn-outline:hover {
-            background: #58a6ff;
-            color: #0d1117;
-        }
-
-        /* CARDS */
-        .card {
-            background: #161b22;
-            border-radius: 8px;
-            border: 1px solid #30363d;
-            padding: 20px;
-            margin-bottom: 20px;
-        }
-
-        .card-title {
-            color: #58a6ff;
-            font-size: 20px;
-            margin-bottom: 10px;
-        }
-
-        .card-grid {
+        /* ============ SCRIPT GRID ============ */
+        .script-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 24px;
         }
 
         .script-card {
-            background: #161b22;
-            border: 1px solid #30363d;
-            border-radius: 8px;
-            padding: 20px;
-            transition: transform 0.2s;
-            border-left: 4px solid #ff0000;
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            border: 1px solid var(--border-color);
+            padding: 24px;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .script-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--roblox-red), var(--roblox-blue));
+            opacity: 0;
+            transition: var(--transition);
         }
 
         .script-card:hover {
-            transform: translateY(-4px);
-            border-color: #58a6ff;
-            border-left-color: #ff0000;
+            transform: translateY(-6px);
+            border-color: rgba(255, 55, 95, 0.3);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+            background: var(--bg-card-hover);
         }
 
-        .script-card h3 {
-            color: #58a6ff;
-            margin-bottom: 8px;
-            font-size: 18px;
+        .script-card:hover::before {
+            opacity: 1;
         }
 
-        .script-card .meta {
+        .script-card .card-header {
             display: flex;
-            gap: 15px;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 12px;
+        }
+
+        .script-card .card-header h3 {
+            font-size: 18px;
+            font-weight: 700;
+            color: white;
+        }
+
+        .script-card .card-header .badges {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            padding: 3px 12px;
+            border-radius: 30px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .badge-lua {
+            background: #000080;
+            color: white;
+        }
+
+        .badge-esp {
+            background: #7c3aed;
+            color: white;
+        }
+
+        .badge-otomasyon {
+            background: #00d4aa;
+            color: #0a0a0f;
+        }
+
+        .badge-aimbot {
+            background: #ff375f;
+            color: white;
+        }
+
+        .badge-fly {
+            background: #00b2ff;
+            color: white;
+        }
+
+        .badge-speed {
+            background: #fbbf24;
+            color: #0a0a0f;
+        }
+
+        .badge-diger {
+            background: #6a6a82;
+            color: white;
+        }
+
+        .badge-popular {
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            color: #0a0a0f;
+        }
+
+        .badge-new {
+            background: linear-gradient(135deg, #00d4aa, #00b2ff);
+            color: #0a0a0f;
+        }
+
+        .script-card .card-meta {
+            display: flex;
+            gap: 16px;
             flex-wrap: wrap;
             font-size: 13px;
-            color: #8b949e;
-            margin: 10px 0;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+        }
+
+        .script-card .card-meta i {
+            margin-right: 4px;
+            width: 16px;
         }
 
         .script-card .code-preview {
-            background: #0d1117;
-            padding: 12px;
-            border-radius: 6px;
-            font-family: 'Courier New', monospace;
+            background: var(--bg-primary);
+            padding: 14px;
+            border-radius: 10px;
+            font-family: 'JetBrains Mono', 'Courier New', monospace;
             font-size: 13px;
+            color: #a0a0b8;
             overflow-x: auto;
             white-space: pre-wrap;
-            max-height: 150px;
+            max-height: 120px;
             overflow-y: auto;
-            border: 1px solid #30363d;
-            margin: 10px 0;
-            color: #e6edf3;
+            border: 1px solid var(--border-color);
+            margin-bottom: 16px;
+            line-height: 1.6;
         }
 
-        .tag {
-            display: inline-block;
-            background: #21262d;
-            padding: 2px 12px;
-            border-radius: 12px;
-            font-size: 12px;
-            color: #8b949e;
-            border: 1px solid #30363d;
-        }
-
-        .tag-roblox {
-            background: #ff0000;
-            color: white;
-            border-color: #ff0000;
-        }
-
-        .tag-lua {
-            background: #000080;
-            color: white;
-            border-color: #000080;
-        }
-
-        .tag-executor {
-            background: #8b00ff;
-            color: white;
-            border-color: #8b00ff;
-        }
-
-        .tag-script {
-            background: #006400;
-            color: white;
-            border-color: #006400;
-        }
-
-        .script-actions {
+        .script-card .card-actions {
             display: flex;
             gap: 10px;
-            margin-top: 12px;
             flex-wrap: wrap;
         }
 
-        .script-actions .btn {
+        .script-card .card-actions .btn {
+            padding: 8px 18px;
+            border-radius: 10px;
+            border: none;
             font-size: 13px;
-            padding: 6px 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
 
-        /* FORM */
-        .form-group {
+        .btn-view {
+            background: var(--roblox-blue);
+            color: white;
+        }
+
+        .btn-view:hover {
+            background: #0099dd;
+            transform: scale(1.02);
+        }
+
+        .btn-copy {
+            background: var(--bg-primary);
+            color: var(--text-secondary);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-copy:hover {
+            border-color: var(--roblox-red);
+            color: white;
+        }
+
+        .btn-delete {
+            background: rgba(255, 55, 95, 0.15);
+            color: var(--roblox-red);
+        }
+
+        .btn-delete:hover {
+            background: rgba(255, 55, 95, 0.3);
+        }
+
+        .btn-download {
+            background: var(--roblox-green);
+            color: #0a0a0f;
+        }
+
+        .btn-download:hover {
+            background: #00b894;
+            transform: scale(1.02);
+        }
+
+        /* ============ EMPTY STATE ============ */
+        .empty-state {
+            text-align: center;
+            padding: 80px 20px;
+            grid-column: 1 / -1;
+        }
+
+        .empty-state .emoji {
+            font-size: 72px;
             margin-bottom: 20px;
         }
 
-        .form-group label {
-            display: block;
-            margin-bottom: 6px;
-            color: #8b949e;
-            font-size: 14px;
-            font-weight: 500;
+        .empty-state h3 {
+            font-size: 24px;
+            margin-bottom: 10px;
         }
 
-        .form-group input,
-        .form-group textarea,
-        .form-group select {
-            width: 100%;
-            padding: 12px;
-            background: #0d1117;
-            color: #c9d1d9;
-            border: 1px solid #30363d;
-            border-radius: 6px;
-            font-size: 14px;
-            font-family: inherit;
+        .empty-state p {
+            color: var(--text-secondary);
+            max-width: 400px;
+            margin: 0 auto 20px;
         }
 
-        .form-group textarea {
-            min-height: 200px;
-            font-family: 'Courier New', monospace;
-            resize: vertical;
-        }
-
-        .form-group input:focus,
-        .form-group textarea:focus,
-        .form-group select:focus {
-            outline: none;
-            border-color: #ff0000;
-            box-shadow: 0 0 0 3px rgba(255, 0, 0, 0.2);
-        }
-
-        .form-group select option {
-            background: #0d1117;
-        }
-
-        /* MODAL */
+        /* ============ MODAL ============ */
         .modal {
             display: none;
             position: fixed;
@@ -298,7 +554,8 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.8);
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
             z-index: 1000;
             justify-content: center;
             align-items: center;
@@ -310,356 +567,631 @@
         }
 
         .modal-content {
-            background: #161b22;
-            border: 1px solid #30363d;
-            border-radius: 12px;
-            padding: 30px;
-            max-width: 600px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 35px;
+            max-width: 560px;
             width: 100%;
             max-height: 90vh;
             overflow-y: auto;
+            animation: modalIn 0.3s ease;
+        }
+
+        @keyframes modalIn {
+            from { opacity: 0; transform: scale(0.9) translateY(20px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
         }
 
         .modal-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
+            margin-bottom: 24px;
         }
 
         .modal-header h2 {
-            color: #58a6ff;
+            font-size: 24px;
+            font-weight: 700;
         }
 
         .modal-close {
             background: none;
             border: none;
-            color: #8b949e;
+            color: var(--text-muted);
             font-size: 28px;
             cursor: pointer;
-            padding: 0 10px;
+            padding: 0 8px;
+            transition: var(--transition);
         }
 
         .modal-close:hover {
-            color: #f85149;
+            color: var(--roblox-red);
+            transform: rotate(90deg);
         }
 
-        /* EMPTY STATE */
-        .empty-state {
-            text-align: center;
-            padding: 60px 20px;
-            color: #8b949e;
-        }
-
-        .empty-state .emoji {
-            font-size: 64px;
+        .form-group {
             margin-bottom: 20px;
         }
 
-        .empty-state h3 {
-            color: #c9d1d9;
-            margin-bottom: 10px;
-        }
-
-        /* ALERT */
-        .alert {
-            padding: 12px 20px;
-            border-radius: 6px;
-            margin-bottom: 20px;
-            display: none;
-        }
-
-        .alert.show {
+        .form-group label {
             display: block;
-        }
-
-        .alert-success {
-            background: #0f2d1a;
-            border: 1px solid #238636;
-            color: #3fb950;
-        }
-
-        .alert-error {
-            background: #2d0f0f;
-            border: 1px solid #da3633;
-            color: #f85149;
-        }
-
-        .alert-info {
-            background: #0f1d2d;
-            border: 1px solid #1f6feb;
-            color: #58a6ff;
-        }
-
-        /* DETAIL VIEW */
-        .detail-code {
-            background: #0d1117;
-            padding: 20px;
-            border-radius: 6px;
-            font-family: 'Courier New', monospace;
+            margin-bottom: 6px;
             font-size: 14px;
-            white-space: pre-wrap;
-            overflow-x: auto;
-            border: 1px solid #30363d;
-            margin: 15px 0;
-            max-height: 500px;
-            overflow-y: auto;
-            color: #e6edf3;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px 16px;
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            color: white;
+            font-size: 14px;
+            transition: var(--transition);
+            font-family: inherit;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--roblox-red);
+            box-shadow: 0 0 0 3px rgba(255, 55, 95, 0.15);
+        }
+
+        .form-group textarea {
+            min-height: 180px;
+            font-family: 'Courier New', monospace;
+            resize: vertical;
             line-height: 1.6;
         }
 
-        .roblox-badge {
-            display: inline-block;
-            background: #ff0000;
-            color: white;
-            padding: 2px 12px;
-            border-radius: 4px;
-            font-size: 12px;
-            font-weight: bold;
+        .form-group select option {
+            background: var(--bg-primary);
         }
 
-        .comment-item {
-            background: #0d1117;
-            padding: 12px 16px;
-            border-radius: 6px;
-            margin: 10px 0;
-            border: 1px solid #30363d;
-        }
-
-        .comment-item .comment-meta {
+        .form-actions {
             display: flex;
-            gap: 15px;
-            font-size: 13px;
-            color: #8b949e;
-            margin-bottom: 5px;
+            gap: 12px;
+            margin-top: 8px;
         }
 
-        .comment-item .comment-meta strong {
-            color: #58a6ff;
+        .form-actions .btn {
+            padding: 12px 32px;
+            border-radius: 10px;
+            border: none;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
         }
 
-        /* FOOTER */
-        .footer {
+        .btn-submit {
+            background: linear-gradient(135deg, var(--roblox-red), var(--roblox-red-dark));
+            color: white;
+            flex: 1;
+        }
+
+        .btn-submit:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 20px rgba(255, 55, 95, 0.3);
+        }
+
+        .btn-cancel {
+            background: var(--bg-primary);
+            color: var(--text-secondary);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-cancel:hover {
+            border-color: var(--text-muted);
+            color: white;
+        }
+
+        .form-footer {
             text-align: center;
-            padding: 30px 0;
-            border-top: 1px solid #30363d;
-            margin-top: 40px;
-            color: #8b949e;
+            margin-top: 16px;
+            color: var(--text-muted);
             font-size: 14px;
         }
 
-        .footer a {
-            color: #58a6ff;
+        .form-footer a {
+            color: var(--roblox-red);
             text-decoration: none;
+            font-weight: 600;
         }
 
-        /* RESPONSIVE */
+        .form-footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* ============ DETAIL VIEW ============ */
+        .detail-view .detail-code {
+            background: var(--bg-primary);
+            padding: 24px;
+            border-radius: 12px;
+            font-family: 'JetBrains Mono', 'Courier New', monospace;
+            font-size: 14px;
+            white-space: pre-wrap;
+            overflow-x: auto;
+            border: 1px solid var(--border-color);
+            margin: 16px 0;
+            max-height: 500px;
+            overflow-y: auto;
+            color: #d4d4e0;
+            line-height: 1.8;
+        }
+
+        .detail-view .detail-meta {
+            display: flex;
+            gap: 24px;
+            flex-wrap: wrap;
+            font-size: 14px;
+            color: var(--text-secondary);
+            padding: 16px 0;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 16px;
+        }
+
+        .detail-view .detail-meta i {
+            margin-right: 6px;
+        }
+
+        .detail-view .detail-actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin: 16px 0;
+        }
+
+        /* Comments */
+        .comments-section {
+            margin-top: 24px;
+        }
+
+        .comments-section h3 {
+            font-size: 18px;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .comment-item {
+            background: var(--bg-primary);
+            padding: 14px 18px;
+            border-radius: 10px;
+            margin-bottom: 12px;
+            border: 1px solid var(--border-color);
+        }
+
+        .comment-item .comment-header {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+        }
+
+        .comment-item .comment-header strong {
+            color: white;
+        }
+
+        .comment-item p {
+            color: var(--text-secondary);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .comment-form {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .comment-form textarea {
+            flex: 1;
+            padding: 12px 16px;
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            color: white;
+            font-size: 14px;
+            resize: vertical;
+            min-height: 60px;
+            font-family: inherit;
+        }
+
+        .comment-form textarea:focus {
+            outline: none;
+            border-color: var(--roblox-red);
+        }
+
+        .comment-form button {
+            padding: 12px 24px;
+            border-radius: 10px;
+            border: none;
+            background: var(--roblox-red);
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            height: fit-content;
+        }
+
+        .comment-form button:hover {
+            background: var(--roblox-red-dark);
+            transform: scale(1.02);
+        }
+
+        /* ============ FOOTER ============ */
+        .footer {
+            text-align: center;
+            padding: 40px 0 20px;
+            border-top: 1px solid var(--border-color);
+            margin-top: 40px;
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        .footer .social {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 16px;
+        }
+
+        .footer .social a {
+            color: var(--text-muted);
+            font-size: 20px;
+            transition: var(--transition);
+        }
+
+        .footer .social a:hover {
+            color: var(--roblox-red);
+            transform: translateY(-3px);
+        }
+
+        .footer .disclaimer {
+            font-size: 12px;
+            color: var(--text-muted);
+            opacity: 0.6;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* ============ TOAST ============ */
+        .toast-container {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .toast {
+            padding: 14px 24px;
+            border-radius: 12px;
+            color: white;
+            font-weight: 500;
+            animation: slideIn 0.3s ease;
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            min-width: 280px;
+        }
+
+        .toast-success {
+            background: linear-gradient(135deg, #00d4aa, #00b894);
+        }
+
+        .toast-error {
+            background: linear-gradient(135deg, var(--roblox-red), var(--roblox-red-dark));
+        }
+
+        .toast-info {
+            background: linear-gradient(135deg, var(--roblox-blue), #0099dd);
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(100px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        /* ============ RESPONSIVE ============ */
+        @media (max-width: 992px) {
+            .hero h1 { font-size: 32px; }
+            .hero-stats { gap: 24px; }
+            .hero-stats .stat .number { font-size: 22px; }
+        }
+
         @media (max-width: 768px) {
-            .header {
-                flex-direction: column;
-                align-items: stretch;
-                text-align: center;
-            }
-
-            .nav {
-                justify-content: center;
-            }
-
-            .card-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .modal-content {
-                padding: 20px;
-                margin: 10px;
-            }
-
-            .script-actions {
-                justify-content: center;
-            }
-
-            .logo {
-                font-size: 22px;
-                justify-content: center;
-            }
+            .container { padding: 12px 16px; }
+            .header { flex-direction: column; gap: 12px; align-items: stretch; }
+            .nav { justify-content: center; }
+            .hero { padding: 30px 24px; }
+            .hero h1 { font-size: 26px; }
+            .hero p { font-size: 15px; }
+            .hero-stats { gap: 16px; flex-wrap: wrap; }
+            .hero-stats .stat .number { font-size: 18px; }
+            .script-grid { grid-template-columns: 1fr; }
+            .filter-bar { flex-direction: column; align-items: stretch; }
+            .filter-bar .search-box { margin-left: 0; }
+            .filter-bar .search-box input { width: 100%; }
+            .modal-content { padding: 24px; margin: 10px; }
+            .form-actions { flex-direction: column; }
+            .comment-form { flex-direction: column; }
+            .toast-container { left: 16px; right: 16px; bottom: 16px; }
+            .toast { min-width: unset; }
         }
 
         @media (max-width: 480px) {
-            .container {
-                padding: 10px;
-            }
-
-            .nav {
-                gap: 10px;
-            }
-
-            .nav a {
-                font-size: 13px;
-            }
-
-            .btn {
-                padding: 6px 14px;
-                font-size: 13px;
-            }
+            .hero h1 { font-size: 22px; }
+            .hero { padding: 20px 16px; }
+            .script-card { padding: 16px; }
+            .script-card .card-header { flex-direction: column; gap: 8px; }
+            .nav a { font-size: 12px; padding: 6px 12px; }
+            .nav .btn-primary { padding: 8px 16px; font-size: 12px; }
         }
 
-        /* SCROLLBAR */
-        ::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
+        /* ============ ANIMATIONS ============ */
+        .fade-in {
+            animation: fadeIn 0.5s ease;
         }
 
-        ::-webkit-scrollbar-track {
-            background: #0d1117;
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        ::-webkit-scrollbar-thumb {
-            background: #30363d;
-            border-radius: 4px;
+        .pulse {
+            animation: pulse 2s infinite;
         }
 
-        ::-webkit-scrollbar-thumb:hover {
-            background: #484f58;
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* Loading skeleton */
+        .skeleton {
+            background: linear-gradient(90deg, var(--bg-card) 25%, var(--bg-card-hover) 50%, var(--bg-card) 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+            border-radius: 8px;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
         }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <!-- HEADER -->
+        <!-- ============ HEADER ============ -->
         <header class="header">
             <a href="#" class="logo" onclick="showHome()">
-                🎮 RobloxScript
-                <span class="roblox-icon">Roblox</span>
+                <div class="logo-icon">🎮</div>
+                <div>
+                    ScriptHub <span>Roblox</span>
+                </div>
             </a>
             <nav class="nav" id="mainNav">
-                <a href="#" onclick="showHome()">Ana Sayfa</a>
-                <a href="#" onclick="showUpload()">📤 Yükle</a>
-                <a href="#" onclick="showProfile()">👤 Profil</a>
-                <a href="#" onclick="logout()" id="logoutBtn" style="display:none;">🚪 Çıkış</a>
-                <a href="#" onclick="showLogin()" id="loginBtn">🔑 Giriş</a>
-                <a href="#" onclick="showRegister()" id="registerBtn">📝 Kayıt</a>
-                <span id="userDisplay" style="color:#ff0000;font-weight:bold;display:none;"></span>
+                <a href="#" onclick="showHome()" class="active" id="navHome"><i class="fas fa-home"></i> Ana Sayfa</a>
+                <a href="#" onclick="showUpload()" id="navUpload"><i class="fas fa-upload"></i> Yükle</a>
+                <a href="#" onclick="showProfile()" id="navProfile"><i class="fas fa-user"></i> Profil</a>
+                <a href="#" onclick="showFavorites()" id="navFavorites"><i class="fas fa-star"></i> Favoriler</a>
+                <a href="#" onclick="showLeaderboard()" id="navLeaderboard"><i class="fas fa-trophy"></i> Liderlik</a>
+                
+                <div id="authButtons">
+                    <button class="btn-outline" onclick="showLogin()"><i class="fas fa-sign-in-alt"></i> Giriş</button>
+                    <button class="btn-primary" onclick="showRegister()"><i class="fas fa-user-plus"></i> Kayıt</button>
+                </div>
+                
+                <div id="userBadge" style="display:none;" class="user-badge">
+                    <div class="user-avatar" id="userAvatar">A</div>
+                    <span id="userName" style="color:white;font-weight:600;"></span>
+                    <button onclick="logout()" style="background:none;border:none;color:var(--text-muted);cursor:pointer;padding:4px 8px;">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </button>
+                </div>
             </nav>
         </header>
 
-        <!-- ALERT -->
-        <div id="alert" class="alert"></div>
+        <!-- ============ HERO ============ -->
+        <div class="hero" id="heroSection">
+            <div class="hero-content">
+                <h1>🎮 Roblox Script Hub</h1>
+                <p>Binlerce Roblox scriptini keşfet, paylaş ve kullan. Topluluğun en iyi scriptlerini bir arada bul!</p>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <span class="number" id="statScripts">0</span>
+                        <span class="label">📜 Toplam Script</span>
+                    </div>
+                    <div class="stat">
+                        <span class="number" id="statUsers">0</span>
+                        <span class="label">👥 Kullanıcı</span>
+                    </div>
+                    <div class="stat">
+                        <span class="number" id="statDownloads">0</span>
+                        <span class="label">⬇️ İndirme</span>
+                    </div>
+                    <div class="stat">
+                        <span class="number" id="statComments">0</span>
+                        <span class="label">💬 Yorum</span>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-        <!-- CONTENT -->
-        <div id="content"></div>
+        <!-- ============ FILTER BAR ============ -->
+        <div class="filter-bar" id="filterBar">
+            <button class="filter-btn active" data-filter="all" onclick="filterScripts('all')">🔥 Tümü</button>
+            <button class="filter-btn" data-filter="ESP" onclick="filterScripts('ESP')">👁️ ESP</button>
+            <button class="filter-btn" data-filter="Otomasyon" onclick="filterScripts('Otomasyon')">⚡ Otomasyon</button>
+            <button class="filter-btn" data-filter="Aimbot" onclick="filterScripts('Aimbot')">🎯 Aimbot</button>
+            <button class="filter-btn" data-filter="Fly" onclick="filterScripts('Fly')">🦅 Fly</button>
+            <button class="filter-btn" data-filter="Speed" onclick="filterScripts('Speed')">💨 Speed</button>
+            <button class="filter-btn" data-filter="Diğer" onclick="filterScripts('Diğer')">📦 Diğer</button>
+            
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" id="searchInput" placeholder="Script ara..." oninput="searchScripts(this.value)">
+            </div>
+        </div>
 
-        <!-- FOOTER -->
+        <!-- ============ CONTENT ============ -->
+        <div id="content">
+            <div class="script-grid" id="scriptGrid">
+                <!-- Scripts will be rendered here -->
+            </div>
+        </div>
+
+        <!-- ============ FOOTER ============ -->
         <footer class="footer">
-            <p>🎮 RobloxScript - Roblox Script Paylaşım Platformu</p>
-            <p style="font-size:12px;margin-top:5px;">
-                ⚠️ Sadece eğitim amaçlıdır. Roblox ToS'ye uygun kullanın.
-            </p>
+            <div class="social">
+                <a href="#"><i class="fab fa-github"></i></a>
+                <a href="#"><i class="fab fa-discord"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+            </div>
+            <p>🎮 Roblox Script Hub - En iyi Roblox scriptleri burada!</p>
+            <p class="disclaimer">⚠️ Bu platform sadece eğitim amaçlıdır. Roblox Terms of Service'e uygun kullanınız.</p>
         </footer>
     </div>
 
-    <!-- MODAL -->
+    <!-- ============ MODAL ============ -->
     <div id="modal" class="modal">
         <div class="modal-content" id="modalContent"></div>
     </div>
 
+    <!-- ============ TOAST CONTAINER ============ -->
+    <div class="toast-container" id="toastContainer"></div>
+
     <script>
-        // ============= VERİTABANI (localStorage) =============
+        // ============================================================
+        // =============== VERİTABANI (localStorage) ==================
+        // ============================================================
         const DB = {
             getUsers() {
-                return JSON.parse(localStorage.getItem('roblox_users') || '[]');
+                return JSON.parse(localStorage.getItem('rbx_users') || '[]');
             },
             saveUsers(users) {
-                localStorage.setItem('roblox_users', JSON.stringify(users));
+                localStorage.setItem('rbx_users', JSON.stringify(users));
             },
             getScripts() {
-                return JSON.parse(localStorage.getItem('roblox_scripts') || '[]');
+                return JSON.parse(localStorage.getItem('rbx_scripts') || '[]');
             },
             saveScripts(scripts) {
-                localStorage.setItem('roblox_scripts', JSON.stringify(scripts));
+                localStorage.setItem('rbx_scripts', JSON.stringify(scripts));
             },
             getComments() {
-                return JSON.parse(localStorage.getItem('roblox_comments') || '[]');
+                return JSON.parse(localStorage.getItem('rbx_comments') || '[]');
             },
             saveComments(comments) {
-                localStorage.setItem('roblox_comments', JSON.stringify(comments));
+                localStorage.setItem('rbx_comments', JSON.stringify(comments));
+            },
+            getFavorites() {
+                return JSON.parse(localStorage.getItem('rbx_favorites') || '[]');
+            },
+            saveFavorites(favorites) {
+                localStorage.setItem('rbx_favorites', JSON.stringify(favorites));
             },
             getCurrentUser() {
-                return JSON.parse(localStorage.getItem('roblox_currentUser') || 'null');
+                return JSON.parse(localStorage.getItem('rbx_currentUser') || 'null');
             },
             setCurrentUser(user) {
-                localStorage.setItem('roblox_currentUser', JSON.stringify(user));
+                localStorage.setItem('rbx_currentUser', JSON.stringify(user));
             },
             logout() {
-                localStorage.removeItem('roblox_currentUser');
+                localStorage.removeItem('rbx_currentUser');
+            },
+            getDownloads() {
+                return JSON.parse(localStorage.getItem('rbx_downloads') || '{}');
+            },
+            saveDownloads(downloads) {
+                localStorage.setItem('rbx_downloads', JSON.stringify(downloads));
             }
         };
 
-        // ============= BAŞLANGIÇ VERİLERİ =============
+        // ============================================================
+        // =============== BAŞLANGIÇ VERİLERİ ========================
+        // ============================================================
         function initData() {
             let users = DB.getUsers();
             if (users.length === 0) {
-                users.push({
-                    id: 1,
-                    username: 'admin',
-                    password: 'admin123',
-                    email: 'admin@roblox.com',
-                    created: new Date().toISOString()
-                });
+                users.push({ id: 1, username: 'admin', password: 'admin123', email: 'admin@roblox.com', created: new Date().toISOString() });
+                users.push({ id: 2, username: 'scriptmaster', password: '123456', email: 'master@roblox.com', created: new Date().toISOString() });
+                users.push({ id: 3, username: 'lua_god', password: 'lua123', email: 'god@roblox.com', created: new Date().toISOString() });
                 DB.saveUsers(users);
             }
 
             let scripts = DB.getScripts();
             if (scripts.length === 0) {
-                scripts.push({
-                    id: 1,
-                    title: 'Otomatik Tıklama Scripti',
-                    content: '-- Roblox Otomatik Tıklama Scripti\n-- Kullanım: Oyun içinde F1 tuşuna bas\n\nlocal player = game.Players.LocalPlayer\nlocal mouse = player:GetMouse()\n\nmouse.KeyDown:Connect(function(key)\n    if key == "F1" then\n        print("Tıklama başladı!")\n        while true do\n            mouse1click()\n            wait(0.1)\n        end\n    end\nend)',
-                    language: 'Lua',
-                    category: 'Otomasyon',
-                    userId: 1,
-                    username: 'admin',
-                    created: new Date().toISOString()
-                });
-                scripts.push({
-                    id: 2,
-                    title: 'ESP (X-Ray) Scripti',
-                    content: '-- Roblox ESP Scripti\n-- Oyuncuları duvarların arkasından gör\n\nlocal ESP = {}\nlocal player = game.Players.LocalPlayer\n\nfor _, v in pairs(game.Players:GetPlayers()) do\n    if v ~= player then\n        local highlight = Instance.new("Highlight")\n        highlight.Parent = v.Character\n        highlight.FillColor = Color3.new(1, 0, 0)\n        highlight.OutlineColor = Color3.new(1, 1, 1)\n    end\nend',
-                    language: 'Lua',
-                    category: 'ESP',
-                    userId: 1,
-                    username: 'admin',
-                    created: new Date().toISOString()
+                const sampleScripts = [
+                    { title: '🛡️ Ultimate ESP v3.0', content: '-- Ultimate ESP Script\n-- Tüm oyuncuları gösterir\n\nlocal Players = game:GetService("Players")\nlocal RunService = game:GetService("RunService")\n\nfor _, player in pairs(Players:GetPlayers()) do\n    if player ~= Players.LocalPlayer then\n        local highlight = Instance.new("Highlight")\n        highlight.Parent = player.Character\n        highlight.FillColor = Color3.new(1, 0.2, 0.2)\n        highlight.FillTransparency = 0.5\n        highlight.OutlineColor = Color3.new(1, 1, 1)\n    end\nend', language: 'Lua', category: 'ESP', downloads: 342, userId: 1, username: 'admin', created: new Date().toISOString() },
+                    { title: '🤖 Auto Clicker Pro', content: '-- Auto Clicker Pro\n-- Otomatik tıklama sistemi\n\nlocal mouse = game.Players.LocalPlayer:GetMouse()\nlocal enabled = false\n\nmouse.KeyDown:Connect(function(key)\n    if key == "F1" then\n        enabled = not enabled\n        print(enabled and "Clicker Aktif" or "Clicker Pasif")\n    end\nend)\n\nwhile true do\n    if enabled then\n        mouse1click()\n        wait(0.05)\n    end\n    wait()\nend', language: 'Lua', category: 'Otomasyon', downloads: 215, userId: 1, username: 'admin', created: new Date().toISOString() },
+                    { title: '🎯 Aimbot Ultra', content: '-- Aimbot Ultra\n-- Otomatik hedef alma\n\nlocal Players = game:GetService("Players")\nlocal RunService = game:GetService("RunService")\nlocal lp = Players.LocalPlayer\n\nRunService.RenderStepped:Connect(function()\n    local target = getClosestPlayer()\n    if target then\n        lp.Character.HumanoidRootPart.CFrame = CFrame.new(lp.Character.HumanoidRootPart.Position, target.Character.HumanoidRootPart.Position)\n    end\nend)\n\nfunction getClosestPlayer()\n    local closest, dist = nil, math.huge\n    for _, player in pairs(Players:GetPlayers()) do\n        if player ~= lp and player.Character then\n            local d = (lp.Character.HumanoidRootPart.Position - player.Character.HumanoidRootPart.Position).Magnitude\n            if d < dist then\n                closest, dist = player, d\n            end\n        end\n    end\n    return closest\nend', language: 'Lua', category: 'Aimbot', downloads: 187, userId: 2, username: 'scriptmaster', created: new Date().toISOString() },
+                    { title: '🦅 Fly Mode v2', content: '-- Fly Mode v2\n-- Uçma modu\n\nlocal player = game.Players.LocalPlayer\nlocal char = player.Character\nlocal humanoid = char.Humanoid\nlocal flying = false\n\nlocal flySpeed = 50\nlocal flyHeight = 20\n\ngame:GetService("UserInputService").InputBegan:Connect(function(input, gp)\n    if gp then return end\n    if input.KeyCode == Enum.KeyCode.F then\n        flying = not flying\n        if flying then\n            humanoid.PlatformStand = true\n            print("🚀 Fly Aktif")\n        else\n            humanoid.PlatformStand = false\n            print("🛑 Fly Pasif")\n        end\n    end\nend)\n\nwhile wait(0.05) do\n    if flying then\n        local move = Vector3.new(0, 0, 0)\n        if humanoid.MoveDirection.Magnitude > 0 then\n            move = humanoid.MoveDirection * flySpeed\n        end\n        char.HumanoidRootPart.Velocity = Vector3.new(move.X, flyHeight, move.Z)\n    end\nend', language: 'Lua', category: 'Fly', downloads: 156, userId: 2, username: 'scriptmaster', created: new Date().toISOString() },
+                    { title: '💨 Speed Hack Ultra', content: '-- Speed Hack Ultra\n-- Hızlandırma\n\nlocal player = game.Players.LocalPlayer\nlocal char = player.Character\nlocal humanoid = char.Humanoid\n\nlocal speedMultiplier = 2.5\n\nhumanoid.WalkSpeed = humanoid.WalkSpeed * speedMultiplier\nhumanoid.JumpPower = humanoid.JumpPower * 1.5\n\nprint("🚀 Speed: " .. humanoid.WalkSpeed)\n\n-- Kullanım: Shift + T ile aç/kapat\ngame:GetService("UserInputService").InputBegan:Connect(function(input, gp)\n    if gp then return end\n    if input.KeyCode == Enum.KeyCode.T and input.Shift then\n        if humanoid.WalkSpeed > 50 then\n            humanoid.WalkSpeed = 16\n            humanoid.JumpPower = 50\n        else\n            humanoid.WalkSpeed = 16 * speedMultiplier\n            humanoid.JumpPower = 50 * 1.5\n        end\n    end\nend)', language: 'Lua', category: 'Speed', downloads: 134, userId: 3, username: 'lua_god', created: new Date().toISOString() }
+                ];
+                
+                sampleScripts.forEach(s => {
+                    const id = scripts.length + 1;
+                    s.id = id;
+                    scripts.push(s);
                 });
                 DB.saveScripts(scripts);
             }
+
+            // Comments
+            let comments = DB.getComments();
+            if (comments.length === 0) {
+                comments.push({ id: 1, scriptId: 1, userId: 2, username: 'scriptmaster', content: '🔥 Harika script! Çok işe yarıyor.', created: new Date().toISOString() });
+                comments.push({ id: 2, scriptId: 1, userId: 3, username: 'lua_god', content: '⭐ 10/10! Tavsiye ederim.', created: new Date().toISOString() });
+                comments.push({ id: 3, scriptId: 2, userId: 1, username: 'admin', content: 'Güzel script ama biraz yavaş çalışıyor.', created: new Date().toISOString() });
+                DB.saveComments(comments);
+            }
+
+            updateStats();
         }
 
-        // ============= YARDIMCI FONKSİYONLAR =============
-        function getCategoryTag(cat) {
+        // ============================================================
+        // =============== YARDIMCI FONKSİYONLAR =====================
+        // ============================================================
+        function getCategoryBadge(cat) {
             const map = {
-                'ESP': 'tag-esp',
-                'Otomasyon': 'tag-executor',
-                'Aimbot': 'tag-script',
-                'Fly': 'tag-script',
-                'Speed': 'tag-script',
-                'Diğer': 'tag-roblox'
+                'ESP': 'badge-esp',
+                'Otomasyon': 'badge-otomasyon',
+                'Aimbot': 'badge-aimbot',
+                'Fly': 'badge-fly',
+                'Speed': 'badge-speed',
+                'Diğer': 'badge-diger'
             };
-            return map[cat] || 'tag-roblox';
+            return map[cat] || 'badge-diger';
         }
 
         function formatDate(dateStr) {
             const d = new Date(dateStr);
+            const now = new Date();
+            const diff = now - d;
+            
+            if (diff < 60000) return 'az önce';
+            if (diff < 3600000) return Math.floor(diff/60000) + ' dakika önce';
+            if (diff < 86400000) return Math.floor(diff/3600000) + ' saat önce';
+            if (diff < 604800000) return Math.floor(diff/86400000) + ' gün önce';
+            
             return d.toLocaleDateString('tr-TR') + ' ' + d.toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' });
-        }
-
-        function showAlert(message, type = 'info') {
-            const alert = document.getElementById('alert');
-            alert.className = `alert alert-${type} show`;
-            alert.textContent = message;
-            setTimeout(() => {
-                alert.classList.remove('show');
-            }, 5000);
         }
 
         function getCurrentUser() {
@@ -672,144 +1204,202 @@
 
         function updateNav() {
             const user = getCurrentUser();
-            const loginBtn = document.getElementById('loginBtn');
-            const registerBtn = document.getElementById('registerBtn');
-            const logoutBtn = document.getElementById('logoutBtn');
-            const userDisplay = document.getElementById('userDisplay');
+            const authBtns = document.getElementById('authButtons');
+            const userBadge = document.getElementById('userBadge');
+            const userName = document.getElementById('userName');
+            const userAvatar = document.getElementById('userAvatar');
 
             if (user) {
-                loginBtn.style.display = 'none';
-                registerBtn.style.display = 'none';
-                logoutBtn.style.display = 'inline';
-                userDisplay.style.display = 'inline';
-                userDisplay.textContent = '🎮 ' + user.username;
+                authBtns.style.display = 'none';
+                userBadge.style.display = 'flex';
+                userName.textContent = user.username;
+                userAvatar.textContent = user.username.charAt(0).toUpperCase();
+                document.getElementById('navUpload').style.display = 'flex';
+                document.getElementById('navProfile').style.display = 'flex';
+                document.getElementById('navFavorites').style.display = 'flex';
             } else {
-                loginBtn.style.display = 'inline';
-                registerBtn.style.display = 'inline';
-                logoutBtn.style.display = 'none';
-                userDisplay.style.display = 'none';
+                authBtns.style.display = 'flex';
+                userBadge.style.display = 'none';
+                document.getElementById('navUpload').style.display = 'none';
+                document.getElementById('navProfile').style.display = 'none';
+                document.getElementById('navFavorites').style.display = 'none';
             }
         }
 
-        // ============= SAYFA RENDERLARI =============
+        function updateStats() {
+            const scripts = DB.getScripts();
+            const users = DB.getUsers();
+            const comments = DB.getComments();
+            const downloads = DB.getDownloads();
+            let totalDownloads = 0;
+            Object.values(downloads).forEach(v => totalDownloads += v);
+
+            document.getElementById('statScripts').textContent = scripts.length;
+            document.getElementById('statUsers').textContent = users.length;
+            document.getElementById('statDownloads').textContent = totalDownloads;
+            document.getElementById('statComments').textContent = comments.length;
+        }
+
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = `toast toast-${type}`;
+            const icons = { success: '✅', error: '❌', info: 'ℹ️' };
+            toast.innerHTML = `${icons[type] || 'ℹ️'} ${message}`;
+            container.appendChild(toast);
+            setTimeout(() => { toast.remove(); }, 4000);
+        }
+
+        // ============================================================
+        // =============== SAYFA RENDERLARI ==========================
+        // ============================================================
+
+        let currentFilter = 'all';
+        let currentSearch = '';
+
+        function renderScripts(scripts) {
+            const grid = document.getElementById('scriptGrid');
+            
+            if (scripts.length === 0) {
+                grid.innerHTML = `
+                    <div class="empty-state fade-in">
+                        <div class="emoji">🔍</div>
+                        <h3>Hiç script bulunamadı!</h3>
+                        <p>${currentSearch ? 'Arama kriterlerine uygun script yok.' : 'Henüz bu kategoride script paylaşılmamış.'}</p>
+                        <button class="btn btn-view" onclick="showUpload()"><i class="fas fa-upload"></i> İlk Scripti Paylaş</button>
+                    </div>
+                `;
+                return;
+            }
+
+            const user = getCurrentUser();
+            const favorites = DB.getFavorites();
+            const downloads = DB.getDownloads();
+
+            let html = '';
+            scripts.forEach(s => {
+                const isFavorite = favorites.includes(s.id);
+                const downloadCount = downloads[s.id] || 0;
+                const preview = s.content.substring(0, 180) + (s.content.length > 180 ? '...' : '');
+                const isOwner = user && s.userId === user.id;
+                
+                html += `
+                    <div class="script-card fade-in">
+                        <div class="card-header">
+                            <h3>${s.title}</h3>
+                            <div class="badges">
+                                <span class="badge badge-lua">Lua</span>
+                                <span class="badge ${getCategoryBadge(s.category)}">${s.category || 'Diğer'}</span>
+                                ${s.downloads > 100 ? '<span class="badge badge-popular">🔥 Popüler</span>' : ''}
+                                ${isNew(s.created) ? '<span class="badge badge-new">✨ Yeni</span>' : ''}
+                            </div>
+                        </div>
+                        <div class="card-meta">
+                            <span><i class="fas fa-user"></i> ${s.username}</span>
+                            <span><i class="fas fa-clock"></i> ${formatDate(s.created)}</span>
+                            <span><i class="fas fa-eye"></i> ${s.downloads || 0} görüntülenme</span>
+                            <span><i class="fas fa-download"></i> ${downloadCount} indirme</span>
+                        </div>
+                        <div class="code-preview">${escapeHtml(preview)}</div>
+                        <div class="card-actions">
+                            <button class="btn btn-view" onclick="showDetail(${s.id})"><i class="fas fa-eye"></i> İncele</button>
+                            <button class="btn btn-copy" onclick="copyScript(${s.id})"><i class="fas fa-copy"></i> Kopyala</button>
+                            <button class="btn btn-download" onclick="downloadScript(${s.id})"><i class="fas fa-download"></i></button>
+                            <button class="btn btn-copy" onclick="toggleFavorite(${s.id})" style="${isFavorite ? 'color:#fbbf24;border-color:#fbbf24;' : ''}">
+                                <i class="fas ${isFavorite ? 'fa-star' : 'fa-star-o'}"></i>
+                            </button>
+                            ${isOwner ? `<button class="btn btn-delete" onclick="deleteScript(${s.id})"><i class="fas fa-trash"></i></button>` : ''}
+                        </div>
+                    </div>
+                `;
+            });
+
+            grid.innerHTML = html;
+        }
+
+        function isNew(dateStr) {
+            const diff = new Date() - new Date(dateStr);
+            return diff < 86400000; // 24 saat
+        }
 
         function showHome() {
+            currentFilter = 'all';
+            currentSearch = '';
+            document.getElementById('searchInput').value = '';
             const scripts = DB.getScripts();
-            const content = document.getElementById('content');
-
-            if (scripts.length === 0) {
-                content.innerHTML = `
-                    <div class="empty-state">
-                        <div class="emoji">🎮</div>
-                        <h3>Henüz Roblox scripti yok!</h3>
-                        <p>İlk scripti sen paylaşmak ister misin?</p>
-                        <br>
-                        <button class="btn btn-roblox" onclick="showUpload()">📤 Script Yükle</button>
-                    </div>
-                `;
-                return;
-            }
-
-            let cards = '';
-            scripts.forEach(s => {
-                const preview = s.content.substring(0, 200) + (s.content.length > 200 ? '...' : '');
-                cards += `
-                    <div class="script-card">
-                        <h3>${s.title}</h3>
-                        <div class="meta">
-                            <span>👤 ${s.username}</span>
-                            <span>📅 ${formatDate(s.created)}</span>
-                            <span class="tag tag-lua">${s.language || 'Lua'}</span>
-                            <span class="tag ${getCategoryTag(s.category)}">${s.category || 'Diğer'}</span>
-                        </div>
-                        <div class="code-preview">${escapeHtml(preview)}</div>
-                        <div class="script-actions">
-                            <button class="btn btn-primary" onclick="showDetail(${s.id})">🔍 İncele</button>
-                            <button class="btn btn-secondary" onclick="copyScript(${s.id})">📋 Kopyala</button>
-                            ${s.userId === (getCurrentUser()?.id || -1) ? `<button class="btn btn-danger" onclick="deleteScript(${s.id})">🗑️ Sil</button>` : ''}
-                        </div>
-                    </div>
-                `;
+            renderScripts(scripts);
+            
+            // Update filter buttons
+            document.querySelectorAll('.filter-btn').forEach(b => {
+                b.classList.toggle('active', b.dataset.filter === 'all');
             });
-
-            content.innerHTML = `
-                <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:20px;">
-                    <h2>🎮 Roblox Scriptleri (${scripts.length})</h2>
-                    <div style="display:flex;gap:10px;flex-wrap:wrap;">
-                        <button class="btn btn-roblox" onclick="showUpload()">📤 Yeni Script</button>
-                        <button class="btn btn-secondary" onclick="filterScripts('all')">Tümü</button>
-                        <button class="btn btn-secondary" onclick="filterScripts('ESP')">ESP</button>
-                        <button class="btn btn-secondary" onclick="filterScripts('Otomasyon')">Otomasyon</button>
-                        <button class="btn btn-secondary" onclick="filterScripts('Aimbot')">Aimbot</button>
-                        <button class="btn btn-secondary" onclick="filterScripts('Fly')">Fly</button>
-                        <button class="btn btn-secondary" onclick="filterScripts('Speed')">Speed</button>
-                    </div>
-                </div>
-                <div class="card-grid" id="scriptGrid">${cards}</div>
-            `;
-
+            
             closeModal();
+            updateStats();
+            document.getElementById('heroSection').style.display = 'block';
         }
 
-        // Script Filtreleme
         function filterScripts(category) {
+            currentFilter = category;
             const scripts = DB.getScripts();
             const filtered = category === 'all' ? scripts : scripts.filter(s => s.category === category);
-            const grid = document.getElementById('scriptGrid');
-
-            if (filtered.length === 0) {
-                grid.innerHTML = `
-                    <div class="empty-state" style="grid-column:1/-1;padding:40px;">
-                        <div class="emoji">🔍</div>
-                        <h3>Bu kategoride script yok</h3>
-                    </div>
-                `;
-                return;
-            }
-
-            let cards = '';
-            filtered.forEach(s => {
-                const preview = s.content.substring(0, 200) + (s.content.length > 200 ? '...' : '');
-                cards += `
-                    <div class="script-card">
-                        <h3>${s.title}</h3>
-                        <div class="meta">
-                            <span>👤 ${s.username}</span>
-                            <span>📅 ${formatDate(s.created)}</span>
-                            <span class="tag tag-lua">${s.language || 'Lua'}</span>
-                            <span class="tag ${getCategoryTag(s.category)}">${s.category || 'Diğer'}</span>
-                        </div>
-                        <div class="code-preview">${escapeHtml(preview)}</div>
-                        <div class="script-actions">
-                            <button class="btn btn-primary" onclick="showDetail(${s.id})">🔍 İncele</button>
-                            <button class="btn btn-secondary" onclick="copyScript(${s.id})">📋 Kopyala</button>
-                            ${s.userId === (getCurrentUser()?.id || -1) ? `<button class="btn btn-danger" onclick="deleteScript(${s.id})">🗑️ Sil</button>` : ''}
-                        </div>
-                    </div>
-                `;
+            
+            document.querySelectorAll('.filter-btn').forEach(b => {
+                b.classList.toggle('active', b.dataset.filter === category);
             });
-            grid.innerHTML = cards;
+            
+            renderScripts(filtered);
         }
 
+        function searchScripts(query) {
+            currentSearch = query.toLowerCase().trim();
+            const scripts = DB.getScripts();
+            
+            let filtered = scripts;
+            
+            // Apply category filter first
+            if (currentFilter !== 'all') {
+                filtered = filtered.filter(s => s.category === currentFilter);
+            }
+            
+            // Then apply search
+            if (currentSearch) {
+                filtered = filtered.filter(s => 
+                    s.title.toLowerCase().includes(currentSearch) ||
+                    s.content.toLowerCase().includes(currentSearch) ||
+                    s.username.toLowerCase().includes(currentSearch) ||
+                    (s.category && s.category.toLowerCase().includes(currentSearch))
+                );
+            }
+            
+            renderScripts(filtered);
+        }
+
+        // ============================================================
+        // =============== DETAY SAYFASI =============================
+        // ============================================================
         function showDetail(id) {
             const scripts = DB.getScripts();
             const script = scripts.find(s => s.id === id);
             if (!script) {
-                showAlert('Script bulunamadı!', 'error');
+                showToast('Script bulunamadı!', 'error');
                 return;
             }
 
             const comments = DB.getComments().filter(c => c.scriptId === id);
-            const currentUser = getCurrentUser();
+            const user = getCurrentUser();
+            const favorites = DB.getFavorites();
+            const isFavorite = favorites.includes(id);
+            const downloadCount = (DB.getDownloads()[id] || 0);
 
             let commentHTML = '';
             if (comments.length === 0) {
-                commentHTML = '<p style="color:#8b949e;">Henüz yorum yok.</p>';
+                commentHTML = '<p style="color:var(--text-muted);">Henüz yorum yok. İlk yorumu sen yap! 💬</p>';
             } else {
                 comments.forEach(c => {
                     commentHTML += `
                         <div class="comment-item">
-                            <div class="comment-meta">
+                            <div class="comment-header">
                                 <strong>${c.username}</strong>
                                 <span>${formatDate(c.created)}</span>
                             </div>
@@ -819,123 +1409,154 @@
                 });
             }
 
+            const isOwner = user && script.userId === user.id;
+
+            document.getElementById('heroSection').style.display = 'none';
+
             const content = document.getElementById('content');
             content.innerHTML = `
-                <div class="card">
-                    <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;">
-                        <h2 class="card-title">${script.title}</h2>
-                        <div>
-                            <span class="tag tag-lua">${script.language || 'Lua'}</span>
-                            <span class="tag ${getCategoryTag(script.category)}">${script.category || 'Diğer'}</span>
+                <div class="detail-view fade-in">
+                    <div class="card" style="background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius);padding:28px;margin-bottom:24px;">
+                        <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:12px;">
+                            <h2 style="font-size:28px;font-weight:800;">${script.title}</h2>
+                            <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                                <span class="badge badge-lua">Lua</span>
+                                <span class="badge ${getCategoryBadge(script.category)}">${script.category || 'Diğer'}</span>
+                                ${script.downloads > 100 ? '<span class="badge badge-popular">🔥 Popüler</span>' : ''}
+                            </div>
+                        </div>
+                        <div class="detail-meta">
+                            <span><i class="fas fa-user"></i> ${script.username}</span>
+                            <span><i class="fas fa-clock"></i> ${formatDate(script.created)}</span>
+                            <span><i class="fas fa-eye"></i> ${script.downloads || 0} görüntülenme</span>
+                            <span><i class="fas fa-download"></i> ${downloadCount} indirme</span>
+                            <span><i class="fas fa-star"></i> ${isFavorite ? 'Favorilerde' : 'Favori değil'}</span>
+                        </div>
+                        <div class="detail-code">${escapeHtml(script.content)}</div>
+                        <div class="detail-actions">
+                            <button class="btn btn-view" onclick="copyScript(${script.id})"><i class="fas fa-copy"></i> Kopyala</button>
+                            <button class="btn btn-download" onclick="downloadScript(${script.id})"><i class="fas fa-download"></i> İndir</button>
+                            <button class="btn btn-copy" onclick="toggleFavorite(${script.id})" style="${isFavorite ? 'color:#fbbf24;border-color:#fbbf24;' : ''}">
+                                <i class="fas ${isFavorite ? 'fa-star' : 'fa-star-o'}"></i> ${isFavorite ? 'Favoriden Çıkar' : 'Favori Ekle'}
+                            </button>
+                            <button class="btn btn-secondary" onclick="showHome()"><i class="fas fa-arrow-left"></i> Geri</button>
+                            ${isOwner ? `<button class="btn btn-delete" onclick="deleteScript(${script.id})"><i class="fas fa-trash"></i> Sil</button>` : ''}
                         </div>
                     </div>
-                    <div class="meta" style="color:#8b949e;font-size:14px;margin:10px 0;">
-                        <span>👤 ${script.username}</span>
-                        <span>📅 ${formatDate(script.created)}</span>
-                    </div>
-                    <div class="detail-code">${escapeHtml(script.content)}</div>
-                    <div style="margin-top:15px;display:flex;gap:10px;flex-wrap:wrap;">
-                        <button class="btn btn-secondary" onclick="showHome()">⬅ Geri</button>
-                        <button class="btn btn-primary" onclick="copyScript(${script.id})">📋 Kopyala</button>
-                        ${script.userId === (currentUser?.id || -1) ? `<button class="btn btn-danger" onclick="deleteScript(${script.id})">🗑️ Sil</button>` : ''}
-                    </div>
-                </div>
 
-                <div class="card">
-                    <h3 style="color:#58a6ff;margin-bottom:15px;">💬 Yorumlar (${comments.length})</h3>
-                    ${currentUser ? `
-                        <form onsubmit="addComment(${script.id});return false;">
-                            <div class="form-group">
-                                <textarea name="comment" placeholder="Yorum yaz..." required></textarea>
+                    <div class="comments-section">
+                        <h3><i class="fas fa-comments" style="color:var(--roblox-red);"></i> Yorumlar (${comments.length})</h3>
+                        
+                        ${user ? `
+                            <div class="comment-form">
+                                <textarea id="commentInput" placeholder="Yorum yaz..."></textarea>
+                                <button onclick="addComment(${script.id})"><i class="fas fa-paper-plane"></i> Gönder</button>
                             </div>
-                            <button type="submit" class="btn btn-primary">📨 Gönder</button>
-                        </form>
-                    ` : `
-                        <p>Yorum yapmak için <a href="#" onclick="showLogin()" style="color:#58a6ff;">giriş yapın</a></p>
-                    `}
-                    <hr style="border-color:#30363d;margin:20px 0;">
-                    ${commentHTML}
+                        ` : `
+                            <p style="color:var(--text-muted);margin-bottom:16px;">Yorum yapmak için <a href="#" onclick="showLogin()" style="color:var(--roblox-red);">giriş yapın</a></p>
+                        `}
+                        
+                        ${commentHTML}
+                    </div>
                 </div>
             `;
 
             closeModal();
         }
 
+        // ============================================================
+        // =============== YÜKLEME SAYFASI ===========================
+        // ============================================================
         function showUpload() {
             if (!isLoggedIn()) {
-                showAlert('Lütfen önce giriş yapın!', 'error');
+                showToast('Lütfen önce giriş yapın!', 'error');
                 showLogin();
                 return;
             }
 
+            document.getElementById('heroSection').style.display = 'none';
+
             const content = document.getElementById('content');
             content.innerHTML = `
-                <div class="card" style="max-width:700px;margin:0 auto;">
-                    <h2 class="card-title">🎮 Roblox Script Yükle</h2>
-                    <form onsubmit="uploadScript();return false;">
-                        <div class="form-group">
-                            <label>Script Başlığı *</label>
-                            <input type="text" id="scriptTitle" placeholder="Örn: Otomatik Tıklama Scripti" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Script Kodu *</label>
-                            <textarea id="scriptContent" placeholder="Lua kodunu yapıştır..." required></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label>Kategori</label>
-                            <select id="scriptCategory">
-                                <option value="ESP">ESP (X-Ray)</option>
-                                <option value="Otomasyon">Otomasyon</option>
-                                <option value="Aimbot">Aimbot</option>
-                                <option value="Fly">Fly (Uçma)</option>
-                                <option value="Speed">Speed (Hız)</option>
-                                <option value="Diğer">Diğer</option>
-                            </select>
-                        </div>
-                        <div style="display:flex;gap:10px;flex-wrap:wrap;">
-                            <button type="submit" class="btn btn-roblox">📤 Yayınla</button>
-                            <button type="button" class="btn btn-secondary" onclick="showHome()">İptal</button>
-                        </div>
-                    </form>
+                <div class="fade-in" style="max-width:700px;margin:0 auto;">
+                    <div style="background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius);padding:32px;">
+                        <h2 style="font-size:26px;font-weight:800;margin-bottom:8px;"><i class="fas fa-upload" style="color:var(--roblox-red);"></i> Roblox Script Yükle</h2>
+                        <p style="color:var(--text-secondary);margin-bottom:24px;">Scriptini paylaş, topluluğa katkıda bulun! 🚀</p>
+                        
+                        <form onsubmit="uploadScript();return false;">
+                            <div class="form-group">
+                                <label><i class="fas fa-heading"></i> Script Başlığı *</label>
+                                <input type="text" id="scriptTitle" placeholder="Örn: Ultimate ESP v3.0" required>
+                            </div>
+                            <div class="form-group">
+                                <label><i class="fas fa-code"></i> Script Kodu *</label>
+                                <textarea id="scriptContent" placeholder="-- Lua kodunu yapıştır..." required></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label><i class="fas fa-tag"></i> Kategori</label>
+                                <select id="scriptCategory">
+                                    <option value="ESP">👁️ ESP (X-Ray)</option>
+                                    <option value="Otomasyon">⚡ Otomasyon</option>
+                                    <option value="Aimbot">🎯 Aimbot</option>
+                                    <option value="Fly">🦅 Fly (Uçma)</option>
+                                    <option value="Speed">💨 Speed (Hız)</option>
+                                    <option value="Diğer">📦 Diğer</option>
+                                </select>
+                            </div>
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-submit"><i class="fas fa-rocket"></i> Yayınla</button>
+                                <button type="button" class="btn btn-cancel" onclick="showHome()">İptal</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             `;
 
             closeModal();
         }
 
+        // ============================================================
+        // =============== PROFİL SAYFASI ============================
+        // ============================================================
         function showProfile() {
             if (!isLoggedIn()) {
-                showAlert('Lütfen önce giriş yapın!', 'error');
+                showToast('Lütfen önce giriş yapın!', 'error');
                 showLogin();
                 return;
             }
 
             const user = getCurrentUser();
             const scripts = DB.getScripts().filter(s => s.userId === user.id);
+            const comments = DB.getComments().filter(c => c.userId === user.id);
+            const favorites = DB.getFavorites();
 
-            let cards = '';
+            document.getElementById('heroSection').style.display = 'none';
+
+            let scriptCards = '';
             if (scripts.length === 0) {
-                cards = `
-                    <div class="empty-state" style="padding:30px 20px;">
-                        <div class="emoji">🎮</div>
+                scriptCards = `
+                    <div class="empty-state" style="padding:40px 20px;grid-column:1/-1;">
+                        <div class="emoji">📝</div>
                         <h3>Henüz scriptin yok!</h3>
                         <p>İlk Roblox scriptini paylaşmaya ne dersin?</p>
-                        <br>
-                        <button class="btn btn-roblox" onclick="showUpload()">📤 Script Yükle</button>
+                        <button class="btn btn-view" onclick="showUpload()"><i class="fas fa-upload"></i> Script Yükle</button>
                     </div>
                 `;
             } else {
                 scripts.forEach(s => {
-                    cards += `
+                    scriptCards += `
                         <div class="script-card">
-                            <h3>${s.title}</h3>
-                            <div class="meta">
-                                <span>📅 ${formatDate(s.created)}</span>
-                                <span class="tag ${getCategoryTag(s.category)}">${s.category || 'Diğer'}</span>
+                            <div class="card-header">
+                                <h3>${s.title}</h3>
+                                <span class="badge ${getCategoryBadge(s.category)}">${s.category || 'Diğer'}</span>
                             </div>
-                            <div class="script-actions">
-                                <button class="btn btn-primary" onclick="showDetail(${s.id})">🔍 Görüntüle</button>
-                                <button class="btn btn-danger" onclick="deleteScript(${s.id})">🗑️ Sil</button>
+                            <div class="card-meta">
+                                <span><i class="fas fa-clock"></i> ${formatDate(s.created)}</span>
+                                <span><i class="fas fa-eye"></i> ${s.downloads || 0}</span>
+                            </div>
+                            <div class="card-actions">
+                                <button class="btn btn-view" onclick="showDetail(${s.id})"><i class="fas fa-eye"></i> Görüntüle</button>
+                                <button class="btn btn-delete" onclick="deleteScript(${s.id})"><i class="fas fa-trash"></i> Sil</button>
                             </div>
                         </div>
                     `;
@@ -944,45 +1565,177 @@
 
             const content = document.getElementById('content');
             content.innerHTML = `
-                <div style="margin-bottom:20px;">
-                    <h2>🎮 ${user.username}</h2>
-                    <p style="color:#8b949e;">📧 ${user.email || 'Email girilmemiş'}</p>
-                    <p style="color:#8b949e;font-size:14px;">📜 ${scripts.length} script paylaşıldı</p>
+                <div class="fade-in">
+                    <div style="background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius);padding:28px;margin-bottom:24px;">
+                        <div style="display:flex;align-items:center;gap:20px;flex-wrap:wrap;">
+                            <div style="width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,var(--roblox-red),var(--roblox-purple));display:flex;align-items:center;justify-content:center;font-size:32px;font-weight:700;color:white;">
+                                ${user.username.charAt(0).toUpperCase()}
+                            </div>
+                            <div>
+                                <h2 style="font-size:28px;font-weight:800;">${user.username}</h2>
+                                <p style="color:var(--text-secondary);"><i class="fas fa-envelope"></i> ${user.email || 'Email girilmemiş'}</p>
+                                <p style="color:var(--text-muted);font-size:14px;">
+                                    <i class="fas fa-calendar"></i> Katılım: ${formatDate(user.created)}
+                                </p>
+                            </div>
+                        </div>
+                        <div style="display:flex;gap:30px;margin-top:20px;flex-wrap:wrap;border-top:1px solid var(--border-color);padding-top:20px;">
+                            <div><span style="font-size:24px;font-weight:700;">${scripts.length}</span> <span style="color:var(--text-muted);">Script</span></div>
+                            <div><span style="font-size:24px;font-weight:700;">${comments.length}</span> <span style="color:var(--text-muted);">Yorum</span></div>
+                            <div><span style="font-size:24px;font-weight:700;">${favorites.length}</span> <span style="color:var(--text-muted);">Favori</span></div>
+                        </div>
+                    </div>
+
+                    <h3 style="margin-bottom:16px;"><i class="fas fa-archive" style="color:var(--roblox-red);"></i> Scriptlerim (${scripts.length})</h3>
+                    <div class="script-grid">${scriptCards}</div>
                 </div>
-                <h3 style="margin-bottom:15px;">📜 Scriptlerim</h3>
-                <div class="card-grid">${cards}</div>
             `;
 
             closeModal();
         }
 
+        // ============================================================
+        // =============== FAVORİLER SAYFASI =========================
+        // ============================================================
+        function showFavorites() {
+            if (!isLoggedIn()) {
+                showToast('Lütfen önce giriş yapın!', 'error');
+                showLogin();
+                return;
+            }
+
+            const favorites = DB.getFavorites();
+            const allScripts = DB.getScripts();
+            const favScripts = allScripts.filter(s => favorites.includes(s.id));
+
+            document.getElementById('heroSection').style.display = 'none';
+
+            const content = document.getElementById('content');
+            content.innerHTML = `
+                <div class="fade-in">
+                    <h2 style="font-size:26px;font-weight:800;margin-bottom:20px;">
+                        <i class="fas fa-star" style="color:#fbbf24;"></i> Favorilerim (${favScripts.length})
+                    </h2>
+                    <div class="script-grid" id="favGrid"></div>
+                </div>
+            `;
+
+            if (favScripts.length === 0) {
+                document.getElementById('favGrid').innerHTML = `
+                    <div class="empty-state" style="grid-column:1/-1;">
+                        <div class="emoji">⭐</div>
+                        <h3>Henüz favori scriptin yok!</h3>
+                        <p>Beğendiğin scriptleri favorilere ekle.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            let html = '';
+            favScripts.forEach(s => {
+                html += `
+                    <div class="script-card">
+                        <div class="card-header">
+                            <h3>${s.title}</h3>
+                            <span class="badge ${getCategoryBadge(s.category)}">${s.category || 'Diğer'}</span>
+                        </div>
+                        <div class="card-meta">
+                            <span><i class="fas fa-user"></i> ${s.username}</span>
+                            <span><i class="fas fa-clock"></i> ${formatDate(s.created)}</span>
+                        </div>
+                        <div class="card-actions">
+                            <button class="btn btn-view" onclick="showDetail(${s.id})"><i class="fas fa-eye"></i> İncele</button>
+                            <button class="btn btn-copy" onclick="toggleFavorite(${s.id})" style="color:#fbbf24;border-color:#fbbf24;">
+                                <i class="fas fa-star"></i> Çıkar
+                            </button>
+                        </div>
+                    </div>
+                `;
+            });
+            document.getElementById('favGrid').innerHTML = html;
+
+            closeModal();
+        }
+
+        // ============================================================
+        // =============== LİDERLİK TABLOSU ==========================
+        // ============================================================
+        function showLeaderboard() {
+            const scripts = DB.getScripts();
+            const sorted = [...scripts].sort((a, b) => (b.downloads || 0) - (a.downloads || 0));
+            const top5 = sorted.slice(0, 5);
+
+            document.getElementById('heroSection').style.display = 'none';
+
+            let html = '';
+            top5.forEach((s, index) => {
+                const medals = ['🥇', '🥈', '🥉', '4️⃣', '5️⃣'];
+                html += `
+                    <div style="background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius);padding:16px 20px;margin-bottom:12px;display:flex;align-items:center;gap:16px;transition:var(--transition);">
+                        <span style="font-size:28px;">${medals[index] || '🏅'}</span>
+                        <div style="flex:1;">
+                            <strong style="font-size:16px;">${s.title}</strong>
+                            <div style="color:var(--text-muted);font-size:13px;">
+                                👤 ${s.username} • ${s.category || 'Diğer'}
+                            </div>
+                        </div>
+                        <div style="text-align:right;">
+                            <div style="font-size:20px;font-weight:700;color:var(--roblox-red);">${s.downloads || 0}</div>
+                            <div style="color:var(--text-muted);font-size:12px;">görüntülenme</div>
+                        </div>
+                        <button class="btn btn-view" onclick="showDetail(${s.id})" style="padding:6px 14px;font-size:12px;">Gör</button>
+                    </div>
+                `;
+            });
+
+            const content = document.getElementById('content');
+            content.innerHTML = `
+                <div class="fade-in">
+                    <h2 style="font-size:26px;font-weight:800;margin-bottom:20px;">
+                        <i class="fas fa-trophy" style="color:#fbbf24;"></i> En Popüler Scriptler
+                    </h2>
+                    ${html}
+                    <div style="margin-top:20px;text-align:center;">
+                        <button class="btn btn-secondary" onclick="showHome()"><i class="fas fa-arrow-left"></i> Ana Sayfaya Dön</button>
+                    </div>
+                </div>
+            `;
+
+            closeModal();
+        }
+
+        // ============================================================
+        // =============== GİRİŞ & KAYIT =============================
+        // ============================================================
         function showLogin() {
             if (isLoggedIn()) {
-                showAlert('Zaten giriş yaptınız!', 'info');
+                showToast('Zaten giriş yaptınız!', 'info');
                 showHome();
                 return;
             }
 
             openModal(`
                 <div class="modal-header">
-                    <h2>🎮 Giriş</h2>
+                    <h2><i class="fas fa-sign-in-alt" style="color:var(--roblox-red);"></i> Giriş</h2>
                     <button class="modal-close" onclick="closeModal()">×</button>
                 </div>
                 <form onsubmit="loginUser();return false;">
                     <div class="form-group">
                         <label>Kullanıcı Adı</label>
-                        <input type="text" id="loginUsername" placeholder="Kullanıcı adı..." required>
+                        <input type="text" id="loginUsername" placeholder="Kullanıcı adınız..." required>
                     </div>
                     <div class="form-group">
                         <label>Şifre</label>
-                        <input type="password" id="loginPassword" placeholder="Şifre..." required>
+                        <input type="password" id="loginPassword" placeholder="Şifreniz..." required>
                     </div>
-                    <button type="submit" class="btn btn-roblox" style="width:100%;">Giriş Yap</button>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-submit"><i class="fas fa-sign-in-alt"></i> Giriş Yap</button>
+                    </div>
                 </form>
-                <div style="text-align:center;margin-top:15px;">
-                    <a href="#" onclick="closeModal();showRegister();" style="color:#58a6ff;">Hesabın yok mu? Kayıt ol</a>
+                <div class="form-footer">
+                    Hesabın yok mu? <a href="#" onclick="closeModal();showRegister();">Kayıt ol</a>
                 </div>
-                <div style="text-align:center;margin-top:10px;font-size:13px;color:#8b949e;">
+                <div class="form-footer" style="margin-top:8px;font-size:12px;color:var(--text-muted);">
                     🔑 Test: admin / admin123
                 </div>
             `);
@@ -990,14 +1743,14 @@
 
         function showRegister() {
             if (isLoggedIn()) {
-                showAlert('Zaten giriş yaptınız!', 'info');
+                showToast('Zaten giriş yaptınız!', 'info');
                 showHome();
                 return;
             }
 
             openModal(`
                 <div class="modal-header">
-                    <h2>🎮 Kayıt</h2>
+                    <h2><i class="fas fa-user-plus" style="color:var(--roblox-red);"></i> Kayıt</h2>
                     <button class="modal-close" onclick="closeModal()">×</button>
                 </div>
                 <form onsubmit="registerUser();return false;">
@@ -1011,17 +1764,21 @@
                     </div>
                     <div class="form-group">
                         <label>Şifre *</label>
-                        <input type="password" id="registerPassword" placeholder="Şifre..." required>
+                        <input type="password" id="registerPassword" placeholder="En az 4 karakter..." required>
                     </div>
-                    <button type="submit" class="btn btn-roblox" style="width:100%;">Kayıt Ol</button>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-submit"><i class="fas fa-user-plus"></i> Kayıt Ol</button>
+                    </div>
                 </form>
-                <div style="text-align:center;margin-top:15px;">
-                    <a href="#" onclick="closeModal();showLogin();" style="color:#58a6ff;">Zaten hesabın var mı? Giriş yap</a>
+                <div class="form-footer">
+                    Zaten hesabın var mı? <a href="#" onclick="closeModal();showLogin();">Giriş yap</a>
                 </div>
             `);
         }
 
-        // ============= İŞLEM FONKSİYONLARI =============
+        // ============================================================
+        // =============== İŞLEM FONKSİYONLARI =======================
+        // ============================================================
 
         function uploadScript() {
             const title = document.getElementById('scriptTitle').value.trim();
@@ -1030,7 +1787,12 @@
             const user = getCurrentUser();
 
             if (!title || !content) {
-                showAlert('Başlık ve kod zorunludur!', 'error');
+                showToast('Başlık ve kod zorunludur!', 'error');
+                return;
+            }
+
+            if (content.length < 20) {
+                showToast('Script çok kısa! En az 20 karakter gir.', 'error');
                 return;
             }
 
@@ -1043,13 +1805,15 @@
                 content: content,
                 language: 'Lua',
                 category: category,
+                downloads: 0,
                 userId: user.id,
                 username: user.username,
                 created: new Date().toISOString()
             });
 
             DB.saveScripts(scripts);
-            showAlert('🎮 Roblox scripti başarıyla yüklendi!', 'success');
+            showToast('🎮 Script başarıyla yüklendi!', 'success');
+            updateStats();
             showHome();
         }
 
@@ -1064,7 +1828,8 @@
             comments = comments.filter(c => c.scriptId !== id);
             DB.saveComments(comments);
 
-            showAlert('Script silindi!', 'success');
+            showToast('Script silindi!', 'success');
+            updateStats();
             showHome();
         }
 
@@ -1073,28 +1838,62 @@
             const script = scripts.find(s => s.id === id);
             if (script) {
                 navigator.clipboard.writeText(script.content).then(() => {
-                    showAlert('📋 Script kopyalandı!', 'success');
+                    showToast('📋 Script kopyalandı!', 'success');
                 }).catch(() => {
-                    // Fallback
                     const textarea = document.createElement('textarea');
                     textarea.value = script.content;
                     document.body.appendChild(textarea);
                     textarea.select();
                     document.execCommand('copy');
                     document.body.removeChild(textarea);
-                    showAlert('📋 Script kopyalandı!', 'success');
+                    showToast('📋 Script kopyalandı!', 'success');
                 });
             }
         }
 
+        function downloadScript(id) {
+            const scripts = DB.getScripts();
+            const script = scripts.find(s => s.id === id);
+            if (script) {
+                const downloads = DB.getDownloads();
+                downloads[id] = (downloads[id] || 0) + 1;
+                DB.saveDownloads(downloads);
+                
+                // Update script downloads count
+                script.downloads = (script.downloads || 0) + 1;
+                DB.saveScripts(scripts);
+                
+                showToast('⬇️ Script indiriliyor...', 'success');
+                updateStats();
+            }
+        }
+
+        function toggleFavorite(id) {
+            let favorites = DB.getFavorites();
+            const index = favorites.indexOf(id);
+            if (index > -1) {
+                favorites.splice(index, 1);
+                showToast('⭐ Favorilerden çıkarıldı', 'info');
+            } else {
+                favorites.push(id);
+                showToast('⭐ Favorilere eklendi!', 'success');
+            }
+            DB.saveFavorites(favorites);
+            
+            // Refresh current view
+            const currentView = document.getElementById('content').innerHTML;
+            if (currentView.includes('Favorilerim')) {
+                showFavorites();
+            }
+        }
+
         function addComment(scriptId) {
-            const form = document.querySelector('form[onsubmit*="addComment"]');
-            const textarea = form.querySelector('textarea[name="comment"]');
-            const content = textarea.value.trim();
+            const input = document.getElementById('commentInput');
+            const content = input.value.trim();
             const user = getCurrentUser();
 
             if (!content) {
-                showAlert('Yorum boş olamaz!', 'error');
+                showToast('Yorum boş olamaz!', 'error');
                 return;
             }
 
@@ -1109,8 +1908,9 @@
             });
 
             DB.saveComments(comments);
-            textarea.value = '';
-            showAlert('Yorum eklendi!', 'success');
+            input.value = '';
+            showToast('💬 Yorum eklendi!', 'success');
+            updateStats();
             showDetail(scriptId);
         }
 
@@ -1125,14 +1925,16 @@
                 DB.setCurrentUser({
                     id: user.id,
                     username: user.username,
-                    email: user.email || ''
+                    email: user.email || '',
+                    created: user.created
                 });
                 updateNav();
                 closeModal();
-                showAlert('🎮 Hoş geldin, ' + user.username + '!', 'success');
+                showToast('🎮 Hoş geldin, ' + user.username + '!', 'success');
+                updateStats();
                 showHome();
             } else {
-                showAlert('Kullanıcı adı veya şifre hatalı!', 'error');
+                showToast('Kullanıcı adı veya şifre hatalı!', 'error');
             }
         }
 
@@ -1142,18 +1944,18 @@
             const password = document.getElementById('registerPassword').value.trim();
 
             if (!username || !password) {
-                showAlert('Kullanıcı adı ve şifre zorunludur!', 'error');
+                showToast('Kullanıcı adı ve şifre zorunludur!', 'error');
                 return;
             }
 
             if (password.length < 4) {
-                showAlert('Şifre en az 4 karakter olmalı!', 'error');
+                showToast('Şifre en az 4 karakter olmalı!', 'error');
                 return;
             }
 
             const users = DB.getUsers();
             if (users.find(u => u.username === username)) {
-                showAlert('Bu kullanıcı adı zaten alınmış!', 'error');
+                showToast('Bu kullanıcı adı zaten alınmış!', 'error');
                 return;
             }
 
@@ -1168,7 +1970,7 @@
 
             DB.saveUsers(users);
             closeModal();
-            showAlert('🎮 Kayıt başarılı! Şimdi giriş yapabilirsin.', 'success');
+            showToast('🎮 Kayıt başarılı! Şimdi giriş yapabilirsin.', 'success');
             showLogin();
         }
 
@@ -1176,11 +1978,13 @@
             if (!confirm('Çıkış yapmak istediğine emin misin?')) return;
             DB.logout();
             updateNav();
-            showAlert('Çıkış yapıldı.', 'info');
+            showToast('Çıkış yapıldı.', 'info');
             showHome();
         }
 
-        // ============= MODAL İŞLEMLERİ =============
+        // ============================================================
+        // =============== MODAL İŞLEMLERİ ===========================
+        // ============================================================
         function openModal(html) {
             const modal = document.getElementById('modal');
             document.getElementById('modalContent').innerHTML = html;
@@ -1199,6 +2003,9 @@
             if (e.key === 'Escape') closeModal();
         });
 
+        // ============================================================
+        // =============== HTML ESCAPE ===============================
+        // ============================================================
         function escapeHtml(text) {
             if (!text) return '';
             const div = document.createElement('div');
@@ -1206,15 +2013,18 @@
             return div.innerHTML;
         }
 
-        // ============= BAŞLAT =============
+        // ============================================================
+        // =============== BAŞLAT ====================================
+        // ============================================================
         initData();
         updateNav();
         showHome();
 
-        console.log('🎮 RobloxScript çalışıyor!');
+        console.log('🎮 Roblox Script Hub yüklendi!');
         console.log('👤 Admin: admin / admin123');
         console.log('📊 Script sayısı:', DB.getScripts().length);
         console.log('👥 Kullanıcı sayısı:', DB.getUsers().length);
+        console.log('💬 Yorum sayısı:', DB.getComments().length);
         console.log('⚠️ Sadece eğitim amaçlıdır!');
     </script>
 
