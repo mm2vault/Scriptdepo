@@ -3,111 +3,73 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🎮 Roblox Script Hub Pro</title>
+    <title>🎮 Roblox Script Hub</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    
-    <!-- Firebase App (Core) -->
-    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
-    <!-- Firebase Auth -->
-    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
-    <!-- Firebase Firestore -->
-    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
-
     <style>
-        /* ============================================================
-           RESET & VARIABLES
-           ============================================================ */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
         :root {
             --bg: #0a0a12;
             --bg2: #111122;
             --bg3: #1a1a2e;
-            --bg4: #222244;
             --text: #ffffff;
             --text2: #a8a8c8;
             --text3: #6a6a8a;
-            --border: rgba(255, 55, 95, 0.15);
             --red: #ff375f;
-            --red2: #cc0020;
             --blue: #00b2ff;
             --green: #00d4aa;
-            --purple: #7c3aed;
-            --yellow: #fbbf24;
-            --shadow: 0 8px 32px rgba(0,0,0,0.4);
+            --border: rgba(255, 55, 95, 0.15);
             --radius: 12px;
-            --transition: all 0.3s ease;
-            --card-bg: var(--bg2);
-        }
-
-        [data-theme="light"] {
-            --bg: #f0f2f5;
-            --bg2: #ffffff;
-            --bg3: #e8eaed;
-            --bg4: #d0d4d9;
-            --text: #1a1a2e;
-            --text2: #4a4a6a;
-            --text3: #8a8aaa;
-            --border: rgba(0, 0, 0, 0.1);
-            --card-bg: #ffffff;
         }
 
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: -apple-system, 'Segoe UI', Roboto, sans-serif;
             background: var(--bg);
             color: var(--text);
-            min-height: 100vh;
-            padding: 16px;
-            transition: var(--transition);
+            padding: 12px;
         }
 
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: var(--bg); }
-        ::-webkit-scrollbar-thumb { background: var(--red); border-radius: 10px; }
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
 
-        .container { max-width: 1200px; margin: 0 auto; }
-
-        /* ============================================================
-           HEADER
-           ============================================================ */
+        /* HEADER */
         .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 12px 20px;
             background: var(--bg2);
+            padding: 12px 18px;
             border-radius: var(--radius);
             border: 1px solid var(--border);
-            margin-bottom: 24px;
+            margin-bottom: 20px;
             flex-wrap: wrap;
-            gap: 12px;
-            position: sticky;
-            top: 12px;
-            z-index: 100;
-            backdrop-filter: blur(10px);
-            transition: var(--transition);
+            gap: 10px;
         }
 
         .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            cursor: pointer;
             font-size: 22px;
             font-weight: 900;
-            font-family: 'Orbitron', sans-serif;
-            background: linear-gradient(135deg, var(--red), var(--purple));
+            background: linear-gradient(135deg, var(--red), #7c3aed);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            cursor: pointer;
         }
-        .logo i { -webkit-text-fill-color: white; font-size: 28px; }
+        .logo i {
+            -webkit-text-fill-color: white;
+            font-size: 26px;
+        }
 
         .nav {
             display: flex;
-            align-items: center;
-            gap: 6px;
+            gap: 4px;
             flex-wrap: wrap;
+            align-items: center;
         }
 
         .nav button {
@@ -119,13 +81,8 @@
             font-size: 13px;
             font-weight: 500;
             cursor: pointer;
-            transition: var(--transition);
-            font-family: 'Inter', sans-serif;
-            display: flex;
-            align-items: center;
-            gap: 6px;
+            transition: 0.2s;
         }
-
         .nav button:hover {
             color: white;
             background: rgba(255, 55, 95, 0.08);
@@ -133,63 +90,629 @@
         .nav button.active {
             color: white;
             background: rgba(255, 55, 95, 0.12);
-            border: 1px solid rgba(255, 55, 95, 0.2);
         }
 
         .btn-nav {
             background: var(--red) !important;
             color: white !important;
-            padding: 8px 20px !important;
-            border-radius: 8px !important;
-            font-weight: 600 !important;
+            padding: 8px 18px !important;
         }
-        .btn-nav:hover { background: var(--red2) !important; transform: scale(1.05); }
+        .btn-nav:hover {
+            background: #cc0020 !important;
+        }
 
-        .btn-outline-nav {
+        .btn-outline {
             border: 1px solid var(--border) !important;
-            background: transparent !important;
         }
-        .btn-outline-nav:hover { border-color: var(--red) !important; color: white !important; }
+        .btn-outline:hover {
+            border-color: var(--red) !important;
+        }
 
-        .btn-google {
-            background: #4285F4 !important;
-            color: white !important;
-            padding: 10px 20px !important;
-            border-radius: 8px !important;
-            font-weight: 600 !important;
-            border: none !important;
-            cursor: pointer !important;
-            display: flex !important;
-            align-items: center !important;
-            gap: 10px !important;
-            width: 100% !important;
-            justify-content: center !important;
-            transition: var(--transition) !important;
-            font-family: 'Inter', sans-serif;
-            font-size: 14px;
+        .user-badge {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 4px 12px 4px 4px;
+            border-radius: 30px;
+            background: rgba(255, 55, 95, 0.08);
+            border: 1px solid var(--border);
+            cursor: pointer;
         }
-        .btn-google:hover { background: #357ae8 !important; transform: scale(1.02) !important; }
-        .btn-google i { font-size: 18px; }
+        .user-badge .avatar {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--red), #7c3aed);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 700;
+            color: white;
+        }
+        .user-badge .name {
+            font-size: 13px;
+            font-weight: 600;
+        }
+        .user-badge .rank {
+            font-size: 10px;
+            padding: 2px 8px;
+            border-radius: 10px;
+            background: var(--red);
+            color: white;
+        }
+        .hidden {
+            display: none !important;
+        }
 
-        .btn-github {
-            background: #24292e !important;
-            color: white !important;
-            padding: 10px 20px !important;
-            border-radius: 8px !important;
-            font-weight: 600 !important;
-            border: none !important;
-            cursor: pointer !important;
-            display: flex !important;
-            align-items: center !important;
-            gap: 10px !important;
-            width: 100% !important;
-            justify-content: center !important;
-            transition: var(--transition) !important;
-            font-family: 'Inter', sans-serif;
-            font-size: 14px;
+        /* HERO */
+        .hero {
+            background: var(--bg2);
+            border-radius: var(--radius);
+            padding: 30px 32px;
+            border: 1px solid var(--border);
+            margin-bottom: 20px;
         }
-        .btn-github:hover { background: #1a1e22 !important; transform: scale(1.02) !important; }
-        .btn-github i { font-size: 18px; }
+        .hero h1 {
+            font-size: 30px;
+            font-weight: 900;
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, #fff 30%, var(--red));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero p {
+            color: var(--text2);
+            font-size: 15px;
+            max-width: 500px;
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+        .hero-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .hero-actions button {
+            padding: 10px 22px;
+            border-radius: 8px;
+            border: none;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-primary {
+            background: var(--red);
+            color: white;
+        }
+        .btn-primary:hover {
+            background: #cc0020;
+            transform: scale(1.04);
+        }
+        .btn-secondary {
+            background: var(--bg3);
+            color: white;
+            border: 1px solid var(--border);
+        }
+        .btn-secondary:hover {
+            border-color: var(--red);
+            transform: scale(1.04);
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 30px;
+            margin-top: 18px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border);
+            flex-wrap: wrap;
+        }
+        .hero-stats .stat .number {
+            font-size: 22px;
+            font-weight: 900;
+            color: var(--red);
+        }
+        .hero-stats .stat .label {
+            color: var(--text3);
+            font-size: 13px;
+        }
+
+        /* FILTER */
+        .filter-bar {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+            padding: 10px 14px;
+            background: var(--bg2);
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            align-items: center;
+        }
+        .filter-bar .filter-btn {
+            padding: 5px 14px;
+            border-radius: 20px;
+            border: 1px solid transparent;
+            background: transparent;
+            color: var(--text2);
+            font-size: 12px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .filter-bar .filter-btn:hover {
+            color: white;
+            border-color: var(--border);
+        }
+        .filter-bar .filter-btn.active {
+            background: rgba(255, 55, 95, 0.12);
+            border-color: var(--red);
+            color: white;
+        }
+        .filter-bar .search-box {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--bg);
+            padding: 4px 12px;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+        }
+        .filter-bar .search-box input {
+            background: none;
+            border: none;
+            color: white;
+            padding: 6px 0;
+            font-size: 13px;
+            outline: none;
+            width: 120px;
+        }
+        .filter-bar .search-box input::placeholder {
+            color: var(--text3);
+        }
+        .filter-bar .search-box i {
+            color: var(--text3);
+        }
+        .filter-bar .sort-select {
+            padding: 5px 12px;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            color: var(--text2);
+            font-size: 12px;
+            cursor: pointer;
+        }
+
+        /* SCRIPT GRID */
+        .script-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 16px;
+        }
+
+        .script-card {
+            background: var(--bg2);
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            padding: 18px;
+            transition: 0.3s;
+        }
+        .script-card:hover {
+            transform: translateY(-3px);
+            border-color: rgba(255, 55, 95, 0.3);
+        }
+        .script-card .top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+        .script-card .top h3 {
+            font-size: 16px;
+            font-weight: 700;
+        }
+        .script-card .top .badges {
+            display: flex;
+            gap: 4px;
+            flex-wrap: wrap;
+        }
+        .badge {
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-size: 9px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+        .badge-lua {
+            background: #000080;
+            color: white;
+        }
+        .badge-esp {
+            background: #7c3aed;
+            color: white;
+        }
+        .badge-otomasyon {
+            background: #00d4aa;
+            color: #0a0a0f;
+        }
+        .badge-aimbot {
+            background: var(--red);
+            color: white;
+        }
+        .badge-fly {
+            background: #00b2ff;
+            color: white;
+        }
+        .badge-speed {
+            background: #fbbf24;
+            color: #0a0a0f;
+        }
+        .badge-gui {
+            background: #ec4899;
+            color: white;
+        }
+        .badge-utility {
+            background: #3b82f6;
+            color: white;
+        }
+        .badge-diger {
+            background: #6a6a8a;
+            color: white;
+        }
+        .badge-featured {
+            background: #ff8c00;
+            color: white;
+        }
+        .badge-version {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text2);
+            border: 1px solid var(--border);
+        }
+
+        .script-card .meta {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            font-size: 12px;
+            color: var(--text3);
+            margin-bottom: 8px;
+        }
+        .script-card .meta i {
+            width: 14px;
+        }
+        .script-card .meta .likes {
+            color: var(--red);
+        }
+
+        .script-card .code-preview {
+            background: var(--bg);
+            padding: 10px;
+            border-radius: 8px;
+            font-family: monospace;
+            font-size: 12px;
+            color: var(--text2);
+            overflow-x: auto;
+            white-space: pre-wrap;
+            max-height: 80px;
+            overflow-y: auto;
+            border: 1px solid var(--border);
+            margin-bottom: 10px;
+            line-height: 1.5;
+        }
+
+        .script-card .actions {
+            display: flex;
+            gap: 5px;
+            flex-wrap: wrap;
+        }
+        .script-card .actions button {
+            padding: 5px 12px;
+            border-radius: 6px;
+            border: none;
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .btn-view {
+            background: var(--blue);
+            color: white;
+        }
+        .btn-view:hover {
+            background: #0099dd;
+        }
+
+        .btn-copy {
+            background: var(--bg);
+            color: var(--text2);
+            border: 1px solid var(--border) !important;
+        }
+        .btn-copy:hover {
+            border-color: var(--red) !important;
+            color: white;
+        }
+
+        .btn-fav {
+            background: transparent;
+            color: var(--text3);
+            border: 1px solid var(--border) !important;
+        }
+        .btn-fav:hover {
+            border-color: #fbbf24 !important;
+            color: #fbbf24;
+        }
+        .btn-fav.active {
+            border-color: #fbbf24 !important;
+            color: #fbbf24;
+            background: rgba(251, 191, 36, 0.05);
+        }
+
+        .btn-like {
+            background: transparent;
+            color: var(--text3);
+            border: 1px solid var(--border) !important;
+        }
+        .btn-like:hover {
+            border-color: var(--red) !important;
+            color: var(--red);
+        }
+        .btn-like.active {
+            border-color: var(--red) !important;
+            color: var(--red);
+            background: rgba(255, 55, 95, 0.05);
+        }
+
+        .btn-delete {
+            background: rgba(255, 55, 95, 0.1);
+            color: var(--red);
+        }
+        .btn-delete:hover {
+            background: rgba(255, 55, 95, 0.2);
+        }
+
+        .btn-edit {
+            background: rgba(0, 178, 255, 0.1);
+            color: var(--blue);
+            border: 1px solid rgba(0, 178, 255, 0.15) !important;
+        }
+        .btn-edit:hover {
+            background: rgba(0, 178, 255, 0.2);
+        }
+
+        .btn-back {
+            background: var(--bg);
+            color: var(--text2);
+            border: 1px solid var(--border) !important;
+        }
+        .btn-back:hover {
+            border-color: var(--text3) !important;
+            color: white;
+        }
+
+        .btn-admin {
+            background: #7c3aed;
+            color: white;
+        }
+        .btn-admin:hover {
+            background: #6d28d9;
+        }
+
+        .btn-submit {
+            background: var(--red);
+            color: white;
+        }
+        .btn-submit:hover {
+            background: #cc0020;
+        }
+
+        /* PAGINATION */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 6px;
+            margin-top: 20px;
+            padding: 12px 0;
+            flex-wrap: wrap;
+        }
+        .pagination button {
+            padding: 6px 14px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            background: var(--bg2);
+            color: var(--text2);
+            cursor: pointer;
+            transition: 0.2s;
+            font-size: 13px;
+        }
+        .pagination button:hover {
+            border-color: var(--red);
+            color: white;
+        }
+        .pagination button.active {
+            background: var(--red);
+            color: white;
+            border-color: var(--red);
+        }
+        .pagination button:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        /* EMPTY */
+        .empty-state {
+            text-align: center;
+            padding: 50px 20px;
+            grid-column: 1 / -1;
+        }
+        .empty-state .emoji {
+            font-size: 50px;
+            display: block;
+            margin-bottom: 12px;
+        }
+        .empty-state h3 {
+            font-size: 18px;
+            margin-bottom: 6px;
+        }
+        .empty-state p {
+            color: var(--text2);
+            max-width: 400px;
+            margin: 0 auto 12px;
+        }
+
+        /* MODAL */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--bg2);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 24px;
+            max-width: 460px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+        .modal-header h2 {
+            font-size: 20px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .modal-header h2 i {
+            color: var(--red);
+        }
+        .modal-close {
+            background: none;
+            border: none;
+            color: var(--text3);
+            font-size: 24px;
+            cursor: pointer;
+        }
+        .modal-close:hover {
+            color: var(--red);
+        }
+
+        .form-group {
+            margin-bottom: 14px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 4px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text2);
+        }
+        .form-group label i {
+            margin-right: 6px;
+            color: var(--red);
+        }
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 10px 14px;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: white;
+            font-size: 13px;
+            transition: 0.2s;
+            font-family: inherit;
+        }
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--red);
+        }
+        .form-group textarea {
+            min-height: 100px;
+            font-family: monospace;
+            resize: vertical;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 6px;
+        }
+        .form-actions button {
+            padding: 10px 20px;
+            border-radius: 8px;
+            border: none;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+            flex: 1;
+        }
+        .btn-cancel {
+            background: var(--bg);
+            color: var(--text2);
+            border: 1px solid var(--border);
+        }
+        .btn-cancel:hover {
+            border-color: var(--text3);
+            color: white;
+        }
+
+        .form-footer {
+            text-align: center;
+            margin-top: 14px;
+            color: var(--text3);
+            font-size: 13px;
+        }
+        .form-footer a {
+            color: var(--red);
+            text-decoration: none;
+            font-weight: 600;
+            cursor: pointer;
+        }
 
         .divider {
             display: flex;
@@ -205,775 +728,257 @@
             flex: 1;
             border-bottom: 1px solid var(--border);
         }
-        .divider::before { margin-right: 12px; }
-        .divider::after { margin-left: 12px; }
-
-        .user-badge {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 4px 12px 4px 4px;
-            border-radius: 30px;
-            background: rgba(255, 55, 95, 0.08);
-            border: 1px solid rgba(255, 55, 95, 0.15);
-            cursor: pointer;
-            transition: var(--transition);
+        .divider::before {
+            margin-right: 12px;
         }
-        .user-badge:hover { border-color: rgba(255, 55, 95, 0.3); }
-
-        .user-badge .avatar {
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--red), var(--purple));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 13px;
-            font-weight: 700;
-            color: white;
-            overflow: hidden;
-        }
-        .user-badge .avatar img {
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            object-fit: cover;
+        .divider::after {
+            margin-left: 12px;
         }
 
-        .user-badge .name {
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--text);
-            max-width: 100px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
+        .btn-google {
+            background: #4285F4 !important;
+            color: white !important;
+            padding: 10px 20px !important;
+            border-radius: 8px !important;
+            font-weight: 600 !important;
+            border: none !important;
+            cursor: pointer !important;
+            display: flex !important;
+            align-items: center !important;
+            gap: 10px !important;
+            width: 100% !important;
+            justify-content: center !important;
+            font-size: 14px !important;
         }
-
-        .user-badge .rank-badge {
-            font-size: 10px;
-            padding: 2px 8px;
-            border-radius: 10px;
-            font-weight: 700;
+        .btn-google:hover {
+            background: #357ae8 !important;
         }
-        .rank-badge.admin { background: var(--red); color: white; }
-        .rank-badge.user { background: var(--text3); color: white; }
-
-        .hidden { display: none !important; }
-
-        .theme-toggle {
-            background: none;
-            border: none;
-            color: var(--text2);
+        .btn-google i {
             font-size: 18px;
-            cursor: pointer;
-            transition: var(--transition);
-            padding: 4px 8px;
-        }
-        .theme-toggle:hover { color: var(--text); transform: rotate(30deg); }
-
-        .loading-spinner {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid rgba(255,255,255,0.3);
-            border-radius: 50%;
-            border-top-color: white;
-            animation: spin 0.8s ease-in-out infinite;
-        }
-        @keyframes spin {
-            to { transform: rotate(360deg); }
         }
 
-        /* ============================================================
-           HERO
-           ============================================================ */
-        .hero {
-            background: var(--bg2);
-            border-radius: var(--radius);
-            padding: 36px 40px;
-            border: 1px solid var(--border);
-            margin-bottom: 24px;
-            position: relative;
-            overflow: hidden;
-            transition: var(--transition);
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -20%;
-            width: 400px;
-            height: 400px;
-            background: radial-gradient(circle, rgba(255,55,95,0.06), transparent 70%);
-            border-radius: 50%;
-        }
-
-        .hero-content { position: relative; z-index: 1; }
-
-        .hero h1 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 36px;
-            font-weight: 900;
-            margin-bottom: 10px;
-            background: linear-gradient(135deg, #fff 30%, var(--red));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .hero p {
-            color: var(--text2);
-            font-size: 16px;
-            max-width: 500px;
-            line-height: 1.7;
-            margin-bottom: 20px;
-        }
-
-        .hero-actions {
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
-
-        .hero-actions button {
-            padding: 10px 24px;
+        /* DETAIL VIEW */
+        .detail-view .detail-code {
+            background: var(--bg);
+            padding: 16px;
             border-radius: 8px;
-            border: none;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            font-family: 'Inter', sans-serif;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .hero-actions .btn-primary {
-            background: var(--red);
-            color: white;
-        }
-        .hero-actions .btn-primary:hover {
-            background: var(--red2);
-            transform: scale(1.04);
-        }
-
-        .hero-actions .btn-secondary {
-            background: var(--bg3);
-            color: var(--text);
-            border: 1px solid var(--border);
-        }
-        .hero-actions .btn-secondary:hover {
-            border-color: var(--red);
-            transform: scale(1.04);
-        }
-
-        .hero-stats {
-            display: flex;
-            gap: 40px;
-            margin-top: 24px;
-            padding-top: 20px;
-            border-top: 1px solid var(--border);
-            flex-wrap: wrap;
-        }
-
-        .hero-stats .stat .number {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 24px;
-            font-weight: 900;
-            color: var(--red);
-        }
-        .hero-stats .stat .label {
-            color: var(--text3);
+            font-family: monospace;
             font-size: 13px;
-        }
-
-        /* ============================================================
-           FILTER BAR
-           ============================================================ */
-        .filter-bar {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-            margin-bottom: 24px;
-            padding: 12px 16px;
-            background: var(--bg2);
-            border-radius: var(--radius);
-            border: 1px solid var(--border);
-            align-items: center;
-            transition: var(--transition);
-        }
-
-        .filter-bar .filter-btn {
-            padding: 6px 16px;
-            border-radius: 20px;
-            border: 1px solid transparent;
-            background: transparent;
-            color: var(--text2);
-            font-size: 12px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: var(--transition);
-            font-family: 'Inter', sans-serif;
-        }
-
-        .filter-bar .filter-btn:hover {
-            color: var(--text);
-            border-color: var(--border);
-        }
-        .filter-bar .filter-btn.active {
-            background: rgba(255, 55, 95, 0.12);
-            border-color: var(--red);
-            color: var(--text);
-        }
-
-        .filter-bar .search-box {
-            margin-left: auto;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            background: var(--bg);
-            padding: 4px 14px;
-            border-radius: 20px;
-            border: 1px solid var(--border);
-            transition: var(--transition);
-        }
-
-        .filter-bar .search-box input {
-            background: none;
-            border: none;
-            color: var(--text);
-            padding: 6px 0;
-            font-size: 13px;
-            outline: none;
-            width: 140px;
-            font-family: 'Inter', sans-serif;
-        }
-        .filter-bar .search-box input::placeholder { color: var(--text3); }
-        .filter-bar .search-box i { color: var(--text3); }
-
-        .filter-bar .sort-select {
-            padding: 6px 14px;
-            background: var(--bg);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            color: var(--text2);
-            font-size: 12px;
-            font-family: 'Inter', sans-serif;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-        .filter-bar .sort-select:focus {
-            outline: none;
-            border-color: var(--red);
-        }
-
-        /* ============================================================
-           SCRIPT GRID
-           ============================================================ */
-        .script-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-            gap: 20px;
-        }
-
-        .script-card {
-            background: var(--card-bg);
-            border-radius: var(--radius);
-            border: 1px solid var(--border);
-            padding: 20px;
-            transition: var(--transition);
-        }
-
-        .script-card:hover {
-            transform: translateY(-4px);
-            border-color: rgba(255, 55, 95, 0.3);
-            box-shadow: var(--shadow);
-        }
-
-        .script-card .top {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            gap: 8px;
-            margin-bottom: 10px;
-        }
-
-        .script-card .top h3 {
-            font-size: 16px;
-            font-weight: 700;
-            color: var(--text);
-        }
-
-        .script-card .top .badges {
-            display: flex;
-            gap: 4px;
-            flex-wrap: wrap;
-            flex-shrink: 0;
-        }
-
-        .badge {
-            padding: 2px 10px;
-            border-radius: 12px;
-            font-size: 9px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.3px;
-        }
-
-        .badge-lua { background: #000080; color: white; }
-        .badge-esp { background: #7c3aed; color: white; }
-        .badge-otomasyon { background: #00d4aa; color: #0a0a0f; }
-        .badge-aimbot { background: var(--red); color: white; }
-        .badge-fly { background: #00b2ff; color: white; }
-        .badge-speed { background: #fbbf24; color: #0a0a0f; }
-        .badge-gui { background: #ec4899; color: white; }
-        .badge-utility { background: #3b82f6; color: white; }
-        .badge-diger { background: #6a6a8a; color: white; }
-        .badge-popular { background: #fbbf24; color: #0a0a0f; }
-        .badge-new { background: #00d4aa; color: #0a0a0f; }
-        .badge-featured { background: #ff8c00; color: white; }
-        .badge-version { background: rgba(255,255,255,0.05); color: var(--text2); border: 1px solid var(--border); }
-
-        .script-card .meta {
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-            font-size: 12px;
-            color: var(--text3);
-            margin-bottom: 10px;
-        }
-        .script-card .meta i { width: 14px; }
-        .script-card .meta .likes { color: var(--red); }
-
-        .script-card .tags {
-            display: flex;
-            gap: 4px;
-            flex-wrap: wrap;
-            margin-bottom: 10px;
-        }
-        .script-card .tags .tag {
-            padding: 2px 10px;
-            border-radius: 12px;
-            font-size: 10px;
-            background: rgba(255,55,95,0.08);
-            border: 1px solid rgba(255,55,95,0.1);
-            color: var(--text2);
-        }
-
-        .script-card .code-preview {
-            background: var(--bg);
-            padding: 12px;
-            border-radius: 8px;
-            font-family: 'Courier New', monospace;
-            font-size: 12px;
-            color: var(--text2);
-            overflow-x: auto;
             white-space: pre-wrap;
-            max-height: 100px;
-            overflow-y: auto;
+            overflow-x: auto;
             border: 1px solid var(--border);
-            margin-bottom: 12px;
-            line-height: 1.6;
+            margin: 10px 0;
+            max-height: 350px;
+            overflow-y: auto;
+            color: var(--text2);
+            line-height: 1.7;
         }
-
-        .script-card .actions {
+        .detail-view .detail-meta {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            font-size: 13px;
+            color: var(--text2);
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 10px;
+        }
+        .detail-view .detail-actions {
             display: flex;
             gap: 6px;
             flex-wrap: wrap;
+            margin: 10px 0;
         }
-
-        .script-card .actions button {
-            padding: 6px 14px;
-            border-radius: 6px;
-            border: none;
-            font-size: 12px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            font-family: 'Inter', sans-serif;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-
-        .btn-view { background: var(--blue); color: white; }
-        .btn-view:hover { background: #0099dd; transform: scale(1.04); }
-
-        .btn-copy { background: var(--bg); color: var(--text2); border: 1px solid var(--border) !important; }
-        .btn-copy:hover { border-color: var(--red) !important; color: var(--text); }
-
-        .btn-download { background: var(--green); color: #0a0a0f; }
-        .btn-download:hover { background: #00b894; transform: scale(1.04); }
-
-        .btn-fav { background: transparent; color: var(--text3); border: 1px solid var(--border) !important; }
-        .btn-fav:hover { border-color: var(--yellow) !important; color: var(--yellow); }
-        .btn-fav.active { border-color: var(--yellow) !important; color: var(--yellow); background: rgba(251,191,36,0.05); }
-
-        .btn-like { background: transparent; color: var(--text3); border: 1px solid var(--border) !important; }
-        .btn-like:hover { border-color: var(--red) !important; color: var(--red); }
-        .btn-like.active { border-color: var(--red) !important; color: var(--red); background: rgba(255,55,95,0.05); }
-
-        .btn-delete { background: rgba(255,55,95,0.1); color: var(--red); }
-        .btn-delete:hover { background: rgba(255,55,95,0.2); transform: scale(1.04); }
-
-        .btn-edit { background: rgba(0,178,255,0.1); color: var(--blue); border: 1px solid rgba(0,178,255,0.15) !important; }
-        .btn-edit:hover { background: rgba(0,178,255,0.2); transform: scale(1.04); }
-
-        .btn-report { background: transparent; color: var(--text3); border: none !important; font-size: 11px !important; }
-        .btn-report:hover { color: var(--red); }
-
-        .btn-link { background: rgba(124,58,237,0.1); color: var(--purple); border: 1px solid rgba(124,58,237,0.15) !important; }
-        .btn-link:hover { background: rgba(124,58,237,0.2); transform: scale(1.04); }
-
-        .btn-back { background: var(--bg); color: var(--text2); border: 1px solid var(--border) !important; }
-        .btn-back:hover { border-color: var(--text3) !important; color: var(--text); }
-
-        .btn-admin { background: var(--purple); color: white; }
-        .btn-admin:hover { background: #6d28d9; transform: scale(1.04); }
-
-        /* ============================================================
-           PAGINATION
-           ============================================================ */
-        .pagination {
-            display: flex;
-            justify-content: center;
-            gap: 8px;
-            margin-top: 24px;
-            padding: 16px 0;
-            flex-wrap: wrap;
-        }
-
-        .pagination button {
+        .detail-view .detail-actions button {
             padding: 8px 16px;
             border-radius: 8px;
-            border: 1px solid var(--border);
-            background: var(--bg2);
-            color: var(--text2);
-            cursor: pointer;
-            transition: var(--transition);
-            font-family: 'Inter', sans-serif;
-            font-size: 13px;
-        }
-
-        .pagination button:hover {
-            border-color: var(--red);
-            color: var(--text);
-        }
-
-        .pagination button.active {
-            background: var(--red);
-            color: white;
-            border-color: var(--red);
-        }
-
-        .pagination button:disabled {
-            opacity: 0.3;
-            cursor: not-allowed;
-        }
-
-        /* ============================================================
-           EMPTY
-           ============================================================ */
-        .empty-state {
-            text-align: center;
-            padding: 60px 20px;
-            grid-column: 1 / -1;
-        }
-        .empty-state .emoji { font-size: 60px; display: block; margin-bottom: 16px; }
-        .empty-state h3 { font-size: 20px; margin-bottom: 8px; color: var(--text); }
-        .empty-state p { color: var(--text2); max-width: 400px; margin: 0 auto 16px; }
-
-        /* ============================================================
-           MODAL
-           ============================================================ */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.85);
-            backdrop-filter: blur(8px);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-        .modal.active { display: flex; }
-
-        .modal-content {
-            background: var(--bg2);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 28px;
-            max-width: 420px;
-            width: 100%;
-            max-height: 90vh;
-            overflow-y: auto;
-            animation: modalIn 0.3s ease;
-            transition: var(--transition);
-        }
-
-        @keyframes modalIn {
-            from { opacity: 0; transform: scale(0.9) translateY(20px); }
-            to { opacity: 1; transform: scale(1) translateY(0); }
-        }
-
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .modal-header h2 {
-            font-size: 20px;
-            font-weight: 800;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            color: var(--text);
-        }
-        .modal-header h2 i { color: var(--red); }
-
-        .modal-close {
-            background: none;
             border: none;
-            color: var(--text3);
-            font-size: 24px;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-        .modal-close:hover { color: var(--red); transform: rotate(90deg); }
-
-        .form-group { margin-bottom: 16px; }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 4px;
             font-size: 13px;
             font-weight: 600;
-            color: var(--text2);
+            cursor: pointer;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
-        .form-group label i { margin-right: 6px; color: var(--red); }
 
-        .form-group input {
-            width: 100%;
+        .comments-section {
+            margin-top: 16px;
+        }
+        .comments-section h3 {
+            font-size: 17px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .comments-section h3 i {
+            color: var(--red);
+        }
+        .comment-item {
+            background: var(--bg);
+            padding: 10px 14px;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            border: 1px solid var(--border);
+        }
+        .comment-item .comment-header {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: var(--text3);
+            margin-bottom: 4px;
+        }
+        .comment-item .comment-header strong {
+            color: white;
+        }
+        .comment-item p {
+            color: var(--text2);
+            font-size: 13px;
+            line-height: 1.5;
+        }
+        .comment-form {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+        .comment-form textarea {
+            flex: 1;
             padding: 10px 14px;
             background: var(--bg);
             border: 1px solid var(--border);
             border-radius: 8px;
-            color: var(--text);
+            color: white;
             font-size: 13px;
-            font-family: 'Inter', sans-serif;
-            transition: var(--transition);
+            resize: vertical;
+            min-height: 45px;
+            font-family: inherit;
         }
-
-        .form-group input:focus {
+        .comment-form textarea:focus {
             outline: none;
             border-color: var(--red);
-            box-shadow: 0 0 0 3px rgba(255,55,95,0.1);
         }
-
-        .form-actions {
-            display: flex;
-            gap: 10px;
-            margin-top: 6px;
-        }
-
-        .form-actions button {
-            padding: 10px 24px;
+        .comment-form button {
+            padding: 10px 18px;
             border-radius: 8px;
             border: none;
-            font-size: 13px;
+            background: var(--red);
+            color: white;
             font-weight: 600;
             cursor: pointer;
-            transition: var(--transition);
-            font-family: 'Inter', sans-serif;
-            flex: 1;
+        }
+        .comment-form button:hover {
+            background: #cc0020;
         }
 
-        .btn-submit { background: var(--red); color: white; }
-        .btn-submit:hover { background: var(--red2); transform: scale(1.02); }
-
-        .btn-cancel-modal { background: var(--bg); color: var(--text2); border: 1px solid var(--border); }
-        .btn-cancel-modal:hover { border-color: var(--text3); color: var(--text); }
-
-        .form-footer {
-            text-align: center;
-            margin-top: 16px;
-            color: var(--text3);
-            font-size: 13px;
-        }
-        .form-footer a { color: var(--red); text-decoration: none; font-weight: 600; cursor: pointer; }
-
-        /* ============================================================
-           TOAST
-           ============================================================ */
+        /* TOAST */
         .toast-container {
             position: fixed;
-            bottom: 30px;
-            right: 30px;
+            bottom: 20px;
+            right: 20px;
             z-index: 9999;
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 8px;
         }
-
         .toast {
-            padding: 12px 20px;
+            padding: 10px 18px;
             border-radius: var(--radius);
             color: white;
             font-weight: 500;
-            animation: toastIn 0.3s ease;
             font-size: 13px;
-            font-family: 'Inter', sans-serif;
             display: flex;
             align-items: center;
             gap: 10px;
-            box-shadow: var(--shadow);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.05);
+            border: 1px solid rgba(255, 255, 255, 0.05);
             cursor: pointer;
-            min-width: 280px;
-            position: relative;
+            animation: slideIn 0.3s ease;
+            min-width: 240px;
         }
-
-        .toast-success { background: linear-gradient(135deg, rgba(0,212,170,0.95), rgba(0,184,148,0.95)); }
-        .toast-error { background: linear-gradient(135deg, rgba(255,55,95,0.95), rgba(204,0,32,0.95)); }
-        .toast-info { background: linear-gradient(135deg, rgba(0,178,255,0.95), rgba(0,153,221,0.95)); }
-        .toast-warning { background: linear-gradient(135deg, rgba(251,191,36,0.95), rgba(245,158,11,0.95)); color: #0a0a0f; }
-
-        .toast .toast-icon { font-size: 18px; flex-shrink: 0; }
-        .toast .toast-content { flex: 1; }
-        .toast .toast-content .toast-title { font-weight: 700; font-size: 14px; }
-        .toast .toast-content .toast-message { opacity: 0.9; font-size: 13px; }
+        .toast-success {
+            background: linear-gradient(135deg, rgba(0, 212, 170, 0.95), rgba(0, 184, 148, 0.95));
+        }
+        .toast-error {
+            background: linear-gradient(135deg, rgba(255, 55, 95, 0.95), rgba(204, 0, 32, 0.95));
+        }
+        .toast-info {
+            background: linear-gradient(135deg, rgba(0, 178, 255, 0.95), rgba(0, 153, 221, 0.95));
+        }
         .toast .toast-close {
             background: none;
             border: none;
-            color: rgba(255,255,255,0.6);
+            color: rgba(255, 255, 255, 0.6);
             cursor: pointer;
-            font-size: 16px;
-            padding: 0 4px;
-            transition: var(--transition);
+            font-size: 14px;
         }
-        .toast .toast-close:hover { color: white; }
-
-        .toast .toast-progress {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            height: 3px;
-            background: rgba(255,255,255,0.3);
-            animation: progressBar 4s linear forwards;
+        .toast .toast-close:hover {
+            color: white;
         }
 
-        @keyframes progressBar {
-            from { width: 100%; }
-            to { width: 0%; }
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
         }
 
-        @keyframes toastIn {
-            from { opacity: 0; transform: translateX(40px) scale(0.95); }
-            to { opacity: 1; transform: translateX(0) scale(1); }
-        }
-
-        /* ============================================================
-           FOOTER
-           ============================================================ */
+        /* FOOTER */
         .footer {
             text-align: center;
-            padding: 30px 0 16px;
+            padding: 24px 0 12px;
             border-top: 1px solid var(--border);
-            margin-top: 32px;
+            margin-top: 24px;
             color: var(--text3);
             font-size: 13px;
         }
-
         .footer .social {
             display: flex;
             justify-content: center;
-            gap: 16px;
-            margin-bottom: 12px;
+            gap: 14px;
+            margin-bottom: 10px;
         }
-
         .footer .social a {
             color: var(--text3);
             font-size: 18px;
-            transition: var(--transition);
+            transition: 0.2s;
         }
         .footer .social a:hover {
             color: var(--red);
-            transform: translateY(-2px);
         }
-
         .footer .disclaimer {
             font-size: 11px;
             opacity: 0.5;
-            margin-top: 4px;
         }
 
-        /* ============================================================
-           RESPONSIVE
-           ============================================================ */
-        @media (max-width: 768px) {
-            .header { flex-direction: column; align-items: stretch; gap: 8px; padding: 10px 14px; }
-            .nav { justify-content: center; }
-            .nav button { font-size: 12px; padding: 4px 10px; }
-            .hero { padding: 24px 20px; }
-            .hero h1 { font-size: 26px; }
-            .hero-stats { gap: 20px; }
-            .hero-stats .stat .number { font-size: 20px; }
-            .filter-bar { flex-direction: column; align-items: stretch; }
-            .filter-bar .search-box { margin-left: 0; }
-            .filter-bar .search-box input { width: 100%; }
-            .script-grid { grid-template-columns: 1fr; }
-            .modal-content { padding: 20px; margin: 8px; }
-            .form-actions { flex-direction: column; }
-            .toast-container { left: 16px; right: 16px; bottom: 16px; }
-            .toast { min-width: auto; }
-        }
-
-        @media (max-width: 480px) {
-            .hero h1 { font-size: 22px; }
-            .hero-actions button { font-size: 12px; padding: 8px 16px; }
-            .script-card .actions button { font-size: 11px; padding: 4px 10px; }
-            .nav button { font-size: 11px; padding: 4px 8px; }
-        }
-
-        .fade-in { animation: fadeIn 0.4s ease; }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(12px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
+        /* ADMIN PANEL */
         .admin-panel {
             background: var(--bg2);
             border: 1px solid var(--border);
             border-radius: var(--radius);
-            padding: 20px;
-            margin-bottom: 20px;
+            padding: 18px;
+            margin-bottom: 16px;
         }
         .admin-panel h3 {
-            color: var(--text);
-            margin-bottom: 12px;
+            margin-bottom: 10px;
             display: flex;
             align-items: center;
             gap: 8px;
         }
         .admin-panel .admin-stats {
             display: flex;
-            gap: 20px;
+            gap: 16px;
             flex-wrap: wrap;
-            margin-bottom: 16px;
+            margin-bottom: 12px;
         }
         .admin-panel .admin-stats div {
             background: var(--bg);
-            padding: 8px 16px;
+            padding: 6px 14px;
             border-radius: 8px;
             border: 1px solid var(--border);
         }
@@ -981,17 +986,83 @@
             font-weight: 700;
             color: var(--red);
         }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 6px;
+            }
+            .nav {
+                justify-content: center;
+            }
+            .nav button {
+                font-size: 12px;
+                padding: 4px 10px;
+            }
+            .hero {
+                padding: 20px;
+            }
+            .hero h1 {
+                font-size: 24px;
+            }
+            .hero-stats {
+                gap: 16px;
+            }
+            .filter-bar {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .filter-bar .search-box {
+                margin-left: 0;
+            }
+            .filter-bar .search-box input {
+                width: 100%;
+            }
+            .script-grid {
+                grid-template-columns: 1fr;
+            }
+            .modal-content {
+                padding: 16px;
+                margin: 8px;
+            }
+            .form-actions {
+                flex-direction: column;
+            }
+            .toast-container {
+                left: 12px;
+                right: 12px;
+                bottom: 12px;
+            }
+            .toast {
+                min-width: auto;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 20px;
+            }
+            .hero-actions button {
+                font-size: 12px;
+                padding: 8px 14px;
+            }
+            .script-card .actions button {
+                font-size: 10px;
+                padding: 4px 8px;
+            }
+        }
     </style>
 </head>
 <body>
 
     <div class="container">
 
-        <!-- ============ HEADER ============ -->
+        <!-- HEADER -->
         <header class="header">
             <div class="logo" onclick="goHome()">
-                <i class="fas fa-gamepad"></i>
-                ScriptHub <span style="font-size:12px;background:var(--red);color:white;padding:2px 8px;border-radius:4px;-webkit-text-fill-color:white;">🔥</span>
+                <i class="fas fa-gamepad"></i> ScriptHub
             </div>
             <nav class="nav" id="mainNav">
                 <button class="active" onclick="goHome()" id="navHome"><i class="fas fa-home"></i> Ana Sayfa</button>
@@ -1003,17 +1074,15 @@
 
                 <span style="width:1px;height:24px;background:var(--border);margin:0 4px;"></span>
 
-                <button class="theme-toggle" onclick="toggleTheme()" title="Tema değiştir"><i class="fas fa-moon"></i></button>
-
                 <div id="authButtons">
-                    <button class="btn-outline-nav" onclick="showLogin()"><i class="fas fa-sign-in-alt"></i> Giriş</button>
+                    <button class="btn-outline" onclick="showLogin()"><i class="fas fa-sign-in-alt"></i> Giriş</button>
                     <button class="btn-nav" onclick="showRegister()"><i class="fas fa-user-plus"></i> Kayıt</button>
                 </div>
 
                 <div id="userBadge" class="user-badge hidden" onclick="showProfile()">
                     <div class="avatar" id="userAvatar">A</div>
                     <span class="name" id="userName"></span>
-                    <span class="rank-badge" id="userRank"></span>
+                    <span class="rank" id="userRank">Kullanıcı</span>
                     <button onclick="event.stopPropagation();logout();" style="background:none;border:none;color:var(--text3);cursor:pointer;padding:2px 6px;">
                         <i class="fas fa-sign-out-alt"></i>
                     </button>
@@ -1021,11 +1090,11 @@
             </nav>
         </header>
 
-        <!-- ============ HERO ============ -->
+        <!-- HERO -->
         <div class="hero" id="heroSection">
             <div class="hero-content">
-                <h1>🎮 Roblox Script Hub Pro</h1>
-                <p>Binlerce Roblox scriptini keşfet, paylaş ve kullan. Firebase ile güvenli giriş!</p>
+                <h1>🎮 Roblox Script Hub</h1>
+                <p>Binlerce Roblox scriptini keşfet, paylaş ve kullan. Topluluğun en iyi scriptleri tek platformda!</p>
                 <div class="hero-actions">
                     <button class="btn-primary" onclick="showUpload()"><i class="fas fa-rocket"></i> Script Paylaş</button>
                     <button class="btn-secondary" onclick="showLeaderboard()"><i class="fas fa-trophy"></i> Liderlik</button>
@@ -1039,7 +1108,7 @@
             </div>
         </div>
 
-        <!-- ============ FILTER BAR ============ -->
+        <!-- FILTER -->
         <div class="filter-bar">
             <button class="filter-btn active" data-filter="all" onclick="filterScripts('all')"><i class="fas fa-fire"></i> Tümü</button>
             <button class="filter-btn" data-filter="ESP" onclick="filterScripts('ESP')">👁️ ESP</button>
@@ -1054,96 +1123,80 @@
             <div class="search-box">
                 <i class="fas fa-search"></i>
                 <input type="text" id="searchInput" placeholder="Script ara..." oninput="searchScripts(this.value)">
-                <i class="fas fa-times" style="cursor:pointer;color:var(--text3);display:none;" id="clearSearch" onclick="clearSearch()"></i>
             </div>
 
             <select class="sort-select" id="sortSelect" onchange="sortScripts(this.value)">
                 <option value="newest">📅 En Yeni</option>
                 <option value="popular">🔥 En Popüler</option>
                 <option value="likes">❤️ En Çok Beğeni</option>
-                <option value="downloads">⬇️ En Çok İndirilen</option>
             </select>
         </div>
 
-        <!-- ============ CONTENT ============ -->
+        <!-- CONTENT -->
         <div id="content">
             <div class="script-grid" id="scriptGrid"></div>
             <div class="pagination" id="pagination"></div>
         </div>
 
-        <!-- ============ FOOTER ============ -->
+        <!-- FOOTER -->
         <footer class="footer">
             <div class="social">
                 <a href="#"><i class="fab fa-github"></i></a>
                 <a href="#"><i class="fab fa-discord"></i></a>
                 <a href="#"><i class="fab fa-twitter"></i></a>
-                <a href="#"><i class="fab fa-youtube"></i></a>
             </div>
-            <p>🎮 Roblox Script Hub Pro v3.0 🔥 Firebase</p>
+            <p>🎮 Roblox Script Hub</p>
             <p class="disclaimer">⚠️ Sadece eğitim amaçlıdır. Roblox ToS'a uygun kullanın.</p>
         </footer>
     </div>
 
-    <!-- ============ MODAL ============ -->
+    <!-- MODAL -->
     <div class="modal" id="modal">
         <div class="modal-content" id="modalContent"></div>
     </div>
 
-    <!-- ============ TOAST ============ -->
+    <!-- TOAST -->
     <div class="toast-container" id="toastContainer"></div>
 
     <!-- ============================================================
-    JAVASCRIPT - FIREBASE
+    JAVASCRIPT
     ============================================================ -->
     <script>
         // ============================================================
-        // FIREBASE CONFIG - SENİN CONFIG'İN
-        // ============================================================
-        const firebaseConfig = {
-            apiKey: "AIzaSyDKdE947q36KwQxkrxbUzpmoynaMsssWB8",
-            authDomain: "scripthub-b95d1.firebaseapp.com",
-            projectId: "scripthub-b95d1",
-            storageBucket: "scripthub-b95d1.firebasestorage.app",
-            messagingSenderId: "435891213405",
-            appId: "1:435891213405:web:522b592d921689882629b4",
-            measurementId: "G-PVXHHBYLGR"
-        };
-
-        // Firebase'i başlat
-        firebase.initializeApp(firebaseConfig);
-        const auth = firebase.auth();
-        const db = firebase.firestore();
-
-        // ============================================================
-        // DATABASE (LocalStorage yedek)
+        // DATABASE (LocalStorage)
         // ============================================================
         const DB = {
-            getScripts() { return JSON.parse(localStorage.getItem('rbx_pro_scripts') || '[]'); },
-            saveScripts(s) { localStorage.setItem('rbx_pro_scripts', JSON.stringify(s)); },
-            getComments() { return JSON.parse(localStorage.getItem('rbx_pro_comments') || '[]'); },
-            saveComments(c) { localStorage.setItem('rbx_pro_comments', JSON.stringify(c)); },
-            getFavorites() { return JSON.parse(localStorage.getItem('rbx_pro_favorites') || '[]'); },
-            saveFavorites(f) { localStorage.setItem('rbx_pro_favorites', JSON.stringify(f)); },
-            getLikes() { return JSON.parse(localStorage.getItem('rbx_pro_likes') || '[]'); },
-            saveLikes(l) { localStorage.setItem('rbx_pro_likes', JSON.stringify(l)); },
-            getReports() { return JSON.parse(localStorage.getItem('rbx_pro_reports') || '[]'); },
-            saveReports(r) { localStorage.setItem('rbx_pro_reports', JSON.stringify(r)); },
-            getCommentLikes() { return JSON.parse(localStorage.getItem('rbx_pro_comment_likes') || '[]'); },
-            saveCommentLikes(cl) { localStorage.setItem('rbx_pro_comment_likes', JSON.stringify(cl)); },
-            getViewed() { return JSON.parse(localStorage.getItem('rbx_pro_viewed') || '[]'); },
-            saveViewed(v) { localStorage.setItem('rbx_pro_viewed', JSON.stringify(v)); },
-            getCurrentUser() { return JSON.parse(localStorage.getItem('rbx_pro_currentUser') || 'null'); },
-            setCurrentUser(u) { localStorage.setItem('rbx_pro_currentUser', JSON.stringify(u)); },
-            getTheme() { return localStorage.getItem('rbx_pro_theme') || 'dark'; },
-            setTheme(t) { localStorage.setItem('rbx_pro_theme', t); }
+            getUsers() { return JSON.parse(localStorage.getItem('rbx_users') || '[]'); },
+            saveUsers(u) { localStorage.setItem('rbx_users', JSON.stringify(u)); },
+            getScripts() { return JSON.parse(localStorage.getItem('rbx_scripts') || '[]'); },
+            saveScripts(s) { localStorage.setItem('rbx_scripts', JSON.stringify(s)); },
+            getComments() { return JSON.parse(localStorage.getItem('rbx_comments') || '[]'); },
+            saveComments(c) { localStorage.setItem('rbx_comments', JSON.stringify(c)); },
+            getFavorites() { return JSON.parse(localStorage.getItem('rbx_favorites') || '[]'); },
+            saveFavorites(f) { localStorage.setItem('rbx_favorites', JSON.stringify(f)); },
+            getLikes() { return JSON.parse(localStorage.getItem('rbx_likes') || '[]'); },
+            saveLikes(l) { localStorage.setItem('rbx_likes', JSON.stringify(l)); },
+            getReports() { return JSON.parse(localStorage.getItem('rbx_reports') || '[]'); },
+            saveReports(r) { localStorage.setItem('rbx_reports', JSON.stringify(r)); },
+            getCurrentUser() { return JSON.parse(localStorage.getItem('rbx_currentUser') || 'null'); },
+            setCurrentUser(u) { localStorage.setItem('rbx_currentUser', JSON.stringify(u)); },
+            logout() { localStorage.removeItem('rbx_currentUser'); }
         };
 
         // ============================================================
         // HELPERS
         // ============================================================
         function getCategoryBadge(cat) {
-            const map = { 'ESP': 'badge-esp', 'Otomasyon': 'badge-otomasyon', 'Aimbot': 'badge-aimbot', 'Fly': 'badge-fly',
-                'Speed': 'badge-speed', 'GUI': 'badge-gui', 'Utility': 'badge-utility', 'Diğer': 'badge-diger' };
+            const map = {
+                'ESP': 'badge-esp',
+                'Otomasyon': 'badge-otomasyon',
+                'Aimbot': 'badge-aimbot',
+                'Fly': 'badge-fly',
+                'Speed': 'badge-speed',
+                'GUI': 'badge-gui',
+                'Utility': 'badge-utility',
+                'Diğer': 'badge-diger'
+            };
             return map[cat] || 'badge-diger';
         }
 
@@ -1155,11 +1208,13 @@
             if (diff < 3600000) return Math.floor(diff / 60000) + ' dakika önce';
             if (diff < 86400000) return Math.floor(diff / 3600000) + ' saat önce';
             if (diff < 604800000) return Math.floor(diff / 86400000) + ' gün önce';
-            return d.toLocaleDateString('tr-TR') + ' ' + d.toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' });
+            return d.toLocaleDateString('tr-TR');
         }
 
         function getCurrentUser() { return DB.getCurrentUser(); }
+
         function isLoggedIn() { return getCurrentUser() !== null; }
+
         function isAdmin() {
             const u = getCurrentUser();
             return u && u.rank === 'admin';
@@ -1172,36 +1227,12 @@
             return d.innerHTML;
         }
 
-        function isNew(dateStr) { return (new Date() - new Date(dateStr)) < 86400000; }
-
-        function getRankBadge(rank) {
-            const map = { 'admin': 'admin', 'user': 'user' };
-            return map[rank] || 'user';
+        function isNew(dateStr) {
+            return (new Date() - new Date(dateStr)) < 86400000;
         }
 
-        function getRankText(rank) {
-            const map = { 'admin': 'Admin 🛡️', 'user': 'Kullanıcı' };
-            return map[rank] || 'Kullanıcı';
-        }
-
-        function generateId() { return Date.now() + Math.floor(Math.random() * 1000); }
-
-        // ============================================================
-        // THEME
-        // ============================================================
-        function toggleTheme() {
-            const current = DB.getTheme();
-            const next = current === 'dark' ? 'light' : 'dark';
-            DB.setTheme(next);
-            document.documentElement.setAttribute('data-theme', next === 'dark' ? '' : 'light');
-            document.querySelector('.theme-toggle i').className = next === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
-            showToast('Tema: ' + (next === 'dark' ? 'Karanlık' : 'Aydınlık'), 'info', 'Tema');
-        }
-
-        function initTheme() {
-            const theme = DB.getTheme();
-            document.documentElement.setAttribute('data-theme', theme === 'dark' ? '' : 'light');
-            document.querySelector('.theme-toggle i').className = theme === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
+        function generateId() {
+            return Date.now() + Math.floor(Math.random() * 1000);
         }
 
         // ============================================================
@@ -1216,13 +1247,9 @@
             const titles = { success: 'Başarılı!', error: 'Hata!', info: 'Bilgi', warning: 'Uyarı' };
 
             toast.innerHTML = `
-                <div class="toast-icon">${icons[type] || 'ℹ️'}</div>
-                <div class="toast-content">
-                    <div class="toast-title">${title || titles[type] || 'Bilgi'}</div>
-                    <div class="toast-message">${message}</div>
-                </div>
+                <span>${icons[type] || 'ℹ️'}</span>
+                <span><strong>${title || titles[type] || 'Bilgi'}</strong> ${message}</span>
                 <button class="toast-close" onclick="this.parentElement.remove()">✕</button>
-                <div class="toast-progress"></div>
             `;
 
             container.appendChild(toast);
@@ -1233,154 +1260,108 @@
                     toast.style.transform = 'translateX(40px)';
                     setTimeout(() => toast.remove(), 300);
                 }
-            }, 4000);
+            }, 3500);
 
             toast.addEventListener('click', () => {
                 toast.style.opacity = '0';
                 toast.style.transform = 'translateX(40px)';
                 setTimeout(() => toast.remove(), 300);
             });
-
-            return toast;
         }
 
         // ============================================================
-        // FIREBASE AUTH
+        // INIT
         // ============================================================
-        // Dinleme: Kullanıcı durumu değiştiğinde
-        auth.onAuthStateChanged(user => {
-            if (user) {
-                // Kullanıcı giriş yaptı
-                console.log('✅ Firebase ile giriş yapıldı:', user.displayName || user.email);
-
-                // Firestore'dan kullanıcı bilgilerini al veya oluştur
-                const userRef = db.collection('users').doc(user.uid);
-                userRef.get().then(doc => {
-                    let userData;
-                    if (!doc.exists) {
-                        // Yeni kullanıcı - Firestore'a kaydet
-                        const rank = user.email === 'mm2ultimatehib@gmail.com' ? 'admin' : 'user';
-                        userData = {
-                            uid: user.uid,
-                            username: user.displayName || user.email.split('@')[0],
-                            email: user.email,
-                            rank: rank,
-                            photoURL: user.photoURL || '',
-                            created: new Date().toISOString()
-                        };
-                        userRef.set(userData);
-                    } else {
-                        userData = doc.data();
-                    }
-
-                    // LocalStorage'a kaydet
-                    const localUser = {
-                        id: user.uid,
-                        username: userData.username || user.displayName || user.email.split('@')[0],
-                        email: user.email,
-                        rank: userData.rank || (user.email === 'mm2ultimatehib@gmail.com' ? 'admin' : 'user'),
-                        photoURL: user.photoURL || ''
-                    };
-                    DB.setCurrentUser(localUser);
-                    updateNav();
-                    updateStats();
-                    // Eğer ana sayfada değilse ana sayfaya git
-                    if (!document.querySelector('.detail-view') && !document.querySelector('.admin-panel')) {
-                        goHome();
-                    }
-                    showToast('🎮 Hoş geldin, ' + localUser.username + '!', 'success', 'Hoş Geldin!');
-                }).catch(err => {
-                    console.error('Firestore hatası:', err);
-                });
-
-            } else {
-                // Kullanıcı çıkış yaptı
-                console.log('👋 Kullanıcı çıkış yaptı');
-                DB.logout();
-                updateNav();
-                goHome();
+        function initData() {
+            let users = DB.getUsers();
+            if (users.length === 0) {
+                users = [
+                    { id: 1, username: 'admin', password: 'admin123', email: 'mm2ultimatehib@gmail.com',
+                    rank: 'admin', created: new Date().toISOString() },
+                    { id: 2, username: 'scriptmaster', password: '123456', email: 'master@roblox.com', rank: 'user',
+                        created: new Date().toISOString() }
+                ];
+                DB.saveUsers(users);
             }
-        });
 
-        // ============================================================
-        // AUTH FONKSİYONLARI
-        // ============================================================
+            let scripts = DB.getScripts();
+            if (scripts.length === 0) {
+                const sample = [{
+                    id: 1,
+                    title: '🛡️ Ultimate ESP v3.0',
+                    content: '-- Ultimate ESP Script\n-- Tüm oyuncuları gösterir\n\nlocal Players = game:GetService("Players")\nlocal RunService = game:GetService("RunService")\n\nfor _, player in pairs(Players:GetPlayers()) do\n    if player ~= Players.LocalPlayer then\n        local highlight = Instance.new("Highlight")\n        highlight.Parent = player.Character\n        highlight.FillColor = Color3.new(1, 0.2, 0.2)\n        highlight.FillTransparency = 0.5\n        highlight.OutlineColor = Color3.new(1, 1, 1)\n    end\nend',
+                    category: 'ESP',
+                    version: 'v3.0',
+                    tags: ['xray', 'wallhack'],
+                    links: ['https://pastebin.com/raw/abc123'],
+                    downloads: 342,
+                    likes: 45,
+                    userId: 1,
+                    username: 'admin',
+                    created: new Date().toISOString(),
+                    featured: true
+                }, {
+                    id: 2,
+                    title: '🤖 Auto Clicker Pro',
+                    content: '-- Auto Clicker Pro\n-- Otomatik tıklama\n\nlocal mouse = game.Players.LocalPlayer:GetMouse()\nlocal enabled = false\n\nmouse.KeyDown:Connect(function(key)\n    if key == "F1" then\n        enabled = not enabled\n        print(enabled and "Aktif" or "Pasif")\n    end\nend)\n\nwhile true do\n    if enabled then\n        mouse1click()\n        wait(0.05)\n    end\n    wait()\nend',
+                    category: 'Otomasyon',
+                    version: 'v2.1',
+                    tags: ['clicker', 'auto'],
+                    links: [],
+                    downloads: 215,
+                    likes: 32,
+                    userId: 1,
+                    username: 'admin',
+                    created: new Date(Date.now() - 86400000).toISOString(),
+                    featured: false
+                }, {
+                    id: 3,
+                    title: '🎯 Aimbot Ultra',
+                    content: '-- Aimbot Ultra\n-- Otomatik hedef alma\n\nlocal Players = game:GetService("Players")\nlocal lp = Players.LocalPlayer\n\nRunService.RenderStepped:Connect(function()\n    local target = getClosestPlayer()\n    if target then\n        lp.Character.HumanoidRootPart.CFrame = CFrame.new(lp.Character.HumanoidRootPart.Position, target.Character.HumanoidRootPart.Position)\n    end\nend)',
+                    category: 'Aimbot',
+                    version: 'v2.0',
+                    tags: ['aimbot', 'lock'],
+                    links: ['https://pastebin.com/raw/def456'],
+                    downloads: 187,
+                    likes: 28,
+                    userId: 2,
+                    username: 'scriptmaster',
+                    created: new Date(Date.now() - 172800000).toISOString(),
+                    featured: false
+                }, {
+                    id: 4,
+                    title: '🦅 Fly Mode v2',
+                    content: '-- Fly Mode v2\n-- Uçma modu\n\nlocal player = game.Players.LocalPlayer\nlocal char = player.Character\nlocal humanoid = char.Humanoid\nlocal flying = false\n\ngame:GetService("UserInputService").InputBegan:Connect(function(input)\n    if input.KeyCode == Enum.KeyCode.F then\n        flying = not flying\n        humanoid.PlatformStand = flying\n        print(flying and "Fly Aktif" or "Fly Pasif")\n    end\nend)',
+                    category: 'Fly',
+                    version: 'v2.0',
+                    tags: ['fly', 'noclip'],
+                    links: [],
+                    downloads: 156,
+                    likes: 22,
+                    userId: 2,
+                    username: 'scriptmaster',
+                    created: new Date(Date.now() - 259200000).toISOString(),
+                    featured: false
+                }, {
+                    id: 5,
+                    title: '💨 Speed Hack Ultra',
+                    content: '-- Speed Hack Ultra\n-- Hızlandırma\n\nlocal player = game.Players.LocalPlayer\nlocal humanoid = player.Character.Humanoid\n\nhumanoid.WalkSpeed = humanoid.WalkSpeed * 2.5\nhumanoid.JumpPower = humanoid.JumpPower * 1.5\n\nprint("Speed: " .. humanoid.WalkSpeed)',
+                    category: 'Speed',
+                    version: 'v1.5',
+                    tags: ['speed', 'boost'],
+                    links: [],
+                    downloads: 134,
+                    likes: 18,
+                    userId: 2,
+                    username: 'scriptmaster',
+                    created: new Date(Date.now() - 345600000).toISOString(),
+                    featured: false
+                }];
+                sample.forEach(s => { scripts.push(s); });
+                DB.saveScripts(scripts);
+            }
 
-        // Google ile Giriş
-        function loginWithGoogle() {
-            const provider = new firebase.auth.GoogleAuthProvider();
-            auth.signInWithPopup(provider)
-                .then((result) => {
-                    closeModal();
-                    showToast('🎉 Google ile giriş başarılı!', 'success');
-                })
-                .catch((err) => {
-                    showToast('❌ Google giriş hatası: ' + err.message, 'error');
-                });
-        }
-
-        // GitHub ile Giriş
-        function loginWithGitHub() {
-            const provider = new firebase.auth.GithubAuthProvider();
-            auth.signInWithPopup(provider)
-                .then((result) => {
-                    closeModal();
-                    showToast('🎉 GitHub ile giriş başarılı!', 'success');
-                })
-                .catch((err) => {
-                    showToast('❌ GitHub giriş hatası: ' + err.message, 'error');
-                });
-        }
-
-        // Email/Şifre ile Giriş
-        function loginWithEmail(email, password) {
-            auth.signInWithEmailAndPassword(email, password)
-                .then(() => {
-                    closeModal();
-                    showToast('🎉 Giriş başarılı!', 'success');
-                })
-                .catch((err) => {
-                    showToast('❌ ' + err.message, 'error');
-                });
-        }
-
-        // Kayıt Ol (Email/Şifre)
-        function registerWithEmail(email, password, username) {
-            auth.createUserWithEmailAndPassword(email, password)
-                .then((userCredential) => {
-                    const user = userCredential.user;
-                    // Kullanıcı profilini güncelle
-                    user.updateProfile({
-                        displayName: username
-                    }).then(() => {
-                        // Firestore'a kaydet (onAuthStateChanged zaten yapacak ama garantilemek için)
-                        const rank = email === 'mm2ultimatehib@gmail.com' ? 'admin' : 'user';
-                        db.collection('users').doc(user.uid).set({
-                            uid: user.uid,
-                            username: username,
-                            email: email,
-                            rank: rank,
-                            photoURL: '',
-                            created: new Date().toISOString()
-                        });
-                        closeModal();
-                        showToast('🎉 Kayıt başarılı! Giriş yapılıyor...', 'success');
-                    });
-                })
-                .catch((err) => {
-                    showToast('❌ ' + err.message, 'error');
-                });
-        }
-
-        // Çıkış Yap
-        function logout() {
-            if (!confirm('Çıkış yapmak istediğine emin misin?')) return;
-            auth.signOut().then(() => {
-                DB.logout();
-                updateNav();
-                showToast('Çıkış yapıldı.', 'info', 'Güle güle!');
-                goHome();
-            });
+            updateStats();
         }
 
         // ============================================================
@@ -1397,16 +1378,10 @@
             if (user) {
                 authBtns.classList.add('hidden');
                 userBadge.classList.remove('hidden');
-                userName.textContent = user.username || 'Kullanıcı';
-                // Avatar
-                if (user.photoURL) {
-                    userAvatar.innerHTML = `<img src="${user.photoURL}" alt="avatar">`;
-                } else {
-                    userAvatar.textContent = (user.username || 'K').charAt(0).toUpperCase();
-                    userAvatar.style.background = 'linear-gradient(135deg, var(--red), var(--purple))';
-                }
-                userRank.textContent = getRankText(user.rank);
-                userRank.className = 'rank-badge ' + getRankBadge(user.rank);
+                userName.textContent = user.username;
+                userAvatar.textContent = user.username.charAt(0).toUpperCase();
+                userRank.textContent = user.rank === 'admin' ? 'Admin 🛡️' : 'Kullanıcı';
+                userRank.style.background = user.rank === 'admin' ? '#ff375f' : '#6a6a8a';
                 document.getElementById('navUpload').classList.remove('hidden');
                 document.getElementById('navProfile').classList.remove('hidden');
                 document.getElementById('navFavorites').classList.remove('hidden');
@@ -1428,15 +1403,11 @@
 
         function updateStats() {
             const scripts = DB.getScripts();
+            const users = DB.getUsers();
             const likes = DB.getLikes();
             const favs = DB.getFavorites();
-            // Kullanıcı sayısını Firebase'den al
-            db.collection('users').get().then(snapshot => {
-                document.getElementById('statUsers').textContent = snapshot.size || 0;
-            }).catch(() => {
-                document.getElementById('statUsers').textContent = '?';
-            });
             document.getElementById('statScripts').textContent = scripts.length;
+            document.getElementById('statUsers').textContent = users.length;
             document.getElementById('statLikes').textContent = likes.length;
             document.getElementById('statFavorites').textContent = favs.length;
         }
@@ -1463,7 +1434,6 @@
                     s.title.toLowerCase().includes(search) ||
                     s.content.toLowerCase().includes(search) ||
                     s.username.toLowerCase().includes(search) ||
-                    (s.category && s.category.toLowerCase().includes(search)) ||
                     (s.tags && s.tags.some(t => t.toLowerCase().includes(search)))
                 );
             }
@@ -1473,13 +1443,10 @@
                     scripts.sort((a, b) => new Date(b.created) - new Date(a.created));
                     break;
                 case 'popular':
-                    scripts.sort((a, b) => (b.downloads || 0) - (a.downloads || 0) || a.id - b.id);
+                    scripts.sort((a, b) => (b.downloads || 0) - (a.downloads || 0));
                     break;
                 case 'likes':
-                    scripts.sort((a, b) => (b.likes || 0) - (a.likes || 0) || a.id - b.id);
-                    break;
-                case 'downloads':
-                    scripts.sort((a, b) => (b.downloads || 0) - (a.downloads || 0) || a.id - b.id);
+                    scripts.sort((a, b) => (b.likes || 0) - (a.likes || 0));
                     break;
                 default:
                     scripts.sort((a, b) => new Date(b.created) - new Date(a.created));
@@ -1519,37 +1486,33 @@
                 const tags = s.tags || [];
 
                 html += `
-                    <div class="script-card fade-in">
+                    <div class="script-card">
                         <div class="top">
                             <h3>${s.title}</h3>
                             <div class="badges">
                                 <span class="badge badge-lua">Lua</span>
                                 <span class="badge ${getCategoryBadge(s.category)}">${s.category || 'Diğer'}</span>
                                 ${s.featured ? '<span class="badge badge-featured">⭐ Öne Çıkan</span>' : ''}
-                                ${s.downloads > 100 ? '<span class="badge badge-popular">🔥 Popüler</span>' : ''}
-                                ${isNew(s.created) ? '<span class="badge badge-new">✨ Yeni</span>' : ''}
+                                ${s.downloads > 100 ? '<span class="badge" style="background:#fbbf24;color:#0a0a0f;">🔥 Popüler</span>' : ''}
+                                ${isNew(s.created) ? '<span class="badge" style="background:#00d4aa;color:#0a0a0f;">✨ Yeni</span>' : ''}
                                 ${s.version ? `<span class="badge badge-version">${s.version}</span>` : ''}
                             </div>
                         </div>
                         <div class="meta">
                             <span><i class="fas fa-user"></i> ${s.username}</span>
                             <span><i class="fas fa-clock"></i> ${formatDate(s.created)}</span>
-                            ${s.updated && s.updated !== s.created ? `<span><i class="fas fa-edit"></i> ${formatDate(s.updated)}</span>` : ''}
                             <span><i class="fas fa-eye"></i> ${s.downloads || 0}</span>
                             <span class="likes"><i class="fas fa-heart"></i> ${s.likes || 0}</span>
                         </div>
-                        ${tags.length > 0 ? `<div class="tags">${tags.map(t => `<span class="tag">#${t}</span>`).join('')}</div>` : ''}
+                        ${tags.length > 0 ? `<div style="display:flex;gap:4px;flex-wrap:wrap;margin-bottom:8px;">${tags.map(t => `<span style="padding:2px 10px;border-radius:12px;font-size:10px;background:rgba(255,55,95,0.08);border:1px solid rgba(255,55,95,0.1);color:var(--text2);">#${t}</span>`).join('')}</div>` : ''}
                         <div class="code-preview">${escapeHtml(preview)}</div>
                         <div class="actions">
-                            <button class="btn-view" onclick="showDetail(${s.id})"><i class="fas fa-eye"></i> İncele</button>
+                            <button class="btn-view" onclick="showDetail(${s.id})"><i class="fas fa-eye"></i></button>
                             <button class="btn-copy" onclick="copyScript(${s.id})"><i class="fas fa-copy"></i></button>
-                            <button class="btn-download" onclick="downloadScript(${s.id})"><i class="fas fa-download"></i></button>
                             <button class="btn-fav ${isFav ? 'active' : ''}" onclick="toggleFavorite(${s.id})"><i class="fas ${isFav ? 'fa-star' : 'fa-star-o'}"></i></button>
                             <button class="btn-like ${isLiked ? 'active' : ''}" onclick="toggleLike(${s.id})"><i class="fas ${isLiked ? 'fa-heart' : 'fa-heart-o'}"></i></button>
                             ${isOwner || isAdmin() ? `<button class="btn-edit" onclick="editScript(${s.id})"><i class="fas fa-edit"></i></button>` : ''}
                             ${isOwner || isAdmin() ? `<button class="btn-delete" onclick="deleteScript(${s.id})"><i class="fas fa-trash"></i></button>` : ''}
-                            ${s.links && s.links.length > 0 ? `<button class="btn-link" onclick="window.open('${s.links[0]}','_blank')"><i class="fas fa-link"></i></button>` : ''}
-                            <button class="btn-report" onclick="reportScript(${s.id})"><i class="fas fa-flag"></i></button>
                             ${isAdmin() ? `<button class="btn-admin" onclick="featureScript(${s.id})"><i class="fas fa-star"></i></button>` : ''}
                         </div>
                     </div>
@@ -1592,14 +1555,13 @@
             currentPage = 1;
             document.getElementById('searchInput').value = '';
             document.querySelectorAll('.filter-btn').forEach(b => b.classList.toggle('active', b.dataset.filter === 'all'));
+            document.getElementById('content').innerHTML =
+                `<div class="script-grid" id="scriptGrid"></div><div class="pagination" id="pagination"></div>`;
             renderScripts();
             closeModal();
             updateStats();
             document.querySelectorAll('.nav button').forEach(b => b.classList.remove('active'));
             document.getElementById('navHome').classList.add('active');
-            // Content'i sıfırla
-            document.getElementById('content').innerHTML = `<div class="script-grid" id="scriptGrid"></div><div class="pagination" id="pagination"></div>`;
-            renderScripts();
         }
 
         function filterScripts(category) {
@@ -1612,13 +1574,7 @@
         function searchScripts(query) {
             currentSearch = query.toLowerCase().trim();
             currentPage = 1;
-            document.getElementById('clearSearch').style.display = currentSearch ? 'inline' : 'none';
             renderScripts();
-        }
-
-        function clearSearch() {
-            document.getElementById('searchInput').value = '';
-            searchScripts('');
         }
 
         function sortScripts(sort) {
@@ -1635,14 +1591,7 @@
             const s = scripts.find(s => s.id === id);
             if (!s) { showToast('Script bulunamadı!', 'error'); return; }
 
-            let viewed = DB.getViewed();
-            if (!viewed.includes(id)) {
-                viewed.push(id);
-                DB.saveViewed(viewed);
-            }
-
             const comments = DB.getComments().filter(c => c.scriptId === id);
-            const commentLikes = DB.getCommentLikes();
             const user = getCurrentUser();
             const favorites = DB.getFavorites();
             const likes = DB.getLikes();
@@ -1652,29 +1601,18 @@
 
             let commentHTML = comments.length === 0 ?
                 '<p style="color:var(--text3);">Henüz yorum yok.</p>' :
-                comments.map(c => {
-                    const liked = commentLikes.includes(c.id);
-                    return `<div class="comment-item">
-                        <div class="comment-header">
-                            <strong>${c.username}</strong>
-                            <span>${formatDate(c.created)}</span>
-                        </div>
-                        <p>${escapeHtml(c.content)}</p>
-                        <div class="comment-actions">
-                            <button onclick="likeComment(${c.id})"><i class="fas ${liked ? 'fa-heart' : 'fa-heart-o'}"></i> ${liked ? 'Beğendin' : 'Beğen'}</button>
-                            ${user && c.userId === user.id ? `<button onclick="deleteComment(${c.id})" style="color:var(--red);"><i class="fas fa-trash"></i></button>` : ''}
-                        </div>
-                    </div>`;
-                }).join('');
+                comments.map(c =>
+                    `<div class="comment-item"><div class="comment-header"><strong>${c.username}</strong> <span>${formatDate(c.created)}</span></div><p>${escapeHtml(c.content)}</p></div>`
+                ).join('');
 
             document.getElementById('heroSection').style.display = 'none';
             document.querySelectorAll('.nav button').forEach(b => b.classList.remove('active'));
 
             document.getElementById('content').innerHTML = `
-                <div class="detail-view fade-in">
-                    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:24px;">
-                        <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:10px;">
-                            <h2 style="font-size:22px;font-weight:800;color:var(--text);">${s.title}</h2>
+                <div class="detail-view">
+                    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:20px;">
+                        <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:8px;">
+                            <h2 style="font-size:20px;font-weight:800;">${s.title}</h2>
                             <div style="display:flex;gap:6px;flex-wrap:wrap;">
                                 <span class="badge badge-lua">Lua</span>
                                 <span class="badge ${getCategoryBadge(s.category)}">${s.category || 'Diğer'}</span>
@@ -1685,29 +1623,26 @@
                         <div class="detail-meta">
                             <span><i class="fas fa-user"></i> ${s.username}</span>
                             <span><i class="fas fa-clock"></i> ${formatDate(s.created)}</span>
-                            ${s.updated && s.updated !== s.created ? `<span><i class="fas fa-edit"></i> Güncellendi: ${formatDate(s.updated)}</span>` : ''}
                             <span><i class="fas fa-eye"></i> ${s.downloads || 0}</span>
                             <span><i class="fas fa-heart" style="color:var(--red);"></i> ${s.likes || 0}</span>
-                            <span><i class="fas fa-star"></i> ${isFav ? 'Favorilerde' : 'Favori değil'}</span>
+                            <span><i class="fas fa-star"></i> ${isFav ? '⭐ Favorilerde' : '☆ Favori değil'}</span>
                         </div>
-                        ${s.tags && s.tags.length > 0 ? `<div class="detail-tags">${s.tags.map(t => `<span class="tag">#${t}</span>`).join('')}</div>` : ''}
+                        ${s.tags && s.tags.length > 0 ? `<div style="display:flex;gap:4px;flex-wrap:wrap;margin-bottom:8px;">${s.tags.map(t => `<span style="padding:2px 12px;border-radius:12px;font-size:11px;background:rgba(255,55,95,0.08);border:1px solid rgba(255,55,95,0.1);color:var(--text2);">#${t}</span>`).join('')}</div>` : ''}
                         ${s.links && s.links.length > 0 ? `
-                            <div class="detail-links">
+                            <div style="margin:8px 0;padding:10px 14px;background:var(--bg);border-radius:8px;border:1px solid var(--border);">
                                 <i class="fas fa-link" style="color:var(--blue);"></i>
-                                ${s.links.map(l => `<a href="${l}" target="_blank">${l}</a>`).join(' ')}
+                                ${s.links.map(l => `<a href="${l}" target="_blank" style="color:var(--blue);text-decoration:none;margin-right:10px;">${l}</a>`).join('')}
                             </div>
                         ` : ''}
                         <div class="detail-code">${escapeHtml(s.content)}</div>
                         <div class="detail-actions">
                             <button class="btn-view" onclick="copyScript(${s.id})"><i class="fas fa-copy"></i> Kopyala</button>
-                            <button class="btn-download" onclick="downloadScript(${s.id})"><i class="fas fa-download"></i> İndir</button>
                             <button class="btn-fav ${isFav ? 'active' : ''}" onclick="toggleFavorite(${s.id})"><i class="fas ${isFav ? 'fa-star' : 'fa-star-o'}"></i> ${isFav ? 'Çıkar' : 'Ekle'}</button>
                             <button class="btn-like ${isLiked ? 'active' : ''}" onclick="toggleLike(${s.id})"><i class="fas ${isLiked ? 'fa-heart' : 'fa-heart-o'}"></i> ${isLiked ? 'Beğenme' : 'Beğen'}</button>
                             <button class="btn-back" onclick="goHome()"><i class="fas fa-arrow-left"></i> Ana Sayfa</button>
                             ${isOwner || isAdmin() ? `<button class="btn-edit" onclick="editScript(${s.id})"><i class="fas fa-edit"></i> Düzenle</button>` : ''}
                             ${isOwner || isAdmin() ? `<button class="btn-delete" onclick="deleteScript(${s.id})"><i class="fas fa-trash"></i> Sil</button>` : ''}
-                            <button class="btn-report" onclick="reportScript(${s.id})"><i class="fas fa-flag"></i> Raporla</button>
-                            ${isAdmin() ? `<button class="btn-admin" onclick="featureScript(${s.id})"><i class="fas fa-star"></i> ${s.featured ? 'Öne Çıkarmayı Kaldır' : 'Öne Çıkar'}</button>` : ''}
+                            ${isAdmin() ? `<button class="btn-admin" onclick="featureScript(${s.id})"><i class="fas fa-star"></i> ${s.featured ? 'Kaldır' : 'Öne Çıkar'}</button>` : ''}
                         </div>
                     </div>
 
@@ -1718,7 +1653,7 @@
                                 <textarea id="commentInput" placeholder="Yorum yaz..."></textarea>
                                 <button onclick="addComment(${s.id})"><i class="fas fa-paper-plane"></i> Gönder</button>
                             </div>
-                        ` : `<p style="color:var(--text3);margin-bottom:12px;">Yorum yapmak için <a href="#" onclick="showLogin()" style="color:var(--red);">giriş yapın</a></p>`}
+                        ` : `<p style="color:var(--text3);margin-bottom:10px;">Yorum yapmak için <a href="#" onclick="showLogin()" style="color:var(--red);">giriş yapın</a></p>`}
                         ${commentHTML}
                     </div>
                 </div>
@@ -1736,13 +1671,12 @@
             document.querySelectorAll('.nav button').forEach(b => b.classList.remove('active'));
 
             document.getElementById('content').innerHTML = `
-                <div class="fade-in" style="max-width:600px;margin:0 auto;">
-                    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:28px;">
-                        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
-                            <h2 style="font-size:22px;font-weight:800;color:var(--text);"><i class="fas fa-upload" style="color:var(--red);"></i> Script Yükle</h2>
+                <div style="max-width:550px;margin:0 auto;">
+                    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:24px;">
+                        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
+                            <h2 style="font-size:20px;font-weight:800;"><i class="fas fa-upload" style="color:var(--red);"></i> Script Yükle</h2>
                             <button class="btn-back" onclick="goHome()"><i class="fas fa-arrow-left"></i> Ana Sayfa</button>
                         </div>
-                        <p style="color:var(--text2);margin-bottom:20px;">Scriptini paylaş ve topluluğa katkıda bulun! 🚀</p>
                         <form onsubmit="uploadScript();return false;">
                             <div class="form-group">
                                 <label><i class="fas fa-heading"></i> Başlık *</label>
@@ -1750,11 +1684,11 @@
                             </div>
                             <div class="form-group">
                                 <label><i class="fas fa-code"></i> Kod *</label>
-                                <textarea id="scriptContent" placeholder="Lua kodunu yapıştır..." required style="width:100%;padding:10px 14px;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:13px;font-family:'Courier New',monospace;min-height:120px;resize:vertical;"></textarea>
+                                <textarea id="scriptContent" placeholder="Lua kodunu yapıştır..." required></textarea>
                             </div>
                             <div class="form-group">
                                 <label><i class="fas fa-tag"></i> Kategori</label>
-                                <select id="scriptCategory" style="width:100%;padding:10px 14px;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:13px;">
+                                <select id="scriptCategory">
                                     <option value="ESP">👁️ ESP</option>
                                     <option value="Otomasyon">⚡ Otomasyon</option>
                                     <option value="Aimbot">🎯 Aimbot</option>
@@ -1779,7 +1713,7 @@
                             </div>
                             <div class="form-actions">
                                 <button type="submit" class="btn-submit"><i class="fas fa-rocket"></i> Yayınla</button>
-                                <button type="button" class="btn-cancel-modal" onclick="goHome()">İptal</button>
+                                <button type="button" class="btn-cancel" onclick="goHome()">İptal</button>
                             </div>
                         </form>
                     </div>
@@ -1806,17 +1740,15 @@
                 id: newId,
                 title,
                 content,
-                language: 'Lua',
                 category,
                 version: version || 'v1.0',
                 tags: tags,
                 links: link ? [link] : [],
                 downloads: 0,
                 likes: 0,
-                userId: user.id || user.uid || 'unknown',
-                username: user.username || 'Kullanıcı',
+                userId: user.id,
+                username: user.username,
                 created: new Date().toISOString(),
-                updated: new Date().toISOString(),
                 featured: false
             });
             DB.saveScripts(scripts);
@@ -1834,14 +1766,9 @@
             const s = scripts.find(s => s.id === id);
             if (s) {
                 s.featured = !s.featured;
-                s.updated = new Date().toISOString();
                 DB.saveScripts(scripts);
-                showToast(s.featured ? '⭐ Script öne çıkarıldı!' : '⭐ Öne çıkarma kaldırıldı.', 'success', 'Admin İşlemi');
-                if (document.querySelector('.detail-view')) {
-                    showDetail(id);
-                } else {
-                    renderScripts();
-                }
+                showToast(s.featured ? '⭐ Script öne çıkarıldı!' : '⭐ Öne çıkarma kaldırıldı.', 'success', 'Admin');
+                renderScripts();
             }
         }
 
@@ -1850,10 +1777,7 @@
 
             const reports = DB.getReports();
             const allScripts = DB.getScripts();
-            let usersCount = 0;
-            db.collection('users').get().then(snapshot => {
-                usersCount = snapshot.size;
-            }).catch(() => {});
+            const allUsers = DB.getUsers();
 
             document.getElementById('heroSection').style.display = 'none';
             document.querySelectorAll('.nav button').forEach(b => b.classList.remove('active'));
@@ -1863,29 +1787,29 @@
                 reports.map(id => {
                     const s = allScripts.find(sc => sc.id === id);
                     return s ? `
-                        <div style="background:var(--bg);padding:12px 16px;border-radius:8px;margin-bottom:8px;border:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
+                        <div style="background:var(--bg);padding:10px 14px;border-radius:8px;margin-bottom:6px;border:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;">
                             <div><strong>${s.title}</strong> <span style="color:var(--text3);font-size:12px;">${s.username}</span></div>
                             <div style="display:flex;gap:6px;">
-                                <button class="btn-view" onclick="showDetail(${s.id})"><i class="fas fa-eye"></i> İncele</button>
-                                <button class="btn-delete" onclick="resolveReport(${id})"><i class="fas fa-check"></i> Çözüldü</button>
+                                <button class="btn-view" onclick="showDetail(${s.id})"><i class="fas fa-eye"></i></button>
+                                <button class="btn-delete" onclick="resolveReport(${id})"><i class="fas fa-check"></i></button>
                             </div>
                         </div>
                     ` : '';
                 }).join('');
 
             document.getElementById('content').innerHTML = `
-                <div class="fade-in">
-                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:10px;">
-                        <h2 style="font-size:22px;font-weight:800;color:var(--text);"><i class="fas fa-shield-alt" style="color:var(--red);"></i> Admin Paneli</h2>
+                <div>
+                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:8px;">
+                        <h2 style="font-size:20px;font-weight:800;"><i class="fas fa-shield-alt" style="color:var(--red);"></i> Admin Paneli</h2>
                         <button class="btn-back" onclick="goHome()"><i class="fas fa-arrow-left"></i> Ana Sayfa</button>
                     </div>
 
                     <div class="admin-panel">
                         <h3><i class="fas fa-chart-bar" style="color:var(--blue);"></i> İstatistikler</h3>
                         <div class="admin-stats">
-                            <div>📜 Toplam Script: <span>${allScripts.length}</span></div>
-                            <div>👥 Toplam Kullanıcı: <span id="adminUserCount">${usersCount || '...'}</span></div>
-                            <div>🚩 Bildirimler: <span>${reports.length}</span></div>
+                            <div>📜 Script: <span>${allScripts.length}</span></div>
+                            <div>👥 Kullanıcı: <span>${allUsers.length}</span></div>
+                            <div>🚩 Bildirim: <span>${reports.length}</span></div>
                         </div>
                     </div>
 
@@ -1897,20 +1821,14 @@
                     <div class="admin-panel">
                         <h3><i class="fas fa-database" style="color:var(--green);"></i> Veri Yönetimi</h3>
                         <div style="display:flex;gap:8px;flex-wrap:wrap;">
-                            <button class="btn-download" onclick="backupData()"><i class="fas fa-download"></i> Yedek Al</button>
+                            <button class="btn-view" onclick="backupData()"><i class="fas fa-download"></i> Yedek Al</button>
                             <button class="btn-view" onclick="restoreData()"><i class="fas fa-upload"></i> Yedek Yükle</button>
-                            <button class="btn-delete" onclick="clearAllData()"><i class="fas fa-trash"></i> Tüm Verileri Temizle</button>
+                            <button class="btn-delete" onclick="clearAllData()"><i class="fas fa-trash"></i> Temizle</button>
                         </div>
                     </div>
                 </div>
             `;
             closeModal();
-
-            // Kullanıcı sayısını güncelle
-            db.collection('users').get().then(snapshot => {
-                const el = document.getElementById('adminUserCount');
-                if (el) el.textContent = snapshot.size;
-            }).catch(() => {});
         }
 
         function resolveReport(id) {
@@ -1923,22 +1841,21 @@
 
         function backupData() {
             const data = {
+                users: DB.getUsers(),
                 scripts: DB.getScripts(),
                 comments: DB.getComments(),
                 favorites: DB.getFavorites(),
                 likes: DB.getLikes(),
-                reports: DB.getReports(),
-                commentLikes: DB.getCommentLikes(),
-                viewed: DB.getViewed()
+                reports: DB.getReports()
             };
             const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = `roblox_script_hub_backup_${new Date().toISOString().slice(0,10)}.json`;
+            a.download = `script_hub_backup_${new Date().toISOString().slice(0,10)}.json`;
             a.click();
             URL.revokeObjectURL(url);
-            showToast('💾 Yedek başarıyla alındı!', 'success', 'Yedekleme');
+            showToast('💾 Yedek alındı!', 'success', 'Yedekleme');
         }
 
         function restoreData() {
@@ -1952,14 +1869,13 @@
                 reader.onload = function(ev) {
                     try {
                         const data = JSON.parse(ev.target.result);
+                        if (data.users) DB.saveUsers(data.users);
                         if (data.scripts) DB.saveScripts(data.scripts);
                         if (data.comments) DB.saveComments(data.comments);
                         if (data.favorites) DB.saveFavorites(data.favorites);
                         if (data.likes) DB.saveLikes(data.likes);
                         if (data.reports) DB.saveReports(data.reports);
-                        if (data.commentLikes) DB.saveCommentLikes(data.commentLikes);
-                        if (data.viewed) DB.saveViewed(data.viewed);
-                        showToast('✅ Yedek başarıyla yüklendi!', 'success', 'Geri Yükleme');
+                        showToast('✅ Yedek yüklendi!', 'success', 'Geri Yükleme');
                         updateStats();
                         goHome();
                     } catch (err) {
@@ -1995,10 +1911,10 @@
             document.querySelectorAll('.nav button').forEach(b => b.classList.remove('active'));
 
             document.getElementById('content').innerHTML = `
-                <div class="fade-in" style="max-width:600px;margin:0 auto;">
-                    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:28px;">
-                        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
-                            <h2 style="font-size:22px;font-weight:800;color:var(--text);"><i class="fas fa-edit" style="color:var(--blue);"></i> Script Düzenle</h2>
+                <div style="max-width:550px;margin:0 auto;">
+                    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:24px;">
+                        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
+                            <h2 style="font-size:20px;font-weight:800;"><i class="fas fa-edit" style="color:var(--blue);"></i> Script Düzenle</h2>
                             <button class="btn-back" onclick="goHome()"><i class="fas fa-arrow-left"></i> Ana Sayfa</button>
                         </div>
                         <form onsubmit="updateScript(${id});return false;">
@@ -2008,11 +1924,11 @@
                             </div>
                             <div class="form-group">
                                 <label><i class="fas fa-code"></i> Kod *</label>
-                                <textarea id="editScriptContent" required style="width:100%;padding:10px 14px;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:13px;font-family:'Courier New',monospace;min-height:120px;resize:vertical;">${escapeHtml(s.content)}</textarea>
+                                <textarea id="editScriptContent" required>${escapeHtml(s.content)}</textarea>
                             </div>
                             <div class="form-group">
                                 <label><i class="fas fa-tag"></i> Kategori</label>
-                                <select id="editScriptCategory" style="width:100%;padding:10px 14px;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:13px;">
+                                <select id="editScriptCategory">
                                     <option value="ESP" ${s.category === 'ESP' ? 'selected' : ''}>👁️ ESP</option>
                                     <option value="Otomasyon" ${s.category === 'Otomasyon' ? 'selected' : ''}>⚡ Otomasyon</option>
                                     <option value="Aimbot" ${s.category === 'Aimbot' ? 'selected' : ''}>🎯 Aimbot</option>
@@ -2037,7 +1953,7 @@
                             </div>
                             <div class="form-actions">
                                 <button type="submit" class="btn-submit"><i class="fas fa-save"></i> Güncelle</button>
-                                <button type="button" class="btn-cancel-modal" onclick="showDetail(${id})">İptal</button>
+                                <button type="button" class="btn-cancel" onclick="showDetail(${id})">İptal</button>
                             </div>
                         </form>
                     </div>
@@ -2065,7 +1981,6 @@
                 s.tags = tags;
                 s.links = link ? [link] : [];
                 s.version = version || 'v1.0';
-                s.updated = new Date().toISOString();
                 DB.saveScripts(scripts);
                 showToast('✅ Script güncellendi!', 'success', 'Başarılı');
                 showDetail(id);
@@ -2079,8 +1994,8 @@
             if (!isLoggedIn()) { showToast('Lütfen giriş yapın!', 'error');
                 showLogin(); return; }
             const user = getCurrentUser();
-            const scripts = DB.getScripts().filter(s => s.userId === user.id || s.userId === user.uid);
-            const comments = DB.getComments().filter(c => c.userId === user.id || c.userId === user.uid);
+            const scripts = DB.getScripts().filter(s => s.userId === user.id);
+            const comments = DB.getComments().filter(c => c.userId === user.id);
             const favorites = DB.getFavorites();
 
             const totalDownloads = scripts.reduce((sum, s) => sum + (s.downloads || 0), 0);
@@ -2096,7 +2011,7 @@
                         <div class="top"><h3>${s.title}</h3><span class="badge ${getCategoryBadge(s.category)}">${s.category || 'Diğer'}</span></div>
                         <div class="meta"><span><i class="fas fa-clock"></i> ${formatDate(s.created)}</span><span><i class="fas fa-eye"></i> ${s.downloads || 0}</span></div>
                         <div class="actions">
-                            <button class="btn-view" onclick="showDetail(${s.id})"><i class="fas fa-eye"></i> Görüntüle</button>
+                            <button class="btn-view" onclick="showDetail(${s.id})"><i class="fas fa-eye"></i></button>
                             <button class="btn-edit" onclick="editScript(${s.id})"><i class="fas fa-edit"></i></button>
                             <button class="btn-delete" onclick="deleteScript(${s.id})"><i class="fas fa-trash"></i></button>
                         </div>
@@ -2104,31 +2019,29 @@
                 `).join('');
 
             document.getElementById('content').innerHTML = `
-                <div class="fade-in">
-                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:10px;">
-                        <h2 style="font-size:22px;font-weight:800;color:var(--text);"><i class="fas fa-user" style="color:var(--red);"></i> Profil</h2>
+                <div>
+                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:8px;">
+                        <h2 style="font-size:20px;font-weight:800;"><i class="fas fa-user" style="color:var(--red);"></i> Profil</h2>
                         <button class="btn-back" onclick="goHome()"><i class="fas fa-arrow-left"></i> Ana Sayfa</button>
                     </div>
-                    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:24px;margin-bottom:20px;">
-                        <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
-                            <div style="width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,var(--red),var(--purple));display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:700;color:white;overflow:hidden;">
-                                ${user.photoURL ? `<img src="${user.photoURL}" style="width:60px;height:60px;object-fit:cover;">` : user.username.charAt(0).toUpperCase()}
-                            </div>
+                    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:16px;">
+                        <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;">
+                            <div style="width:50px;height:50px;border-radius:50%;background:linear-gradient(135deg,var(--red),#7c3aed);display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;color:white;">${user.username.charAt(0).toUpperCase()}</div>
                             <div>
-                                <h2 style="font-size:22px;font-weight:800;color:var(--text);">${user.username}</h2>
+                                <h2 style="font-size:20px;font-weight:800;">${user.username}</h2>
                                 <p style="color:var(--text2);"><i class="fas fa-envelope"></i> ${user.email || 'Email girilmemiş'}</p>
-                                <p style="color:var(--text3);font-size:13px;"><i class="fas fa-shield-alt"></i> Rol: ${getRankText(user.rank)}</p>
+                                <p style="color:var(--text3);font-size:13px;"><i class="fas fa-shield-alt"></i> ${user.rank === 'admin' ? '🛡️ Admin' : '👤 Kullanıcı'}</p>
                             </div>
                         </div>
-                        <div style="display:flex;gap:24px;margin-top:16px;padding-top:16px;border-top:1px solid var(--border);flex-wrap:wrap;">
-                            <div><span style="font-size:20px;font-weight:700;color:var(--text);">${scripts.length}</span> <span style="color:var(--text3);">Script</span></div>
-                            <div><span style="font-size:20px;font-weight:700;color:var(--text);">${comments.length}</span> <span style="color:var(--text3);">Yorum</span></div>
-                            <div><span style="font-size:20px;font-weight:700;color:var(--text);">${favorites.length}</span> <span style="color:var(--text3);">Favori</span></div>
-                            <div><span style="font-size:20px;font-weight:700;color:var(--text);">${totalDownloads}</span> <span style="color:var(--text3);">Toplam İndirme</span></div>
-                            <div><span style="font-size:20px;font-weight:700;color:var(--text);">${totalLikes}</span> <span style="color:var(--text3);">Toplam Beğeni</span></div>
+                        <div style="display:flex;gap:20px;margin-top:14px;padding-top:14px;border-top:1px solid var(--border);flex-wrap:wrap;">
+                            <div><span style="font-size:18px;font-weight:700;">${scripts.length}</span> <span style="color:var(--text3);">Script</span></div>
+                            <div><span style="font-size:18px;font-weight:700;">${comments.length}</span> <span style="color:var(--text3);">Yorum</span></div>
+                            <div><span style="font-size:18px;font-weight:700;">${favorites.length}</span> <span style="color:var(--text3);">Favori</span></div>
+                            <div><span style="font-size:18px;font-weight:700;">${totalDownloads}</span> <span style="color:var(--text3);">İndirme</span></div>
+                            <div><span style="font-size:18px;font-weight:700;">${totalLikes}</span> <span style="color:var(--text3);">Beğeni</span></div>
                         </div>
                     </div>
-                    <h3 style="margin-bottom:12px;color:var(--text);"><i class="fas fa-archive" style="color:var(--red);"></i> Scriptlerim (${scripts.length})</h3>
+                    <h3 style="margin-bottom:10px;"><i class="fas fa-archive" style="color:var(--red);"></i> Scriptlerim (${scripts.length})</h3>
                     <div class="script-grid">${cards}</div>
                 </div>
             `;
@@ -2153,16 +2066,16 @@
                         <div class="top"><h3>${s.title}</h3><span class="badge ${getCategoryBadge(s.category)}">${s.category || 'Diğer'}</span></div>
                         <div class="meta"><span><i class="fas fa-user"></i> ${s.username}</span><span><i class="fas fa-clock"></i> ${formatDate(s.created)}</span></div>
                         <div class="actions">
-                            <button class="btn-view" onclick="showDetail(${s.id})"><i class="fas fa-eye"></i> İncele</button>
+                            <button class="btn-view" onclick="showDetail(${s.id})"><i class="fas fa-eye"></i></button>
                             <button class="btn-fav active" onclick="toggleFavorite(${s.id})"><i class="fas fa-star"></i> Çıkar</button>
                         </div>
                     </div>
                 `).join('');
 
             document.getElementById('content').innerHTML = `
-                <div class="fade-in">
-                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:10px;">
-                        <h2 style="font-size:22px;font-weight:800;color:var(--text);"><i class="fas fa-star" style="color:#fbbf24;"></i> Favorilerim (${scripts.length})</h2>
+                <div>
+                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:8px;">
+                        <h2 style="font-size:20px;font-weight:800;"><i class="fas fa-star" style="color:#fbbf24;"></i> Favorilerim (${scripts.length})</h2>
                         <button class="btn-back" onclick="goHome()"><i class="fas fa-arrow-left"></i> Ana Sayfa</button>
                     </div>
                     <div class="script-grid">${html}</div>
@@ -2184,26 +2097,26 @@
 
             const medals = ['🥇', '🥈', '🥉', '4️⃣', '5️⃣', '6️⃣', '7️⃣', '8️⃣', '9️⃣', '🔟'];
             let html = top.length === 0 ?
-                '<p style="text-align:center;color:var(--text3);padding:40px;">Henüz veri yok.</p>' :
+                '<p style="text-align:center;color:var(--text3);padding:30px;">Henüz veri yok.</p>' :
                 top.map((s, i) => `
-                    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:14px 18px;margin-bottom:10px;display:flex;align-items:center;gap:14px;transition:var(--transition);">
-                        <span style="font-size:28px;">${medals[i] || '🏅'}</span>
+                    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:12px 16px;margin-bottom:8px;display:flex;align-items:center;gap:12px;">
+                        <span style="font-size:24px;">${medals[i] || '🏅'}</span>
                         <div style="flex:1;">
-                            <strong style="font-size:15px;color:var(--text);">${s.title}</strong>
+                            <strong>${s.title}</strong>
                             <div style="color:var(--text3);font-size:12px;">👤 ${s.username} • ${s.category || 'Diğer'} • ❤️ ${s.likes || 0}</div>
                         </div>
                         <div style="text-align:right;">
-                            <div style="font-size:20px;font-weight:700;color:var(--red);">${s.downloads || 0}</div>
+                            <div style="font-size:18px;font-weight:700;color:var(--red);">${s.downloads || 0}</div>
                             <div style="color:var(--text3);font-size:11px;">görüntülenme</div>
                         </div>
-                        <button class="btn-view" onclick="showDetail(${s.id})" style="padding:4px 12px;font-size:12px;">Gör</button>
+                        <button class="btn-view" onclick="showDetail(${s.id})" style="padding:4px 10px;font-size:12px;">Gör</button>
                     </div>
                 `).join('');
 
             document.getElementById('content').innerHTML = `
-                <div class="fade-in">
-                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:10px;">
-                        <h2 style="font-size:22px;font-weight:800;color:var(--text);"><i class="fas fa-trophy" style="color:#fbbf24;"></i> En Popüler Scriptler</h2>
+                <div>
+                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:8px;">
+                        <h2 style="font-size:20px;font-weight:800;"><i class="fas fa-trophy" style="color:#fbbf24;"></i> En Popüler Scriptler</h2>
                         <button class="btn-back" onclick="goHome()"><i class="fas fa-arrow-left"></i> Ana Sayfa</button>
                     </div>
                     ${html}
@@ -2217,9 +2130,7 @@
         // ============================================================
         function deleteScript(id) {
             if (!confirm('Bu scripti silmek istediğine emin misin?')) return;
-            const user = getCurrentUser();
-            const script = DB.getScripts().find(s => s.id === id);
-            if (!isAdmin() && !(user && (script?.userId === user.id || script?.userId === user.uid))) {
+            if (!isAdmin() && !(getCurrentUser() && DB.getScripts().find(s => s.id === id)?.userId === getCurrentUser().id)) {
                 showToast('Bu scripti silme yetkin yok!', 'error');
                 return;
             }
@@ -2254,18 +2165,6 @@
             }
         }
 
-        function downloadScript(id) {
-            const scripts = DB.getScripts();
-            const s = scripts.find(s => s.id === id);
-            if (s) {
-                s.downloads = (s.downloads || 0) + 1;
-                DB.saveScripts(scripts);
-                showToast('⬇️ Script indiriliyor...', 'success', 'İndirme');
-                updateStats();
-                renderScripts();
-            }
-        }
-
         function toggleFavorite(id) {
             let favs = DB.getFavorites();
             const idx = favs.indexOf(id);
@@ -2278,10 +2177,9 @@
             }
             DB.saveFavorites(favs);
             updateStats();
+            renderScripts();
             if (document.querySelector('.detail-view')) {
                 showDetail(id);
-            } else {
-                renderScripts();
             }
         }
 
@@ -2304,10 +2202,9 @@
             DB.saveLikes(likes);
             DB.saveScripts(scripts);
             updateStats();
+            renderScripts();
             if (document.querySelector('.detail-view')) {
                 showDetail(id);
-            } else {
-                renderScripts();
             }
         }
 
@@ -2327,15 +2224,8 @@
             const user = getCurrentUser();
             if (!content) { showToast('Yorum boş olamaz!', 'error'); return; }
             const comments = DB.getComments();
-            const newComment = {
-                id: generateId(),
-                scriptId,
-                userId: user.id || user.uid || 'unknown',
-                username: user.username || 'Kullanıcı',
-                content,
-                created: new Date().toISOString()
-            };
-            comments.push(newComment);
+            comments.push({ id: generateId(), scriptId, userId: user.id, username: user.username, content,
+                created: new Date().toISOString() });
             DB.saveComments(comments);
             input.value = '';
             showToast('💬 Yorum eklendi!', 'success', 'Başarılı');
@@ -2343,32 +2233,8 @@
             showDetail(scriptId);
         }
 
-        function likeComment(commentId) {
-            let likes = DB.getCommentLikes();
-            const idx = likes.indexOf(commentId);
-            if (idx > -1) {
-                likes.splice(idx, 1);
-                showToast('Yorum beğenisi kaldırıldı', 'info', 'Bilgi');
-            } else {
-                likes.push(commentId);
-                showToast('❤️ Yorum beğenildi!', 'success', 'Harika!');
-            }
-            DB.saveCommentLikes(likes);
-            const scriptId = DB.getComments().find(c => c.id === commentId)?.scriptId;
-            if (scriptId) showDetail(scriptId);
-        }
-
-        function deleteComment(commentId) {
-            if (!confirm('Yorumu silmek istediğine emin misin?')) return;
-            let comments = DB.getComments().filter(c => c.id !== commentId);
-            DB.saveComments(comments);
-            showToast('Yorum silindi.', 'info', 'Bilgi');
-            const scriptId = DB.getComments().find(c => c.scriptId)?.scriptId;
-            if (scriptId) showDetail(scriptId);
-        }
-
         // ============================================================
-        // GİRİŞ & KAYIT MODALLARI
+        // GİRİŞ & KAYIT
         // ============================================================
         function showLogin() {
             if (isLoggedIn()) { showToast('Zaten giriş yaptın!', 'info');
@@ -2378,31 +2244,21 @@
                     <h2><i class="fas fa-sign-in-alt" style="color:var(--red);"></i> Giriş</h2>
                     <button class="modal-close" onclick="closeModal()">×</button>
                 </div>
-                
-                <button class="btn-google" onclick="loginWithGoogle()">
-                    <i class="fab fa-google"></i> Google ile Giriş
-                </button>
-                
-                <button class="btn-github" onclick="loginWithGitHub()" style="margin-top:8px;">
-                    <i class="fab fa-github"></i> GitHub ile Giriş
-                </button>
-                
-                <div class="divider">veya</div>
-                
-                <form onsubmit="loginWithEmail(document.getElementById('loginEmail').value, document.getElementById('loginPassword').value);return false;">
+                <form onsubmit="loginUser();return false;">
                     <div class="form-group">
-                        <label><i class="fas fa-envelope"></i> Email</label>
-                        <input type="email" id="loginEmail" placeholder="Email adresiniz" required>
+                        <label><i class="fas fa-user"></i> Kullanıcı Adı</label>
+                        <input type="text" id="loginUsername" placeholder="Kullanıcı adı..." required>
                     </div>
                     <div class="form-group">
                         <label><i class="fas fa-lock"></i> Şifre</label>
-                        <input type="password" id="loginPassword" placeholder="Şifreniz" required>
+                        <input type="password" id="loginPassword" placeholder="Şifre..." required>
                     </div>
                     <div class="form-actions">
                         <button type="submit" class="btn-submit"><i class="fas fa-sign-in-alt"></i> Giriş Yap</button>
                     </div>
                 </form>
                 <div class="form-footer">Hesabın yok mu? <a onclick="closeModal();showRegister();">Kayıt ol</a></div>
+                <div class="form-footer" style="font-size:12px;color:var(--text3);">🔑 Demo: admin / admin123</div>
             `);
         }
 
@@ -2414,29 +2270,18 @@
                     <h2><i class="fas fa-user-plus" style="color:var(--red);"></i> Kayıt</h2>
                     <button class="modal-close" onclick="closeModal()">×</button>
                 </div>
-                
-                <button class="btn-google" onclick="loginWithGoogle()">
-                    <i class="fab fa-google"></i> Google ile Kayıt
-                </button>
-                
-                <button class="btn-github" onclick="loginWithGitHub()" style="margin-top:8px;">
-                    <i class="fab fa-github"></i> GitHub ile Kayıt
-                </button>
-                
-                <div class="divider">veya</div>
-                
-                <form onsubmit="registerWithEmail(document.getElementById('registerEmail').value, document.getElementById('registerPassword').value, document.getElementById('registerUsername').value);return false;">
+                <form onsubmit="registerUser();return false;">
                     <div class="form-group">
                         <label><i class="fas fa-user"></i> Kullanıcı Adı *</label>
-                        <input type="text" id="registerUsername" placeholder="Kullanıcı adınız" required>
+                        <input type="text" id="registerUsername" placeholder="Kullanıcı adı..." required>
                     </div>
                     <div class="form-group">
-                        <label><i class="fas fa-envelope"></i> Email *</label>
-                        <input type="email" id="registerEmail" placeholder="Email adresiniz" required>
+                        <label><i class="fas fa-envelope"></i> Email</label>
+                        <input type="email" id="registerEmail" placeholder="Email">
                     </div>
                     <div class="form-group">
                         <label><i class="fas fa-lock"></i> Şifre *</label>
-                        <input type="password" id="registerPassword" placeholder="En az 6 karakter" required minlength="6">
+                        <input type="password" id="registerPassword" placeholder="En az 4 karakter..." required minlength="4">
                     </div>
                     <div class="form-actions">
                         <button type="submit" class="btn-submit"><i class="fas fa-user-plus"></i> Kayıt Ol</button>
@@ -2444,6 +2289,55 @@
                 </form>
                 <div class="form-footer">Zaten hesabın var mı? <a onclick="closeModal();showLogin();">Giriş yap</a></div>
             `);
+        }
+
+        function loginUser() {
+            const u = document.getElementById('loginUsername').value.trim();
+            const p = document.getElementById('loginPassword').value.trim();
+            const user = DB.getUsers().find(u2 => u2.username === u && u2.password === p);
+            if (user) {
+                DB.setCurrentUser({ id: user.id, username: user.username, email: user.email || '', rank: user.rank ||
+                        'user', created: user.created });
+                updateNav();
+                closeModal();
+                showToast('🎮 Hoş geldin, ' + user.username + '!', 'success', 'Hoş Geldin!');
+                updateStats();
+                goHome();
+            } else {
+                showToast('Kullanıcı adı veya şifre hatalı!', 'error', 'Hata');
+            }
+        }
+
+        function registerUser() {
+            const u = document.getElementById('registerUsername').value.trim();
+            const e = document.getElementById('registerEmail').value.trim();
+            const p = document.getElementById('registerPassword').value.trim();
+            if (!u || !p) { showToast('Kullanıcı adı ve şifre zorunlu!', 'error'); return; }
+            if (p.length < 4) { showToast('Şifre en az 4 karakter!', 'error'); return; }
+            const users = DB.getUsers();
+            if (users.find(u2 => u2.username === u)) { showToast('Bu kullanıcı adı alınmış!', 'error'); return; }
+
+            // Admin kontrolü
+            let rank = 'user';
+            if (e === 'mm2ultimatehib@gmail.com' || u === 'admin') {
+                rank = 'admin';
+            }
+
+            const newId = users.length > 0 ? Math.max(...users.map(u2 => u2.id)) + 1 : 1;
+            users.push({ id: newId, username: u, password: p, email: e || '', rank: rank, created: new Date()
+                    .toISOString() });
+            DB.saveUsers(users);
+            closeModal();
+            showToast('🎮 Kayıt başarılı! Şimdi giriş yap.', 'success', 'Başarılı!');
+            showLogin();
+        }
+
+        function logout() {
+            if (!confirm('Çıkış yapmak istediğine emin misin?')) return;
+            DB.logout();
+            updateNav();
+            showToast('Çıkış yapıldı.', 'info', 'Güle güle!');
+            goHome();
         }
 
         // ============================================================
@@ -2465,111 +2359,17 @@
         });
 
         // ============================================================
-        // INIT - BAŞLAT
+        // START
         // ============================================================
-        function initDemoScripts() {
-            let scripts = DB.getScripts();
-            if (scripts.length === 0) {
-                const sample = [{
-                    id: 1,
-                    title: '🛡️ Ultimate ESP v3.0',
-                    content: '-- Ultimate ESP Script\n-- Tüm oyuncuları gösterir\n\nlocal Players = game:GetService("Players")\nlocal RunService = game:GetService("RunService")\n\nfor _, player in pairs(Players:GetPlayers()) do\n    if player ~= Players.LocalPlayer then\n        local highlight = Instance.new("Highlight")\n        highlight.Parent = player.Character\n        highlight.FillColor = Color3.new(1, 0.2, 0.2)\n        highlight.FillTransparency = 0.5\n        highlight.OutlineColor = Color3.new(1, 1, 1)\n    end\nend',
-                    language: 'Lua',
-                    category: 'ESP',
-                    version: 'v3.0',
-                    tags: ['xray', 'wallhack'],
-                    links: ['https://pastebin.com/raw/abc123'],
-                    downloads: 342,
-                    likes: 45,
-                    userId: 'admin',
-                    username: 'admin',
-                    created: new Date().toISOString(),
-                    updated: new Date().toISOString(),
-                    featured: true
-                }, {
-                    id: 2,
-                    title: '🤖 Auto Clicker Pro',
-                    content: '-- Auto Clicker Pro\n-- Otomatik tıklama\n\nlocal mouse = game.Players.LocalPlayer:GetMouse()\nlocal enabled = false\n\nmouse.KeyDown:Connect(function(key)\n    if key == "F1" then\n        enabled = not enabled\n        print(enabled and "Aktif" or "Pasif")\n    end\nend)\n\nwhile true do\n    if enabled then\n        mouse1click()\n        wait(0.05)\n    end\n    wait()\nend',
-                    language: 'Lua',
-                    category: 'Otomasyon',
-                    version: 'v2.1',
-                    tags: ['clicker', 'auto'],
-                    links: [],
-                    downloads: 215,
-                    likes: 32,
-                    userId: 'admin',
-                    username: 'admin',
-                    created: new Date(Date.now() - 86400000).toISOString(),
-                    updated: new Date(Date.now() - 86400000).toISOString(),
-                    featured: false
-                }, {
-                    id: 3,
-                    title: '🎯 Aimbot Ultra',
-                    content: '-- Aimbot Ultra\n-- Otomatik hedef alma\n\nlocal Players = game:GetService("Players")\nlocal lp = Players.LocalPlayer\n\nRunService.RenderStepped:Connect(function()\n    local target = getClosestPlayer()\n    if target then\n        lp.Character.HumanoidRootPart.CFrame = CFrame.new(lp.Character.HumanoidRootPart.Position, target.Character.HumanoidRootPart.Position)\n    end\nend)',
-                    language: 'Lua',
-                    category: 'Aimbot',
-                    version: 'v2.0',
-                    tags: ['aimbot', 'lock'],
-                    links: ['https://pastebin.com/raw/def456'],
-                    downloads: 187,
-                    likes: 28,
-                    userId: 'admin',
-                    username: 'admin',
-                    created: new Date(Date.now() - 172800000).toISOString(),
-                    updated: new Date(Date.now() - 172800000).toISOString(),
-                    featured: false
-                }, {
-                    id: 4,
-                    title: '🦅 Fly Mode v2',
-                    content: '-- Fly Mode v2\n-- Uçma modu\n\nlocal player = game.Players.LocalPlayer\nlocal char = player.Character\nlocal humanoid = char.Humanoid\nlocal flying = false\n\ngame:GetService("UserInputService").InputBegan:Connect(function(input)\n    if input.KeyCode == Enum.KeyCode.F then\n        flying = not flying\n        humanoid.PlatformStand = flying\n        print(flying and "Fly Aktif" or "Fly Pasif")\n    end\nend)',
-                    language: 'Lua',
-                    category: 'Fly',
-                    version: 'v2.0',
-                    tags: ['fly', 'noclip'],
-                    links: [],
-                    downloads: 156,
-                    likes: 22,
-                    userId: 'admin',
-                    username: 'admin',
-                    created: new Date(Date.now() - 259200000).toISOString(),
-                    updated: new Date(Date.now() - 259200000).toISOString(),
-                    featured: false
-                }, {
-                    id: 5,
-                    title: '💨 Speed Hack Ultra',
-                    content: '-- Speed Hack Ultra\n-- Hızlandırma\n\nlocal player = game.Players.LocalPlayer\nlocal humanoid = player.Character.Humanoid\n\nhumanoid.WalkSpeed = humanoid.WalkSpeed * 2.5\nhumanoid.JumpPower = humanoid.JumpPower * 1.5\n\nprint("Speed: " .. humanoid.WalkSpeed)',
-                    language: 'Lua',
-                    category: 'Speed',
-                    version: 'v1.5',
-                    tags: ['speed', 'boost'],
-                    links: [],
-                    downloads: 134,
-                    likes: 18,
-                    userId: 'admin',
-                    username: 'admin',
-                    created: new Date(Date.now() - 345600000).toISOString(),
-                    updated: new Date(Date.now() - 345600000).toISOString(),
-                    featured: false
-                }];
-                sample.forEach(s => { scripts.push(s); });
-                DB.saveScripts(scripts);
-            }
-        }
+        initData();
+        updateNav();
+        goHome();
 
-        function init() {
-            initTheme();
-            initDemoScripts();
-            updateNav();
-            updateStats();
-            goHome();
-            console.log('🎮 Roblox Script Hub Pro v3.0 🔥 Firebase');
-            console.log('✅ Firebase ile giriş sistemi aktif!');
-            console.log('👑 Admin: mm2ultimatehib@gmail.com');
-            console.log('📊 Script sayısı:', DB.getScripts().length);
-        }
-
-        // Sayfa yüklendiğinde başlat
-        document.addEventListener('DOMContentLoaded', init);
+        console.log('🎮 Roblox Script Hub çalışıyor!');
+        console.log('👑 Admin: mm2ultimatehib@gmail.com (admin / admin123)');
+        console.log('📊 Script sayısı:', DB.getScripts().length);
+        console.log('👥 Kullanıcı sayısı:', DB.getUsers().length);
     </script>
+
 </body>
-</html>
+</html> 
