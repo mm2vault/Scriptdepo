@@ -3,112 +3,200 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🎮 Roblox Script Hub</title>
+    <title>🎮 Roblox Script Hub Pro</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
     <style>
-        /* ============ RESET & VARIABLES ============ */
+        /* ============================================================
+           ROOT VARIABLES
+           ============================================================ */
+        :root {
+            --bg-primary: #07070d;
+            --bg-secondary: #0c0c18;
+            --bg-card: #12122a;
+            --bg-card-hover: #1a1a3a;
+            --bg-card-glass: rgba(18, 18, 42, 0.85);
+            --text-primary: #ffffff;
+            --text-secondary: #a8a8c8;
+            --text-muted: #5a5a7a;
+            --border-color: rgba(255, 55, 95, 0.15);
+            --shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+            --shadow-glow: 0 0 40px rgba(255, 55, 95, 0.1);
+            --radius: 16px;
+            --radius-sm: 10px;
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            
+            /* Roblox Colors */
+            --rbx-red: #ff375f;
+            --rbx-red-dark: #cc0020;
+            --rbx-red-glow: rgba(255, 55, 95, 0.3);
+            --rbx-blue: #00b2ff;
+            --rbx-green: #00d4aa;
+            --rbx-purple: #7c3aed;
+            --rbx-yellow: #fbbf24;
+            --rbx-pink: #ff6b9d;
+            
+            /* Gradients */
+            --gradient-main: linear-gradient(135deg, #ff375f, #7c3aed, #00b2ff);
+            --gradient-card: linear-gradient(135deg, rgba(255,55,95,0.05), rgba(124,58,237,0.05));
+            --gradient-btn: linear-gradient(135deg, #ff375f, #cc0020);
+            --gradient-hero: linear-gradient(135deg, rgba(255,55,95,0.08), rgba(124,58,237,0.08));
+        }
+
+        /* ============================================================
+           RESET & BASE
+           ============================================================ */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        :root {
-            --bg-primary: #0a0a0f;
-            --bg-secondary: #12121a;
-            --bg-card: #1a1a2e;
-            --bg-card-hover: #222240;
-            --text-primary: #ffffff;
-            --text-secondary: #a0a0b8;
-            --text-muted: #6a6a82;
-            --roblox-red: #ff375f;
-            --roblox-red-dark: #cc0020;
-            --roblox-blue: #00b2ff;
-            --roblox-green: #00d4aa;
-            --roblox-purple: #7c3aed;
-            --roblox-yellow: #fbbf24;
-            --border-color: #2a2a42;
-            --shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-            --radius: 16px;
-            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             background: var(--bg-primary);
             color: var(--text-primary);
             min-height: 100vh;
-            background-image: 
-                radial-gradient(ellipse at 10% 20%, rgba(255, 55, 95, 0.05) 0%, transparent 50%),
-                radial-gradient(ellipse at 90% 80%, rgba(0, 178, 255, 0.05) 0%, transparent 50%);
+            overflow-x: hidden;
+            position: relative;
         }
 
-        /* ============ SCROLLBAR ============ */
-        ::-webkit-scrollbar { width: 8px; height: 8px; }
-        ::-webkit-scrollbar-track { background: var(--bg-primary); }
-        ::-webkit-scrollbar-thumb { background: var(--roblox-red); border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: var(--roblox-red-dark); }
+        body::before {
+            content: '';
+            position: fixed;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: 
+                radial-gradient(ellipse at 20% 50%, rgba(255,55,95,0.03) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 50%, rgba(124,58,237,0.03) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 100%, rgba(0,178,255,0.02) 0%, transparent 50%);
+            z-index: 0;
+            pointer-events: none;
+            animation: bgFloat 20s ease-in-out infinite;
+        }
 
-        /* ============ CONTAINER ============ */
+        @keyframes bgFloat {
+            0%, 100% { transform: translate(0, 0); }
+            33% { transform: translate(2%, -2%); }
+            66% { transform: translate(-2%, 2%); }
+        }
+
+        /* ============================================================
+           SCROLLBAR
+           ============================================================ */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg-primary); }
+        ::-webkit-scrollbar-thumb { background: var(--rbx-red); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--rbx-red-dark); }
+
+        /* ============================================================
+           CONTAINER
+           ============================================================ */
         .container {
             max-width: 1400px;
             margin: 0 auto;
-            padding: 20px 24px;
+            padding: 16px 24px;
+            position: relative;
+            z-index: 1;
         }
 
-        /* ============ HEADER ============ */
+        /* ============================================================
+           GLASS HEADER
+           ============================================================ */
         .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 16px 24px;
-            background: var(--bg-secondary);
+            padding: 12px 24px;
+            background: var(--bg-card-glass);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border-radius: var(--radius);
             border: 1px solid var(--border-color);
-            margin-bottom: 30px;
-            backdrop-filter: blur(10px);
+            margin-bottom: 28px;
             position: sticky;
-            top: 20px;
+            top: 16px;
             z-index: 100;
-            box-shadow: var(--shadow);
+            box-shadow: var(--shadow), var(--shadow-glow);
+            transition: var(--transition);
+        }
+
+        .header:hover {
+            border-color: rgba(255, 55, 95, 0.3);
         }
 
         .logo {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 14px;
             text-decoration: none;
-            font-size: 26px;
-            font-weight: 800;
-            color: white;
+            cursor: pointer;
         }
 
         .logo-icon {
-            width: 45px;
-            height: 45px;
-            background: linear-gradient(135deg, var(--roblox-red), var(--roblox-red-dark));
-            border-radius: 12px;
+            width: 48px;
+            height: 48px;
+            background: var(--gradient-main);
+            border-radius: 14px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 22px;
+            font-size: 24px;
             color: white;
-            box-shadow: 0 4px 20px rgba(255, 55, 95, 0.3);
+            box-shadow: 0 0 30px rgba(255, 55, 95, 0.3);
+            position: relative;
+            animation: pulseGlow 3s ease-in-out infinite;
         }
 
-        .logo span {
-            background: linear-gradient(135deg, var(--roblox-red), var(--roblox-blue));
+        @keyframes pulseGlow {
+            0%, 100% { box-shadow: 0 0 30px rgba(255, 55, 95, 0.3); }
+            50% { box-shadow: 0 0 50px rgba(255, 55, 95, 0.5), 0 0 70px rgba(124, 58, 237, 0.2); }
+        }
+
+        .logo-icon::after {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            border-radius: 16px;
+            background: var(--gradient-main);
+            opacity: 0.3;
+            filter: blur(10px);
+            z-index: -1;
+            animation: pulseGlow 3s ease-in-out infinite;
+        }
+
+        .logo-text {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 900;
+            font-size: 22px;
+            background: var(--gradient-main);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            font-size: 14px;
+            letter-spacing: -0.5px;
+        }
+
+        .logo-text span {
+            font-size: 12px;
+            background: rgba(255, 55, 95, 0.15);
+            -webkit-text-fill-color: var(--text-secondary);
+            padding: 2px 10px;
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+            font-family: 'Inter', sans-serif;
             font-weight: 600;
-            margin-left: 4px;
+            margin-left: 6px;
         }
 
         .nav {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
             flex-wrap: wrap;
         }
 
@@ -116,7 +204,7 @@
             color: var(--text-secondary);
             text-decoration: none;
             padding: 8px 16px;
-            border-radius: 10px;
+            border-radius: var(--radius-sm);
             font-size: 14px;
             font-weight: 500;
             transition: var(--transition);
@@ -126,92 +214,140 @@
             display: flex;
             align-items: center;
             gap: 8px;
+            position: relative;
         }
 
         .nav a:hover, .nav button:hover {
             color: white;
-            background: rgba(255, 55, 95, 0.1);
+            background: rgba(255, 55, 95, 0.08);
         }
 
         .nav a.active {
             color: white;
-            background: rgba(255, 55, 95, 0.15);
-        }
-
-        .nav .user-badge {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 6px 14px 6px 6px;
-            border-radius: 30px;
-            background: rgba(255, 55, 95, 0.1);
+            background: rgba(255, 55, 95, 0.12);
             border: 1px solid rgba(255, 55, 95, 0.2);
         }
 
+        .nav a .badge-nav {
+            background: var(--rbx-red);
+            color: white;
+            font-size: 10px;
+            padding: 1px 8px;
+            border-radius: 20px;
+            font-weight: 700;
+        }
+
+        .nav-divider {
+            width: 1px;
+            height: 30px;
+            background: var(--border-color);
+            margin: 0 4px;
+        }
+
+        .btn-primary-nav {
+            background: var(--gradient-btn) !important;
+            color: white !important;
+            padding: 10px 24px !important;
+            border-radius: var(--radius-sm) !important;
+            font-weight: 600 !important;
+            box-shadow: 0 4px 20px rgba(255, 55, 95, 0.3);
+        }
+
+        .btn-primary-nav:hover {
+            transform: scale(1.05) !important;
+            box-shadow: 0 4px 30px rgba(255, 55, 95, 0.5) !important;
+            background: var(--gradient-btn) !important;
+        }
+
+        .btn-outline-nav {
+            background: transparent !important;
+            border: 1px solid var(--border-color) !important;
+            color: var(--text-secondary) !important;
+        }
+
+        .btn-outline-nav:hover {
+            border-color: var(--rbx-red) !important;
+            color: white !important;
+        }
+
+        .user-badge {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 6px 16px 6px 6px;
+            border-radius: 30px;
+            background: rgba(255, 55, 95, 0.08);
+            border: 1px solid rgba(255, 55, 95, 0.15);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .user-badge:hover {
+            border-color: rgba(255, 55, 95, 0.3);
+            background: rgba(255, 55, 95, 0.12);
+        }
+
         .user-avatar {
-            width: 32px;
-            height: 32px;
+            width: 34px;
+            height: 34px;
             border-radius: 50%;
-            background: linear-gradient(135deg, var(--roblox-red), var(--roblox-purple));
+            background: var(--gradient-main);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 14px;
+            font-size: 15px;
             font-weight: 700;
             color: white;
+            box-shadow: 0 0 20px rgba(255, 55, 95, 0.2);
         }
 
-        .nav .btn-primary {
-            background: linear-gradient(135deg, var(--roblox-red), var(--roblox-red-dark));
+        .user-name {
             color: white;
-            padding: 10px 24px;
-            border-radius: 12px;
             font-weight: 600;
-            border: none;
-            cursor: pointer;
-            transition: var(--transition);
+            font-size: 14px;
         }
 
-        .nav .btn-primary:hover {
-            transform: scale(1.05);
-            box-shadow: 0 4px 20px rgba(255, 55, 95, 0.4);
-        }
-
-        .nav .btn-outline {
-            background: transparent;
-            color: var(--text-secondary);
-            border: 1px solid var(--border-color);
-            padding: 10px 20px;
-            border-radius: 12px;
-            transition: var(--transition);
-            cursor: pointer;
-        }
-
-        .nav .btn-outline:hover {
-            border-color: var(--roblox-red);
-            color: white;
-        }
-
-        /* ============ HERO ============ */
+        /* ============================================================
+           HERO SECTION
+           ============================================================ */
         .hero {
-            background: linear-gradient(135deg, var(--bg-secondary), var(--bg-card));
+            background: var(--gradient-hero);
             border-radius: var(--radius);
-            padding: 50px 40px;
+            padding: 50px 48px;
             border: 1px solid var(--border-color);
-            margin-bottom: 30px;
+            margin-bottom: 32px;
             position: relative;
             overflow: hidden;
+            backdrop-filter: blur(10px);
         }
 
         .hero::before {
             content: '';
             position: absolute;
-            top: -50%;
-            right: -20%;
+            top: -30%;
+            right: -10%;
             width: 500px;
             height: 500px;
-            background: radial-gradient(circle, rgba(255, 55, 95, 0.1), transparent 70%);
+            background: radial-gradient(circle, rgba(255, 55, 95, 0.08), transparent 70%);
             border-radius: 50%;
+            animation: heroFloat 15s ease-in-out infinite;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -10%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(124, 58, 237, 0.06), transparent 70%);
+            border-radius: 50%;
+            animation: heroFloat 20s ease-in-out infinite reverse;
+        }
+
+        @keyframes heroFloat {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(30px, -20px) scale(1.1); }
         }
 
         .hero-content {
@@ -219,26 +355,91 @@
             z-index: 1;
         }
 
+        .hero-badge {
+            display: inline-block;
+            background: rgba(255, 55, 95, 0.15);
+            border: 1px solid rgba(255, 55, 95, 0.2);
+            padding: 6px 16px;
+            border-radius: 30px;
+            font-size: 13px;
+            color: var(--rbx-red);
+            font-weight: 600;
+            margin-bottom: 16px;
+            letter-spacing: 0.5px;
+        }
+
+        .hero-badge i {
+            margin-right: 8px;
+        }
+
         .hero h1 {
-            font-size: 42px;
-            font-weight: 800;
-            margin-bottom: 12px;
-            background: linear-gradient(135deg, #fff 30%, var(--roblox-red));
+            font-family: 'Orbitron', sans-serif;
+            font-size: 48px;
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 16px;
+            background: var(--gradient-main);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            letter-spacing: -1px;
         }
 
         .hero p {
             color: var(--text-secondary);
             font-size: 18px;
-            max-width: 600px;
-            line-height: 1.7;
+            max-width: 550px;
+            line-height: 1.8;
+            margin-bottom: 28px;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+
+        .hero-actions .btn {
+            padding: 14px 32px;
+            border-radius: var(--radius-sm);
+            border: none;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .hero-actions .btn-primary {
+            background: var(--gradient-btn);
+            color: white;
+            box-shadow: 0 4px 30px rgba(255, 55, 95, 0.3);
+        }
+
+        .hero-actions .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 40px rgba(255, 55, 95, 0.5);
+        }
+
+        .hero-actions .btn-secondary {
+            background: var(--bg-card);
+            color: white;
+            border: 1px solid var(--border-color);
+        }
+
+        .hero-actions .btn-secondary:hover {
+            border-color: var(--rbx-red);
+            background: rgba(255, 55, 95, 0.05);
         }
 
         .hero-stats {
             display: flex;
-            gap: 40px;
-            margin-top: 25px;
+            gap: 48px;
+            margin-top: 32px;
+            padding-top: 28px;
+            border-top: 1px solid var(--border-color);
         }
 
         .hero-stats .stat {
@@ -247,60 +448,79 @@
         }
 
         .hero-stats .stat .number {
-            font-size: 28px;
-            font-weight: 700;
-            color: white;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 30px;
+            font-weight: 900;
+            background: var(--gradient-main);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .hero-stats .stat .label {
             color: var(--text-muted);
             font-size: 13px;
+            font-weight: 500;
+            margin-top: 2px;
         }
 
-        /* ============ FILTER BAR ============ */
+        /* ============================================================
+           FILTER BAR
+           ============================================================ */
         .filter-bar {
             display: flex;
-            gap: 10px;
+            gap: 8px;
             flex-wrap: wrap;
-            margin-bottom: 25px;
+            margin-bottom: 28px;
             padding: 16px 20px;
-            background: var(--bg-secondary);
+            background: var(--bg-card-glass);
+            backdrop-filter: blur(10px);
             border-radius: var(--radius);
             border: 1px solid var(--border-color);
+            align-items: center;
         }
 
         .filter-bar .filter-btn {
             padding: 8px 18px;
             border-radius: 30px;
-            border: 1px solid var(--border-color);
+            border: 1px solid transparent;
             background: transparent;
             color: var(--text-secondary);
             font-size: 13px;
+            font-weight: 500;
             cursor: pointer;
             transition: var(--transition);
-            font-weight: 500;
         }
 
         .filter-bar .filter-btn:hover {
-            border-color: var(--roblox-red);
             color: white;
+            border-color: var(--border-color);
         }
 
         .filter-bar .filter-btn.active {
-            background: var(--roblox-red);
-            border-color: var(--roblox-red);
+            background: rgba(255, 55, 95, 0.15);
+            border-color: var(--rbx-red);
             color: white;
+        }
+
+        .filter-bar .filter-btn i {
+            margin-right: 6px;
         }
 
         .filter-bar .search-box {
             margin-left: auto;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
             background: var(--bg-primary);
             padding: 6px 16px;
             border-radius: 30px;
             border: 1px solid var(--border-color);
+            transition: var(--transition);
+        }
+
+        .filter-bar .search-box:focus-within {
+            border-color: var(--rbx-red);
+            box-shadow: 0 0 0 3px rgba(255, 55, 95, 0.1);
         }
 
         .filter-bar .search-box input {
@@ -311,6 +531,7 @@
             font-size: 14px;
             outline: none;
             width: 180px;
+            font-family: 'Inter', sans-serif;
         }
 
         .filter-bar .search-box input::placeholder {
@@ -319,12 +540,15 @@
 
         .filter-bar .search-box i {
             color: var(--text-muted);
+            font-size: 14px;
         }
 
-        /* ============ SCRIPT GRID ============ */
+        /* ============================================================
+           SCRIPT GRID
+           ============================================================ */
         .script-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
             gap: 24px;
         }
 
@@ -336,6 +560,7 @@
             transition: var(--transition);
             position: relative;
             overflow: hidden;
+            cursor: default;
         }
 
         .script-card::before {
@@ -345,15 +570,15 @@
             left: 0;
             right: 0;
             height: 3px;
-            background: linear-gradient(90deg, var(--roblox-red), var(--roblox-blue));
+            background: var(--gradient-main);
             opacity: 0;
             transition: var(--transition);
         }
 
         .script-card:hover {
-            transform: translateY(-6px);
-            border-color: rgba(255, 55, 95, 0.3);
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+            transform: translateY(-8px);
+            border-color: rgba(255, 55, 95, 0.25);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
             background: var(--bg-card-hover);
         }
 
@@ -366,61 +591,64 @@
             justify-content: space-between;
             align-items: flex-start;
             margin-bottom: 12px;
+            gap: 8px;
         }
 
         .script-card .card-header h3 {
-            font-size: 18px;
+            font-size: 17px;
             font-weight: 700;
             color: white;
+            line-height: 1.3;
         }
 
         .script-card .card-header .badges {
             display: flex;
             gap: 6px;
             flex-wrap: wrap;
+            flex-shrink: 0;
         }
 
         .badge {
             padding: 3px 12px;
             border-radius: 30px;
-            font-size: 11px;
-            font-weight: 600;
+            font-size: 10px;
+            font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
 
         .badge-lua {
-            background: #000080;
+            background: linear-gradient(135deg, #000080, #1a1a8a);
             color: white;
         }
 
         .badge-esp {
-            background: #7c3aed;
+            background: linear-gradient(135deg, #7c3aed, #6d28d9);
             color: white;
         }
 
         .badge-otomasyon {
-            background: #00d4aa;
+            background: linear-gradient(135deg, #00d4aa, #00b894);
             color: #0a0a0f;
         }
 
         .badge-aimbot {
-            background: #ff375f;
+            background: linear-gradient(135deg, #ff375f, #cc0020);
             color: white;
         }
 
         .badge-fly {
-            background: #00b2ff;
+            background: linear-gradient(135deg, #00b2ff, #0099dd);
             color: white;
         }
 
         .badge-speed {
-            background: #fbbf24;
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
             color: #0a0a0f;
         }
 
         .badge-diger {
-            background: #6a6a82;
+            background: linear-gradient(135deg, #6a6a82, #4a4a62);
             color: white;
         }
 
@@ -432,6 +660,11 @@
         .badge-new {
             background: linear-gradient(135deg, #00d4aa, #00b2ff);
             color: #0a0a0f;
+        }
+
+        .badge-premium {
+            background: linear-gradient(135deg, #ff6b9d, #ff375f);
+            color: white;
         }
 
         .script-card .card-meta {
@@ -446,33 +679,39 @@
         .script-card .card-meta i {
             margin-right: 4px;
             width: 16px;
+            color: var(--text-muted);
         }
 
         .script-card .code-preview {
             background: var(--bg-primary);
             padding: 14px;
-            border-radius: 10px;
+            border-radius: var(--radius-sm);
             font-family: 'JetBrains Mono', 'Courier New', monospace;
             font-size: 13px;
-            color: #a0a0b8;
+            color: var(--text-secondary);
             overflow-x: auto;
             white-space: pre-wrap;
             max-height: 120px;
             overflow-y: auto;
             border: 1px solid var(--border-color);
             margin-bottom: 16px;
-            line-height: 1.6;
+            line-height: 1.7;
+        }
+
+        .script-card .code-preview::-webkit-scrollbar {
+            width: 4px;
+            height: 4px;
         }
 
         .script-card .card-actions {
             display: flex;
-            gap: 10px;
+            gap: 8px;
             flex-wrap: wrap;
         }
 
         .script-card .card-actions .btn {
-            padding: 8px 18px;
-            border-radius: 10px;
+            padding: 8px 16px;
+            border-radius: var(--radius-sm);
             border: none;
             font-size: 13px;
             font-weight: 600;
@@ -481,16 +720,17 @@
             display: flex;
             align-items: center;
             gap: 6px;
+            font-family: 'Inter', sans-serif;
         }
 
         .btn-view {
-            background: var(--roblox-blue);
+            background: var(--rbx-blue);
             color: white;
         }
 
         .btn-view:hover {
             background: #0099dd;
-            transform: scale(1.02);
+            transform: scale(1.04);
         }
 
         .btn-copy {
@@ -500,30 +740,51 @@
         }
 
         .btn-copy:hover {
-            border-color: var(--roblox-red);
+            border-color: var(--rbx-red);
             color: white;
+            background: rgba(255, 55, 95, 0.05);
         }
 
         .btn-delete {
-            background: rgba(255, 55, 95, 0.15);
-            color: var(--roblox-red);
+            background: rgba(255, 55, 95, 0.1);
+            color: var(--rbx-red);
         }
 
         .btn-delete:hover {
-            background: rgba(255, 55, 95, 0.3);
+            background: rgba(255, 55, 95, 0.2);
+            transform: scale(1.04);
         }
 
         .btn-download {
-            background: var(--roblox-green);
+            background: var(--rbx-green);
             color: #0a0a0f;
         }
 
         .btn-download:hover {
             background: #00b894;
-            transform: scale(1.02);
+            transform: scale(1.04);
         }
 
-        /* ============ EMPTY STATE ============ */
+        .btn-fav {
+            background: transparent;
+            color: var(--text-muted);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-fav:hover {
+            border-color: var(--rbx-yellow);
+            color: var(--rbx-yellow);
+        }
+
+        .btn-fav.active {
+            border-color: var(--rbx-yellow);
+            color: var(--rbx-yellow);
+            background: rgba(251, 191, 36, 0.05);
+        }
+
+        /* ============================================================
+           EMPTY STATE
+           ============================================================ */
         .empty-state {
             text-align: center;
             padding: 80px 20px;
@@ -531,12 +792,14 @@
         }
 
         .empty-state .emoji {
-            font-size: 72px;
+            font-size: 80px;
             margin-bottom: 20px;
+            display: block;
         }
 
         .empty-state h3 {
             font-size: 24px;
+            font-weight: 700;
             margin-bottom: 10px;
         }
 
@@ -544,9 +807,12 @@
             color: var(--text-secondary);
             max-width: 400px;
             margin: 0 auto 20px;
+            font-size: 16px;
         }
 
-        /* ============ MODAL ============ */
+        /* ============================================================
+           MODAL
+           ============================================================ */
         .modal {
             display: none;
             position: fixed;
@@ -555,7 +821,8 @@
             width: 100%;
             height: 100%;
             background: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(8px);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
             z-index: 1000;
             justify-content: center;
             align-items: center;
@@ -570,16 +837,17 @@
             background: var(--bg-secondary);
             border: 1px solid var(--border-color);
             border-radius: var(--radius);
-            padding: 35px;
-            max-width: 560px;
+            padding: 36px;
+            max-width: 540px;
             width: 100%;
             max-height: 90vh;
             overflow-y: auto;
-            animation: modalIn 0.3s ease;
+            animation: modalIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: var(--shadow);
         }
 
         @keyframes modalIn {
-            from { opacity: 0; transform: scale(0.9) translateY(20px); }
+            from { opacity: 0; transform: scale(0.9) translateY(30px); }
             to { opacity: 1; transform: scale(1) translateY(0); }
         }
 
@@ -592,7 +860,14 @@
 
         .modal-header h2 {
             font-size: 24px;
-            font-weight: 700;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .modal-header h2 i {
+            color: var(--rbx-red);
         }
 
         .modal-close {
@@ -603,10 +878,11 @@
             cursor: pointer;
             padding: 0 8px;
             transition: var(--transition);
+            line-height: 1;
         }
 
         .modal-close:hover {
-            color: var(--roblox-red);
+            color: var(--rbx-red);
             transform: rotate(90deg);
         }
 
@@ -622,6 +898,11 @@
             color: var(--text-secondary);
         }
 
+        .form-group label i {
+            margin-right: 8px;
+            color: var(--rbx-red);
+        }
+
         .form-group input,
         .form-group textarea,
         .form-group select {
@@ -629,26 +910,27 @@
             padding: 12px 16px;
             background: var(--bg-primary);
             border: 1px solid var(--border-color);
-            border-radius: 10px;
+            border-radius: var(--radius-sm);
             color: white;
             font-size: 14px;
             transition: var(--transition);
-            font-family: inherit;
+            font-family: 'Inter', sans-serif;
         }
 
         .form-group input:focus,
         .form-group textarea:focus,
         .form-group select:focus {
             outline: none;
-            border-color: var(--roblox-red);
-            box-shadow: 0 0 0 3px rgba(255, 55, 95, 0.15);
+            border-color: var(--rbx-red);
+            box-shadow: 0 0 0 3px rgba(255, 55, 95, 0.1);
         }
 
         .form-group textarea {
-            min-height: 180px;
-            font-family: 'Courier New', monospace;
+            min-height: 160px;
+            font-family: 'JetBrains Mono', 'Courier New', monospace;
             resize: vertical;
-            line-height: 1.6;
+            line-height: 1.7;
+            font-size: 13px;
         }
 
         .form-group select option {
@@ -663,23 +945,25 @@
 
         .form-actions .btn {
             padding: 12px 32px;
-            border-radius: 10px;
+            border-radius: var(--radius-sm);
             border: none;
             font-size: 14px;
             font-weight: 600;
             cursor: pointer;
             transition: var(--transition);
+            font-family: 'Inter', sans-serif;
+            flex: 1;
         }
 
         .btn-submit {
-            background: linear-gradient(135deg, var(--roblox-red), var(--roblox-red-dark));
+            background: var(--gradient-btn);
             color: white;
-            flex: 1;
+            box-shadow: 0 4px 20px rgba(255, 55, 95, 0.3);
         }
 
         .btn-submit:hover {
             transform: scale(1.02);
-            box-shadow: 0 4px 20px rgba(255, 55, 95, 0.3);
+            box-shadow: 0 4px 30px rgba(255, 55, 95, 0.5);
         }
 
         .btn-cancel {
@@ -695,26 +979,29 @@
 
         .form-footer {
             text-align: center;
-            margin-top: 16px;
+            margin-top: 20px;
             color: var(--text-muted);
             font-size: 14px;
         }
 
         .form-footer a {
-            color: var(--roblox-red);
+            color: var(--rbx-red);
             text-decoration: none;
             font-weight: 600;
+            transition: var(--transition);
         }
 
         .form-footer a:hover {
             text-decoration: underline;
         }
 
-        /* ============ DETAIL VIEW ============ */
+        /* ============================================================
+           DETAIL VIEW
+           ============================================================ */
         .detail-view .detail-code {
             background: var(--bg-primary);
             padding: 24px;
-            border-radius: 12px;
+            border-radius: var(--radius-sm);
             font-family: 'JetBrains Mono', 'Courier New', monospace;
             font-size: 14px;
             white-space: pre-wrap;
@@ -724,7 +1011,7 @@
             max-height: 500px;
             overflow-y: auto;
             color: #d4d4e0;
-            line-height: 1.8;
+            line-height: 1.9;
         }
 
         .detail-view .detail-meta {
@@ -740,6 +1027,7 @@
 
         .detail-view .detail-meta i {
             margin-right: 6px;
+            color: var(--text-muted);
         }
 
         .detail-view .detail-actions {
@@ -747,6 +1035,20 @@
             gap: 12px;
             flex-wrap: wrap;
             margin: 16px 0;
+        }
+
+        .detail-view .detail-actions .btn {
+            padding: 10px 24px;
+            border-radius: var(--radius-sm);
+            border: none;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'Inter', sans-serif;
         }
 
         /* Comments */
@@ -762,12 +1064,21 @@
             gap: 10px;
         }
 
+        .comments-section h3 i {
+            color: var(--rbx-red);
+        }
+
         .comment-item {
             background: var(--bg-primary);
             padding: 14px 18px;
-            border-radius: 10px;
+            border-radius: var(--radius-sm);
             margin-bottom: 12px;
             border: 1px solid var(--border-color);
+            transition: var(--transition);
+        }
+
+        .comment-item:hover {
+            border-color: rgba(255, 55, 95, 0.15);
         }
 
         .comment-item .comment-header {
@@ -785,7 +1096,7 @@
         .comment-item p {
             color: var(--text-secondary);
             font-size: 14px;
-            line-height: 1.6;
+            line-height: 1.7;
         }
 
         .comment-form {
@@ -799,44 +1110,47 @@
             padding: 12px 16px;
             background: var(--bg-primary);
             border: 1px solid var(--border-color);
-            border-radius: 10px;
+            border-radius: var(--radius-sm);
             color: white;
             font-size: 14px;
             resize: vertical;
             min-height: 60px;
-            font-family: inherit;
+            font-family: 'Inter', sans-serif;
+            transition: var(--transition);
         }
 
         .comment-form textarea:focus {
             outline: none;
-            border-color: var(--roblox-red);
+            border-color: var(--rbx-red);
+            box-shadow: 0 0 0 3px rgba(255, 55, 95, 0.1);
         }
 
         .comment-form button {
             padding: 12px 24px;
-            border-radius: 10px;
+            border-radius: var(--radius-sm);
             border: none;
-            background: var(--roblox-red);
+            background: var(--gradient-btn);
             color: white;
             font-weight: 600;
             cursor: pointer;
             transition: var(--transition);
             height: fit-content;
+            font-family: 'Inter', sans-serif;
         }
 
         .comment-form button:hover {
-            background: var(--roblox-red-dark);
-            transform: scale(1.02);
+            transform: scale(1.04);
+            box-shadow: 0 4px 20px rgba(255, 55, 95, 0.3);
         }
 
-        /* ============ FOOTER ============ */
+        /* ============================================================
+           FOOTER
+           ============================================================ */
         .footer {
             text-align: center;
             padding: 40px 0 20px;
             border-top: 1px solid var(--border-color);
             margin-top: 40px;
-            color: var(--text-muted);
-            font-size: 14px;
         }
 
         .footer .social {
@@ -850,22 +1164,39 @@
             color: var(--text-muted);
             font-size: 20px;
             transition: var(--transition);
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--border-color);
+            text-decoration: none;
         }
 
         .footer .social a:hover {
-            color: var(--roblox-red);
+            color: var(--rbx-red);
+            border-color: var(--rbx-red);
             transform: translateY(-3px);
+            box-shadow: 0 4px 20px rgba(255, 55, 95, 0.1);
+        }
+
+        .footer p {
+            color: var(--text-muted);
+            font-size: 14px;
         }
 
         .footer .disclaimer {
             font-size: 12px;
             color: var(--text-muted);
-            opacity: 0.6;
+            opacity: 0.5;
             max-width: 600px;
-            margin: 0 auto;
+            margin: 8px auto 0;
         }
 
-        /* ============ TOAST ============ */
+        /* ============================================================
+           TOAST
+           ============================================================ */
         .toast-container {
             position: fixed;
             bottom: 30px;
@@ -878,73 +1209,160 @@
 
         .toast {
             padding: 14px 24px;
-            border-radius: 12px;
+            border-radius: var(--radius-sm);
             color: white;
             font-weight: 500;
-            animation: slideIn 0.3s ease;
+            animation: slideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             box-shadow: var(--shadow);
             display: flex;
             align-items: center;
             gap: 12px;
             min-width: 280px;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .toast-success {
-            background: linear-gradient(135deg, #00d4aa, #00b894);
+            background: linear-gradient(135deg, rgba(0, 212, 170, 0.9), rgba(0, 184, 148, 0.9));
         }
 
         .toast-error {
-            background: linear-gradient(135deg, var(--roblox-red), var(--roblox-red-dark));
+            background: linear-gradient(135deg, rgba(255, 55, 95, 0.9), rgba(204, 0, 32, 0.9));
         }
 
         .toast-info {
-            background: linear-gradient(135deg, var(--roblox-blue), #0099dd);
+            background: linear-gradient(135deg, rgba(0, 178, 255, 0.9), rgba(0, 153, 221, 0.9));
         }
 
         @keyframes slideIn {
-            from { opacity: 0; transform: translateX(100px); }
-            to { opacity: 1; transform: translateX(0); }
+            from { opacity: 0; transform: translateX(100px) scale(0.9); }
+            to { opacity: 1; transform: translateX(0) scale(1); }
         }
 
-        /* ============ RESPONSIVE ============ */
+        /* ============================================================
+           RESPONSIVE
+           ============================================================ */
         @media (max-width: 992px) {
-            .hero h1 { font-size: 32px; }
-            .hero-stats { gap: 24px; }
-            .hero-stats .stat .number { font-size: 22px; }
+            .hero h1 { font-size: 36px; }
+            .hero { padding: 36px 28px; }
+            .hero-stats { gap: 28px; }
+            .hero-stats .stat .number { font-size: 24px; }
+            .script-grid { grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); }
         }
 
         @media (max-width: 768px) {
             .container { padding: 12px 16px; }
-            .header { flex-direction: column; gap: 12px; align-items: stretch; }
-            .nav { justify-content: center; }
-            .hero { padding: 30px 24px; }
-            .hero h1 { font-size: 26px; }
+            
+            .header {
+                flex-direction: column;
+                gap: 12px;
+                padding: 12px 16px;
+                top: 8px;
+                border-radius: 12px;
+            }
+            
+            .nav {
+                justify-content: center;
+                width: 100%;
+                gap: 4px;
+            }
+            
+            .nav a, .nav button {
+                font-size: 12px;
+                padding: 6px 12px;
+            }
+            
+            .nav-divider { display: none; }
+            
+            .logo-text { font-size: 18px; }
+            .logo-icon { width: 40px; height: 40px; font-size: 20px; }
+            
+            .hero { padding: 24px 20px; }
+            .hero h1 { font-size: 28px; }
             .hero p { font-size: 15px; }
             .hero-stats { gap: 16px; flex-wrap: wrap; }
-            .hero-stats .stat .number { font-size: 18px; }
-            .script-grid { grid-template-columns: 1fr; }
-            .filter-bar { flex-direction: column; align-items: stretch; }
-            .filter-bar .search-box { margin-left: 0; }
-            .filter-bar .search-box input { width: 100%; }
-            .modal-content { padding: 24px; margin: 10px; }
-            .form-actions { flex-direction: column; }
-            .comment-form { flex-direction: column; }
-            .toast-container { left: 16px; right: 16px; bottom: 16px; }
-            .toast { min-width: unset; }
+            .hero-stats .stat .number { font-size: 20px; }
+            .hero-actions .btn { padding: 10px 20px; font-size: 14px; }
+            
+            .filter-bar {
+                flex-direction: column;
+                align-items: stretch;
+                padding: 12px 16px;
+                gap: 10px;
+            }
+            
+            .filter-bar .search-box {
+                margin-left: 0;
+            }
+            
+            .filter-bar .search-box input {
+                width: 100%;
+            }
+            
+            .script-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+            
+            .script-card { padding: 18px; }
+            .script-card .card-header { flex-direction: column; gap: 8px; }
+            
+            .modal-content {
+                padding: 24px;
+                margin: 10px;
+                border-radius: 12px;
+            }
+            
+            .form-actions {
+                flex-direction: column;
+            }
+            
+            .comment-form {
+                flex-direction: column;
+            }
+            
+            .detail-view .detail-code {
+                font-size: 12px;
+                padding: 16px;
+                max-height: 300px;
+            }
+            
+            .toast-container {
+                left: 16px;
+                right: 16px;
+                bottom: 16px;
+            }
+            
+            .toast {
+                min-width: unset;
+                font-size: 13px;
+                padding: 12px 18px;
+            }
         }
 
         @media (max-width: 480px) {
             .hero h1 { font-size: 22px; }
             .hero { padding: 20px 16px; }
-            .script-card { padding: 16px; }
-            .script-card .card-header { flex-direction: column; gap: 8px; }
-            .nav a { font-size: 12px; padding: 6px 12px; }
-            .nav .btn-primary { padding: 8px 16px; font-size: 12px; }
+            .hero-stats .stat .number { font-size: 16px; }
+            .hero-stats { gap: 12px; }
+            .hero-actions .btn { font-size: 12px; padding: 8px 16px; }
+            
+            .script-card .card-actions .btn {
+                font-size: 12px;
+                padding: 6px 12px;
+            }
+            
+            .modal-content { padding: 18px; }
+            .modal-header h2 { font-size: 20px; }
         }
 
-        /* ============ ANIMATIONS ============ */
+        /* ============================================================
+           ANIMATIONS
+           ============================================================ */
         .fade-in {
-            animation: fadeIn 0.5s ease;
+            animation: fadeIn 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         @keyframes fadeIn {
@@ -952,21 +1370,20 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .pulse {
-            animation: pulse 2s infinite;
+        .slide-up {
+            animation: slideUp 0.6s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Loading skeleton */
-        .skeleton {
+        /* Loading shimmer */
+        .shimmer {
             background: linear-gradient(90deg, var(--bg-card) 25%, var(--bg-card-hover) 50%, var(--bg-card) 75%);
             background-size: 200% 100%;
             animation: shimmer 1.5s infinite;
-            border-radius: 8px;
         }
 
         @keyframes shimmer {
@@ -978,41 +1395,72 @@
 <body>
 
     <div class="container">
-        <!-- ============ HEADER ============ -->
+        <!-- ============================================================
+        HEADER
+        ============================================================ -->
         <header class="header">
             <a href="#" class="logo" onclick="showHome()">
                 <div class="logo-icon">🎮</div>
-                <div>
+                <div class="logo-text">
                     ScriptHub <span>Roblox</span>
                 </div>
             </a>
             <nav class="nav" id="mainNav">
-                <a href="#" onclick="showHome()" class="active" id="navHome"><i class="fas fa-home"></i> Ana Sayfa</a>
-                <a href="#" onclick="showUpload()" id="navUpload"><i class="fas fa-upload"></i> Yükle</a>
-                <a href="#" onclick="showProfile()" id="navProfile"><i class="fas fa-user"></i> Profil</a>
-                <a href="#" onclick="showFavorites()" id="navFavorites"><i class="fas fa-star"></i> Favoriler</a>
-                <a href="#" onclick="showLeaderboard()" id="navLeaderboard"><i class="fas fa-trophy"></i> Liderlik</a>
+                <a href="#" onclick="showHome()" class="active" id="navHome">
+                    <i class="fas fa-home"></i> Ana Sayfa
+                </a>
+                <a href="#" onclick="showUpload()" id="navUpload" style="display:none;">
+                    <i class="fas fa-upload"></i> Yükle
+                </a>
+                <a href="#" onclick="showProfile()" id="navProfile" style="display:none;">
+                    <i class="fas fa-user"></i> Profil
+                </a>
+                <a href="#" onclick="showFavorites()" id="navFavorites" style="display:none;">
+                    <i class="fas fa-star"></i> Favoriler
+                </a>
+                <a href="#" onclick="showLeaderboard()" id="navLeaderboard">
+                    <i class="fas fa-trophy"></i> Liderlik
+                </a>
+                
+                <span class="nav-divider"></span>
                 
                 <div id="authButtons">
-                    <button class="btn-outline" onclick="showLogin()"><i class="fas fa-sign-in-alt"></i> Giriş</button>
-                    <button class="btn-primary" onclick="showRegister()"><i class="fas fa-user-plus"></i> Kayıt</button>
+                    <button class="btn-outline-nav" onclick="showLogin()">
+                        <i class="fas fa-sign-in-alt"></i> Giriş
+                    </button>
+                    <button class="btn-primary-nav" onclick="showRegister()">
+                        <i class="fas fa-user-plus"></i> Kayıt
+                    </button>
                 </div>
                 
-                <div id="userBadge" style="display:none;" class="user-badge">
+                <div id="userBadge" style="display:none;" class="user-badge" onclick="showProfile()">
                     <div class="user-avatar" id="userAvatar">A</div>
-                    <span id="userName" style="color:white;font-weight:600;"></span>
-                    <button onclick="logout()" style="background:none;border:none;color:var(--text-muted);cursor:pointer;padding:4px 8px;">
+                    <span class="user-name" id="userName"></span>
+                    <button onclick="event.stopPropagation();logout();" style="background:none;border:none;color:var(--text-muted);cursor:pointer;padding:4px 8px;transition:var(--transition);">
                         <i class="fas fa-sign-out-alt"></i>
                     </button>
                 </div>
             </nav>
         </header>
 
-        <!-- ============ HERO ============ -->
+        <!-- ============================================================
+        HERO
+        ============================================================ -->
         <div class="hero" id="heroSection">
             <div class="hero-content">
+                <div class="hero-badge">
+                    <i class="fas fa-fire"></i> 50.000+ Script • Haftanın En İyileri
+                </div>
                 <h1>🎮 Roblox Script Hub</h1>
-                <p>Binlerce Roblox scriptini keşfet, paylaş ve kullan. Topluluğun en iyi scriptlerini bir arada bul!</p>
+                <p>Binlerce Roblox scriptini keşfet, paylaş ve kullan. Topluluğun en iyi scriptleri tek platformda!</p>
+                <div class="hero-actions">
+                    <button class="btn btn-primary" onclick="showUpload()">
+                        <i class="fas fa-rocket"></i> Script Paylaş
+                    </button>
+                    <button class="btn btn-secondary" onclick="showLeaderboard()">
+                        <i class="fas fa-trophy"></i> Liderlik Tablosu
+                    </button>
+                </div>
                 <div class="hero-stats">
                     <div class="stat">
                         <span class="number" id="statScripts">0</span>
@@ -1024,7 +1472,7 @@
                     </div>
                     <div class="stat">
                         <span class="number" id="statDownloads">0</span>
-                        <span class="label">⬇️ İndirme</span>
+                        <span class="label">⬇️ Toplam İndirme</span>
                     </div>
                     <div class="stat">
                         <span class="number" id="statComments">0</span>
@@ -1034,53 +1482,82 @@
             </div>
         </div>
 
-        <!-- ============ FILTER BAR ============ -->
+        <!-- ============================================================
+        FILTER BAR
+        ============================================================ -->
         <div class="filter-bar" id="filterBar">
-            <button class="filter-btn active" data-filter="all" onclick="filterScripts('all')">🔥 Tümü</button>
-            <button class="filter-btn" data-filter="ESP" onclick="filterScripts('ESP')">👁️ ESP</button>
-            <button class="filter-btn" data-filter="Otomasyon" onclick="filterScripts('Otomasyon')">⚡ Otomasyon</button>
-            <button class="filter-btn" data-filter="Aimbot" onclick="filterScripts('Aimbot')">🎯 Aimbot</button>
-            <button class="filter-btn" data-filter="Fly" onclick="filterScripts('Fly')">🦅 Fly</button>
-            <button class="filter-btn" data-filter="Speed" onclick="filterScripts('Speed')">💨 Speed</button>
-            <button class="filter-btn" data-filter="Diğer" onclick="filterScripts('Diğer')">📦 Diğer</button>
+            <button class="filter-btn active" data-filter="all" onclick="filterScripts('all')">
+                <i class="fas fa-fire"></i> Tümü
+            </button>
+            <button class="filter-btn" data-filter="ESP" onclick="filterScripts('ESP')">
+                <i class="fas fa-eye"></i> ESP
+            </button>
+            <button class="filter-btn" data-filter="Otomasyon" onclick="filterScripts('Otomasyon')">
+                <i class="fas fa-robot"></i> Otomasyon
+            </button>
+            <button class="filter-btn" data-filter="Aimbot" onclick="filterScripts('Aimbot')">
+                <i class="fas fa-crosshairs"></i> Aimbot
+            </button>
+            <button class="filter-btn" data-filter="Fly" onclick="filterScripts('Fly')">
+                <i class="fas fa-feather"></i> Fly
+            </button>
+            <button class="filter-btn" data-filter="Speed" onclick="filterScripts('Speed')">
+                <i class="fas fa-bolt"></i> Speed
+            </button>
+            <button class="filter-btn" data-filter="Diğer" onclick="filterScripts('Diğer')">
+                <i class="fas fa-box"></i> Diğer
+            </button>
             
             <div class="search-box">
                 <i class="fas fa-search"></i>
                 <input type="text" id="searchInput" placeholder="Script ara..." oninput="searchScripts(this.value)">
+                <i class="fas fa-times" style="cursor:pointer;color:var(--text-muted);display:none;" id="clearSearch" onclick="clearSearch()"></i>
             </div>
         </div>
 
-        <!-- ============ CONTENT ============ -->
+        <!-- ============================================================
+        CONTENT
+        ============================================================ -->
         <div id="content">
             <div class="script-grid" id="scriptGrid">
-                <!-- Scripts will be rendered here -->
+                <!-- Scripts rendered here -->
             </div>
         </div>
 
-        <!-- ============ FOOTER ============ -->
+        <!-- ============================================================
+        FOOTER
+        ============================================================ -->
         <footer class="footer">
             <div class="social">
                 <a href="#"><i class="fab fa-github"></i></a>
                 <a href="#"><i class="fab fa-discord"></i></a>
                 <a href="#"><i class="fab fa-twitter"></i></a>
                 <a href="#"><i class="fab fa-youtube"></i></a>
+                <a href="#"><i class="fab fa-tiktok"></i></a>
             </div>
-            <p>🎮 Roblox Script Hub - En iyi Roblox scriptleri burada!</p>
+            <p>🎮 Roblox Script Hub • En iyi Roblox scriptleri burada!</p>
             <p class="disclaimer">⚠️ Bu platform sadece eğitim amaçlıdır. Roblox Terms of Service'e uygun kullanınız.</p>
         </footer>
     </div>
 
-    <!-- ============ MODAL ============ -->
+    <!-- ============================================================
+    MODAL
+    ============================================================ -->
     <div id="modal" class="modal">
         <div class="modal-content" id="modalContent"></div>
     </div>
 
-    <!-- ============ TOAST CONTAINER ============ -->
+    <!-- ============================================================
+    TOAST CONTAINER
+    ============================================================ -->
     <div class="toast-container" id="toastContainer"></div>
 
+    <!-- ============================================================
+    JAVASCRIPT
+    ============================================================ -->
     <script>
         // ============================================================
-        // =============== VERİTABANI (localStorage) ==================
+        // DATABASE (localStorage)
         // ============================================================
         const DB = {
             getUsers() {
@@ -1125,7 +1602,7 @@
         };
 
         // ============================================================
-        // =============== BAŞLANGIÇ VERİLERİ ========================
+        // INIT DATA
         // ============================================================
         function initData() {
             let users = DB.getUsers();
@@ -1138,23 +1615,17 @@
 
             let scripts = DB.getScripts();
             if (scripts.length === 0) {
-                const sampleScripts = [
+                const sample = [
                     { title: '🛡️ Ultimate ESP v3.0', content: '-- Ultimate ESP Script\n-- Tüm oyuncuları gösterir\n\nlocal Players = game:GetService("Players")\nlocal RunService = game:GetService("RunService")\n\nfor _, player in pairs(Players:GetPlayers()) do\n    if player ~= Players.LocalPlayer then\n        local highlight = Instance.new("Highlight")\n        highlight.Parent = player.Character\n        highlight.FillColor = Color3.new(1, 0.2, 0.2)\n        highlight.FillTransparency = 0.5\n        highlight.OutlineColor = Color3.new(1, 1, 1)\n    end\nend', language: 'Lua', category: 'ESP', downloads: 342, userId: 1, username: 'admin', created: new Date().toISOString() },
                     { title: '🤖 Auto Clicker Pro', content: '-- Auto Clicker Pro\n-- Otomatik tıklama sistemi\n\nlocal mouse = game.Players.LocalPlayer:GetMouse()\nlocal enabled = false\n\nmouse.KeyDown:Connect(function(key)\n    if key == "F1" then\n        enabled = not enabled\n        print(enabled and "Clicker Aktif" or "Clicker Pasif")\n    end\nend)\n\nwhile true do\n    if enabled then\n        mouse1click()\n        wait(0.05)\n    end\n    wait()\nend', language: 'Lua', category: 'Otomasyon', downloads: 215, userId: 1, username: 'admin', created: new Date().toISOString() },
                     { title: '🎯 Aimbot Ultra', content: '-- Aimbot Ultra\n-- Otomatik hedef alma\n\nlocal Players = game:GetService("Players")\nlocal RunService = game:GetService("RunService")\nlocal lp = Players.LocalPlayer\n\nRunService.RenderStepped:Connect(function()\n    local target = getClosestPlayer()\n    if target then\n        lp.Character.HumanoidRootPart.CFrame = CFrame.new(lp.Character.HumanoidRootPart.Position, target.Character.HumanoidRootPart.Position)\n    end\nend)\n\nfunction getClosestPlayer()\n    local closest, dist = nil, math.huge\n    for _, player in pairs(Players:GetPlayers()) do\n        if player ~= lp and player.Character then\n            local d = (lp.Character.HumanoidRootPart.Position - player.Character.HumanoidRootPart.Position).Magnitude\n            if d < dist then\n                closest, dist = player, d\n            end\n        end\n    end\n    return closest\nend', language: 'Lua', category: 'Aimbot', downloads: 187, userId: 2, username: 'scriptmaster', created: new Date().toISOString() },
                     { title: '🦅 Fly Mode v2', content: '-- Fly Mode v2\n-- Uçma modu\n\nlocal player = game.Players.LocalPlayer\nlocal char = player.Character\nlocal humanoid = char.Humanoid\nlocal flying = false\n\nlocal flySpeed = 50\nlocal flyHeight = 20\n\ngame:GetService("UserInputService").InputBegan:Connect(function(input, gp)\n    if gp then return end\n    if input.KeyCode == Enum.KeyCode.F then\n        flying = not flying\n        if flying then\n            humanoid.PlatformStand = true\n            print("🚀 Fly Aktif")\n        else\n            humanoid.PlatformStand = false\n            print("🛑 Fly Pasif")\n        end\n    end\nend)\n\nwhile wait(0.05) do\n    if flying then\n        local move = Vector3.new(0, 0, 0)\n        if humanoid.MoveDirection.Magnitude > 0 then\n            move = humanoid.MoveDirection * flySpeed\n        end\n        char.HumanoidRootPart.Velocity = Vector3.new(move.X, flyHeight, move.Z)\n    end\nend', language: 'Lua', category: 'Fly', downloads: 156, userId: 2, username: 'scriptmaster', created: new Date().toISOString() },
-                    { title: '💨 Speed Hack Ultra', content: '-- Speed Hack Ultra\n-- Hızlandırma\n\nlocal player = game.Players.LocalPlayer\nlocal char = player.Character\nlocal humanoid = char.Humanoid\n\nlocal speedMultiplier = 2.5\n\nhumanoid.WalkSpeed = humanoid.WalkSpeed * speedMultiplier\nhumanoid.JumpPower = humanoid.JumpPower * 1.5\n\nprint("🚀 Speed: " .. humanoid.WalkSpeed)\n\n-- Kullanım: Shift + T ile aç/kapat\ngame:GetService("UserInputService").InputBegan:Connect(function(input, gp)\n    if gp then return end\n    if input.KeyCode == Enum.KeyCode.T and input.Shift then\n        if humanoid.WalkSpeed > 50 then\n            humanoid.WalkSpeed = 16\n            humanoid.JumpPower = 50\n        else\n            humanoid.WalkSpeed = 16 * speedMultiplier\n            humanoid.JumpPower = 50 * 1.5\n        end\n    end\nend)', language: 'Lua', category: 'Speed', downloads: 134, userId: 3, username: 'lua_god', created: new Date().toISOString() }
+                    { title: '💨 Speed Hack Ultra', content: '-- Speed Hack Ultra\n-- Hızlandırma\n\nlocal player = game.Players.LocalPlayer\nlocal char = player.Character\nlocal humanoid = char.Humanoid\n\nlocal speedMultiplier = 2.5\n\nhumanoid.WalkSpeed = humanoid.WalkSpeed * speedMultiplier\nhumanoid.JumpPower = humanoid.JumpPower * 1.5\n\nprint("🚀 Speed: " .. humanoid.WalkSpeed)\n\ngame:GetService("UserInputService").InputBegan:Connect(function(input, gp)\n    if gp then return end\n    if input.KeyCode == Enum.KeyCode.T and input.Shift then\n        if humanoid.WalkSpeed > 50 then\n            humanoid.WalkSpeed = 16\n            humanoid.JumpPower = 50\n        else\n            humanoid.WalkSpeed = 16 * speedMultiplier\n            humanoid.JumpPower = 50 * 1.5\n        end\n    end\nend)', language: 'Lua', category: 'Speed', downloads: 134, userId: 3, username: 'lua_god', created: new Date().toISOString() }
                 ];
-                
-                sampleScripts.forEach(s => {
-                    const id = scripts.length + 1;
-                    s.id = id;
-                    scripts.push(s);
-                });
+                sample.forEach(s => { s.id = scripts.length + 1; scripts.push(s); });
                 DB.saveScripts(scripts);
             }
 
-            // Comments
             let comments = DB.getComments();
             if (comments.length === 0) {
                 comments.push({ id: 1, scriptId: 1, userId: 2, username: 'scriptmaster', content: '🔥 Harika script! Çok işe yarıyor.', created: new Date().toISOString() });
@@ -1167,17 +1638,10 @@
         }
 
         // ============================================================
-        // =============== YARDIMCI FONKSİYONLAR =====================
+        // HELPERS
         // ============================================================
         function getCategoryBadge(cat) {
-            const map = {
-                'ESP': 'badge-esp',
-                'Otomasyon': 'badge-otomasyon',
-                'Aimbot': 'badge-aimbot',
-                'Fly': 'badge-fly',
-                'Speed': 'badge-speed',
-                'Diğer': 'badge-diger'
-            };
+            const map = { 'ESP': 'badge-esp', 'Otomasyon': 'badge-otomasyon', 'Aimbot': 'badge-aimbot', 'Fly': 'badge-fly', 'Speed': 'badge-speed', 'Diğer': 'badge-diger' };
             return map[cat] || 'badge-diger';
         }
 
@@ -1185,22 +1649,17 @@
             const d = new Date(dateStr);
             const now = new Date();
             const diff = now - d;
-            
             if (diff < 60000) return 'az önce';
-            if (diff < 3600000) return Math.floor(diff/60000) + ' dakika önce';
-            if (diff < 86400000) return Math.floor(diff/3600000) + ' saat önce';
-            if (diff < 604800000) return Math.floor(diff/86400000) + ' gün önce';
-            
+            if (diff < 3600000) return Math.floor(diff / 60000) + ' dakika önce';
+            if (diff < 86400000) return Math.floor(diff / 3600000) + ' saat önce';
+            if (diff < 604800000) return Math.floor(diff / 86400000) + ' gün önce';
             return d.toLocaleDateString('tr-TR') + ' ' + d.toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' });
         }
 
-        function getCurrentUser() {
-            return DB.getCurrentUser();
-        }
-
-        function isLoggedIn() {
-            return getCurrentUser() !== null;
-        }
+        function getCurrentUser() { return DB.getCurrentUser(); }
+        function isLoggedIn() { return getCurrentUser() !== null; }
+        function escapeHtml(text) { if (!text) return ''; const d = document.createElement('div'); d.textContent = text; return d.innerHTML; }
+        function isNew(dateStr) { return (new Date() - new Date(dateStr)) < 86400000; }
 
         function updateNav() {
             const user = getCurrentUser();
@@ -1231,12 +1690,11 @@
             const users = DB.getUsers();
             const comments = DB.getComments();
             const downloads = DB.getDownloads();
-            let totalDownloads = 0;
-            Object.values(downloads).forEach(v => totalDownloads += v);
-
+            let total = 0;
+            Object.values(downloads).forEach(v => total += v);
             document.getElementById('statScripts').textContent = scripts.length;
             document.getElementById('statUsers').textContent = users.length;
-            document.getElementById('statDownloads').textContent = totalDownloads;
+            document.getElementById('statDownloads').textContent = total;
             document.getElementById('statComments').textContent = comments.length;
         }
 
@@ -1251,19 +1709,17 @@
         }
 
         // ============================================================
-        // =============== SAYFA RENDERLARI ==========================
+        // RENDER SCRIPTS
         // ============================================================
-
         let currentFilter = 'all';
         let currentSearch = '';
 
         function renderScripts(scripts) {
             const grid = document.getElementById('scriptGrid');
-            
             if (scripts.length === 0) {
                 grid.innerHTML = `
                     <div class="empty-state fade-in">
-                        <div class="emoji">🔍</div>
+                        <span class="emoji">🔍</span>
                         <h3>Hiç script bulunamadı!</h3>
                         <p>${currentSearch ? 'Arama kriterlerine uygun script yok.' : 'Henüz bu kategoride script paylaşılmamış.'}</p>
                         <button class="btn btn-view" onclick="showUpload()"><i class="fas fa-upload"></i> İlk Scripti Paylaş</button>
@@ -1278,11 +1734,11 @@
 
             let html = '';
             scripts.forEach(s => {
-                const isFavorite = favorites.includes(s.id);
-                const downloadCount = downloads[s.id] || 0;
+                const isFav = favorites.includes(s.id);
+                const dCount = downloads[s.id] || 0;
                 const preview = s.content.substring(0, 180) + (s.content.length > 180 ? '...' : '');
                 const isOwner = user && s.userId === user.id;
-                
+
                 html += `
                     <div class="script-card fade-in">
                         <div class="card-header">
@@ -1297,126 +1753,97 @@
                         <div class="card-meta">
                             <span><i class="fas fa-user"></i> ${s.username}</span>
                             <span><i class="fas fa-clock"></i> ${formatDate(s.created)}</span>
-                            <span><i class="fas fa-eye"></i> ${s.downloads || 0} görüntülenme</span>
-                            <span><i class="fas fa-download"></i> ${downloadCount} indirme</span>
+                            <span><i class="fas fa-eye"></i> ${s.downloads || 0}</span>
+                            <span><i class="fas fa-download"></i> ${dCount}</span>
                         </div>
                         <div class="code-preview">${escapeHtml(preview)}</div>
                         <div class="card-actions">
                             <button class="btn btn-view" onclick="showDetail(${s.id})"><i class="fas fa-eye"></i> İncele</button>
                             <button class="btn btn-copy" onclick="copyScript(${s.id})"><i class="fas fa-copy"></i> Kopyala</button>
                             <button class="btn btn-download" onclick="downloadScript(${s.id})"><i class="fas fa-download"></i></button>
-                            <button class="btn btn-copy" onclick="toggleFavorite(${s.id})" style="${isFavorite ? 'color:#fbbf24;border-color:#fbbf24;' : ''}">
-                                <i class="fas ${isFavorite ? 'fa-star' : 'fa-star-o'}"></i>
+                            <button class="btn btn-fav ${isFav ? 'active' : ''}" onclick="toggleFavorite(${s.id})">
+                                <i class="fas ${isFav ? 'fa-star' : 'fa-star-o'}"></i>
                             </button>
                             ${isOwner ? `<button class="btn btn-delete" onclick="deleteScript(${s.id})"><i class="fas fa-trash"></i></button>` : ''}
                         </div>
                     </div>
                 `;
             });
-
             grid.innerHTML = html;
         }
 
-        function isNew(dateStr) {
-            const diff = new Date() - new Date(dateStr);
-            return diff < 86400000; // 24 saat
-        }
-
+        // ============================================================
+        // PAGE FUNCTIONS
+        // ============================================================
         function showHome() {
             currentFilter = 'all';
             currentSearch = '';
             document.getElementById('searchInput').value = '';
-            const scripts = DB.getScripts();
-            renderScripts(scripts);
-            
-            // Update filter buttons
-            document.querySelectorAll('.filter-btn').forEach(b => {
-                b.classList.toggle('active', b.dataset.filter === 'all');
-            });
-            
+            document.getElementById('heroSection').style.display = 'block';
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.toggle('active', b.dataset.filter === 'all'));
+            renderScripts(DB.getScripts());
             closeModal();
             updateStats();
-            document.getElementById('heroSection').style.display = 'block';
         }
 
         function filterScripts(category) {
             currentFilter = category;
             const scripts = DB.getScripts();
             const filtered = category === 'all' ? scripts : scripts.filter(s => s.category === category);
-            
-            document.querySelectorAll('.filter-btn').forEach(b => {
-                b.classList.toggle('active', b.dataset.filter === category);
-            });
-            
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.toggle('active', b.dataset.filter === category));
             renderScripts(filtered);
         }
 
         function searchScripts(query) {
             currentSearch = query.toLowerCase().trim();
             const scripts = DB.getScripts();
-            
-            let filtered = scripts;
-            
-            // Apply category filter first
-            if (currentFilter !== 'all') {
-                filtered = filtered.filter(s => s.category === currentFilter);
-            }
-            
-            // Then apply search
+            let filtered = currentFilter === 'all' ? scripts : scripts.filter(s => s.category === currentFilter);
             if (currentSearch) {
-                filtered = filtered.filter(s => 
+                filtered = filtered.filter(s =>
                     s.title.toLowerCase().includes(currentSearch) ||
                     s.content.toLowerCase().includes(currentSearch) ||
                     s.username.toLowerCase().includes(currentSearch) ||
                     (s.category && s.category.toLowerCase().includes(currentSearch))
                 );
             }
-            
             renderScripts(filtered);
+            document.getElementById('clearSearch').style.display = currentSearch ? 'inline' : 'none';
+        }
+
+        function clearSearch() {
+            document.getElementById('searchInput').value = '';
+            searchScripts('');
         }
 
         // ============================================================
-        // =============== DETAY SAYFASI =============================
+        // DETAIL
         // ============================================================
         function showDetail(id) {
             const scripts = DB.getScripts();
             const script = scripts.find(s => s.id === id);
-            if (!script) {
-                showToast('Script bulunamadı!', 'error');
-                return;
-            }
+            if (!script) { showToast('Script bulunamadı!', 'error'); return; }
 
             const comments = DB.getComments().filter(c => c.scriptId === id);
             const user = getCurrentUser();
             const favorites = DB.getFavorites();
-            const isFavorite = favorites.includes(id);
-            const downloadCount = (DB.getDownloads()[id] || 0);
-
-            let commentHTML = '';
-            if (comments.length === 0) {
-                commentHTML = '<p style="color:var(--text-muted);">Henüz yorum yok. İlk yorumu sen yap! 💬</p>';
-            } else {
-                comments.forEach(c => {
-                    commentHTML += `
-                        <div class="comment-item">
-                            <div class="comment-header">
-                                <strong>${c.username}</strong>
-                                <span>${formatDate(c.created)}</span>
-                            </div>
-                            <p>${escapeHtml(c.content)}</p>
-                        </div>
-                    `;
-                });
-            }
-
+            const isFav = favorites.includes(id);
+            const dCount = (DB.getDownloads()[id] || 0);
             const isOwner = user && script.userId === user.id;
+
+            let commentHTML = comments.length === 0 ?
+                '<p style="color:var(--text-muted);">Henüz yorum yok. İlk yorumu sen yap! 💬</p>' :
+                comments.map(c => `
+                    <div class="comment-item">
+                        <div class="comment-header"><strong>${c.username}</strong> <span>${formatDate(c.created)}</span></div>
+                        <p>${escapeHtml(c.content)}</p>
+                    </div>
+                `).join('');
 
             document.getElementById('heroSection').style.display = 'none';
 
-            const content = document.getElementById('content');
-            content.innerHTML = `
+            document.getElementById('content').innerHTML = `
                 <div class="detail-view fade-in">
-                    <div class="card" style="background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius);padding:28px;margin-bottom:24px;">
+                    <div style="background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius);padding:28px;margin-bottom:24px;">
                         <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:12px;">
                             <h2 style="font-size:28px;font-weight:800;">${script.title}</h2>
                             <div style="display:flex;gap:8px;flex-wrap:wrap;">
@@ -1428,61 +1855,48 @@
                         <div class="detail-meta">
                             <span><i class="fas fa-user"></i> ${script.username}</span>
                             <span><i class="fas fa-clock"></i> ${formatDate(script.created)}</span>
-                            <span><i class="fas fa-eye"></i> ${script.downloads || 0} görüntülenme</span>
-                            <span><i class="fas fa-download"></i> ${downloadCount} indirme</span>
-                            <span><i class="fas fa-star"></i> ${isFavorite ? 'Favorilerde' : 'Favori değil'}</span>
+                            <span><i class="fas fa-eye"></i> ${script.downloads || 0}</span>
+                            <span><i class="fas fa-download"></i> ${dCount}</span>
+                            <span><i class="fas fa-star"></i> ${isFav ? 'Favorilerde' : 'Favori değil'}</span>
                         </div>
                         <div class="detail-code">${escapeHtml(script.content)}</div>
                         <div class="detail-actions">
                             <button class="btn btn-view" onclick="copyScript(${script.id})"><i class="fas fa-copy"></i> Kopyala</button>
                             <button class="btn btn-download" onclick="downloadScript(${script.id})"><i class="fas fa-download"></i> İndir</button>
-                            <button class="btn btn-copy" onclick="toggleFavorite(${script.id})" style="${isFavorite ? 'color:#fbbf24;border-color:#fbbf24;' : ''}">
-                                <i class="fas ${isFavorite ? 'fa-star' : 'fa-star-o'}"></i> ${isFavorite ? 'Favoriden Çıkar' : 'Favori Ekle'}
+                            <button class="btn btn-fav ${isFav ? 'active' : ''}" onclick="toggleFavorite(${script.id})">
+                                <i class="fas ${isFav ? 'fa-star' : 'fa-star-o'}"></i> ${isFav ? 'Favoriden Çıkar' : 'Favori Ekle'}
                             </button>
-                            <button class="btn btn-secondary" onclick="showHome()"><i class="fas fa-arrow-left"></i> Geri</button>
+                            <button class="btn btn-copy" onclick="showHome()"><i class="fas fa-arrow-left"></i> Geri</button>
                             ${isOwner ? `<button class="btn btn-delete" onclick="deleteScript(${script.id})"><i class="fas fa-trash"></i> Sil</button>` : ''}
                         </div>
                     </div>
 
                     <div class="comments-section">
-                        <h3><i class="fas fa-comments" style="color:var(--roblox-red);"></i> Yorumlar (${comments.length})</h3>
-                        
+                        <h3><i class="fas fa-comments"></i> Yorumlar (${comments.length})</h3>
                         ${user ? `
                             <div class="comment-form">
                                 <textarea id="commentInput" placeholder="Yorum yaz..."></textarea>
                                 <button onclick="addComment(${script.id})"><i class="fas fa-paper-plane"></i> Gönder</button>
                             </div>
-                        ` : `
-                            <p style="color:var(--text-muted);margin-bottom:16px;">Yorum yapmak için <a href="#" onclick="showLogin()" style="color:var(--roblox-red);">giriş yapın</a></p>
-                        `}
-                        
+                        ` : `<p style="color:var(--text-muted);margin-bottom:16px;">Yorum yapmak için <a href="#" onclick="showLogin()" style="color:var(--rbx-red);">giriş yapın</a></p>`}
                         ${commentHTML}
                     </div>
                 </div>
             `;
-
             closeModal();
         }
 
         // ============================================================
-        // =============== YÜKLEME SAYFASI ===========================
+        // UPLOAD
         // ============================================================
         function showUpload() {
-            if (!isLoggedIn()) {
-                showToast('Lütfen önce giriş yapın!', 'error');
-                showLogin();
-                return;
-            }
-
+            if (!isLoggedIn()) { showToast('Lütfen önce giriş yapın!', 'error'); showLogin(); return; }
             document.getElementById('heroSection').style.display = 'none';
-
-            const content = document.getElementById('content');
-            content.innerHTML = `
+            document.getElementById('content').innerHTML = `
                 <div class="fade-in" style="max-width:700px;margin:0 auto;">
                     <div style="background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius);padding:32px;">
-                        <h2 style="font-size:26px;font-weight:800;margin-bottom:8px;"><i class="fas fa-upload" style="color:var(--roblox-red);"></i> Roblox Script Yükle</h2>
+                        <h2 style="font-size:26px;font-weight:800;margin-bottom:8px;"><i class="fas fa-upload" style="color:var(--rbx-red);"></i> Roblox Script Yükle</h2>
                         <p style="color:var(--text-secondary);margin-bottom:24px;">Scriptini paylaş, topluluğa katkıda bulun! 🚀</p>
-                        
                         <form onsubmit="uploadScript();return false;">
                             <div class="form-group">
                                 <label><i class="fas fa-heading"></i> Script Başlığı *</label>
@@ -1511,20 +1925,42 @@
                     </div>
                 </div>
             `;
-
             closeModal();
         }
 
+        function uploadScript() {
+            const title = document.getElementById('scriptTitle').value.trim();
+            const content = document.getElementById('scriptContent').value.trim();
+            const category = document.getElementById('scriptCategory').value;
+            const user = getCurrentUser();
+
+            if (!title || !content) { showToast('Başlık ve kod zorunludur!', 'error'); return; }
+            if (content.length < 20) { showToast('Script çok kısa! En az 20 karakter.', 'error'); return; }
+
+            const scripts = DB.getScripts();
+            const newId = scripts.length > 0 ? Math.max(...scripts.map(s => s.id)) + 1 : 1;
+            scripts.push({
+                id: newId,
+                title,
+                content,
+                language: 'Lua',
+                category,
+                downloads: 0,
+                userId: user.id,
+                username: user.username,
+                created: new Date().toISOString()
+            });
+            DB.saveScripts(scripts);
+            showToast('🎮 Script başarıyla yüklendi!', 'success');
+            updateStats();
+            showHome();
+        }
+
         // ============================================================
-        // =============== PROFİL SAYFASI ============================
+        // PROFILE
         // ============================================================
         function showProfile() {
-            if (!isLoggedIn()) {
-                showToast('Lütfen önce giriş yapın!', 'error');
-                showLogin();
-                return;
-            }
-
+            if (!isLoggedIn()) { showToast('Lütfen giriş yapın!', 'error'); showLogin(); return; }
             const user = getCurrentUser();
             const scripts = DB.getScripts().filter(s => s.userId === user.id);
             const comments = DB.getComments().filter(c => c.userId === user.id);
@@ -1532,51 +1968,28 @@
 
             document.getElementById('heroSection').style.display = 'none';
 
-            let scriptCards = '';
-            if (scripts.length === 0) {
-                scriptCards = `
-                    <div class="empty-state" style="padding:40px 20px;grid-column:1/-1;">
-                        <div class="emoji">📝</div>
-                        <h3>Henüz scriptin yok!</h3>
-                        <p>İlk Roblox scriptini paylaşmaya ne dersin?</p>
-                        <button class="btn btn-view" onclick="showUpload()"><i class="fas fa-upload"></i> Script Yükle</button>
-                    </div>
-                `;
-            } else {
-                scripts.forEach(s => {
-                    scriptCards += `
-                        <div class="script-card">
-                            <div class="card-header">
-                                <h3>${s.title}</h3>
-                                <span class="badge ${getCategoryBadge(s.category)}">${s.category || 'Diğer'}</span>
-                            </div>
-                            <div class="card-meta">
-                                <span><i class="fas fa-clock"></i> ${formatDate(s.created)}</span>
-                                <span><i class="fas fa-eye"></i> ${s.downloads || 0}</span>
-                            </div>
-                            <div class="card-actions">
-                                <button class="btn btn-view" onclick="showDetail(${s.id})"><i class="fas fa-eye"></i> Görüntüle</button>
-                                <button class="btn btn-delete" onclick="deleteScript(${s.id})"><i class="fas fa-trash"></i> Sil</button>
-                            </div>
+            let cards = scripts.length === 0 ?
+                `<div class="empty-state" style="padding:40px;grid-column:1/-1;"><span class="emoji">📝</span><h3>Henüz scriptin yok!</h3><button class="btn btn-view" onclick="showUpload()"><i class="fas fa-upload"></i> Script Yükle</button></div>` :
+                scripts.map(s => `
+                    <div class="script-card">
+                        <div class="card-header"><h3>${s.title}</h3><span class="badge ${getCategoryBadge(s.category)}">${s.category || 'Diğer'}</span></div>
+                        <div class="card-meta"><span><i class="fas fa-clock"></i> ${formatDate(s.created)}</span><span><i class="fas fa-eye"></i> ${s.downloads || 0}</span></div>
+                        <div class="card-actions">
+                            <button class="btn btn-view" onclick="showDetail(${s.id})"><i class="fas fa-eye"></i> Görüntüle</button>
+                            <button class="btn btn-delete" onclick="deleteScript(${s.id})"><i class="fas fa-trash"></i> Sil</button>
                         </div>
-                    `;
-                });
-            }
+                    </div>
+                `).join('');
 
-            const content = document.getElementById('content');
-            content.innerHTML = `
+            document.getElementById('content').innerHTML = `
                 <div class="fade-in">
                     <div style="background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius);padding:28px;margin-bottom:24px;">
                         <div style="display:flex;align-items:center;gap:20px;flex-wrap:wrap;">
-                            <div style="width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,var(--roblox-red),var(--roblox-purple));display:flex;align-items:center;justify-content:center;font-size:32px;font-weight:700;color:white;">
-                                ${user.username.charAt(0).toUpperCase()}
-                            </div>
+                            <div style="width:80px;height:80px;border-radius:50%;background:var(--gradient-main);display:flex;align-items:center;justify-content:center;font-size:32px;font-weight:700;color:white;">${user.username.charAt(0).toUpperCase()}</div>
                             <div>
                                 <h2 style="font-size:28px;font-weight:800;">${user.username}</h2>
                                 <p style="color:var(--text-secondary);"><i class="fas fa-envelope"></i> ${user.email || 'Email girilmemiş'}</p>
-                                <p style="color:var(--text-muted);font-size:14px;">
-                                    <i class="fas fa-calendar"></i> Katılım: ${formatDate(user.created)}
-                                </p>
+                                <p style="color:var(--text-muted);font-size:14px;"><i class="fas fa-calendar"></i> Katılım: ${formatDate(user.created)}</p>
                             </div>
                         </div>
                         <div style="display:flex;gap:30px;margin-top:20px;flex-wrap:wrap;border-top:1px solid var(--border-color);padding-top:20px;">
@@ -1585,328 +1998,140 @@
                             <div><span style="font-size:24px;font-weight:700;">${favorites.length}</span> <span style="color:var(--text-muted);">Favori</span></div>
                         </div>
                     </div>
-
-                    <h3 style="margin-bottom:16px;"><i class="fas fa-archive" style="color:var(--roblox-red);"></i> Scriptlerim (${scripts.length})</h3>
-                    <div class="script-grid">${scriptCards}</div>
+                    <h3 style="margin-bottom:16px;"><i class="fas fa-archive" style="color:var(--rbx-red);"></i> Scriptlerim (${scripts.length})</h3>
+                    <div class="script-grid">${cards}</div>
                 </div>
             `;
-
             closeModal();
         }
 
         // ============================================================
-        // =============== FAVORİLER SAYFASI =========================
+        // FAVORITES
         // ============================================================
         function showFavorites() {
-            if (!isLoggedIn()) {
-                showToast('Lütfen önce giriş yapın!', 'error');
-                showLogin();
-                return;
-            }
-
+            if (!isLoggedIn()) { showToast('Lütfen giriş yapın!', 'error'); showLogin(); return; }
             const favorites = DB.getFavorites();
-            const allScripts = DB.getScripts();
-            const favScripts = allScripts.filter(s => favorites.includes(s.id));
-
+            const favScripts = DB.getScripts().filter(s => favorites.includes(s.id));
             document.getElementById('heroSection').style.display = 'none';
 
-            const content = document.getElementById('content');
-            content.innerHTML = `
-                <div class="fade-in">
-                    <h2 style="font-size:26px;font-weight:800;margin-bottom:20px;">
-                        <i class="fas fa-star" style="color:#fbbf24;"></i> Favorilerim (${favScripts.length})
-                    </h2>
-                    <div class="script-grid" id="favGrid"></div>
-                </div>
-            `;
-
-            if (favScripts.length === 0) {
-                document.getElementById('favGrid').innerHTML = `
-                    <div class="empty-state" style="grid-column:1/-1;">
-                        <div class="emoji">⭐</div>
-                        <h3>Henüz favori scriptin yok!</h3>
-                        <p>Beğendiğin scriptleri favorilere ekle.</p>
-                    </div>
-                `;
-                return;
-            }
-
-            let html = '';
-            favScripts.forEach(s => {
-                html += `
+            let html = favScripts.length === 0 ?
+                `<div class="empty-state" style="grid-column:1/-1;"><span class="emoji">⭐</span><h3>Henüz favori scriptin yok!</h3><p>Beğendiğin scriptleri favorilere ekle.</p></div>` :
+                favScripts.map(s => `
                     <div class="script-card">
-                        <div class="card-header">
-                            <h3>${s.title}</h3>
-                            <span class="badge ${getCategoryBadge(s.category)}">${s.category || 'Diğer'}</span>
-                        </div>
-                        <div class="card-meta">
-                            <span><i class="fas fa-user"></i> ${s.username}</span>
-                            <span><i class="fas fa-clock"></i> ${formatDate(s.created)}</span>
-                        </div>
+                        <div class="card-header"><h3>${s.title}</h3><span class="badge ${getCategoryBadge(s.category)}">${s.category || 'Diğer'}</span></div>
+                        <div class="card-meta"><span><i class="fas fa-user"></i> ${s.username}</span><span><i class="fas fa-clock"></i> ${formatDate(s.created)}</span></div>
                         <div class="card-actions">
                             <button class="btn btn-view" onclick="showDetail(${s.id})"><i class="fas fa-eye"></i> İncele</button>
-                            <button class="btn btn-copy" onclick="toggleFavorite(${s.id})" style="color:#fbbf24;border-color:#fbbf24;">
-                                <i class="fas fa-star"></i> Çıkar
-                            </button>
+                            <button class="btn btn-fav active" onclick="toggleFavorite(${s.id})"><i class="fas fa-star"></i> Çıkar</button>
                         </div>
                     </div>
-                `;
-            });
-            document.getElementById('favGrid').innerHTML = html;
+                `).join('');
 
+            document.getElementById('content').innerHTML = `
+                <div class="fade-in">
+                    <h2 style="font-size:26px;font-weight:800;margin-bottom:20px;"><i class="fas fa-star" style="color:#fbbf24;"></i> Favorilerim (${favScripts.length})</h2>
+                    <div class="script-grid">${html}</div>
+                </div>
+            `;
             closeModal();
         }
 
         // ============================================================
-        // =============== LİDERLİK TABLOSU ==========================
+        // LEADERBOARD
         // ============================================================
         function showLeaderboard() {
             const scripts = DB.getScripts();
             const sorted = [...scripts].sort((a, b) => (b.downloads || 0) - (a.downloads || 0));
-            const top5 = sorted.slice(0, 5);
-
+            const top = sorted.slice(0, 5);
             document.getElementById('heroSection').style.display = 'none';
 
-            let html = '';
-            top5.forEach((s, index) => {
-                const medals = ['🥇', '🥈', '🥉', '4️⃣', '5️⃣'];
-                html += `
+            const medals = ['🥇', '🥈', '🥉', '4️⃣', '5️⃣'];
+            let html = top.length === 0 ?
+                '<p style="text-align:center;color:var(--text-muted);padding:40px;">Henüz veri yok.</p>' :
+                top.map((s, i) => `
                     <div style="background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius);padding:16px 20px;margin-bottom:12px;display:flex;align-items:center;gap:16px;transition:var(--transition);">
-                        <span style="font-size:28px;">${medals[index] || '🏅'}</span>
+                        <span style="font-size:32px;">${medals[i] || '🏅'}</span>
                         <div style="flex:1;">
                             <strong style="font-size:16px;">${s.title}</strong>
-                            <div style="color:var(--text-muted);font-size:13px;">
-                                👤 ${s.username} • ${s.category || 'Diğer'}
-                            </div>
+                            <div style="color:var(--text-muted);font-size:13px;">👤 ${s.username} • ${s.category || 'Diğer'}</div>
                         </div>
                         <div style="text-align:right;">
-                            <div style="font-size:20px;font-weight:700;color:var(--roblox-red);">${s.downloads || 0}</div>
+                            <div style="font-size:22px;font-weight:700;color:var(--rbx-red);">${s.downloads || 0}</div>
                             <div style="color:var(--text-muted);font-size:12px;">görüntülenme</div>
                         </div>
                         <button class="btn btn-view" onclick="showDetail(${s.id})" style="padding:6px 14px;font-size:12px;">Gör</button>
                     </div>
-                `;
-            });
+                `).join('');
 
-            const content = document.getElementById('content');
-            content.innerHTML = `
+            document.getElementById('content').innerHTML = `
                 <div class="fade-in">
-                    <h2 style="font-size:26px;font-weight:800;margin-bottom:20px;">
-                        <i class="fas fa-trophy" style="color:#fbbf24;"></i> En Popüler Scriptler
-                    </h2>
+                    <h2 style="font-size:26px;font-weight:800;margin-bottom:20px;"><i class="fas fa-trophy" style="color:#fbbf24;"></i> En Popüler Scriptler</h2>
                     ${html}
-                    <div style="margin-top:20px;text-align:center;">
-                        <button class="btn btn-secondary" onclick="showHome()"><i class="fas fa-arrow-left"></i> Ana Sayfaya Dön</button>
-                    </div>
+                    <div style="margin-top:20px;text-align:center;"><button class="btn btn-copy" onclick="showHome()"><i class="fas fa-arrow-left"></i> Ana Sayfaya Dön</button></div>
                 </div>
             `;
-
             closeModal();
         }
 
         // ============================================================
-        // =============== GİRİŞ & KAYIT =============================
+        // ACTIONS
         // ============================================================
-        function showLogin() {
-            if (isLoggedIn()) {
-                showToast('Zaten giriş yaptınız!', 'info');
-                showHome();
-                return;
-            }
-
-            openModal(`
-                <div class="modal-header">
-                    <h2><i class="fas fa-sign-in-alt" style="color:var(--roblox-red);"></i> Giriş</h2>
-                    <button class="modal-close" onclick="closeModal()">×</button>
-                </div>
-                <form onsubmit="loginUser();return false;">
-                    <div class="form-group">
-                        <label>Kullanıcı Adı</label>
-                        <input type="text" id="loginUsername" placeholder="Kullanıcı adınız..." required>
-                    </div>
-                    <div class="form-group">
-                        <label>Şifre</label>
-                        <input type="password" id="loginPassword" placeholder="Şifreniz..." required>
-                    </div>
-                    <div class="form-actions">
-                        <button type="submit" class="btn btn-submit"><i class="fas fa-sign-in-alt"></i> Giriş Yap</button>
-                    </div>
-                </form>
-                <div class="form-footer">
-                    Hesabın yok mu? <a href="#" onclick="closeModal();showRegister();">Kayıt ol</a>
-                </div>
-                <div class="form-footer" style="margin-top:8px;font-size:12px;color:var(--text-muted);">
-                    🔑 Test: admin / admin123
-                </div>
-            `);
-        }
-
-        function showRegister() {
-            if (isLoggedIn()) {
-                showToast('Zaten giriş yaptınız!', 'info');
-                showHome();
-                return;
-            }
-
-            openModal(`
-                <div class="modal-header">
-                    <h2><i class="fas fa-user-plus" style="color:var(--roblox-red);"></i> Kayıt</h2>
-                    <button class="modal-close" onclick="closeModal()">×</button>
-                </div>
-                <form onsubmit="registerUser();return false;">
-                    <div class="form-group">
-                        <label>Kullanıcı Adı *</label>
-                        <input type="text" id="registerUsername" placeholder="Kullanıcı adı..." required>
-                    </div>
-                    <div class="form-group">
-                        <label>Email</label>
-                        <input type="email" id="registerEmail" placeholder="Email (opsiyonel)">
-                    </div>
-                    <div class="form-group">
-                        <label>Şifre *</label>
-                        <input type="password" id="registerPassword" placeholder="En az 4 karakter..." required>
-                    </div>
-                    <div class="form-actions">
-                        <button type="submit" class="btn btn-submit"><i class="fas fa-user-plus"></i> Kayıt Ol</button>
-                    </div>
-                </form>
-                <div class="form-footer">
-                    Zaten hesabın var mı? <a href="#" onclick="closeModal();showLogin();">Giriş yap</a>
-                </div>
-            `);
-        }
-
-        // ============================================================
-        // =============== İŞLEM FONKSİYONLARI =======================
-        // ============================================================
-
-        function uploadScript() {
-            const title = document.getElementById('scriptTitle').value.trim();
-            const content = document.getElementById('scriptContent').value.trim();
-            const category = document.getElementById('scriptCategory').value;
-            const user = getCurrentUser();
-
-            if (!title || !content) {
-                showToast('Başlık ve kod zorunludur!', 'error');
-                return;
-            }
-
-            if (content.length < 20) {
-                showToast('Script çok kısa! En az 20 karakter gir.', 'error');
-                return;
-            }
-
-            const scripts = DB.getScripts();
-            const newId = scripts.length > 0 ? Math.max(...scripts.map(s => s.id)) + 1 : 1;
-
-            scripts.push({
-                id: newId,
-                title: title,
-                content: content,
-                language: 'Lua',
-                category: category,
-                downloads: 0,
-                userId: user.id,
-                username: user.username,
-                created: new Date().toISOString()
-            });
-
-            DB.saveScripts(scripts);
-            showToast('🎮 Script başarıyla yüklendi!', 'success');
-            updateStats();
-            showHome();
-        }
-
         function deleteScript(id) {
             if (!confirm('Bu scripti silmek istediğine emin misin?')) return;
-
-            let scripts = DB.getScripts();
-            scripts = scripts.filter(s => s.id !== id);
+            let scripts = DB.getScripts().filter(s => s.id !== id);
             DB.saveScripts(scripts);
-
-            let comments = DB.getComments();
-            comments = comments.filter(c => c.scriptId !== id);
+            let comments = DB.getComments().filter(c => c.scriptId !== id);
             DB.saveComments(comments);
-
             showToast('Script silindi!', 'success');
             updateStats();
             showHome();
         }
 
         function copyScript(id) {
-            const scripts = DB.getScripts();
-            const script = scripts.find(s => s.id === id);
+            const script = DB.getScripts().find(s => s.id === id);
             if (script) {
-                navigator.clipboard.writeText(script.content).then(() => {
-                    showToast('📋 Script kopyalandı!', 'success');
-                }).catch(() => {
-                    const textarea = document.createElement('textarea');
-                    textarea.value = script.content;
-                    document.body.appendChild(textarea);
-                    textarea.select();
-                    document.execCommand('copy');
-                    document.body.removeChild(textarea);
-                    showToast('📋 Script kopyalandı!', 'success');
-                });
+                navigator.clipboard.writeText(script.content).then(() => showToast('📋 Script kopyalandı!', 'success'))
+                    .catch(() => { const t = document.createElement('textarea');
+                        t.value = script.content;
+                        document.body.appendChild(t);
+                        t.select();
+                        document.execCommand('copy');
+                        document.body.removeChild(t);
+                        showToast('📋 Script kopyalandı!', 'success'); });
             }
         }
 
         function downloadScript(id) {
-            const scripts = DB.getScripts();
-            const script = scripts.find(s => s.id === id);
+            const script = DB.getScripts().find(s => s.id === id);
             if (script) {
                 const downloads = DB.getDownloads();
                 downloads[id] = (downloads[id] || 0) + 1;
                 DB.saveDownloads(downloads);
-                
-                // Update script downloads count
                 script.downloads = (script.downloads || 0) + 1;
-                DB.saveScripts(scripts);
-                
+                DB.saveScripts(DB.getScripts());
                 showToast('⬇️ Script indiriliyor...', 'success');
                 updateStats();
             }
         }
 
         function toggleFavorite(id) {
-            let favorites = DB.getFavorites();
-            const index = favorites.indexOf(id);
-            if (index > -1) {
-                favorites.splice(index, 1);
-                showToast('⭐ Favorilerden çıkarıldı', 'info');
-            } else {
-                favorites.push(id);
-                showToast('⭐ Favorilere eklendi!', 'success');
-            }
-            DB.saveFavorites(favorites);
-            
-            // Refresh current view
+            let favs = DB.getFavorites();
+            const idx = favs.indexOf(id);
+            idx > -1 ? favs.splice(idx, 1) : favs.push(id);
+            DB.saveFavorites(favs);
+            showToast(idx > -1 ? '⭐ Favorilerden çıkarıldı' : '⭐ Favorilere eklendi!', 'success');
             const currentView = document.getElementById('content').innerHTML;
-            if (currentView.includes('Favorilerim')) {
-                showFavorites();
-            }
+            if (currentView.includes('Favorilerim')) showFavorites();
+            else showHome();
         }
 
         function addComment(scriptId) {
             const input = document.getElementById('commentInput');
             const content = input.value.trim();
             const user = getCurrentUser();
-
-            if (!content) {
-                showToast('Yorum boş olamaz!', 'error');
-                return;
-            }
-
+            if (!content) { showToast('Yorum boş olamaz!', 'error'); return; }
             const comments = DB.getComments();
-            comments.push({
-                id: Date.now(),
-                scriptId: scriptId,
-                userId: user.id,
-                username: user.username,
-                content: content,
-                created: new Date().toISOString()
-            });
-
+            comments.push({ id: Date.now(), scriptId, userId: user.id, username: user.username, content, created: new Date().toISOString() });
             DB.saveComments(comments);
             input.value = '';
             showToast('💬 Yorum eklendi!', 'success');
@@ -1914,63 +2139,66 @@
             showDetail(scriptId);
         }
 
+        // ============================================================
+        // AUTH
+        // ============================================================
+        function showLogin() {
+            if (isLoggedIn()) { showToast('Zaten giriş yaptınız!', 'info');
+                showHome(); return; }
+            openModal(`
+                <div class="modal-header"><h2><i class="fas fa-sign-in-alt" style="color:var(--rbx-red);"></i> Giriş</h2><button class="modal-close" onclick="closeModal()">×</button></div>
+                <form onsubmit="loginUser();return false;">
+                    <div class="form-group"><label>Kullanıcı Adı</label><input type="text" id="loginUsername" placeholder="Kullanıcı adınız..." required></div>
+                    <div class="form-group"><label>Şifre</label><input type="password" id="loginPassword" placeholder="Şifreniz..." required></div>
+                    <div class="form-actions"><button type="submit" class="btn btn-submit"><i class="fas fa-sign-in-alt"></i> Giriş Yap</button></div>
+                </form>
+                <div class="form-footer">Hesabın yok mu? <a href="#" onclick="closeModal();showRegister();">Kayıt ol</a></div>
+                <div class="form-footer" style="margin-top:8px;font-size:12px;color:var(--text-muted);">🔑 Test: admin / admin123</div>
+            `);
+        }
+
+        function showRegister() {
+            if (isLoggedIn()) { showToast('Zaten giriş yaptınız!', 'info');
+                showHome(); return; }
+            openModal(`
+                <div class="modal-header"><h2><i class="fas fa-user-plus" style="color:var(--rbx-red);"></i> Kayıt</h2><button class="modal-close" onclick="closeModal()">×</button></div>
+                <form onsubmit="registerUser();return false;">
+                    <div class="form-group"><label>Kullanıcı Adı *</label><input type="text" id="registerUsername" placeholder="Kullanıcı adı..." required></div>
+                    <div class="form-group"><label>Email</label><input type="email" id="registerEmail" placeholder="Email (opsiyonel)"></div>
+                    <div class="form-group"><label>Şifre *</label><input type="password" id="registerPassword" placeholder="En az 4 karakter..." required></div>
+                    <div class="form-actions"><button type="submit" class="btn btn-submit"><i class="fas fa-user-plus"></i> Kayıt Ol</button></div>
+                </form>
+                <div class="form-footer">Zaten hesabın var mı? <a href="#" onclick="closeModal();showLogin();">Giriş yap</a></div>
+            `);
+        }
+
         function loginUser() {
-            const username = document.getElementById('loginUsername').value.trim();
-            const password = document.getElementById('loginPassword').value.trim();
-
-            const users = DB.getUsers();
-            const user = users.find(u => u.username === username && u.password === password);
-
+            const u = document.getElementById('loginUsername').value.trim();
+            const p = document.getElementById('loginPassword').value.trim();
+            const user = DB.getUsers().find(u2 => u2.username === u && u2.password === p);
             if (user) {
-                DB.setCurrentUser({
-                    id: user.id,
-                    username: user.username,
-                    email: user.email || '',
-                    created: user.created
-                });
+                DB.setCurrentUser({ id: user.id, username: user.username, email: user.email || '', created: user.created });
                 updateNav();
                 closeModal();
                 showToast('🎮 Hoş geldin, ' + user.username + '!', 'success');
                 updateStats();
                 showHome();
-            } else {
-                showToast('Kullanıcı adı veya şifre hatalı!', 'error');
-            }
+            } else showToast('Kullanıcı adı veya şifre hatalı!', 'error');
         }
 
         function registerUser() {
-            const username = document.getElementById('registerUsername').value.trim();
-            const email = document.getElementById('registerEmail').value.trim();
-            const password = document.getElementById('registerPassword').value.trim();
-
-            if (!username || !password) {
-                showToast('Kullanıcı adı ve şifre zorunludur!', 'error');
-                return;
-            }
-
-            if (password.length < 4) {
-                showToast('Şifre en az 4 karakter olmalı!', 'error');
-                return;
-            }
-
+            const u = document.getElementById('registerUsername').value.trim();
+            const e = document.getElementById('registerEmail').value.trim();
+            const p = document.getElementById('registerPassword').value.trim();
+            if (!u || !p) { showToast('Kullanıcı adı ve şifre zorunludur!', 'error'); return; }
+            if (p.length < 4) { showToast('Şifre en az 4 karakter!', 'error'); return; }
             const users = DB.getUsers();
-            if (users.find(u => u.username === username)) {
-                showToast('Bu kullanıcı adı zaten alınmış!', 'error');
-                return;
-            }
-
-            const newId = users.length > 0 ? Math.max(...users.map(u => u.id)) + 1 : 1;
-            users.push({
-                id: newId,
-                username: username,
-                password: password,
-                email: email || '',
-                created: new Date().toISOString()
-            });
-
+            if (users.find(u2 => u2.username === u)) { showToast('Bu kullanıcı adı alınmış!', 'error'); return; }
+            const newId = users.length > 0 ? Math.max(...users.map(u2 => u2.id)) + 1 : 1;
+            users.push({ id: newId, username: u, password: p, email: e || '', created: new Date().toISOString() });
             DB.saveUsers(users);
             closeModal();
-            showToast('🎮 Kayıt başarılı! Şimdi giriş yapabilirsin.', 'success');
+            showToast('🎮 Kayıt başarılı! Şimdi giriş yap.', 'success');
             showLogin();
         }
 
@@ -1983,48 +2211,26 @@
         }
 
         // ============================================================
-        // =============== MODAL İŞLEMLERİ ===========================
+        // MODAL
         // ============================================================
-        function openModal(html) {
-            const modal = document.getElementById('modal');
-            document.getElementById('modalContent').innerHTML = html;
-            modal.classList.add('active');
-        }
+        function openModal(html) { document.getElementById('modalContent').innerHTML = html;
+            document.getElementById('modal').classList.add('active'); }
 
-        function closeModal() {
-            document.getElementById('modal').classList.remove('active');
-        }
-
-        document.getElementById('modal').addEventListener('click', function(e) {
-            if (e.target === this) closeModal();
-        });
-
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') closeModal();
-        });
+        function closeModal() { document.getElementById('modal').classList.remove('active'); }
+        document.getElementById('modal').addEventListener('click', function(e) { if (e.target === this) closeModal(); });
+        document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeModal(); });
 
         // ============================================================
-        // =============== HTML ESCAPE ===============================
-        // ============================================================
-        function escapeHtml(text) {
-            if (!text) return '';
-            const div = document.createElement('div');
-            div.textContent = text;
-            return div.innerHTML;
-        }
-
-        // ============================================================
-        // =============== BAŞLAT ====================================
+        // START
         // ============================================================
         initData();
         updateNav();
         showHome();
 
-        console.log('🎮 Roblox Script Hub yüklendi!');
+        console.log('🎮 Roblox Script Hub Pro yüklendi!');
         console.log('👤 Admin: admin / admin123');
         console.log('📊 Script sayısı:', DB.getScripts().length);
         console.log('👥 Kullanıcı sayısı:', DB.getUsers().length);
-        console.log('💬 Yorum sayısı:', DB.getComments().length);
         console.log('⚠️ Sadece eğitim amaçlıdır!');
     </script>
 
