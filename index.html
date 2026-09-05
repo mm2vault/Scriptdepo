@@ -26,7 +26,6 @@
             --radius-sm: 10px;
             --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             
-            /* Roblox Colors */
             --rbx-red: #ff375f;
             --rbx-red-dark: #cc0020;
             --rbx-red-glow: rgba(255, 55, 95, 0.3);
@@ -35,26 +34,20 @@
             --rbx-purple: #7c3aed;
             --rbx-yellow: #fbbf24;
             --rbx-pink: #ff6b9d;
+            --rbx-orange: #ff8c00;
             
-            /* Gradients */
             --gradient-main: linear-gradient(135deg, #ff375f, #7c3aed, #00b2ff);
             --gradient-card: linear-gradient(135deg, rgba(255,55,95,0.05), rgba(124,58,237,0.05));
             --gradient-btn: linear-gradient(135deg, #ff375f, #cc0020);
             --gradient-hero: linear-gradient(135deg, rgba(255,55,95,0.08), rgba(124,58,237,0.08));
+            --gradient-gold: linear-gradient(135deg, #fbbf24, #f59e0b);
         }
 
         /* ============================================================
            RESET & BASE
            ============================================================ */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
 
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -87,17 +80,11 @@
             66% { transform: translate(-2%, 2%); }
         }
 
-        /* ============================================================
-           SCROLLBAR
-           ============================================================ */
         ::-webkit-scrollbar { width: 6px; height: 6px; }
         ::-webkit-scrollbar-track { background: var(--bg-primary); }
         ::-webkit-scrollbar-thumb { background: var(--rbx-red); border-radius: 10px; }
         ::-webkit-scrollbar-thumb:hover { background: var(--rbx-red-dark); }
 
-        /* ============================================================
-           CONTAINER
-           ============================================================ */
         .container {
             max-width: 1400px;
             margin: 0 auto;
@@ -127,9 +114,7 @@
             transition: var(--transition);
         }
 
-        .header:hover {
-            border-color: rgba(255, 55, 95, 0.3);
-        }
+        .header:hover { border-color: rgba(255, 55, 95, 0.3); }
 
         .logo {
             display: flex;
@@ -256,7 +241,6 @@
         .btn-primary-nav:hover {
             transform: scale(1.05) !important;
             box-shadow: 0 4px 30px rgba(255, 55, 95, 0.5) !important;
-            background: var(--gradient-btn) !important;
         }
 
         .btn-outline-nav {
@@ -368,9 +352,7 @@
             letter-spacing: 0.5px;
         }
 
-        .hero-badge i {
-            margin-right: 8px;
-        }
+        .hero-badge i { margin-right: 8px; }
 
         .hero h1 {
             font-family: 'Orbitron', sans-serif;
@@ -410,6 +392,7 @@
             align-items: center;
             gap: 10px;
             text-decoration: none;
+            font-family: 'Inter', sans-serif;
         }
 
         .hero-actions .btn-primary {
@@ -440,6 +423,7 @@
             margin-top: 32px;
             padding-top: 28px;
             border-top: 1px solid var(--border-color);
+            flex-wrap: wrap;
         }
 
         .hero-stats .stat {
@@ -489,6 +473,7 @@
             font-weight: 500;
             cursor: pointer;
             transition: var(--transition);
+            font-family: 'Inter', sans-serif;
         }
 
         .filter-bar .filter-btn:hover {
@@ -502,9 +487,7 @@
             color: white;
         }
 
-        .filter-bar .filter-btn i {
-            margin-right: 6px;
-        }
+        .filter-bar .filter-btn i { margin-right: 6px; }
 
         .filter-bar .search-box {
             margin-left: auto;
@@ -617,55 +600,17 @@
             letter-spacing: 0.5px;
         }
 
-        .badge-lua {
-            background: linear-gradient(135deg, #000080, #1a1a8a);
-            color: white;
-        }
-
-        .badge-esp {
-            background: linear-gradient(135deg, #7c3aed, #6d28d9);
-            color: white;
-        }
-
-        .badge-otomasyon {
-            background: linear-gradient(135deg, #00d4aa, #00b894);
-            color: #0a0a0f;
-        }
-
-        .badge-aimbot {
-            background: linear-gradient(135deg, #ff375f, #cc0020);
-            color: white;
-        }
-
-        .badge-fly {
-            background: linear-gradient(135deg, #00b2ff, #0099dd);
-            color: white;
-        }
-
-        .badge-speed {
-            background: linear-gradient(135deg, #fbbf24, #f59e0b);
-            color: #0a0a0f;
-        }
-
-        .badge-diger {
-            background: linear-gradient(135deg, #6a6a82, #4a4a62);
-            color: white;
-        }
-
-        .badge-popular {
-            background: linear-gradient(135deg, #fbbf24, #f59e0b);
-            color: #0a0a0f;
-        }
-
-        .badge-new {
-            background: linear-gradient(135deg, #00d4aa, #00b2ff);
-            color: #0a0a0f;
-        }
-
-        .badge-premium {
-            background: linear-gradient(135deg, #ff6b9d, #ff375f);
-            color: white;
-        }
+        .badge-lua { background: linear-gradient(135deg, #000080, #1a1a8a); color: white; }
+        .badge-esp { background: linear-gradient(135deg, #7c3aed, #6d28d9); color: white; }
+        .badge-otomasyon { background: linear-gradient(135deg, #00d4aa, #00b894); color: #0a0a0f; }
+        .badge-aimbot { background: linear-gradient(135deg, #ff375f, #cc0020); color: white; }
+        .badge-fly { background: linear-gradient(135deg, #00b2ff, #0099dd); color: white; }
+        .badge-speed { background: linear-gradient(135deg, #fbbf24, #f59e0b); color: #0a0a0f; }
+        .badge-diger { background: linear-gradient(135deg, #6a6a82, #4a4a62); color: white; }
+        .badge-popular { background: linear-gradient(135deg, #fbbf24, #f59e0b); color: #0a0a0f; }
+        .badge-new { background: linear-gradient(135deg, #00d4aa, #00b2ff); color: #0a0a0f; }
+        .badge-premium { background: linear-gradient(135deg, #ff6b9d, #ff375f); color: white; }
+        .badge-featured { background: linear-gradient(135deg, #ff8c00, #ff6b00); color: white; }
 
         .script-card .card-meta {
             display: flex;
@@ -682,6 +627,10 @@
             color: var(--text-muted);
         }
 
+        .script-card .card-meta .likes {
+            color: var(--rbx-red);
+        }
+
         .script-card .code-preview {
             background: var(--bg-primary);
             padding: 14px;
@@ -696,11 +645,6 @@
             border: 1px solid var(--border-color);
             margin-bottom: 16px;
             line-height: 1.7;
-        }
-
-        .script-card .code-preview::-webkit-scrollbar {
-            width: 4px;
-            height: 4px;
         }
 
         .script-card .card-actions {
@@ -723,64 +667,31 @@
             font-family: 'Inter', sans-serif;
         }
 
-        .btn-view {
-            background: var(--rbx-blue);
-            color: white;
-        }
+        .btn-view { background: var(--rbx-blue); color: white; }
+        .btn-view:hover { background: #0099dd; transform: scale(1.04); }
 
-        .btn-view:hover {
-            background: #0099dd;
-            transform: scale(1.04);
-        }
+        .btn-copy { background: var(--bg-primary); color: var(--text-secondary); border: 1px solid var(--border-color); }
+        .btn-copy:hover { border-color: var(--rbx-red); color: white; background: rgba(255, 55, 95, 0.05); }
 
-        .btn-copy {
-            background: var(--bg-primary);
-            color: var(--text-secondary);
-            border: 1px solid var(--border-color);
-        }
+        .btn-delete { background: rgba(255, 55, 95, 0.1); color: var(--rbx-red); }
+        .btn-delete:hover { background: rgba(255, 55, 95, 0.2); transform: scale(1.04); }
 
-        .btn-copy:hover {
-            border-color: var(--rbx-red);
-            color: white;
-            background: rgba(255, 55, 95, 0.05);
-        }
+        .btn-download { background: var(--rbx-green); color: #0a0a0f; }
+        .btn-download:hover { background: #00b894; transform: scale(1.04); }
 
-        .btn-delete {
-            background: rgba(255, 55, 95, 0.1);
-            color: var(--rbx-red);
-        }
+        .btn-fav { background: transparent; color: var(--text-muted); border: 1px solid var(--border-color); }
+        .btn-fav:hover { border-color: var(--rbx-yellow); color: var(--rbx-yellow); }
+        .btn-fav.active { border-color: var(--rbx-yellow); color: var(--rbx-yellow); background: rgba(251, 191, 36, 0.05); }
 
-        .btn-delete:hover {
-            background: rgba(255, 55, 95, 0.2);
-            transform: scale(1.04);
-        }
+        .btn-like { background: transparent; color: var(--text-muted); border: 1px solid var(--border-color); }
+        .btn-like:hover { border-color: var(--rbx-red); color: var(--rbx-red); }
+        .btn-like.active { border-color: var(--rbx-red); color: var(--rbx-red); background: rgba(255, 55, 95, 0.05); }
 
-        .btn-download {
-            background: var(--rbx-green);
-            color: #0a0a0f;
-        }
+        .btn-edit { background: rgba(0, 178, 255, 0.1); color: var(--rbx-blue); border: 1px solid rgba(0, 178, 255, 0.2); }
+        .btn-edit:hover { background: rgba(0, 178, 255, 0.2); transform: scale(1.04); }
 
-        .btn-download:hover {
-            background: #00b894;
-            transform: scale(1.04);
-        }
-
-        .btn-fav {
-            background: transparent;
-            color: var(--text-muted);
-            border: 1px solid var(--border-color);
-        }
-
-        .btn-fav:hover {
-            border-color: var(--rbx-yellow);
-            color: var(--rbx-yellow);
-        }
-
-        .btn-fav.active {
-            border-color: var(--rbx-yellow);
-            color: var(--rbx-yellow);
-            background: rgba(251, 191, 36, 0.05);
-        }
+        .btn-report { background: transparent; color: var(--text-muted); border: none; font-size: 12px; }
+        .btn-report:hover { color: var(--rbx-red); }
 
         /* ============================================================
            EMPTY STATE
@@ -791,24 +702,9 @@
             grid-column: 1 / -1;
         }
 
-        .empty-state .emoji {
-            font-size: 80px;
-            margin-bottom: 20px;
-            display: block;
-        }
-
-        .empty-state h3 {
-            font-size: 24px;
-            font-weight: 700;
-            margin-bottom: 10px;
-        }
-
-        .empty-state p {
-            color: var(--text-secondary);
-            max-width: 400px;
-            margin: 0 auto 20px;
-            font-size: 16px;
-        }
+        .empty-state .emoji { font-size: 80px; margin-bottom: 20px; display: block; }
+        .empty-state h3 { font-size: 24px; font-weight: 700; margin-bottom: 10px; }
+        .empty-state p { color: var(--text-secondary); max-width: 400px; margin: 0 auto 20px; font-size: 16px; }
 
         /* ============================================================
            MODAL
@@ -829,16 +725,14 @@
             padding: 20px;
         }
 
-        .modal.active {
-            display: flex;
-        }
+        .modal.active { display: flex; }
 
         .modal-content {
             background: var(--bg-secondary);
             border: 1px solid var(--border-color);
             border-radius: var(--radius);
             padding: 36px;
-            max-width: 540px;
+            max-width: 560px;
             width: 100%;
             max-height: 90vh;
             overflow-y: auto;
@@ -866,9 +760,7 @@
             gap: 12px;
         }
 
-        .modal-header h2 i {
-            color: var(--rbx-red);
-        }
+        .modal-header h2 i { color: var(--rbx-red); }
 
         .modal-close {
             background: none;
@@ -881,14 +773,9 @@
             line-height: 1;
         }
 
-        .modal-close:hover {
-            color: var(--rbx-red);
-            transform: rotate(90deg);
-        }
+        .modal-close:hover { color: var(--rbx-red); transform: rotate(90deg); }
 
-        .form-group {
-            margin-bottom: 20px;
-        }
+        .form-group { margin-bottom: 20px; }
 
         .form-group label {
             display: block;
@@ -898,10 +785,7 @@
             color: var(--text-secondary);
         }
 
-        .form-group label i {
-            margin-right: 8px;
-            color: var(--rbx-red);
-        }
+        .form-group label i { margin-right: 8px; color: var(--rbx-red); }
 
         .form-group input,
         .form-group textarea,
@@ -933,9 +817,7 @@
             font-size: 13px;
         }
 
-        .form-group select option {
-            background: var(--bg-primary);
-        }
+        .form-group select option { background: var(--bg-primary); }
 
         .form-actions {
             display: flex;
@@ -972,10 +854,7 @@
             border: 1px solid var(--border-color);
         }
 
-        .btn-cancel:hover {
-            border-color: var(--text-muted);
-            color: white;
-        }
+        .btn-cancel:hover { border-color: var(--text-muted); color: white; }
 
         .form-footer {
             text-align: center;
@@ -991,9 +870,7 @@
             transition: var(--transition);
         }
 
-        .form-footer a:hover {
-            text-decoration: underline;
-        }
+        .form-footer a:hover { text-decoration: underline; }
 
         /* ============================================================
            DETAIL VIEW
@@ -1052,9 +929,7 @@
         }
 
         /* Comments */
-        .comments-section {
-            margin-top: 24px;
-        }
+        .comments-section { margin-top: 24px; }
 
         .comments-section h3 {
             font-size: 18px;
@@ -1064,9 +939,7 @@
             gap: 10px;
         }
 
-        .comments-section h3 i {
-            color: var(--rbx-red);
-        }
+        .comments-section h3 i { color: var(--rbx-red); }
 
         .comment-item {
             background: var(--bg-primary);
@@ -1077,9 +950,7 @@
             transition: var(--transition);
         }
 
-        .comment-item:hover {
-            border-color: rgba(255, 55, 95, 0.15);
-        }
+        .comment-item:hover { border-color: rgba(255, 55, 95, 0.15); }
 
         .comment-item .comment-header {
             display: flex;
@@ -1089,9 +960,7 @@
             margin-bottom: 6px;
         }
 
-        .comment-item .comment-header strong {
-            color: white;
-        }
+        .comment-item .comment-header strong { color: white; }
 
         .comment-item p {
             color: var(--text-secondary);
@@ -1181,11 +1050,7 @@
             box-shadow: 0 4px 20px rgba(255, 55, 95, 0.1);
         }
 
-        .footer p {
-            color: var(--text-muted);
-            font-size: 14px;
-        }
-
+        .footer p { color: var(--text-muted); font-size: 14px; }
         .footer .disclaimer {
             font-size: 12px;
             color: var(--text-muted);
@@ -1224,17 +1089,9 @@
             border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        .toast-success {
-            background: linear-gradient(135deg, rgba(0, 212, 170, 0.9), rgba(0, 184, 148, 0.9));
-        }
-
-        .toast-error {
-            background: linear-gradient(135deg, rgba(255, 55, 95, 0.9), rgba(204, 0, 32, 0.9));
-        }
-
-        .toast-info {
-            background: linear-gradient(135deg, rgba(0, 178, 255, 0.9), rgba(0, 153, 221, 0.9));
-        }
+        .toast-success { background: linear-gradient(135deg, rgba(0, 212, 170, 0.9), rgba(0, 184, 148, 0.9)); }
+        .toast-error { background: linear-gradient(135deg, rgba(255, 55, 95, 0.9), rgba(204, 0, 32, 0.9)); }
+        .toast-info { background: linear-gradient(135deg, rgba(0, 178, 255, 0.9), rgba(0, 153, 221, 0.9)); }
 
         @keyframes slideIn {
             from { opacity: 0; transform: translateX(100px) scale(0.9); }
@@ -1254,7 +1111,6 @@
 
         @media (max-width: 768px) {
             .container { padding: 12px 16px; }
-            
             .header {
                 flex-direction: column;
                 gap: 12px;
@@ -1262,84 +1118,34 @@
                 top: 8px;
                 border-radius: 12px;
             }
-            
-            .nav {
-                justify-content: center;
-                width: 100%;
-                gap: 4px;
-            }
-            
-            .nav a, .nav button {
-                font-size: 12px;
-                padding: 6px 12px;
-            }
-            
+            .nav { justify-content: center; width: 100%; gap: 4px; }
+            .nav a, .nav button { font-size: 12px; padding: 6px 12px; }
             .nav-divider { display: none; }
-            
             .logo-text { font-size: 18px; }
             .logo-icon { width: 40px; height: 40px; font-size: 20px; }
-            
             .hero { padding: 24px 20px; }
             .hero h1 { font-size: 28px; }
             .hero p { font-size: 15px; }
             .hero-stats { gap: 16px; flex-wrap: wrap; }
             .hero-stats .stat .number { font-size: 20px; }
             .hero-actions .btn { padding: 10px 20px; font-size: 14px; }
-            
             .filter-bar {
                 flex-direction: column;
                 align-items: stretch;
                 padding: 12px 16px;
                 gap: 10px;
             }
-            
-            .filter-bar .search-box {
-                margin-left: 0;
-            }
-            
-            .filter-bar .search-box input {
-                width: 100%;
-            }
-            
-            .script-grid {
-                grid-template-columns: 1fr;
-                gap: 16px;
-            }
-            
+            .filter-bar .search-box { margin-left: 0; }
+            .filter-bar .search-box input { width: 100%; }
+            .script-grid { grid-template-columns: 1fr; gap: 16px; }
             .script-card { padding: 18px; }
             .script-card .card-header { flex-direction: column; gap: 8px; }
-            
-            .modal-content {
-                padding: 24px;
-                margin: 10px;
-                border-radius: 12px;
-            }
-            
-            .form-actions {
-                flex-direction: column;
-            }
-            
-            .comment-form {
-                flex-direction: column;
-            }
-            
-            .detail-view .detail-code {
-                font-size: 12px;
-                padding: 16px;
-                max-height: 300px;
-            }
-            
-            .toast-container {
-                left: 16px;
-                right: 16px;
-                bottom: 16px;
-            }
-            
-            .toast {
-                min-width: unset;
-                font-size: 13px;
-                padding: 12px 18px;
-            }
+            .modal-content { padding: 24px; margin: 10px; border-radius: 12px; }
+            .form-actions { flex-direction: column; }
+            .comment-form { flex-direction: column; }
+            .detail-view .detail-code { font-size: 12px; padding: 16px; max-height: 300px; }
+            .toast-container { left: 16px; right: 16px; bottom: 16px; }
+            .toast { min-width: unset; font-size: 13px; padding: 12px 18px; }
         }
 
         @media (max-width: 480px) {
@@ -1348,12 +1154,7 @@
             .hero-stats .stat .number { font-size: 16px; }
             .hero-stats { gap: 12px; }
             .hero-actions .btn { font-size: 12px; padding: 8px 16px; }
-            
-            .script-card .card-actions .btn {
-                font-size: 12px;
-                padding: 6px 12px;
-            }
-            
+            .script-card .card-actions .btn { font-size: 12px; padding: 6px 12px; }
             .modal-content { padding: 18px; }
             .modal-header h2 { font-size: 20px; }
         }
@@ -1379,7 +1180,6 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Loading shimmer */
         .shimmer {
             background: linear-gradient(90deg, var(--bg-card) 25%, var(--bg-card-hover) 50%, var(--bg-card) 75%);
             background-size: 200% 100%;
@@ -1395,42 +1195,25 @@
 <body>
 
     <div class="container">
-        <!-- ============================================================
-        HEADER
-        ============================================================ -->
+        <!-- HEADER -->
         <header class="header">
             <a href="#" class="logo" onclick="showHome()">
                 <div class="logo-icon">🎮</div>
-                <div class="logo-text">
-                    ScriptHub <span>Roblox</span>
-                </div>
+                <div class="logo-text">ScriptHub <span>Roblox</span></div>
             </a>
             <nav class="nav" id="mainNav">
-                <a href="#" onclick="showHome()" class="active" id="navHome">
-                    <i class="fas fa-home"></i> Ana Sayfa
-                </a>
-                <a href="#" onclick="showUpload()" id="navUpload" style="display:none;">
-                    <i class="fas fa-upload"></i> Yükle
-                </a>
-                <a href="#" onclick="showProfile()" id="navProfile" style="display:none;">
-                    <i class="fas fa-user"></i> Profil
-                </a>
-                <a href="#" onclick="showFavorites()" id="navFavorites" style="display:none;">
-                    <i class="fas fa-star"></i> Favoriler
-                </a>
-                <a href="#" onclick="showLeaderboard()" id="navLeaderboard">
-                    <i class="fas fa-trophy"></i> Liderlik
-                </a>
+                <a href="#" onclick="showHome()" class="active" id="navHome"><i class="fas fa-home"></i> Ana Sayfa</a>
+                <a href="#" onclick="showUpload()" id="navUpload" style="display:none;"><i class="fas fa-upload"></i> Yükle</a>
+                <a href="#" onclick="showProfile()" id="navProfile" style="display:none;"><i class="fas fa-user"></i> Profil</a>
+                <a href="#" onclick="showFavorites()" id="navFavorites" style="display:none;"><i class="fas fa-star"></i> Favoriler</a>
+                <a href="#" onclick="showLeaderboard()" id="navLeaderboard"><i class="fas fa-trophy"></i> Liderlik</a>
+                <a href="#" onclick="showMyScripts()" id="navMyScripts" style="display:none;"><i class="fas fa-code"></i> Scriptlerim</a>
                 
                 <span class="nav-divider"></span>
                 
                 <div id="authButtons">
-                    <button class="btn-outline-nav" onclick="showLogin()">
-                        <i class="fas fa-sign-in-alt"></i> Giriş
-                    </button>
-                    <button class="btn-primary-nav" onclick="showRegister()">
-                        <i class="fas fa-user-plus"></i> Kayıt
-                    </button>
+                    <button class="btn-outline-nav" onclick="showLogin()"><i class="fas fa-sign-in-alt"></i> Giriş</button>
+                    <button class="btn-primary-nav" onclick="showRegister()"><i class="fas fa-user-plus"></i> Kayıt</button>
                 </div>
                 
                 <div id="userBadge" style="display:none;" class="user-badge" onclick="showProfile()">
@@ -1443,70 +1226,35 @@
             </nav>
         </header>
 
-        <!-- ============================================================
-        HERO
-        ============================================================ -->
+        <!-- HERO -->
         <div class="hero" id="heroSection">
             <div class="hero-content">
-                <div class="hero-badge">
-                    <i class="fas fa-fire"></i> 50.000+ Script • Haftanın En İyileri
-                </div>
+                <div class="hero-badge"><i class="fas fa-fire"></i> 50.000+ Script • Haftanın En İyileri</div>
                 <h1>🎮 Roblox Script Hub</h1>
-                <p>Binlerce Roblox scriptini keşfet, paylaş ve kullan. Topluluğun en iyi scriptleri tek platformda!</p>
+                <p>Binlerce Roblox scriptini keşfet, paylaş, beğen ve kullan. Topluluğun en iyi scriptleri tek platformda!</p>
                 <div class="hero-actions">
-                    <button class="btn btn-primary" onclick="showUpload()">
-                        <i class="fas fa-rocket"></i> Script Paylaş
-                    </button>
-                    <button class="btn btn-secondary" onclick="showLeaderboard()">
-                        <i class="fas fa-trophy"></i> Liderlik Tablosu
-                    </button>
+                    <button class="btn btn-primary" onclick="showUpload()"><i class="fas fa-rocket"></i> Script Paylaş</button>
+                    <button class="btn btn-secondary" onclick="showLeaderboard()"><i class="fas fa-trophy"></i> Liderlik Tablosu</button>
                 </div>
                 <div class="hero-stats">
-                    <div class="stat">
-                        <span class="number" id="statScripts">0</span>
-                        <span class="label">📜 Toplam Script</span>
-                    </div>
-                    <div class="stat">
-                        <span class="number" id="statUsers">0</span>
-                        <span class="label">👥 Kullanıcı</span>
-                    </div>
-                    <div class="stat">
-                        <span class="number" id="statDownloads">0</span>
-                        <span class="label">⬇️ Toplam İndirme</span>
-                    </div>
-                    <div class="stat">
-                        <span class="number" id="statComments">0</span>
-                        <span class="label">💬 Yorum</span>
-                    </div>
+                    <div class="stat"><span class="number" id="statScripts">0</span><span class="label">📜 Toplam Script</span></div>
+                    <div class="stat"><span class="number" id="statUsers">0</span><span class="label">👥 Kullanıcı</span></div>
+                    <div class="stat"><span class="number" id="statDownloads">0</span><span class="label">⬇️ Toplam İndirme</span></div>
+                    <div class="stat"><span class="number" id="statComments">0</span><span class="label">💬 Yorum</span></div>
+                    <div class="stat"><span class="number" id="statLikes">0</span><span class="label">❤️ Beğeni</span></div>
                 </div>
             </div>
         </div>
 
-        <!-- ============================================================
-        FILTER BAR
-        ============================================================ -->
+        <!-- FILTER BAR -->
         <div class="filter-bar" id="filterBar">
-            <button class="filter-btn active" data-filter="all" onclick="filterScripts('all')">
-                <i class="fas fa-fire"></i> Tümü
-            </button>
-            <button class="filter-btn" data-filter="ESP" onclick="filterScripts('ESP')">
-                <i class="fas fa-eye"></i> ESP
-            </button>
-            <button class="filter-btn" data-filter="Otomasyon" onclick="filterScripts('Otomasyon')">
-                <i class="fas fa-robot"></i> Otomasyon
-            </button>
-            <button class="filter-btn" data-filter="Aimbot" onclick="filterScripts('Aimbot')">
-                <i class="fas fa-crosshairs"></i> Aimbot
-            </button>
-            <button class="filter-btn" data-filter="Fly" onclick="filterScripts('Fly')">
-                <i class="fas fa-feather"></i> Fly
-            </button>
-            <button class="filter-btn" data-filter="Speed" onclick="filterScripts('Speed')">
-                <i class="fas fa-bolt"></i> Speed
-            </button>
-            <button class="filter-btn" data-filter="Diğer" onclick="filterScripts('Diğer')">
-                <i class="fas fa-box"></i> Diğer
-            </button>
+            <button class="filter-btn active" data-filter="all" onclick="filterScripts('all')"><i class="fas fa-fire"></i> Tümü</button>
+            <button class="filter-btn" data-filter="ESP" onclick="filterScripts('ESP')"><i class="fas fa-eye"></i> ESP</button>
+            <button class="filter-btn" data-filter="Otomasyon" onclick="filterScripts('Otomasyon')"><i class="fas fa-robot"></i> Otomasyon</button>
+            <button class="filter-btn" data-filter="Aimbot" onclick="filterScripts('Aimbot')"><i class="fas fa-crosshairs"></i> Aimbot</button>
+            <button class="filter-btn" data-filter="Fly" onclick="filterScripts('Fly')"><i class="fas fa-feather"></i> Fly</button>
+            <button class="filter-btn" data-filter="Speed" onclick="filterScripts('Speed')"><i class="fas fa-bolt"></i> Speed</button>
+            <button class="filter-btn" data-filter="Diğer" onclick="filterScripts('Diğer')"><i class="fas fa-box"></i> Diğer</button>
             
             <div class="search-box">
                 <i class="fas fa-search"></i>
@@ -1515,18 +1263,12 @@
             </div>
         </div>
 
-        <!-- ============================================================
-        CONTENT
-        ============================================================ -->
+        <!-- CONTENT -->
         <div id="content">
-            <div class="script-grid" id="scriptGrid">
-                <!-- Scripts rendered here -->
-            </div>
+            <div class="script-grid" id="scriptGrid"></div>
         </div>
 
-        <!-- ============================================================
-        FOOTER
-        ============================================================ -->
+        <!-- FOOTER -->
         <footer class="footer">
             <div class="social">
                 <a href="#"><i class="fab fa-github"></i></a>
@@ -1540,65 +1282,36 @@
         </footer>
     </div>
 
-    <!-- ============================================================
-    MODAL
-    ============================================================ -->
+    <!-- MODAL -->
     <div id="modal" class="modal">
         <div class="modal-content" id="modalContent"></div>
     </div>
 
-    <!-- ============================================================
-    TOAST CONTAINER
-    ============================================================ -->
+    <!-- TOAST -->
     <div class="toast-container" id="toastContainer"></div>
 
-    <!-- ============================================================
-    JAVASCRIPT
-    ============================================================ -->
     <script>
         // ============================================================
-        // DATABASE (localStorage)
+        // DATABASE
         // ============================================================
         const DB = {
-            getUsers() {
-                return JSON.parse(localStorage.getItem('rbx_users') || '[]');
-            },
-            saveUsers(users) {
-                localStorage.setItem('rbx_users', JSON.stringify(users));
-            },
-            getScripts() {
-                return JSON.parse(localStorage.getItem('rbx_scripts') || '[]');
-            },
-            saveScripts(scripts) {
-                localStorage.setItem('rbx_scripts', JSON.stringify(scripts));
-            },
-            getComments() {
-                return JSON.parse(localStorage.getItem('rbx_comments') || '[]');
-            },
-            saveComments(comments) {
-                localStorage.setItem('rbx_comments', JSON.stringify(comments));
-            },
-            getFavorites() {
-                return JSON.parse(localStorage.getItem('rbx_favorites') || '[]');
-            },
-            saveFavorites(favorites) {
-                localStorage.setItem('rbx_favorites', JSON.stringify(favorites));
-            },
-            getCurrentUser() {
-                return JSON.parse(localStorage.getItem('rbx_currentUser') || 'null');
-            },
-            setCurrentUser(user) {
-                localStorage.setItem('rbx_currentUser', JSON.stringify(user));
-            },
-            logout() {
-                localStorage.removeItem('rbx_currentUser');
-            },
-            getDownloads() {
-                return JSON.parse(localStorage.getItem('rbx_downloads') || '{}');
-            },
-            saveDownloads(downloads) {
-                localStorage.setItem('rbx_downloads', JSON.stringify(downloads));
-            }
+            getUsers() { return JSON.parse(localStorage.getItem('rbx_users') || '[]'); },
+            saveUsers(u) { localStorage.setItem('rbx_users', JSON.stringify(u)); },
+            getScripts() { return JSON.parse(localStorage.getItem('rbx_scripts') || '[]'); },
+            saveScripts(s) { localStorage.setItem('rbx_scripts', JSON.stringify(s)); },
+            getComments() { return JSON.parse(localStorage.getItem('rbx_comments') || '[]'); },
+            saveComments(c) { localStorage.setItem('rbx_comments', JSON.stringify(c)); },
+            getFavorites() { return JSON.parse(localStorage.getItem('rbx_favorites') || '[]'); },
+            saveFavorites(f) { localStorage.setItem('rbx_favorites', JSON.stringify(f)); },
+            getLikes() { return JSON.parse(localStorage.getItem('rbx_likes') || '[]'); },
+            saveLikes(l) { localStorage.setItem('rbx_likes', JSON.stringify(l)); },
+            getReports() { return JSON.parse(localStorage.getItem('rbx_reports') || '[]'); },
+            saveReports(r) { localStorage.setItem('rbx_reports', JSON.stringify(r)); },
+            getCurrentUser() { return JSON.parse(localStorage.getItem('rbx_currentUser') || 'null'); },
+            setCurrentUser(u) { localStorage.setItem('rbx_currentUser', JSON.stringify(u)); },
+            logout() { localStorage.removeItem('rbx_currentUser'); },
+            getDownloads() { return JSON.parse(localStorage.getItem('rbx_downloads') || '{}'); },
+            saveDownloads(d) { localStorage.setItem('rbx_downloads', JSON.stringify(d)); }
         };
 
         // ============================================================
@@ -1607,22 +1320,23 @@
         function initData() {
             let users = DB.getUsers();
             if (users.length === 0) {
-                users.push({ id: 1, username: 'admin', password: 'admin123', email: 'admin@roblox.com', created: new Date().toISOString() });
-                users.push({ id: 2, username: 'scriptmaster', password: '123456', email: 'master@roblox.com', created: new Date().toISOString() });
-                users.push({ id: 3, username: 'lua_god', password: 'lua123', email: 'god@roblox.com', created: new Date().toISOString() });
+                users.push({ id: 1, username: 'admin', password: 'admin123', email: 'admin@roblox.com', created: new Date().toISOString(), level: 'admin' });
+                users.push({ id: 2, username: 'scriptmaster', password: '123456', email: 'master@roblox.com', created: new Date().toISOString(), level: 'user' });
+                users.push({ id: 3, username: 'lua_god', password: 'lua123', email: 'god@roblox.com', created: new Date().toISOString(), level: 'user' });
                 DB.saveUsers(users);
             }
 
             let scripts = DB.getScripts();
             if (scripts.length === 0) {
                 const sample = [
-                    { title: '🛡️ Ultimate ESP v3.0', content: '-- Ultimate ESP Script\n-- Tüm oyuncuları gösterir\n\nlocal Players = game:GetService("Players")\nlocal RunService = game:GetService("RunService")\n\nfor _, player in pairs(Players:GetPlayers()) do\n    if player ~= Players.LocalPlayer then\n        local highlight = Instance.new("Highlight")\n        highlight.Parent = player.Character\n        highlight.FillColor = Color3.new(1, 0.2, 0.2)\n        highlight.FillTransparency = 0.5\n        highlight.OutlineColor = Color3.new(1, 1, 1)\n    end\nend', language: 'Lua', category: 'ESP', downloads: 342, userId: 1, username: 'admin', created: new Date().toISOString() },
-                    { title: '🤖 Auto Clicker Pro', content: '-- Auto Clicker Pro\n-- Otomatik tıklama sistemi\n\nlocal mouse = game.Players.LocalPlayer:GetMouse()\nlocal enabled = false\n\nmouse.KeyDown:Connect(function(key)\n    if key == "F1" then\n        enabled = not enabled\n        print(enabled and "Clicker Aktif" or "Clicker Pasif")\n    end\nend)\n\nwhile true do\n    if enabled then\n        mouse1click()\n        wait(0.05)\n    end\n    wait()\nend', language: 'Lua', category: 'Otomasyon', downloads: 215, userId: 1, username: 'admin', created: new Date().toISOString() },
-                    { title: '🎯 Aimbot Ultra', content: '-- Aimbot Ultra\n-- Otomatik hedef alma\n\nlocal Players = game:GetService("Players")\nlocal RunService = game:GetService("RunService")\nlocal lp = Players.LocalPlayer\n\nRunService.RenderStepped:Connect(function()\n    local target = getClosestPlayer()\n    if target then\n        lp.Character.HumanoidRootPart.CFrame = CFrame.new(lp.Character.HumanoidRootPart.Position, target.Character.HumanoidRootPart.Position)\n    end\nend)\n\nfunction getClosestPlayer()\n    local closest, dist = nil, math.huge\n    for _, player in pairs(Players:GetPlayers()) do\n        if player ~= lp and player.Character then\n            local d = (lp.Character.HumanoidRootPart.Position - player.Character.HumanoidRootPart.Position).Magnitude\n            if d < dist then\n                closest, dist = player, d\n            end\n        end\n    end\n    return closest\nend', language: 'Lua', category: 'Aimbot', downloads: 187, userId: 2, username: 'scriptmaster', created: new Date().toISOString() },
-                    { title: '🦅 Fly Mode v2', content: '-- Fly Mode v2\n-- Uçma modu\n\nlocal player = game.Players.LocalPlayer\nlocal char = player.Character\nlocal humanoid = char.Humanoid\nlocal flying = false\n\nlocal flySpeed = 50\nlocal flyHeight = 20\n\ngame:GetService("UserInputService").InputBegan:Connect(function(input, gp)\n    if gp then return end\n    if input.KeyCode == Enum.KeyCode.F then\n        flying = not flying\n        if flying then\n            humanoid.PlatformStand = true\n            print("🚀 Fly Aktif")\n        else\n            humanoid.PlatformStand = false\n            print("🛑 Fly Pasif")\n        end\n    end\nend)\n\nwhile wait(0.05) do\n    if flying then\n        local move = Vector3.new(0, 0, 0)\n        if humanoid.MoveDirection.Magnitude > 0 then\n            move = humanoid.MoveDirection * flySpeed\n        end\n        char.HumanoidRootPart.Velocity = Vector3.new(move.X, flyHeight, move.Z)\n    end\nend', language: 'Lua', category: 'Fly', downloads: 156, userId: 2, username: 'scriptmaster', created: new Date().toISOString() },
-                    { title: '💨 Speed Hack Ultra', content: '-- Speed Hack Ultra\n-- Hızlandırma\n\nlocal player = game.Players.LocalPlayer\nlocal char = player.Character\nlocal humanoid = char.Humanoid\n\nlocal speedMultiplier = 2.5\n\nhumanoid.WalkSpeed = humanoid.WalkSpeed * speedMultiplier\nhumanoid.JumpPower = humanoid.JumpPower * 1.5\n\nprint("🚀 Speed: " .. humanoid.WalkSpeed)\n\ngame:GetService("UserInputService").InputBegan:Connect(function(input, gp)\n    if gp then return end\n    if input.KeyCode == Enum.KeyCode.T and input.Shift then\n        if humanoid.WalkSpeed > 50 then\n            humanoid.WalkSpeed = 16\n            humanoid.JumpPower = 50\n        else\n            humanoid.WalkSpeed = 16 * speedMultiplier\n            humanoid.JumpPower = 50 * 1.5\n        end\n    end\nend)', language: 'Lua', category: 'Speed', downloads: 134, userId: 3, username: 'lua_god', created: new Date().toISOString() }
+                    { title: '🛡️ Ultimate ESP v3.0', content: '-- Ultimate ESP Script\n-- Tüm oyuncuları gösterir\n\nlocal Players = game:GetService("Players")\nlocal RunService = game:GetService("RunService")\n\nfor _, player in pairs(Players:GetPlayers()) do\n    if player ~= Players.LocalPlayer then\n        local highlight = Instance.new("Highlight")\n        highlight.Parent = player.Character\n        highlight.FillColor = Color3.new(1, 0.2, 0.2)\n        highlight.FillTransparency = 0.5\n        highlight.OutlineColor = Color3.new(1, 1, 1)\n    end\nend', language: 'Lua', category: 'ESP', downloads: 342, likes: 45, userId: 1, username: 'admin', created: new Date().toISOString(), featured: true },
+                    { title: '🤖 Auto Clicker Pro', content: '-- Auto Clicker Pro\n-- Otomatik tıklama sistemi\n\nlocal mouse = game.Players.LocalPlayer:GetMouse()\nlocal enabled = false\n\nmouse.KeyDown:Connect(function(key)\n    if key == "F1" then\n        enabled = not enabled\n        print(enabled and "Clicker Aktif" or "Clicker Pasif")\n    end\nend)\n\nwhile true do\n    if enabled then\n        mouse1click()\n        wait(0.05)\n    end\n    wait()\nend', language: 'Lua', category: 'Otomasyon', downloads: 215, likes: 32, userId: 1, username: 'admin', created: new Date().toISOString(), featured: false },
+                    { title: '🎯 Aimbot Ultra', content: '-- Aimbot Ultra\n-- Otomatik hedef alma\n\nlocal Players = game:GetService("Players")\nlocal RunService = game:GetService("RunService")\nlocal lp = Players.LocalPlayer\n\nRunService.RenderStepped:Connect(function()\n    local target = getClosestPlayer()\n    if target then\n        lp.Character.HumanoidRootPart.CFrame = CFrame.new(lp.Character.HumanoidRootPart.Position, target.Character.HumanoidRootPart.Position)\n    end\nend)\n\nfunction getClosestPlayer()\n    local closest, dist = nil, math.huge\n    for _, player in pairs(Players:GetPlayers()) do\n        if player ~= lp and player.Character then\n            local d = (lp.Character.HumanoidRootPart.Position - player.Character.HumanoidRootPart.Position).Magnitude\n            if d < dist then\n                closest, dist = player, d\n            end\n        end\n    end\n    return closest\nend', language: 'Lua', category: 'Aimbot', downloads: 187, likes: 28, userId: 2, username: 'scriptmaster', created: new Date().toISOString(), featured: false },
+                    { title: '🦅 Fly Mode v2', content: '-- Fly Mode v2\n-- Uçma modu\n\nlocal player = game.Players.LocalPlayer\nlocal char = player.Character\nlocal humanoid = char.Humanoid\nlocal flying = false\n\nlocal flySpeed = 50\nlocal flyHeight = 20\n\ngame:GetService("UserInputService").InputBegan:Connect(function(input, gp)\n    if gp then return end\n    if input.KeyCode == Enum.KeyCode.F then\n        flying = not flying\n        if flying then\n            humanoid.PlatformStand = true\n            print("🚀 Fly Aktif")\n        else\n            humanoid.PlatformStand = false\n            print("🛑 Fly Pasif")\n        end\n    end\nend)\n\nwhile wait(0.05) do\n    if flying then\n        local move = Vector3.new(0, 0, 0)\n        if humanoid.MoveDirection.Magnitude > 0 then\n            move = humanoid.MoveDirection * flySpeed\n        end\n        char.HumanoidRootPart.Velocity = Vector3.new(move.X, flyHeight, move.Z)\n    end\nend', language: 'Lua', category: 'Fly', downloads: 156, likes: 22, userId: 2, username: 'scriptmaster', created: new Date().toISOString(), featured: false },
+                    { title: '💨 Speed Hack Ultra', content: '-- Speed Hack Ultra\n-- Hızlandırma\n\nlocal player = game.Players.LocalPlayer\nlocal char = player.Character\nlocal humanoid = char.Humanoid\n\nlocal speedMultiplier = 2.5\n\nhumanoid.WalkSpeed = humanoid.WalkSpeed * speedMultiplier\nhumanoid.JumpPower = humanoid.JumpPower * 1.5\n\nprint("🚀 Speed: " .. humanoid.WalkSpeed)\n\ngame:GetService("UserInputService").InputBegan:Connect(function(input, gp)\n    if gp then return end\n    if input.KeyCode == Enum.KeyCode.T and input.Shift then\n        if humanoid.WalkSpeed > 50 then\n            humanoid.WalkSpeed = 16\n            humanoid.JumpPower = 50\n        else\n            humanoid.WalkSpeed = 16 * speedMultiplier\n            humanoid.JumpPower = 50 * 1.5\n        end\n    end\nend)', language: 'Lua', category: 'Speed', downloads: 134, likes: 18, userId: 3, username: 'lua_god', created: new Date().toISOString(), featured: false }
                 ];
-                sample.forEach(s => { s.id = scripts.length + 1; scripts.push(s); });
+                sample.forEach(s => { s.id = scripts.length + 1;
+                    scripts.push(s); });
                 DB.saveScripts(scripts);
             }
 
@@ -1658,7 +1372,8 @@
 
         function getCurrentUser() { return DB.getCurrentUser(); }
         function isLoggedIn() { return getCurrentUser() !== null; }
-        function escapeHtml(text) { if (!text) return ''; const d = document.createElement('div'); d.textContent = text; return d.innerHTML; }
+        function escapeHtml(text) { if (!text) return ''; const d = document.createElement('div');
+            d.textContent = text; return d.innerHTML; }
         function isNew(dateStr) { return (new Date() - new Date(dateStr)) < 86400000; }
 
         function updateNav() {
@@ -1676,12 +1391,14 @@
                 document.getElementById('navUpload').style.display = 'flex';
                 document.getElementById('navProfile').style.display = 'flex';
                 document.getElementById('navFavorites').style.display = 'flex';
+                document.getElementById('navMyScripts').style.display = 'flex';
             } else {
                 authBtns.style.display = 'flex';
                 userBadge.style.display = 'none';
                 document.getElementById('navUpload').style.display = 'none';
                 document.getElementById('navProfile').style.display = 'none';
                 document.getElementById('navFavorites').style.display = 'none';
+                document.getElementById('navMyScripts').style.display = 'none';
             }
         }
 
@@ -1690,12 +1407,14 @@
             const users = DB.getUsers();
             const comments = DB.getComments();
             const downloads = DB.getDownloads();
+            const likes = DB.getLikes();
             let total = 0;
             Object.values(downloads).forEach(v => total += v);
             document.getElementById('statScripts').textContent = scripts.length;
             document.getElementById('statUsers').textContent = users.length;
             document.getElementById('statDownloads').textContent = total;
             document.getElementById('statComments').textContent = comments.length;
+            document.getElementById('statLikes').textContent = likes.length;
         }
 
         function showToast(message, type = 'success') {
@@ -1717,24 +1436,20 @@
         function renderScripts(scripts) {
             const grid = document.getElementById('scriptGrid');
             if (scripts.length === 0) {
-                grid.innerHTML = `
-                    <div class="empty-state fade-in">
-                        <span class="emoji">🔍</span>
-                        <h3>Hiç script bulunamadı!</h3>
-                        <p>${currentSearch ? 'Arama kriterlerine uygun script yok.' : 'Henüz bu kategoride script paylaşılmamış.'}</p>
-                        <button class="btn btn-view" onclick="showUpload()"><i class="fas fa-upload"></i> İlk Scripti Paylaş</button>
-                    </div>
-                `;
+                grid.innerHTML =
+                    `<div class="empty-state fade-in"><span class="emoji">🔍</span><h3>Hiç script bulunamadı!</h3><p>${currentSearch ? 'Arama kriterlerine uygun script yok.' : 'Henüz bu kategoride script paylaşılmamış.'}</p><button class="btn btn-view" onclick="showUpload()"><i class="fas fa-upload"></i> İlk Scripti Paylaş</button></div>`;
                 return;
             }
 
             const user = getCurrentUser();
             const favorites = DB.getFavorites();
+            const likes = DB.getLikes();
             const downloads = DB.getDownloads();
 
             let html = '';
             scripts.forEach(s => {
                 const isFav = favorites.includes(s.id);
+                const isLiked = likes.includes(s.id);
                 const dCount = downloads[s.id] || 0;
                 const preview = s.content.substring(0, 180) + (s.content.length > 180 ? '...' : '');
                 const isOwner = user && s.userId === user.id;
@@ -1746,6 +1461,7 @@
                             <div class="badges">
                                 <span class="badge badge-lua">Lua</span>
                                 <span class="badge ${getCategoryBadge(s.category)}">${s.category || 'Diğer'}</span>
+                                ${s.featured ? '<span class="badge badge-featured">⭐ Öne Çıkan</span>' : ''}
                                 ${s.downloads > 100 ? '<span class="badge badge-popular">🔥 Popüler</span>' : ''}
                                 ${isNew(s.created) ? '<span class="badge badge-new">✨ Yeni</span>' : ''}
                             </div>
@@ -1755,16 +1471,18 @@
                             <span><i class="fas fa-clock"></i> ${formatDate(s.created)}</span>
                             <span><i class="fas fa-eye"></i> ${s.downloads || 0}</span>
                             <span><i class="fas fa-download"></i> ${dCount}</span>
+                            <span class="likes"><i class="fas fa-heart"></i> ${s.likes || 0}</span>
                         </div>
                         <div class="code-preview">${escapeHtml(preview)}</div>
                         <div class="card-actions">
                             <button class="btn btn-view" onclick="showDetail(${s.id})"><i class="fas fa-eye"></i> İncele</button>
                             <button class="btn btn-copy" onclick="copyScript(${s.id})"><i class="fas fa-copy"></i> Kopyala</button>
                             <button class="btn btn-download" onclick="downloadScript(${s.id})"><i class="fas fa-download"></i></button>
-                            <button class="btn btn-fav ${isFav ? 'active' : ''}" onclick="toggleFavorite(${s.id})">
-                                <i class="fas ${isFav ? 'fa-star' : 'fa-star-o'}"></i>
-                            </button>
+                            <button class="btn btn-fav ${isFav ? 'active' : ''}" onclick="toggleFavorite(${s.id})"><i class="fas ${isFav ? 'fa-star' : 'fa-star-o'}"></i></button>
+                            <button class="btn btn-like ${isLiked ? 'active' : ''}" onclick="toggleLike(${s.id})"><i class="fas ${isLiked ? 'fa-heart' : 'fa-heart-o'}"></i></button>
+                            ${isOwner ? `<button class="btn btn-edit" onclick="editScript(${s.id})"><i class="fas fa-edit"></i></button>` : ''}
                             ${isOwner ? `<button class="btn btn-delete" onclick="deleteScript(${s.id})"><i class="fas fa-trash"></i></button>` : ''}
+                            <button class="btn btn-report" onclick="reportScript(${s.id})"><i class="fas fa-flag"></i></button>
                         </div>
                     </div>
                 `;
@@ -1826,18 +1544,17 @@
             const comments = DB.getComments().filter(c => c.scriptId === id);
             const user = getCurrentUser();
             const favorites = DB.getFavorites();
+            const likes = DB.getLikes();
             const isFav = favorites.includes(id);
+            const isLiked = likes.includes(id);
             const dCount = (DB.getDownloads()[id] || 0);
             const isOwner = user && script.userId === user.id;
 
             let commentHTML = comments.length === 0 ?
                 '<p style="color:var(--text-muted);">Henüz yorum yok. İlk yorumu sen yap! 💬</p>' :
-                comments.map(c => `
-                    <div class="comment-item">
-                        <div class="comment-header"><strong>${c.username}</strong> <span>${formatDate(c.created)}</span></div>
-                        <p>${escapeHtml(c.content)}</p>
-                    </div>
-                `).join('');
+                comments.map(c =>
+                    `<div class="comment-item"><div class="comment-header"><strong>${c.username}</strong> <span>${formatDate(c.created)}</span></div><p>${escapeHtml(c.content)}</p></div>`
+                ).join('');
 
             document.getElementById('heroSection').style.display = 'none';
 
@@ -1849,6 +1566,7 @@
                             <div style="display:flex;gap:8px;flex-wrap:wrap;">
                                 <span class="badge badge-lua">Lua</span>
                                 <span class="badge ${getCategoryBadge(script.category)}">${script.category || 'Diğer'}</span>
+                                ${script.featured ? '<span class="badge badge-featured">⭐ Öne Çıkan</span>' : ''}
                                 ${script.downloads > 100 ? '<span class="badge badge-popular">🔥 Popüler</span>' : ''}
                             </div>
                         </div>
@@ -1857,17 +1575,19 @@
                             <span><i class="fas fa-clock"></i> ${formatDate(script.created)}</span>
                             <span><i class="fas fa-eye"></i> ${script.downloads || 0}</span>
                             <span><i class="fas fa-download"></i> ${dCount}</span>
+                            <span><i class="fas fa-heart" style="color:var(--rbx-red);"></i> ${script.likes || 0}</span>
                             <span><i class="fas fa-star"></i> ${isFav ? 'Favorilerde' : 'Favori değil'}</span>
                         </div>
                         <div class="detail-code">${escapeHtml(script.content)}</div>
                         <div class="detail-actions">
                             <button class="btn btn-view" onclick="copyScript(${script.id})"><i class="fas fa-copy"></i> Kopyala</button>
                             <button class="btn btn-download" onclick="downloadScript(${script.id})"><i class="fas fa-download"></i> İndir</button>
-                            <button class="btn btn-fav ${isFav ? 'active' : ''}" onclick="toggleFavorite(${script.id})">
-                                <i class="fas ${isFav ? 'fa-star' : 'fa-star-o'}"></i> ${isFav ? 'Favoriden Çıkar' : 'Favori Ekle'}
-                            </button>
+                            <button class="btn btn-fav ${isFav ? 'active' : ''}" onclick="toggleFavorite(${script.id})"><i class="fas ${isFav ? 'fa-star' : 'fa-star-o'}"></i> ${isFav ? 'Favoriden Çıkar' : 'Favori Ekle'}</button>
+                            <button class="btn btn-like ${isLiked ? 'active' : ''}" onclick="toggleLike(${script.id})"><i class="fas ${isLiked ? 'fa-heart' : 'fa-heart-o'}"></i> ${isLiked ? 'Beğenme' : 'Beğen'}</button>
                             <button class="btn btn-copy" onclick="showHome()"><i class="fas fa-arrow-left"></i> Geri</button>
+                            ${isOwner ? `<button class="btn btn-edit" onclick="editScript(${script.id})"><i class="fas fa-edit"></i> Düzenle</button>` : ''}
                             ${isOwner ? `<button class="btn btn-delete" onclick="deleteScript(${script.id})"><i class="fas fa-trash"></i> Sil</button>` : ''}
+                            <button class="btn btn-report" onclick="reportScript(${script.id})"><i class="fas fa-flag"></i> Raporla</button>
                         </div>
                     </div>
 
@@ -1890,7 +1610,8 @@
         // UPLOAD
         // ============================================================
         function showUpload() {
-            if (!isLoggedIn()) { showToast('Lütfen önce giriş yapın!', 'error'); showLogin(); return; }
+            if (!isLoggedIn()) { showToast('Lütfen önce giriş yapın!', 'error');
+                showLogin(); return; }
             document.getElementById('heroSection').style.display = 'none';
             document.getElementById('content').innerHTML = `
                 <div class="fade-in" style="max-width:700px;margin:0 auto;">
@@ -1917,6 +1638,13 @@
                                     <option value="Diğer">📦 Diğer</option>
                                 </select>
                             </div>
+                            <div class="form-group">
+                                <label><i class="fas fa-star"></i> Öne Çıkan Yap (Admin)</label>
+                                <select id="scriptFeatured">
+                                    <option value="false">Hayır</option>
+                                    <option value="true">Evet</option>
+                                </select>
+                            </div>
                             <div class="form-actions">
                                 <button type="submit" class="btn btn-submit"><i class="fas fa-rocket"></i> Yayınla</button>
                                 <button type="button" class="btn btn-cancel" onclick="showHome()">İptal</button>
@@ -1932,6 +1660,7 @@
             const title = document.getElementById('scriptTitle').value.trim();
             const content = document.getElementById('scriptContent').value.trim();
             const category = document.getElementById('scriptCategory').value;
+            const featured = document.getElementById('scriptFeatured').value === 'true';
             const user = getCurrentUser();
 
             if (!title || !content) { showToast('Başlık ve kod zorunludur!', 'error'); return; }
@@ -1946,6 +1675,8 @@
                 language: 'Lua',
                 category,
                 downloads: 0,
+                likes: 0,
+                featured,
                 userId: user.id,
                 username: user.username,
                 created: new Date().toISOString()
@@ -1957,10 +1688,84 @@
         }
 
         // ============================================================
+        // EDIT SCRIPT
+        // ============================================================
+        function editScript(id) {
+            const scripts = DB.getScripts();
+            const script = scripts.find(s => s.id === id);
+            if (!script) { showToast('Script bulunamadı!', 'error'); return; }
+
+            document.getElementById('heroSection').style.display = 'none';
+            document.getElementById('content').innerHTML = `
+                <div class="fade-in" style="max-width:700px;margin:0 auto;">
+                    <div style="background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius);padding:32px;">
+                        <h2 style="font-size:26px;font-weight:800;margin-bottom:8px;"><i class="fas fa-edit" style="color:var(--rbx-blue);"></i> Script Düzenle</h2>
+                        <p style="color:var(--text-secondary);margin-bottom:24px;">Scriptini güncelle! 🔧</p>
+                        <form onsubmit="updateScript(${id});return false;">
+                            <div class="form-group">
+                                <label><i class="fas fa-heading"></i> Script Başlığı *</label>
+                                <input type="text" id="editScriptTitle" value="${escapeHtml(script.title)}" required>
+                            </div>
+                            <div class="form-group">
+                                <label><i class="fas fa-code"></i> Script Kodu *</label>
+                                <textarea id="editScriptContent" required>${escapeHtml(script.content)}</textarea>
+                            </div>
+                            <div class="form-group">
+                                <label><i class="fas fa-tag"></i> Kategori</label>
+                                <select id="editScriptCategory">
+                                    <option value="ESP" ${script.category === 'ESP' ? 'selected' : ''}>👁️ ESP (X-Ray)</option>
+                                    <option value="Otomasyon" ${script.category === 'Otomasyon' ? 'selected' : ''}>⚡ Otomasyon</option>
+                                    <option value="Aimbot" ${script.category === 'Aimbot' ? 'selected' : ''}>🎯 Aimbot</option>
+                                    <option value="Fly" ${script.category === 'Fly' ? 'selected' : ''}>🦅 Fly (Uçma)</option>
+                                    <option value="Speed" ${script.category === 'Speed' ? 'selected' : ''}>💨 Speed (Hız)</option>
+                                    <option value="Diğer" ${script.category === 'Diğer' ? 'selected' : ''}>📦 Diğer</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label><i class="fas fa-star"></i> Öne Çıkan Yap (Admin)</label>
+                                <select id="editScriptFeatured">
+                                    <option value="false" ${!script.featured ? 'selected' : ''}>Hayır</option>
+                                    <option value="true" ${script.featured ? 'selected' : ''}>Evet</option>
+                                </select>
+                            </div>
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-submit"><i class="fas fa-save"></i> Güncelle</button>
+                                <button type="button" class="btn btn-cancel" onclick="showDetail(${id})">İptal</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            `;
+            closeModal();
+        }
+
+        function updateScript(id) {
+            const title = document.getElementById('editScriptTitle').value.trim();
+            const content = document.getElementById('editScriptContent').value.trim();
+            const category = document.getElementById('editScriptCategory').value;
+            const featured = document.getElementById('editScriptFeatured').value === 'true';
+
+            if (!title || !content) { showToast('Başlık ve kod zorunludur!', 'error'); return; }
+
+            const scripts = DB.getScripts();
+            const script = scripts.find(s => s.id === id);
+            if (script) {
+                script.title = title;
+                script.content = content;
+                script.category = category;
+                script.featured = featured;
+                DB.saveScripts(scripts);
+                showToast('✅ Script güncellendi!', 'success');
+                showDetail(id);
+            }
+        }
+
+        // ============================================================
         // PROFILE
         // ============================================================
         function showProfile() {
-            if (!isLoggedIn()) { showToast('Lütfen giriş yapın!', 'error'); showLogin(); return; }
+            if (!isLoggedIn()) { showToast('Lütfen giriş yapın!', 'error');
+                showLogin(); return; }
             const user = getCurrentUser();
             const scripts = DB.getScripts().filter(s => s.userId === user.id);
             const comments = DB.getComments().filter(c => c.userId === user.id);
@@ -1973,9 +1778,10 @@
                 scripts.map(s => `
                     <div class="script-card">
                         <div class="card-header"><h3>${s.title}</h3><span class="badge ${getCategoryBadge(s.category)}">${s.category || 'Diğer'}</span></div>
-                        <div class="card-meta"><span><i class="fas fa-clock"></i> ${formatDate(s.created)}</span><span><i class="fas fa-eye"></i> ${s.downloads || 0}</span></div>
+                        <div class="card-meta"><span><i class="fas fa-clock"></i> ${formatDate(s.created)}</span><span><i class="fas fa-eye"></i> ${s.downloads || 0}</span><span><i class="fas fa-heart" style="color:var(--rbx-red);"></i> ${s.likes || 0}</span></div>
                         <div class="card-actions">
                             <button class="btn btn-view" onclick="showDetail(${s.id})"><i class="fas fa-eye"></i> Görüntüle</button>
+                            <button class="btn btn-edit" onclick="editScript(${s.id})"><i class="fas fa-edit"></i> Düzenle</button>
                             <button class="btn btn-delete" onclick="deleteScript(${s.id})"><i class="fas fa-trash"></i> Sil</button>
                         </div>
                     </div>
@@ -2006,10 +1812,44 @@
         }
 
         // ============================================================
+        // MY SCRIPTS
+        // ============================================================
+        function showMyScripts() {
+            if (!isLoggedIn()) { showToast('Lütfen giriş yapın!', 'error');
+                showLogin(); return; }
+            const user = getCurrentUser();
+            const scripts = DB.getScripts().filter(s => s.userId === user.id);
+            document.getElementById('heroSection').style.display = 'none';
+
+            let cards = scripts.length === 0 ?
+                `<div class="empty-state" style="grid-column:1/-1;"><span class="emoji">📝</span><h3>Henüz scriptin yok!</h3><button class="btn btn-view" onclick="showUpload()"><i class="fas fa-upload"></i> Script Yükle</button></div>` :
+                scripts.map(s => `
+                    <div class="script-card">
+                        <div class="card-header"><h3>${s.title}</h3><span class="badge ${getCategoryBadge(s.category)}">${s.category || 'Diğer'}</span></div>
+                        <div class="card-meta"><span><i class="fas fa-clock"></i> ${formatDate(s.created)}</span><span><i class="fas fa-eye"></i> ${s.downloads || 0}</span></div>
+                        <div class="card-actions">
+                            <button class="btn btn-view" onclick="showDetail(${s.id})"><i class="fas fa-eye"></i> Görüntüle</button>
+                            <button class="btn btn-edit" onclick="editScript(${s.id})"><i class="fas fa-edit"></i> Düzenle</button>
+                            <button class="btn btn-delete" onclick="deleteScript(${s.id})"><i class="fas fa-trash"></i> Sil</button>
+                        </div>
+                    </div>
+                `).join('');
+
+            document.getElementById('content').innerHTML = `
+                <div class="fade-in">
+                    <h2 style="font-size:26px;font-weight:800;margin-bottom:20px;"><i class="fas fa-code" style="color:var(--rbx-red);"></i> Scriptlerim (${scripts.length})</h2>
+                    <div class="script-grid">${cards}</div>
+                </div>
+            `;
+            closeModal();
+        }
+
+        // ============================================================
         // FAVORITES
         // ============================================================
         function showFavorites() {
-            if (!isLoggedIn()) { showToast('Lütfen giriş yapın!', 'error'); showLogin(); return; }
+            if (!isLoggedIn()) { showToast('Lütfen giriş yapın!', 'error');
+                showLogin(); return; }
             const favorites = DB.getFavorites();
             const favScripts = DB.getScripts().filter(s => favorites.includes(s.id));
             document.getElementById('heroSection').style.display = 'none';
@@ -2053,7 +1893,7 @@
                         <span style="font-size:32px;">${medals[i] || '🏅'}</span>
                         <div style="flex:1;">
                             <strong style="font-size:16px;">${s.title}</strong>
-                            <div style="color:var(--text-muted);font-size:13px;">👤 ${s.username} • ${s.category || 'Diğer'}</div>
+                            <div style="color:var(--text-muted);font-size:13px;">👤 ${s.username} • ${s.category || 'Diğer'} • ❤️ ${s.likes || 0}</div>
                         </div>
                         <div style="text-align:right;">
                             <div style="font-size:22px;font-weight:700;color:var(--rbx-red);">${s.downloads || 0}</div>
@@ -2082,6 +1922,10 @@
             DB.saveScripts(scripts);
             let comments = DB.getComments().filter(c => c.scriptId !== id);
             DB.saveComments(comments);
+            let likes = DB.getLikes().filter(l => l !== id);
+            DB.saveLikes(likes);
+            let favs = DB.getFavorites().filter(f => f !== id);
+            DB.saveFavorites(favs);
             showToast('Script silindi!', 'success');
             updateStats();
             showHome();
@@ -2125,13 +1969,52 @@
             else showHome();
         }
 
+        function toggleLike(id) {
+            let likes = DB.getLikes();
+            const idx = likes.indexOf(id);
+            if (idx > -1) {
+                likes.splice(idx, 1);
+                showToast('❤️ Beğenin geri alındı', 'info');
+            } else {
+                likes.push(id);
+                showToast('❤️ Beğendin!', 'success');
+            }
+            DB.saveLikes(likes);
+
+            // Update script likes count
+            const scripts = DB.getScripts();
+            const script = scripts.find(s => s.id === id);
+            if (script) {
+                script.likes = likes.filter(l => l === id).length;
+                DB.saveScripts(scripts);
+            }
+            updateStats();
+            const currentView = document.getElementById('content').innerHTML;
+            if (currentView.includes('detail-view')) showDetail(id);
+            else showHome();
+        }
+
+        function reportScript(id) {
+            if (!isLoggedIn()) { showToast('Raporlamak için giriş yapın!', 'error');
+                showLogin(); return; }
+            const reports = DB.getReports();
+            if (reports.includes(id)) {
+                showToast('Bu script zaten raporlanmış.', 'info');
+                return;
+            }
+            reports.push(id);
+            DB.saveReports(reports);
+            showToast('🚩 Script raporlandı! Admin inceliyor.', 'success');
+        }
+
         function addComment(scriptId) {
             const input = document.getElementById('commentInput');
             const content = input.value.trim();
             const user = getCurrentUser();
             if (!content) { showToast('Yorum boş olamaz!', 'error'); return; }
             const comments = DB.getComments();
-            comments.push({ id: Date.now(), scriptId, userId: user.id, username: user.username, content, created: new Date().toISOString() });
+            comments.push({ id: Date.now(), scriptId, userId: user.id, username: user.username, content,
+                created: new Date().toISOString() });
             DB.saveComments(comments);
             input.value = '';
             showToast('💬 Yorum eklendi!', 'success');
@@ -2177,7 +2060,8 @@
             const p = document.getElementById('loginPassword').value.trim();
             const user = DB.getUsers().find(u2 => u2.username === u && u2.password === p);
             if (user) {
-                DB.setCurrentUser({ id: user.id, username: user.username, email: user.email || '', created: user.created });
+                DB.setCurrentUser({ id: user.id, username: user.username, email: user.email || '', created: user.created,
+                    level: user.level || 'user' });
                 updateNav();
                 closeModal();
                 showToast('🎮 Hoş geldin, ' + user.username + '!', 'success');
@@ -2195,7 +2079,8 @@
             const users = DB.getUsers();
             if (users.find(u2 => u2.username === u)) { showToast('Bu kullanıcı adı alınmış!', 'error'); return; }
             const newId = users.length > 0 ? Math.max(...users.map(u2 => u2.id)) + 1 : 1;
-            users.push({ id: newId, username: u, password: p, email: e || '', created: new Date().toISOString() });
+            users.push({ id: newId, username: u, password: p, email: e || '', created: new Date().toISOString(),
+                level: 'user' });
             DB.saveUsers(users);
             closeModal();
             showToast('🎮 Kayıt başarılı! Şimdi giriş yap.', 'success');
