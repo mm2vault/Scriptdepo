@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ScriptPaylaş - Kod Paylaşım Platformu</title>
+    <title>Roblox Script Paylaş</title>
     <style>
         * {
             margin: 0;
@@ -46,12 +46,13 @@
             gap: 10px;
         }
 
-        .logo span {
-            background: #238636;
-            color: white;
-            font-size: 12px;
-            padding: 2px 10px;
-            border-radius: 12px;
+        .logo .roblox-icon {
+            background: #1e1e2d;
+            padding: 4px 12px;
+            border-radius: 8px;
+            font-size: 14px;
+            color: #ff0000;
+            border: 1px solid #ff0000;
         }
 
         .nav {
@@ -103,6 +104,15 @@
             background: #f85149;
         }
 
+        .btn-roblox {
+            background: #ff0000;
+            color: white;
+        }
+
+        .btn-roblox:hover {
+            background: #cc0000;
+        }
+
         .btn-secondary {
             background: #21262d;
             color: #c9d1d9;
@@ -141,7 +151,7 @@
 
         .card-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
             gap: 20px;
         }
 
@@ -151,11 +161,13 @@
             border-radius: 8px;
             padding: 20px;
             transition: transform 0.2s;
+            border-left: 4px solid #ff0000;
         }
 
         .script-card:hover {
             transform: translateY(-4px);
             border-color: #58a6ff;
+            border-left-color: #ff0000;
         }
 
         .script-card h3 {
@@ -198,76 +210,28 @@
             border: 1px solid #30363d;
         }
 
-        .tag-python {
-            background: #3572A5;
+        .tag-roblox {
+            background: #ff0000;
             color: white;
-            border-color: #3572A5;
+            border-color: #ff0000;
         }
 
-        .tag-javascript {
-            background: #f1e05a;
-            color: #0d1117;
-            border-color: #f1e05a;
-        }
-
-        .tag-php {
-            background: #4F5D95;
+        .tag-lua {
+            background: #000080;
             color: white;
-            border-color: #4F5D95;
+            border-color: #000080;
         }
 
-        .tag-html {
-            background: #e34c26;
+        .tag-executor {
+            background: #8b00ff;
             color: white;
-            border-color: #e34c26;
+            border-color: #8b00ff;
         }
 
-        .tag-css {
-            background: #563d7c;
+        .tag-script {
+            background: #006400;
             color: white;
-            border-color: #563d7c;
-        }
-
-        .tag-shell {
-            background: #89e051;
-            color: #0d1117;
-            border-color: #89e051;
-        }
-
-        .tag-ruby {
-            background: #701516;
-            color: white;
-            border-color: #701516;
-        }
-
-        .tag-go {
-            background: #00ADD8;
-            color: white;
-            border-color: #00ADD8;
-        }
-
-        .tag-java {
-            background: #b07219;
-            color: white;
-            border-color: #b07219;
-        }
-
-        .tag-cpp {
-            background: #f34b7d;
-            color: white;
-            border-color: #f34b7d;
-        }
-
-        .tag-c {
-            background: #555555;
-            color: white;
-            border-color: #555555;
-        }
-
-        .tag-rust {
-            background: #dea584;
-            color: #0d1117;
-            border-color: #dea584;
+            border-color: #006400;
         }
 
         .script-actions {
@@ -318,8 +282,8 @@
         .form-group textarea:focus,
         .form-group select:focus {
             outline: none;
-            border-color: #58a6ff;
-            box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.2);
+            border-color: #ff0000;
+            box-shadow: 0 0 0 3px rgba(255, 0, 0, 0.2);
         }
 
         .form-group select option {
@@ -444,6 +408,16 @@
             line-height: 1.6;
         }
 
+        .roblox-badge {
+            display: inline-block;
+            background: #ff0000;
+            color: white;
+            padding: 2px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
         .comment-item {
             background: #0d1117;
             padding: 12px 16px;
@@ -555,8 +529,8 @@
         <!-- HEADER -->
         <header class="header">
             <a href="#" class="logo" onclick="showHome()">
-                📜 ScriptPaylaş
-                <span>Beta</span>
+                🎮 RobloxScript
+                <span class="roblox-icon">Roblox</span>
             </a>
             <nav class="nav" id="mainNav">
                 <a href="#" onclick="showHome()">Ana Sayfa</a>
@@ -565,7 +539,7 @@
                 <a href="#" onclick="logout()" id="logoutBtn" style="display:none;">🚪 Çıkış</a>
                 <a href="#" onclick="showLogin()" id="loginBtn">🔑 Giriş</a>
                 <a href="#" onclick="showRegister()" id="registerBtn">📝 Kayıt</a>
-                <span id="userDisplay" style="color:#58a6ff;font-weight:bold;display:none;"></span>
+                <span id="userDisplay" style="color:#ff0000;font-weight:bold;display:none;"></span>
             </nav>
         </header>
 
@@ -573,55 +547,51 @@
         <div id="alert" class="alert"></div>
 
         <!-- CONTENT -->
-        <div id="content">
-            <!-- Ana Sayfa buraya gelecek -->
-        </div>
+        <div id="content"></div>
 
         <!-- FOOTER -->
         <footer class="footer">
-            <p>© 2024 ScriptPaylaş - Açık Kaynak Kod Paylaşım Platformu</p>
+            <p>🎮 RobloxScript - Roblox Script Paylaşım Platformu</p>
             <p style="font-size:12px;margin-top:5px;">
-                ⭐ <a href="#" onclick="alert('GitHub\'da yıldız vermeyi unutma! ⭐')">GitHub'da Yıldızla</a>
+                ⚠️ Sadece eğitim amaçlıdır. Roblox ToS'ye uygun kullanın.
             </p>
         </footer>
     </div>
 
     <!-- MODAL -->
     <div id="modal" class="modal">
-        <div class="modal-content" id="modalContent">
-            <!-- Modal içeriği dinamik -->
-        </div>
+        <div class="modal-content" id="modalContent"></div>
     </div>
 
     <script>
         // ============= VERİTABANI (localStorage) =============
         const DB = {
             getUsers() {
-                return JSON.parse(localStorage.getItem('users') || '[]');
+                return JSON.parse(localStorage.getItem('roblox_users') || '[]');
             },
             saveUsers(users) {
-                localStorage.setItem('users', JSON.stringify(users));
+                localStorage.setItem('roblox_users', JSON.stringify(users));
             },
             getScripts() {
-                return JSON.parse(localStorage.getItem('scripts') || '[]');
+                return JSON.parse(localStorage.getItem('roblox_scripts') || '[]');
             },
             saveScripts(scripts) {
-                localStorage.setItem('scripts', JSON.stringify(scripts));
+                localStorage.setItem('roblox_scripts', JSON.stringify(scripts));
             },
             getComments() {
-                return JSON.parse(localStorage.getItem('comments') || '[]');
+                return JSON.parse(localStorage.getItem('roblox_comments') || '[]');
             },
             saveComments(comments) {
-                localStorage.setItem('comments', JSON.stringify(comments));
+                localStorage.setItem('roblox_comments', JSON.stringify(comments));
             },
             getCurrentUser() {
-                return JSON.parse(localStorage.getItem('currentUser') || 'null');
+                return JSON.parse(localStorage.getItem('roblox_currentUser') || 'null');
             },
             setCurrentUser(user) {
-                localStorage.setItem('currentUser', JSON.stringify(user));
+                localStorage.setItem('roblox_currentUser', JSON.stringify(user));
             },
             logout() {
-                localStorage.removeItem('currentUser');
+                localStorage.removeItem('roblox_currentUser');
             }
         };
 
@@ -633,7 +603,7 @@
                     id: 1,
                     username: 'admin',
                     password: 'admin123',
-                    email: 'admin@script.com',
+                    email: 'admin@roblox.com',
                     created: new Date().toISOString()
                 });
                 DB.saveUsers(users);
@@ -643,9 +613,20 @@
             if (scripts.length === 0) {
                 scripts.push({
                     id: 1,
-                    title: 'Merhaba Dünya',
-                    content: 'print("Merhaba Dünya!")\n\n# Bu bir örnek Python scriptidir.\n# Kendi scriptlerini paylaşmaya başla!',
-                    language: 'Python',
+                    title: 'Otomatik Tıklama Scripti',
+                    content: '-- Roblox Otomatik Tıklama Scripti\n-- Kullanım: Oyun içinde F1 tuşuna bas\n\nlocal player = game.Players.LocalPlayer\nlocal mouse = player:GetMouse()\n\nmouse.KeyDown:Connect(function(key)\n    if key == "F1" then\n        print("Tıklama başladı!")\n        while true do\n            mouse1click()\n            wait(0.1)\n        end\n    end\nend)',
+                    language: 'Lua',
+                    category: 'Otomasyon',
+                    userId: 1,
+                    username: 'admin',
+                    created: new Date().toISOString()
+                });
+                scripts.push({
+                    id: 2,
+                    title: 'ESP (X-Ray) Scripti',
+                    content: '-- Roblox ESP Scripti\n-- Oyuncuları duvarların arkasından gör\n\nlocal ESP = {}\nlocal player = game.Players.LocalPlayer\n\nfor _, v in pairs(game.Players:GetPlayers()) do\n    if v ~= player then\n        local highlight = Instance.new("Highlight")\n        highlight.Parent = v.Character\n        highlight.FillColor = Color3.new(1, 0, 0)\n        highlight.OutlineColor = Color3.new(1, 1, 1)\n    end\nend',
+                    language: 'Lua',
+                    category: 'ESP',
                     userId: 1,
                     username: 'admin',
                     created: new Date().toISOString()
@@ -655,21 +636,16 @@
         }
 
         // ============= YARDIMCI FONKSİYONLAR =============
-        function getLanguageTag(lang) {
+        function getCategoryTag(cat) {
             const map = {
-                'Python': 'tag-python',
-                'JavaScript': 'tag-javascript',
-                'PHP': 'tag-php',
-                'HTML/CSS': 'tag-html',
-                'Shell': 'tag-shell',
-                'Ruby': 'tag-ruby',
-                'Go': 'tag-go',
-                'Java': 'tag-java',
-                'C++': 'tag-cpp',
-                'C': 'tag-c',
-                'Rust': 'tag-rust'
+                'ESP': 'tag-esp',
+                'Otomasyon': 'tag-executor',
+                'Aimbot': 'tag-script',
+                'Fly': 'tag-script',
+                'Speed': 'tag-script',
+                'Diğer': 'tag-roblox'
             };
-            return map[lang] || '';
+            return map[cat] || 'tag-roblox';
         }
 
         function formatDate(dateStr) {
@@ -706,7 +682,7 @@
                 registerBtn.style.display = 'none';
                 logoutBtn.style.display = 'inline';
                 userDisplay.style.display = 'inline';
-                userDisplay.textContent = '👤 ' + user.username;
+                userDisplay.textContent = '🎮 ' + user.username;
             } else {
                 loginBtn.style.display = 'inline';
                 registerBtn.style.display = 'inline';
@@ -717,7 +693,6 @@
 
         // ============= SAYFA RENDERLARI =============
 
-        // ANA SAYFA
         function showHome() {
             const scripts = DB.getScripts();
             const content = document.getElementById('content');
@@ -725,11 +700,11 @@
             if (scripts.length === 0) {
                 content.innerHTML = `
                     <div class="empty-state">
-                        <div class="emoji">📭</div>
-                        <h3>Henüz script yok!</h3>
+                        <div class="emoji">🎮</div>
+                        <h3>Henüz Roblox scripti yok!</h3>
                         <p>İlk scripti sen paylaşmak ister misin?</p>
                         <br>
-                        <button class="btn btn-primary" onclick="showUpload()">📤 Script Yükle</button>
+                        <button class="btn btn-roblox" onclick="showUpload()">📤 Script Yükle</button>
                     </div>
                 `;
                 return;
@@ -738,18 +713,19 @@
             let cards = '';
             scripts.forEach(s => {
                 const preview = s.content.substring(0, 200) + (s.content.length > 200 ? '...' : '');
-                const tagClass = getLanguageTag(s.language);
                 cards += `
                     <div class="script-card">
                         <h3>${s.title}</h3>
                         <div class="meta">
                             <span>👤 ${s.username}</span>
                             <span>📅 ${formatDate(s.created)}</span>
-                            <span class="tag ${tagClass}">${s.language || 'Bilinmiyor'}</span>
+                            <span class="tag tag-lua">${s.language || 'Lua'}</span>
+                            <span class="tag ${getCategoryTag(s.category)}">${s.category || 'Diğer'}</span>
                         </div>
                         <div class="code-preview">${escapeHtml(preview)}</div>
                         <div class="script-actions">
                             <button class="btn btn-primary" onclick="showDetail(${s.id})">🔍 İncele</button>
+                            <button class="btn btn-secondary" onclick="copyScript(${s.id})">📋 Kopyala</button>
                             ${s.userId === (getCurrentUser()?.id || -1) ? `<button class="btn btn-danger" onclick="deleteScript(${s.id})">🗑️ Sil</button>` : ''}
                         </div>
                     </div>
@@ -757,14 +733,64 @@
             });
 
             content.innerHTML = `
-                <h2 style="margin-bottom:20px;">📜 Paylaşılan Scriptler (${scripts.length})</h2>
-                <div class="card-grid">${cards}</div>
+                <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:20px;">
+                    <h2>🎮 Roblox Scriptleri (${scripts.length})</h2>
+                    <div style="display:flex;gap:10px;flex-wrap:wrap;">
+                        <button class="btn btn-roblox" onclick="showUpload()">📤 Yeni Script</button>
+                        <button class="btn btn-secondary" onclick="filterScripts('all')">Tümü</button>
+                        <button class="btn btn-secondary" onclick="filterScripts('ESP')">ESP</button>
+                        <button class="btn btn-secondary" onclick="filterScripts('Otomasyon')">Otomasyon</button>
+                        <button class="btn btn-secondary" onclick="filterScripts('Aimbot')">Aimbot</button>
+                        <button class="btn btn-secondary" onclick="filterScripts('Fly')">Fly</button>
+                        <button class="btn btn-secondary" onclick="filterScripts('Speed')">Speed</button>
+                    </div>
+                </div>
+                <div class="card-grid" id="scriptGrid">${cards}</div>
             `;
 
             closeModal();
         }
 
-        // DETAY SAYFASI
+        // Script Filtreleme
+        function filterScripts(category) {
+            const scripts = DB.getScripts();
+            const filtered = category === 'all' ? scripts : scripts.filter(s => s.category === category);
+            const grid = document.getElementById('scriptGrid');
+
+            if (filtered.length === 0) {
+                grid.innerHTML = `
+                    <div class="empty-state" style="grid-column:1/-1;padding:40px;">
+                        <div class="emoji">🔍</div>
+                        <h3>Bu kategoride script yok</h3>
+                    </div>
+                `;
+                return;
+            }
+
+            let cards = '';
+            filtered.forEach(s => {
+                const preview = s.content.substring(0, 200) + (s.content.length > 200 ? '...' : '');
+                cards += `
+                    <div class="script-card">
+                        <h3>${s.title}</h3>
+                        <div class="meta">
+                            <span>👤 ${s.username}</span>
+                            <span>📅 ${formatDate(s.created)}</span>
+                            <span class="tag tag-lua">${s.language || 'Lua'}</span>
+                            <span class="tag ${getCategoryTag(s.category)}">${s.category || 'Diğer'}</span>
+                        </div>
+                        <div class="code-preview">${escapeHtml(preview)}</div>
+                        <div class="script-actions">
+                            <button class="btn btn-primary" onclick="showDetail(${s.id})">🔍 İncele</button>
+                            <button class="btn btn-secondary" onclick="copyScript(${s.id})">📋 Kopyala</button>
+                            ${s.userId === (getCurrentUser()?.id || -1) ? `<button class="btn btn-danger" onclick="deleteScript(${s.id})">🗑️ Sil</button>` : ''}
+                        </div>
+                    </div>
+                `;
+            });
+            grid.innerHTML = cards;
+        }
+
         function showDetail(id) {
             const scripts = DB.getScripts();
             const script = scripts.find(s => s.id === id);
@@ -798,7 +824,10 @@
                 <div class="card">
                     <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;">
                         <h2 class="card-title">${script.title}</h2>
-                        <span class="tag ${getLanguageTag(script.language)}">${script.language || 'Bilinmiyor'}</span>
+                        <div>
+                            <span class="tag tag-lua">${script.language || 'Lua'}</span>
+                            <span class="tag ${getCategoryTag(script.category)}">${script.category || 'Diğer'}</span>
+                        </div>
                     </div>
                     <div class="meta" style="color:#8b949e;font-size:14px;margin:10px 0;">
                         <span>👤 ${script.username}</span>
@@ -807,6 +836,7 @@
                     <div class="detail-code">${escapeHtml(script.content)}</div>
                     <div style="margin-top:15px;display:flex;gap:10px;flex-wrap:wrap;">
                         <button class="btn btn-secondary" onclick="showHome()">⬅ Geri</button>
+                        <button class="btn btn-primary" onclick="copyScript(${script.id})">📋 Kopyala</button>
                         ${script.userId === (currentUser?.id || -1) ? `<button class="btn btn-danger" onclick="deleteScript(${script.id})">🗑️ Sil</button>` : ''}
                     </div>
                 </div>
@@ -831,7 +861,6 @@
             closeModal();
         }
 
-        // YÜKLEME SAYFASI
         function showUpload() {
             if (!isLoggedIn()) {
                 showAlert('Lütfen önce giriş yapın!', 'error');
@@ -842,36 +871,29 @@
             const content = document.getElementById('content');
             content.innerHTML = `
                 <div class="card" style="max-width:700px;margin:0 auto;">
-                    <h2 class="card-title">📤 Script Yükle</h2>
+                    <h2 class="card-title">🎮 Roblox Script Yükle</h2>
                     <form onsubmit="uploadScript();return false;">
                         <div class="form-group">
-                            <label>Başlık *</label>
-                            <input type="text" id="scriptTitle" placeholder="Script başlığı..." required>
+                            <label>Script Başlığı *</label>
+                            <input type="text" id="scriptTitle" placeholder="Örn: Otomatik Tıklama Scripti" required>
                         </div>
                         <div class="form-group">
-                            <label>Kod *</label>
-                            <textarea id="scriptContent" placeholder="Script kodunu yapıştır..." required></textarea>
+                            <label>Script Kodu *</label>
+                            <textarea id="scriptContent" placeholder="Lua kodunu yapıştır..." required></textarea>
                         </div>
                         <div class="form-group">
-                            <label>Dil</label>
-                            <select id="scriptLanguage">
-                                <option value="">Seçiniz</option>
-                                <option>Python</option>
-                                <option>JavaScript</option>
-                                <option>PHP</option>
-                                <option>HTML/CSS</option>
-                                <option>Shell</option>
-                                <option>Ruby</option>
-                                <option>Go</option>
-                                <option>Java</option>
-                                <option>C++</option>
-                                <option>C</option>
-                                <option>Rust</option>
-                                <option>Diğer</option>
+                            <label>Kategori</label>
+                            <select id="scriptCategory">
+                                <option value="ESP">ESP (X-Ray)</option>
+                                <option value="Otomasyon">Otomasyon</option>
+                                <option value="Aimbot">Aimbot</option>
+                                <option value="Fly">Fly (Uçma)</option>
+                                <option value="Speed">Speed (Hız)</option>
+                                <option value="Diğer">Diğer</option>
                             </select>
                         </div>
                         <div style="display:flex;gap:10px;flex-wrap:wrap;">
-                            <button type="submit" class="btn btn-primary">📤 Yayınla</button>
+                            <button type="submit" class="btn btn-roblox">📤 Yayınla</button>
                             <button type="button" class="btn btn-secondary" onclick="showHome()">İptal</button>
                         </div>
                     </form>
@@ -881,7 +903,6 @@
             closeModal();
         }
 
-        // PROFİL SAYFASI
         function showProfile() {
             if (!isLoggedIn()) {
                 showAlert('Lütfen önce giriş yapın!', 'error');
@@ -896,11 +917,11 @@
             if (scripts.length === 0) {
                 cards = `
                     <div class="empty-state" style="padding:30px 20px;">
-                        <div class="emoji">📝</div>
+                        <div class="emoji">🎮</div>
                         <h3>Henüz scriptin yok!</h3>
-                        <p>İlk scriptini paylaşmaya ne dersin?</p>
+                        <p>İlk Roblox scriptini paylaşmaya ne dersin?</p>
                         <br>
-                        <button class="btn btn-primary" onclick="showUpload()">📤 Script Yükle</button>
+                        <button class="btn btn-roblox" onclick="showUpload()">📤 Script Yükle</button>
                     </div>
                 `;
             } else {
@@ -910,7 +931,7 @@
                             <h3>${s.title}</h3>
                             <div class="meta">
                                 <span>📅 ${formatDate(s.created)}</span>
-                                <span class="tag ${getLanguageTag(s.language)}">${s.language || 'Bilinmiyor'}</span>
+                                <span class="tag ${getCategoryTag(s.category)}">${s.category || 'Diğer'}</span>
                             </div>
                             <div class="script-actions">
                                 <button class="btn btn-primary" onclick="showDetail(${s.id})">🔍 Görüntüle</button>
@@ -924,7 +945,7 @@
             const content = document.getElementById('content');
             content.innerHTML = `
                 <div style="margin-bottom:20px;">
-                    <h2>👤 ${user.username}</h2>
+                    <h2>🎮 ${user.username}</h2>
                     <p style="color:#8b949e;">📧 ${user.email || 'Email girilmemiş'}</p>
                     <p style="color:#8b949e;font-size:14px;">📜 ${scripts.length} script paylaşıldı</p>
                 </div>
@@ -935,7 +956,6 @@
             closeModal();
         }
 
-        // GİRİŞ SAYFASI
         function showLogin() {
             if (isLoggedIn()) {
                 showAlert('Zaten giriş yaptınız!', 'info');
@@ -945,7 +965,7 @@
 
             openModal(`
                 <div class="modal-header">
-                    <h2>🔑 Giriş</h2>
+                    <h2>🎮 Giriş</h2>
                     <button class="modal-close" onclick="closeModal()">×</button>
                 </div>
                 <form onsubmit="loginUser();return false;">
@@ -957,18 +977,17 @@
                         <label>Şifre</label>
                         <input type="password" id="loginPassword" placeholder="Şifre..." required>
                     </div>
-                    <button type="submit" class="btn btn-primary" style="width:100%;">Giriş Yap</button>
+                    <button type="submit" class="btn btn-roblox" style="width:100%;">Giriş Yap</button>
                 </form>
                 <div style="text-align:center;margin-top:15px;">
                     <a href="#" onclick="closeModal();showRegister();" style="color:#58a6ff;">Hesabın yok mu? Kayıt ol</a>
                 </div>
                 <div style="text-align:center;margin-top:10px;font-size:13px;color:#8b949e;">
-                    Test: admin / admin123
+                    🔑 Test: admin / admin123
                 </div>
             `);
         }
 
-        // KAYIT SAYFASI
         function showRegister() {
             if (isLoggedIn()) {
                 showAlert('Zaten giriş yaptınız!', 'info');
@@ -978,7 +997,7 @@
 
             openModal(`
                 <div class="modal-header">
-                    <h2>📝 Kayıt</h2>
+                    <h2>🎮 Kayıt</h2>
                     <button class="modal-close" onclick="closeModal()">×</button>
                 </div>
                 <form onsubmit="registerUser();return false;">
@@ -994,7 +1013,7 @@
                         <label>Şifre *</label>
                         <input type="password" id="registerPassword" placeholder="Şifre..." required>
                     </div>
-                    <button type="submit" class="btn btn-primary" style="width:100%;">Kayıt Ol</button>
+                    <button type="submit" class="btn btn-roblox" style="width:100%;">Kayıt Ol</button>
                 </form>
                 <div style="text-align:center;margin-top:15px;">
                     <a href="#" onclick="closeModal();showLogin();" style="color:#58a6ff;">Zaten hesabın var mı? Giriş yap</a>
@@ -1004,11 +1023,10 @@
 
         // ============= İŞLEM FONKSİYONLARI =============
 
-        // Script Yükle
         function uploadScript() {
             const title = document.getElementById('scriptTitle').value.trim();
             const content = document.getElementById('scriptContent').value.trim();
-            const language = document.getElementById('scriptLanguage').value;
+            const category = document.getElementById('scriptCategory').value;
             const user = getCurrentUser();
 
             if (!title || !content) {
@@ -1023,18 +1041,18 @@
                 id: newId,
                 title: title,
                 content: content,
-                language: language,
+                language: 'Lua',
+                category: category,
                 userId: user.id,
                 username: user.username,
                 created: new Date().toISOString()
             });
 
             DB.saveScripts(scripts);
-            showAlert('Script başarıyla yüklendi! 🎉', 'success');
+            showAlert('🎮 Roblox scripti başarıyla yüklendi!', 'success');
             showHome();
         }
 
-        // Script Sil
         function deleteScript(id) {
             if (!confirm('Bu scripti silmek istediğine emin misin?')) return;
 
@@ -1042,7 +1060,6 @@
             scripts = scripts.filter(s => s.id !== id);
             DB.saveScripts(scripts);
 
-            // Yorumları da sil
             let comments = DB.getComments();
             comments = comments.filter(c => c.scriptId !== id);
             DB.saveComments(comments);
@@ -1051,7 +1068,25 @@
             showHome();
         }
 
-        // Yorum Ekle
+        function copyScript(id) {
+            const scripts = DB.getScripts();
+            const script = scripts.find(s => s.id === id);
+            if (script) {
+                navigator.clipboard.writeText(script.content).then(() => {
+                    showAlert('📋 Script kopyalandı!', 'success');
+                }).catch(() => {
+                    // Fallback
+                    const textarea = document.createElement('textarea');
+                    textarea.value = script.content;
+                    document.body.appendChild(textarea);
+                    textarea.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(textarea);
+                    showAlert('📋 Script kopyalandı!', 'success');
+                });
+            }
+        }
+
         function addComment(scriptId) {
             const form = document.querySelector('form[onsubmit*="addComment"]');
             const textarea = form.querySelector('textarea[name="comment"]');
@@ -1079,7 +1114,6 @@
             showDetail(scriptId);
         }
 
-        // Giriş
         function loginUser() {
             const username = document.getElementById('loginUsername').value.trim();
             const password = document.getElementById('loginPassword').value.trim();
@@ -1095,14 +1129,13 @@
                 });
                 updateNav();
                 closeModal();
-                showAlert('Hoş geldin, ' + user.username + '! 👋', 'success');
+                showAlert('🎮 Hoş geldin, ' + user.username + '!', 'success');
                 showHome();
             } else {
                 showAlert('Kullanıcı adı veya şifre hatalı!', 'error');
             }
         }
 
-        // Kayıt
         function registerUser() {
             const username = document.getElementById('registerUsername').value.trim();
             const email = document.getElementById('registerEmail').value.trim();
@@ -1135,11 +1168,10 @@
 
             DB.saveUsers(users);
             closeModal();
-            showAlert('Kayıt başarılı! Şimdi giriş yapabilirsin.', 'success');
+            showAlert('🎮 Kayıt başarılı! Şimdi giriş yapabilirsin.', 'success');
             showLogin();
         }
 
-        // Çıkış
         function logout() {
             if (!confirm('Çıkış yapmak istediğine emin misin?')) return;
             DB.logout();
@@ -1159,17 +1191,14 @@
             document.getElementById('modal').classList.remove('active');
         }
 
-        // Modal dışına tıklayınca kapat
         document.getElementById('modal').addEventListener('click', function(e) {
             if (e.target === this) closeModal();
         });
 
-        // ESC ile kapat
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') closeModal();
         });
 
-        // ============= HTML ESCAPE =============
         function escapeHtml(text) {
             if (!text) return '';
             const div = document.createElement('div');
@@ -1180,23 +1209,13 @@
         // ============= BAŞLAT =============
         initData();
         updateNav();
-
-        // Sayfa yüklenince ana sayfayı göster
         showHome();
 
-        // URL'den gelen parametreleri kontrol et
-        if (window.location.hash === '#upload') {
-            setTimeout(showUpload, 100);
-        } else if (window.location.hash === '#login') {
-            setTimeout(showLogin, 100);
-        } else if (window.location.hash === '#register') {
-            setTimeout(showRegister, 100);
-        }
-
-        console.log('🚀 ScriptPaylaş çalışıyor!');
+        console.log('🎮 RobloxScript çalışıyor!');
         console.log('👤 Admin: admin / admin123');
         console.log('📊 Script sayısı:', DB.getScripts().length);
         console.log('👥 Kullanıcı sayısı:', DB.getUsers().length);
+        console.log('⚠️ Sadece eğitim amaçlıdır!');
     </script>
 
 </body>
