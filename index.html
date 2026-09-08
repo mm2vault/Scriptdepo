@@ -5,13 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>🎮 Roblox Script Hub</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+    
+    <!-- Firebase SDK'ları -->
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         :root {
             --bg: #0a0a12;
             --bg2: #111122;
@@ -22,23 +23,17 @@
             --red: #ff375f;
             --blue: #00b2ff;
             --green: #00d4aa;
-            --border: rgba(255, 55, 95, 0.15);
+            --border: rgba(255,55,95,0.15);
             --radius: 12px;
         }
-
         body {
             font-family: -apple-system, 'Segoe UI', Roboto, sans-serif;
             background: var(--bg);
             color: var(--text);
             padding: 12px;
         }
-
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-        }
-
-        /* HEADER */
+        .container { max-width: 1100px; margin: 0 auto; }
+        
         .header {
             display: flex;
             justify-content: space-between;
@@ -51,7 +46,6 @@
             flex-wrap: wrap;
             gap: 10px;
         }
-
         .logo {
             font-size: 22px;
             font-weight: 900;
@@ -60,18 +54,14 @@
             -webkit-text-fill-color: transparent;
             cursor: pointer;
         }
-        .logo i {
-            -webkit-text-fill-color: white;
-            font-size: 26px;
-        }
-
+        .logo i { -webkit-text-fill-color: white; font-size: 26px; }
+        
         .nav {
             display: flex;
             gap: 4px;
             flex-wrap: wrap;
             align-items: center;
         }
-
         .nav button {
             padding: 6px 14px;
             border-radius: 8px;
@@ -83,38 +73,24 @@
             cursor: pointer;
             transition: 0.2s;
         }
-        .nav button:hover {
-            color: white;
-            background: rgba(255, 55, 95, 0.08);
-        }
-        .nav button.active {
-            color: white;
-            background: rgba(255, 55, 95, 0.12);
-        }
-
+        .nav button:hover { color: white; background: rgba(255,55,95,0.08); }
+        .nav button.active { color: white; background: rgba(255,55,95,0.12); }
         .btn-nav {
             background: var(--red) !important;
             color: white !important;
             padding: 8px 18px !important;
         }
-        .btn-nav:hover {
-            background: #cc0020 !important;
-        }
-
-        .btn-outline {
-            border: 1px solid var(--border) !important;
-        }
-        .btn-outline:hover {
-            border-color: var(--red) !important;
-        }
-
+        .btn-nav:hover { background: #cc0020 !important; }
+        .btn-outline { border: 1px solid var(--border) !important; }
+        .btn-outline:hover { border-color: var(--red) !important; }
+        
         .user-badge {
             display: flex;
             align-items: center;
             gap: 8px;
             padding: 4px 12px 4px 4px;
             border-radius: 30px;
-            background: rgba(255, 55, 95, 0.08);
+            background: rgba(255,55,95,0.08);
             border: 1px solid var(--border);
             cursor: pointer;
         }
@@ -129,17 +105,14 @@
             font-size: 14px;
             font-weight: 700;
             color: white;
+            overflow: hidden;
         }
         .user-badge .avatar img {
             width: 30px;
             height: 30px;
-            border-radius: 50%;
             object-fit: cover;
         }
-        .user-badge .name {
-            font-size: 13px;
-            font-weight: 600;
-        }
+        .user-badge .name { font-size: 13px; font-weight: 600; }
         .user-badge .rank {
             font-size: 10px;
             padding: 2px 8px;
@@ -147,11 +120,8 @@
             background: var(--red);
             color: white;
         }
-        .hidden {
-            display: none !important;
-        }
+        .hidden { display: none !important; }
 
-        /* HERO */
         .hero {
             background: var(--bg2);
             border-radius: var(--radius);
@@ -174,11 +144,7 @@
             line-height: 1.6;
             margin-bottom: 16px;
         }
-        .hero-actions {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
+        .hero-actions { display: flex; gap: 10px; flex-wrap: wrap; }
         .hero-actions button {
             padding: 10px 22px;
             border-radius: 8px;
@@ -191,23 +157,10 @@
             align-items: center;
             gap: 8px;
         }
-        .btn-primary {
-            background: var(--red);
-            color: white;
-        }
-        .btn-primary:hover {
-            background: #cc0020;
-            transform: scale(1.04);
-        }
-        .btn-secondary {
-            background: var(--bg3);
-            color: white;
-            border: 1px solid var(--border);
-        }
-        .btn-secondary:hover {
-            border-color: var(--red);
-            transform: scale(1.04);
-        }
+        .btn-primary { background: var(--red); color: white; }
+        .btn-primary:hover { background: #cc0020; transform: scale(1.04); }
+        .btn-secondary { background: var(--bg3); color: white; border: 1px solid var(--border); }
+        .btn-secondary:hover { border-color: var(--red); transform: scale(1.04); }
 
         .hero-stats {
             display: flex;
@@ -217,17 +170,9 @@
             border-top: 1px solid var(--border);
             flex-wrap: wrap;
         }
-        .hero-stats .stat .number {
-            font-size: 22px;
-            font-weight: 900;
-            color: var(--red);
-        }
-        .hero-stats .stat .label {
-            color: var(--text3);
-            font-size: 13px;
-        }
+        .hero-stats .stat .number { font-size: 22px; font-weight: 900; color: var(--red); }
+        .hero-stats .stat .label { color: var(--text3); font-size: 13px; }
 
-        /* FILTER */
         .filter-bar {
             display: flex;
             gap: 6px;
@@ -249,12 +194,9 @@
             cursor: pointer;
             transition: 0.2s;
         }
-        .filter-bar .filter-btn:hover {
-            color: white;
-            border-color: var(--border);
-        }
+        .filter-bar .filter-btn:hover { color: white; border-color: var(--border); }
         .filter-bar .filter-btn.active {
-            background: rgba(255, 55, 95, 0.12);
+            background: rgba(255,55,95,0.12);
             border-color: var(--red);
             color: white;
         }
@@ -277,12 +219,8 @@
             outline: none;
             width: 120px;
         }
-        .filter-bar .search-box input::placeholder {
-            color: var(--text3);
-        }
-        .filter-bar .search-box i {
-            color: var(--text3);
-        }
+        .filter-bar .search-box input::placeholder { color: var(--text3); }
+        .filter-bar .search-box i { color: var(--text3); }
         .filter-bar .sort-select {
             padding: 5px 12px;
             background: var(--bg);
@@ -293,13 +231,11 @@
             cursor: pointer;
         }
 
-        /* SCRIPT GRID */
         .script-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
             gap: 16px;
         }
-
         .script-card {
             background: var(--bg2);
             border-radius: var(--radius);
@@ -309,7 +245,7 @@
         }
         .script-card:hover {
             transform: translateY(-3px);
-            border-color: rgba(255, 55, 95, 0.3);
+            border-color: rgba(255,55,95,0.3);
         }
         .script-card .top {
             display: flex;
@@ -318,15 +254,8 @@
             gap: 8px;
             margin-bottom: 8px;
         }
-        .script-card .top h3 {
-            font-size: 16px;
-            font-weight: 700;
-        }
-        .script-card .top .badges {
-            display: flex;
-            gap: 4px;
-            flex-wrap: wrap;
-        }
+        .script-card .top h3 { font-size: 16px; font-weight: 700; }
+        .script-card .top .badges { display: flex; gap: 4px; flex-wrap: wrap; }
         .badge {
             padding: 2px 10px;
             border-radius: 12px;
@@ -334,52 +263,18 @@
             font-weight: 700;
             text-transform: uppercase;
         }
-        .badge-lua {
-            background: #000080;
-            color: white;
-        }
-        .badge-esp {
-            background: #7c3aed;
-            color: white;
-        }
-        .badge-otomasyon {
-            background: #00d4aa;
-            color: #0a0a0f;
-        }
-        .badge-aimbot {
-            background: var(--red);
-            color: white;
-        }
-        .badge-fly {
-            background: #00b2ff;
-            color: white;
-        }
-        .badge-speed {
-            background: #fbbf24;
-            color: #0a0a0f;
-        }
-        .badge-gui {
-            background: #ec4899;
-            color: white;
-        }
-        .badge-utility {
-            background: #3b82f6;
-            color: white;
-        }
-        .badge-diger {
-            background: #6a6a8a;
-            color: white;
-        }
-        .badge-featured {
-            background: #ff8c00;
-            color: white;
-        }
-        .badge-version {
-            background: rgba(255, 255, 255, 0.05);
-            color: var(--text2);
-            border: 1px solid var(--border);
-        }
-
+        .badge-lua { background: #000080; color: white; }
+        .badge-esp { background: #7c3aed; color: white; }
+        .badge-otomasyon { background: #00d4aa; color: #0a0a0f; }
+        .badge-aimbot { background: var(--red); color: white; }
+        .badge-fly { background: #00b2ff; color: white; }
+        .badge-speed { background: #fbbf24; color: #0a0a0f; }
+        .badge-gui { background: #ec4899; color: white; }
+        .badge-utility { background: #3b82f6; color: white; }
+        .badge-diger { background: #6a6a8a; color: white; }
+        .badge-featured { background: #ff8c00; color: white; }
+        .badge-version { background: rgba(255,255,255,0.05); color: var(--text2); border: 1px solid var(--border); }
+        
         .script-card .meta {
             display: flex;
             gap: 12px;
@@ -388,13 +283,8 @@
             color: var(--text3);
             margin-bottom: 8px;
         }
-        .script-card .meta i {
-            width: 14px;
-        }
-        .script-card .meta .likes {
-            color: var(--red);
-        }
-
+        .script-card .meta i { width: 14px; }
+        .script-card .meta .likes { color: var(--red); }
         .script-card .code-preview {
             background: var(--bg);
             padding: 10px;
@@ -410,7 +300,6 @@
             margin-bottom: 10px;
             line-height: 1.5;
         }
-
         .script-card .actions {
             display: flex;
             gap: 5px;
@@ -428,99 +317,27 @@
             align-items: center;
             gap: 4px;
         }
+        .btn-view { background: var(--blue); color: white; }
+        .btn-view:hover { background: #0099dd; }
+        .btn-copy { background: var(--bg); color: var(--text2); border: 1px solid var(--border) !important; }
+        .btn-copy:hover { border-color: var(--red) !important; color: white; }
+        .btn-fav { background: transparent; color: var(--text3); border: 1px solid var(--border) !important; }
+        .btn-fav:hover { border-color: #fbbf24 !important; color: #fbbf24; }
+        .btn-fav.active { border-color: #fbbf24 !important; color: #fbbf24; background: rgba(251,191,36,0.05); }
+        .btn-like { background: transparent; color: var(--text3); border: 1px solid var(--border) !important; }
+        .btn-like:hover { border-color: var(--red) !important; color: var(--red); }
+        .btn-like.active { border-color: var(--red) !important; color: var(--red); background: rgba(255,55,95,0.05); }
+        .btn-delete { background: rgba(255,55,95,0.1); color: var(--red); }
+        .btn-delete:hover { background: rgba(255,55,95,0.2); }
+        .btn-edit { background: rgba(0,178,255,0.1); color: var(--blue); border: 1px solid rgba(0,178,255,0.15) !important; }
+        .btn-edit:hover { background: rgba(0,178,255,0.2); }
+        .btn-back { background: var(--bg); color: var(--text2); border: 1px solid var(--border) !important; }
+        .btn-back:hover { border-color: var(--text3) !important; color: white; }
+        .btn-admin { background: #7c3aed; color: white; }
+        .btn-admin:hover { background: #6d28d9; }
+        .btn-submit { background: var(--red); color: white; }
+        .btn-submit:hover { background: #cc0020; }
 
-        .btn-view {
-            background: var(--blue);
-            color: white;
-        }
-        .btn-view:hover {
-            background: #0099dd;
-        }
-
-        .btn-copy {
-            background: var(--bg);
-            color: var(--text2);
-            border: 1px solid var(--border) !important;
-        }
-        .btn-copy:hover {
-            border-color: var(--red) !important;
-            color: white;
-        }
-
-        .btn-fav {
-            background: transparent;
-            color: var(--text3);
-            border: 1px solid var(--border) !important;
-        }
-        .btn-fav:hover {
-            border-color: #fbbf24 !important;
-            color: #fbbf24;
-        }
-        .btn-fav.active {
-            border-color: #fbbf24 !important;
-            color: #fbbf24;
-            background: rgba(251, 191, 36, 0.05);
-        }
-
-        .btn-like {
-            background: transparent;
-            color: var(--text3);
-            border: 1px solid var(--border) !important;
-        }
-        .btn-like:hover {
-            border-color: var(--red) !important;
-            color: var(--red);
-        }
-        .btn-like.active {
-            border-color: var(--red) !important;
-            color: var(--red);
-            background: rgba(255, 55, 95, 0.05);
-        }
-
-        .btn-delete {
-            background: rgba(255, 55, 95, 0.1);
-            color: var(--red);
-        }
-        .btn-delete:hover {
-            background: rgba(255, 55, 95, 0.2);
-        }
-
-        .btn-edit {
-            background: rgba(0, 178, 255, 0.1);
-            color: var(--blue);
-            border: 1px solid rgba(0, 178, 255, 0.15) !important;
-        }
-        .btn-edit:hover {
-            background: rgba(0, 178, 255, 0.2);
-        }
-
-        .btn-back {
-            background: var(--bg);
-            color: var(--text2);
-            border: 1px solid var(--border) !important;
-        }
-        .btn-back:hover {
-            border-color: var(--text3) !important;
-            color: white;
-        }
-
-        .btn-admin {
-            background: #7c3aed;
-            color: white;
-        }
-        .btn-admin:hover {
-            background: #6d28d9;
-        }
-
-        .btn-submit {
-            background: var(--red);
-            color: white;
-        }
-        .btn-submit:hover {
-            background: #cc0020;
-        }
-
-        /* PAGINATION */
         .pagination {
             display: flex;
             justify-content: center;
@@ -539,42 +356,15 @@
             transition: 0.2s;
             font-size: 13px;
         }
-        .pagination button:hover {
-            border-color: var(--red);
-            color: white;
-        }
-        .pagination button.active {
-            background: var(--red);
-            color: white;
-            border-color: var(--red);
-        }
-        .pagination button:disabled {
-            opacity: 0.3;
-            cursor: not-allowed;
-        }
+        .pagination button:hover { border-color: var(--red); color: white; }
+        .pagination button.active { background: var(--red); color: white; border-color: var(--red); }
+        .pagination button:disabled { opacity: 0.3; cursor: not-allowed; }
 
-        /* EMPTY */
-        .empty-state {
-            text-align: center;
-            padding: 50px 20px;
-            grid-column: 1 / -1;
-        }
-        .empty-state .emoji {
-            font-size: 50px;
-            display: block;
-            margin-bottom: 12px;
-        }
-        .empty-state h3 {
-            font-size: 18px;
-            margin-bottom: 6px;
-        }
-        .empty-state p {
-            color: var(--text2);
-            max-width: 400px;
-            margin: 0 auto 12px;
-        }
+        .empty-state { text-align: center; padding: 50px 20px; grid-column: 1/-1; }
+        .empty-state .emoji { font-size: 50px; display: block; margin-bottom: 12px; }
+        .empty-state h3 { font-size: 18px; margin-bottom: 6px; }
+        .empty-state p { color: var(--text2); max-width: 400px; margin: 0 auto 12px; }
 
-        /* MODAL */
         .modal {
             display: none;
             position: fixed;
@@ -582,17 +372,14 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.85);
+            background: rgba(0,0,0,0.85);
             backdrop-filter: blur(8px);
             z-index: 1000;
             justify-content: center;
             align-items: center;
             padding: 20px;
         }
-        .modal.active {
-            display: flex;
-        }
-
+        .modal.active { display: flex; }
         .modal-content {
             background: var(--bg2);
             border: 1px solid var(--border);
@@ -604,62 +391,25 @@
             overflow-y: auto;
             animation: fadeIn 0.3s ease;
         }
-
         @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: scale(0.95);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
         }
-
         .modal-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 16px;
         }
-        .modal-header h2 {
-            font-size: 20px;
-            font-weight: 800;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .modal-header h2 i {
-            color: var(--red);
-        }
-        .modal-close {
-            background: none;
-            border: none;
-            color: var(--text3);
-            font-size: 24px;
-            cursor: pointer;
-        }
-        .modal-close:hover {
-            color: var(--red);
-        }
+        .modal-header h2 { font-size: 20px; font-weight: 800; display: flex; align-items: center; gap: 10px; }
+        .modal-header h2 i { color: var(--red); }
+        .modal-close { background: none; border: none; color: var(--text3); font-size: 24px; cursor: pointer; }
+        .modal-close:hover { color: var(--red); }
 
-        .form-group {
-            margin-bottom: 14px;
-        }
-        .form-group label {
-            display: block;
-            margin-bottom: 4px;
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--text2);
-        }
-        .form-group label i {
-            margin-right: 6px;
-            color: var(--red);
-        }
-        .form-group input,
-        .form-group textarea,
-        .form-group select {
+        .form-group { margin-bottom: 14px; }
+        .form-group label { display: block; margin-bottom: 4px; font-size: 13px; font-weight: 600; color: var(--text2); }
+        .form-group label i { margin-right: 6px; color: var(--red); }
+        .form-group input, .form-group textarea, .form-group select {
             width: 100%;
             padding: 10px 14px;
             background: var(--bg);
@@ -670,23 +420,13 @@
             transition: 0.2s;
             font-family: inherit;
         }
-        .form-group input:focus,
-        .form-group textarea:focus,
-        .form-group select:focus {
+        .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
             outline: none;
             border-color: var(--red);
         }
-        .form-group textarea {
-            min-height: 100px;
-            font-family: monospace;
-            resize: vertical;
-        }
+        .form-group textarea { min-height: 100px; font-family: monospace; resize: vertical; }
 
-        .form-actions {
-            display: flex;
-            gap: 10px;
-            margin-top: 6px;
-        }
+        .form-actions { display: flex; gap: 10px; margin-top: 6px; }
         .form-actions button {
             padding: 10px 20px;
             border-radius: 8px;
@@ -697,28 +437,10 @@
             transition: 0.2s;
             flex: 1;
         }
-        .btn-cancel {
-            background: var(--bg);
-            color: var(--text2);
-            border: 1px solid var(--border);
-        }
-        .btn-cancel:hover {
-            border-color: var(--text3);
-            color: white;
-        }
-
-        .form-footer {
-            text-align: center;
-            margin-top: 14px;
-            color: var(--text3);
-            font-size: 13px;
-        }
-        .form-footer a {
-            color: var(--red);
-            text-decoration: none;
-            font-weight: 600;
-            cursor: pointer;
-        }
+        .btn-cancel { background: var(--bg); color: var(--text2); border: 1px solid var(--border); }
+        .btn-cancel:hover { border-color: var(--text3); color: white; }
+        .form-footer { text-align: center; margin-top: 14px; color: var(--text3); font-size: 13px; }
+        .form-footer a { color: var(--red); text-decoration: none; font-weight: 600; cursor: pointer; }
 
         .divider {
             display: flex;
@@ -728,25 +450,14 @@
             color: var(--text3);
             font-size: 13px;
         }
-        .divider::before,
-        .divider::after {
+        .divider::before, .divider::after {
             content: '';
             flex: 1;
             border-bottom: 1px solid var(--border);
         }
-        .divider::before {
-            margin-right: 12px;
-        }
-        .divider::after {
-            margin-left: 12px;
-        }
+        .divider::before { margin-right: 12px; }
+        .divider::after { margin-left: 12px; }
 
-        /* Sosyal Butonlar */
-        .social-login {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
         .btn-social {
             padding: 10px 20px !important;
             border-radius: 8px !important;
@@ -762,30 +473,13 @@
             transition: 0.2s !important;
             font-family: inherit !important;
         }
-        .btn-social i {
-            font-size: 18px;
-        }
-        .btn-social:hover {
-            transform: scale(1.02);
-        }
+        .btn-social i { font-size: 18px; }
+        .btn-social:hover { transform: scale(1.02); }
+        .btn-google { background: #4285F4 !important; color: white !important; }
+        .btn-google:hover { background: #357ae8 !important; }
+        .btn-github { background: #24292e !important; color: white !important; }
+        .btn-github:hover { background: #1a1e22 !important; }
 
-        .btn-google {
-            background: #4285F4 !important;
-            color: white !important;
-        }
-        .btn-google:hover {
-            background: #357ae8 !important;
-        }
-
-        .btn-github {
-            background: #24292e !important;
-            color: white !important;
-        }
-        .btn-github:hover {
-            background: #1a1e22 !important;
-        }
-
-        /* DETAIL VIEW */
         .detail-view .detail-code {
             background: var(--bg);
             padding: 16px;
@@ -830,19 +524,9 @@
             gap: 6px;
         }
 
-        .comments-section {
-            margin-top: 16px;
-        }
-        .comments-section h3 {
-            font-size: 17px;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .comments-section h3 i {
-            color: var(--red);
-        }
+        .comments-section { margin-top: 16px; }
+        .comments-section h3 { font-size: 17px; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+        .comments-section h3 i { color: var(--red); }
         .comment-item {
             background: var(--bg);
             padding: 10px 14px;
@@ -857,14 +541,8 @@
             color: var(--text3);
             margin-bottom: 4px;
         }
-        .comment-item .comment-header strong {
-            color: white;
-        }
-        .comment-item p {
-            color: var(--text2);
-            font-size: 13px;
-            line-height: 1.5;
-        }
+        .comment-item .comment-header strong { color: white; }
+        .comment-item p { color: var(--text2); font-size: 13px; line-height: 1.5; }
         .comment-form {
             display: flex;
             gap: 10px;
@@ -882,10 +560,7 @@
             min-height: 45px;
             font-family: inherit;
         }
-        .comment-form textarea:focus {
-            outline: none;
-            border-color: var(--red);
-        }
+        .comment-form textarea:focus { outline: none; border-color: var(--red); }
         .comment-form button {
             padding: 10px 18px;
             border-radius: 8px;
@@ -895,11 +570,8 @@
             font-weight: 600;
             cursor: pointer;
         }
-        .comment-form button:hover {
-            background: #cc0020;
-        }
+        .comment-form button:hover { background: #cc0020; }
 
-        /* TOAST */
         .toast-container {
             position: fixed;
             bottom: 20px;
@@ -918,45 +590,24 @@
             display: flex;
             align-items: center;
             gap: 10px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.4);
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255,255,255,0.05);
             cursor: pointer;
             animation: slideIn 0.3s ease;
             min-width: 240px;
         }
-        .toast-success {
-            background: linear-gradient(135deg, rgba(0, 212, 170, 0.95), rgba(0, 184, 148, 0.95));
-        }
-        .toast-error {
-            background: linear-gradient(135deg, rgba(255, 55, 95, 0.95), rgba(204, 0, 32, 0.95));
-        }
-        .toast-info {
-            background: linear-gradient(135deg, rgba(0, 178, 255, 0.95), rgba(0, 153, 221, 0.95));
-        }
-        .toast .toast-close {
-            background: none;
-            border: none;
-            color: rgba(255, 255, 255, 0.6);
-            cursor: pointer;
-            font-size: 14px;
-        }
-        .toast .toast-close:hover {
-            color: white;
-        }
+        .toast-success { background: linear-gradient(135deg, rgba(0,212,170,0.95), rgba(0,184,148,0.95)); }
+        .toast-error { background: linear-gradient(135deg, rgba(255,55,95,0.95), rgba(204,0,32,0.95)); }
+        .toast-info { background: linear-gradient(135deg, rgba(0,178,255,0.95), rgba(0,153,221,0.95)); }
+        .toast .toast-close { background: none; border: none; color: rgba(255,255,255,0.6); cursor: pointer; font-size: 14px; }
+        .toast .toast-close:hover { color: white; }
 
         @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateX(40px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
+            from { opacity: 0; transform: translateX(40px); }
+            to { opacity: 1; transform: translateX(0); }
         }
 
-        /* FOOTER */
         .footer {
             text-align: center;
             padding: 24px 0 12px;
@@ -965,26 +616,11 @@
             color: var(--text3);
             font-size: 13px;
         }
-        .footer .social {
-            display: flex;
-            justify-content: center;
-            gap: 14px;
-            margin-bottom: 10px;
-        }
-        .footer .social a {
-            color: var(--text3);
-            font-size: 18px;
-            transition: 0.2s;
-        }
-        .footer .social a:hover {
-            color: var(--red);
-        }
-        .footer .disclaimer {
-            font-size: 11px;
-            opacity: 0.5;
-        }
+        .footer .social { display: flex; justify-content: center; gap: 14px; margin-bottom: 10px; }
+        .footer .social a { color: var(--text3); font-size: 18px; transition: 0.2s; }
+        .footer .social a:hover { color: var(--red); }
+        .footer .disclaimer { font-size: 11px; opacity: 0.5; }
 
-        /* ADMIN PANEL */
         .admin-panel {
             background: var(--bg2);
             border: 1px solid var(--border);
@@ -992,94 +628,36 @@
             padding: 18px;
             margin-bottom: 16px;
         }
-        .admin-panel h3 {
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .admin-panel .admin-stats {
-            display: flex;
-            gap: 16px;
-            flex-wrap: wrap;
-            margin-bottom: 12px;
-        }
+        .admin-panel h3 { margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+        .admin-panel .admin-stats { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 12px; }
         .admin-panel .admin-stats div {
             background: var(--bg);
             padding: 6px 14px;
             border-radius: 8px;
             border: 1px solid var(--border);
         }
-        .admin-panel .admin-stats div span {
-            font-weight: 700;
-            color: var(--red);
-        }
+        .admin-panel .admin-stats div span { font-weight: 700; color: var(--red); }
 
-        /* RESPONSIVE */
         @media (max-width: 768px) {
-            .header {
-                flex-direction: column;
-                align-items: stretch;
-                gap: 6px;
-            }
-            .nav {
-                justify-content: center;
-            }
-            .nav button {
-                font-size: 12px;
-                padding: 4px 10px;
-            }
-            .hero {
-                padding: 20px;
-            }
-            .hero h1 {
-                font-size: 24px;
-            }
-            .hero-stats {
-                gap: 16px;
-            }
-            .filter-bar {
-                flex-direction: column;
-                align-items: stretch;
-            }
-            .filter-bar .search-box {
-                margin-left: 0;
-            }
-            .filter-bar .search-box input {
-                width: 100%;
-            }
-            .script-grid {
-                grid-template-columns: 1fr;
-            }
-            .modal-content {
-                padding: 16px;
-                margin: 8px;
-            }
-            .form-actions {
-                flex-direction: column;
-            }
-            .toast-container {
-                left: 12px;
-                right: 12px;
-                bottom: 12px;
-            }
-            .toast {
-                min-width: auto;
-            }
+            .header { flex-direction: column; align-items: stretch; gap: 6px; }
+            .nav { justify-content: center; }
+            .nav button { font-size: 12px; padding: 4px 10px; }
+            .hero { padding: 20px; }
+            .hero h1 { font-size: 24px; }
+            .hero-stats { gap: 16px; }
+            .filter-bar { flex-direction: column; align-items: stretch; }
+            .filter-bar .search-box { margin-left: 0; }
+            .filter-bar .search-box input { width: 100%; }
+            .script-grid { grid-template-columns: 1fr; }
+            .modal-content { padding: 16px; margin: 8px; }
+            .form-actions { flex-direction: column; }
+            .toast-container { left: 12px; right: 12px; bottom: 12px; }
+            .toast { min-width: auto; }
         }
-
         @media (max-width: 480px) {
-            .hero h1 {
-                font-size: 20px;
-            }
-            .hero-actions button {
-                font-size: 12px;
-                padding: 8px 14px;
-            }
-            .script-card .actions button {
-                font-size: 10px;
-                padding: 4px 8px;
-            }
+            .hero h1 { font-size: 20px; }
+            .hero-actions button { font-size: 12px; padding: 8px 14px; }
+            .script-card .actions button { font-size: 10px; padding: 4px 8px; }
         }
     </style>
 </head>
@@ -1087,7 +665,6 @@
 
     <div class="container">
 
-        <!-- HEADER -->
         <header class="header">
             <div class="logo" onclick="goHome()">
                 <i class="fas fa-gamepad"></i> ScriptHub
@@ -1099,14 +676,11 @@
                 <button onclick="showFavorites()" id="navFavorites" class="hidden"><i class="fas fa-star"></i> Favoriler</button>
                 <button onclick="showLeaderboard()"><i class="fas fa-trophy"></i> Liderlik</button>
                 <button onclick="showAdminPanel()" id="navAdmin" class="hidden"><i class="fas fa-shield-alt"></i> Admin</button>
-
                 <span style="width:1px;height:24px;background:var(--border);margin:0 4px;"></span>
-
                 <div id="authButtons">
                     <button class="btn-outline" onclick="showLogin()"><i class="fas fa-sign-in-alt"></i> Giriş</button>
                     <button class="btn-nav" onclick="showRegister()"><i class="fas fa-user-plus"></i> Kayıt</button>
                 </div>
-
                 <div id="userBadge" class="user-badge hidden" onclick="showProfile()">
                     <div class="avatar" id="userAvatar">A</div>
                     <span class="name" id="userName"></span>
@@ -1118,11 +692,10 @@
             </nav>
         </header>
 
-        <!-- HERO -->
         <div class="hero" id="heroSection">
             <div class="hero-content">
                 <h1>🎮 Roblox Script Hub</h1>
-                <p>Binlerce Roblox scriptini keşfet, paylaş ve kullan. Topluluğun en iyi scriptleri tek platformda!</p>
+                <p>Binlerce Roblox scriptini keşfet, paylaş ve kullan. Firebase ile güvenli giriş!</p>
                 <div class="hero-actions">
                     <button class="btn-primary" onclick="showUpload()"><i class="fas fa-rocket"></i> Script Paylaş</button>
                     <button class="btn-secondary" onclick="showLeaderboard()"><i class="fas fa-trophy"></i> Liderlik</button>
@@ -1136,7 +709,6 @@
             </div>
         </div>
 
-        <!-- FILTER -->
         <div class="filter-bar">
             <button class="filter-btn active" data-filter="all" onclick="filterScripts('all')"><i class="fas fa-fire"></i> Tümü</button>
             <button class="filter-btn" data-filter="ESP" onclick="filterScripts('ESP')">👁️ ESP</button>
@@ -1147,12 +719,10 @@
             <button class="filter-btn" data-filter="GUI" onclick="filterScripts('GUI')">🖥️ GUI</button>
             <button class="filter-btn" data-filter="Utility" onclick="filterScripts('Utility')">🔧 Utility</button>
             <button class="filter-btn" data-filter="Diğer" onclick="filterScripts('Diğer')">📦 Diğer</button>
-
             <div class="search-box">
                 <i class="fas fa-search"></i>
                 <input type="text" id="searchInput" placeholder="Script ara..." oninput="searchScripts(this.value)">
             </div>
-
             <select class="sort-select" id="sortSelect" onchange="sortScripts(this.value)">
                 <option value="newest">📅 En Yeni</option>
                 <option value="popular">🔥 En Popüler</option>
@@ -1160,38 +730,49 @@
             </select>
         </div>
 
-        <!-- CONTENT -->
         <div id="content">
             <div class="script-grid" id="scriptGrid"></div>
             <div class="pagination" id="pagination"></div>
         </div>
 
-        <!-- FOOTER -->
         <footer class="footer">
             <div class="social">
                 <a href="#"><i class="fab fa-github"></i></a>
                 <a href="#"><i class="fab fa-discord"></i></a>
                 <a href="#"><i class="fab fa-twitter"></i></a>
             </div>
-            <p>🎮 Roblox Script Hub</p>
+            <p>🎮 Roblox Script Hub 🔥 Firebase</p>
             <p class="disclaimer">⚠️ Sadece eğitim amaçlıdır. Roblox ToS'a uygun kullanın.</p>
         </footer>
     </div>
 
-    <!-- MODAL -->
     <div class="modal" id="modal">
         <div class="modal-content" id="modalContent"></div>
     </div>
 
-    <!-- TOAST -->
     <div class="toast-container" id="toastContainer"></div>
 
-    <!-- ============================================================
-    JAVASCRIPT
-    ============================================================ -->
     <script>
         // ============================================================
-        // DATABASE (LocalStorage)
+        // FIREBASE CONFIG
+        // ============================================================
+        const firebaseConfig = {
+            apiKey: "AIzaSyDKdE947q36KwQxkrxbUzpmoynaMsssWB8",
+            authDomain: "scripthub-b95d1.firebaseapp.com",
+            projectId: "scripthub-b95d1",
+            storageBucket: "scripthub-b95d1.firebasestorage.app",
+            messagingSenderId: "435891213405",
+            appId: "1:435891213405:web:522b592d921689882629b4",
+            measurementId: "G-PVXHHBYLGR"
+        };
+
+        // Firebase Başlat
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+
+        // ============================================================
+        // DATABASE (LocalStorage yedek)
         // ============================================================
         const DB = {
             getUsers() { return JSON.parse(localStorage.getItem('rbx_users') || '[]'); },
@@ -1215,19 +796,10 @@
         // HELPERS
         // ============================================================
         function getCategoryBadge(cat) {
-            const map = {
-                'ESP': 'badge-esp',
-                'Otomasyon': 'badge-otomasyon',
-                'Aimbot': 'badge-aimbot',
-                'Fly': 'badge-fly',
-                'Speed': 'badge-speed',
-                'GUI': 'badge-gui',
-                'Utility': 'badge-utility',
-                'Diğer': 'badge-diger'
-            };
+            const map = { 'ESP': 'badge-esp', 'Otomasyon': 'badge-otomasyon', 'Aimbot': 'badge-aimbot', 'Fly': 'badge-fly',
+                'Speed': 'badge-speed', 'GUI': 'badge-gui', 'Utility': 'badge-utility', 'Diğer': 'badge-diger' };
             return map[cat] || 'badge-diger';
         }
-
         function formatDate(dateStr) {
             const d = new Date(dateStr);
             const now = new Date();
@@ -1238,30 +810,20 @@
             if (diff < 604800000) return Math.floor(diff / 86400000) + ' gün önce';
             return d.toLocaleDateString('tr-TR');
         }
-
         function getCurrentUser() { return DB.getCurrentUser(); }
-
         function isLoggedIn() { return getCurrentUser() !== null; }
-
         function isAdmin() {
             const u = getCurrentUser();
             return u && u.rank === 'admin';
         }
-
         function escapeHtml(text) {
             if (!text) return '';
             const d = document.createElement('div');
             d.textContent = text;
             return d.innerHTML;
         }
-
-        function isNew(dateStr) {
-            return (new Date() - new Date(dateStr)) < 86400000;
-        }
-
-        function generateId() {
-            return Date.now() + Math.floor(Math.random() * 1000);
-        }
+        function isNew(dateStr) { return (new Date() - new Date(dateStr)) < 86400000; }
+        function generateId() { return Date.now() + Math.floor(Math.random() * 1000); }
 
         // ============================================================
         // TOAST
@@ -1270,18 +832,14 @@
             const container = document.getElementById('toastContainer');
             const toast = document.createElement('div');
             toast.className = `toast toast-${type}`;
-
             const icons = { success: '✅', error: '❌', info: 'ℹ️', warning: '⚠️' };
             const titles = { success: 'Başarılı!', error: 'Hata!', info: 'Bilgi', warning: 'Uyarı' };
-
             toast.innerHTML = `
                 <span>${icons[type] || 'ℹ️'}</span>
                 <span><strong>${title || titles[type] || 'Bilgi'}</strong> ${message}</span>
                 <button class="toast-close" onclick="this.parentElement.remove()">✕</button>
             `;
-
             container.appendChild(toast);
-
             setTimeout(() => {
                 if (toast.parentElement) {
                     toast.style.opacity = '0';
@@ -1289,7 +847,6 @@
                     setTimeout(() => toast.remove(), 300);
                 }
             }, 3500);
-
             toast.addEventListener('click', () => {
                 toast.style.opacity = '0';
                 toast.style.transform = 'translateX(40px)';
@@ -1298,257 +855,118 @@
         }
 
         // ============================================================
-        // GOOGLE & GITHUB LOGIN (Firebase kullanmadan)
+        // FIREBASE AUTH - OTURUM YÖNETİMİ
         // ============================================================
-        // Google ile giriş - popup ile
-        function loginWithGoogle() {
-            showToast('🔵 Google ile giriş açılıyor...', 'info', 'Bilgi');
-            // Google OAuth popup'ı aç
-            const width = 500,
-                height = 600;
-            const left = (window.screen.width - width) / 2;
-            const top = (window.screen.height - height) / 2;
-            const popup = window.open(
-                'https://accounts.google.com/o/oauth2/v2/auth?client_id=YOUR_GOOGLE_CLIENT_ID&redirect_uri=' +
-                encodeURIComponent(window.location.origin + '/') +
-                '&response_type=token&scope=email%20profile',
-                'google_login',
-                `width=${width},height=${height},left=${left},top=${top}`
-            );
-
-            // Popup'dan gelen bilgiyi yakala
-            const checkPopup = setInterval(() => {
-                try {
-                    if (popup.closed) {
-                        clearInterval(checkPopup);
-                        return;
-                    }
-                    // Popup URL'inden token'ı al
-                    const url = popup.location.href;
-                    if (url.includes('access_token=')) {
-                        const params = new URLSearchParams(url.split('#')[1]);
-                        const token = params.get('access_token');
-                        if (token) {
-                            // Token ile kullanıcı bilgilerini al
-                            fetch('https://www.googleapis.com/oauth2/v2/userinfo', {
-                                headers: { 'Authorization': 'Bearer ' + token }
-                            }).then(res => res.json()).then(data => {
-                                popup.close();
-                                clearInterval(checkPopup);
-                                handleSocialLogin(data.email, data.name, data.picture, 'google');
-                            }).catch(err => {
-                                showToast('Google giriş hatası!', 'error');
-                            });
-                        }
-                    }
-                } catch (e) {
-                    // Cross-origin hatası normaldir, devam et
-                }
-            }, 500);
-        }
-
-        // GitHub ile giriş - popup ile
-        function loginWithGitHub() {
-            showToast('⚫ GitHub ile giriş açılıyor...', 'info', 'Bilgi');
-            const width = 500,
-                height = 600;
-            const left = (window.screen.width - width) / 2;
-            const top = (window.screen.height - height) / 2;
-            const popup = window.open(
-                'https://github.com/login/oauth/authorize?client_id=YOUR_GITHUB_CLIENT_ID&redirect_uri=' +
-                encodeURIComponent(window.location.origin + '/') +
-                '&scope=user:email',
-                'github_login',
-                `width=${width},height=${height},left=${left},top=${top}`
-            );
-
-            const checkPopup = setInterval(() => {
-                try {
-                    if (popup.closed) {
-                        clearInterval(checkPopup);
-                        return;
-                    }
-                    const url = popup.location.href;
-                    if (url.includes('code=')) {
-                        const params = new URLSearchParams(url.split('?')[1]);
-                        const code = params.get('code');
-                        if (code) {
-                            // Code ile token al (GitHub OAuth)
-                            fetch('https://cors-anywhere.herokuapp.com/https://github.com/login/oauth/access_token', {
-                                method: 'POST',
-                                headers: { 'Content-Type': 'application/json' },
-                                body: JSON.stringify({
-                                    client_id: 'YOUR_GITHUB_CLIENT_ID',
-                                    client_secret: 'YOUR_GITHUB_CLIENT_SECRET',
-                                    code: code,
-                                    redirect_uri: window.location.origin + '/'
-                                })
-                            }).then(res => res.text()).then(data => {
-                                const params = new URLSearchParams(data);
-                                const token = params.get('access_token');
-                                if (token) {
-                                    fetch('https://api.github.com/user', {
-                                        headers: { 'Authorization': 'Bearer ' + token }
-                                    }).then(res => res.json()).then(userData => {
-                                        const email = userData.email || userData.login +
-                                            '@github.com';
-                                        const name = userData.name || userData.login;
-                                        const avatar = userData.avatar_url;
-                                        popup.close();
-                                        clearInterval(checkPopup);
-                                        handleSocialLogin(email, name, avatar, 'github');
-                                    });
-                                }
-                            }).catch(err => {
-                                showToast('GitHub giriş hatası!', 'error');
-                            });
-                        }
-                    }
-                } catch (e) {
-                    // Cross-origin hatası normal
-                }
-            }, 500);
-        }
-
-        // Sosyal giriş işlemi
-        function handleSocialLogin(email, name, avatar, provider) {
-            // Kullanıcıyı kontrol et
-            let users = DB.getUsers();
-            let user = users.find(u => u.email === email);
-
-            if (!user) {
-                // Yeni kullanıcı oluştur
-                const newId = users.length > 0 ? Math.max(...users.map(u => u.id)) + 1 : 1;
-                const rank = email === 'mm2ultimatehib@gmail.com' ? 'admin' : 'user';
-                user = {
-                    id: newId,
-                    username: name || email.split('@')[0],
-                    email: email,
-                    password: 'social_' + Math.random().toString(36).slice(2, 10),
-                    rank: rank,
-                    created: new Date().toISOString(),
-                    avatar: avatar || ''
+        auth.onAuthStateChanged(user => {
+            if (user) {
+                console.log('✅ Firebase ile giriş yapıldı:', user.displayName || user.email);
+                // Kullanıcıyı LocalStorage'a kaydet
+                const userData = {
+                    id: user.uid,
+                    username: user.displayName || user.email.split('@')[0],
+                    email: user.email,
+                    rank: user.email === 'mm2ultimatehib@gmail.com' ? 'admin' : 'user',
+                    avatar: user.photoURL || '',
+                    created: new Date().toISOString()
                 };
-                users.push(user);
-                DB.saveUsers(users);
-                showToast('🎉 ' + provider.charAt(0).toUpperCase() + provider.slice(1) + ' ile kayıt oldun!', 'success',
-                    'Hoş Geldin!');
+                DB.setCurrentUser(userData);
+                
+                // Firestore'a kaydet
+                db.collection('users').doc(user.uid).set(userData, { merge: true });
+                
+                updateNav();
+                updateStats();
+                if (!document.querySelector('.detail-view') && !document.querySelector('.admin-panel')) {
+                    goHome();
+                }
+                showToast('🎮 Hoş geldin, ' + userData.username + '!', 'success', 'Hoş Geldin!');
             } else {
-                // Eski kullanıcı, avatarı güncelle
-                if (avatar) user.avatar = avatar;
-                DB.saveUsers(users);
-                showToast('🎮 ' + provider.charAt(0).toUpperCase() + provider.slice(1) + ' ile giriş yaptın!', 'success',
-                    'Hoş Geldin!');
+                console.log('👋 Kullanıcı çıkış yaptı');
+                DB.logout();
+                updateNav();
+                goHome();
             }
+        });
 
-            // Giriş yap
-            DB.setCurrentUser({
-                id: user.id,
-                username: user.username,
-                email: user.email,
-                rank: user.rank,
-                avatar: user.avatar || '',
-                created: user.created
-            });
-            updateNav();
-            closeModal();
-            updateStats();
-            goHome();
+        // ============================================================
+        // FIREBASE LOGIN FONKSİYONLARI
+        // ============================================================
+        function loginWithGoogle() {
+            const provider = new firebase.auth.GoogleAuthProvider();
+            auth.signInWithPopup(provider)
+                .then(() => {
+                    closeModal();
+                    showToast('🎉 Google ile giriş başarılı!', 'success');
+                })
+                .catch((err) => {
+                    console.error('Google hata:', err);
+                    if (err.code === 'auth/popup-closed-by-user') {
+                        showToast('Popup kapandı, tekrar dene.', 'info');
+                    } else {
+                        showToast('❌ Google hatası: ' + err.message, 'error');
+                    }
+                });
         }
 
-        // ============================================================
-        // INIT
-        // ============================================================
-        function initData() {
-            let users = DB.getUsers();
-            if (users.length === 0) {
-                users = [
-                    { id: 1, username: 'admin', password: 'admin123', email: 'mm2ultimatehib@gmail.com',
-                    rank: 'admin', created: new Date().toISOString(), avatar: '' },
-                    { id: 2, username: 'scriptmaster', password: '123456', email: 'master@roblox.com', rank: 'user',
-                        created: new Date().toISOString(), avatar: '' }
-                ];
-                DB.saveUsers(users);
-            }
+        function loginWithGitHub() {
+            const provider = new firebase.auth.GithubAuthProvider();
+            auth.signInWithPopup(provider)
+                .then(() => {
+                    closeModal();
+                    showToast('🎉 GitHub ile giriş başarılı!', 'success');
+                })
+                .catch((err) => {
+                    console.error('GitHub hata:', err);
+                    if (err.code === 'auth/popup-closed-by-user') {
+                        showToast('Popup kapandı, tekrar dene.', 'info');
+                    } else {
+                        showToast('❌ GitHub hatası: ' + err.message, 'error');
+                    }
+                });
+        }
 
-            let scripts = DB.getScripts();
-            if (scripts.length === 0) {
-                const sample = [{
-                    id: 1,
-                    title: '🛡️ Ultimate ESP v3.0',
-                    content: '-- Ultimate ESP Script\n-- Tüm oyuncuları gösterir\n\nlocal Players = game:GetService("Players")\nlocal RunService = game:GetService("RunService")\n\nfor _, player in pairs(Players:GetPlayers()) do\n    if player ~= Players.LocalPlayer then\n        local highlight = Instance.new("Highlight")\n        highlight.Parent = player.Character\n        highlight.FillColor = Color3.new(1, 0.2, 0.2)\n        highlight.FillTransparency = 0.5\n        highlight.OutlineColor = Color3.new(1, 1, 1)\n    end\nend',
-                    category: 'ESP',
-                    version: 'v3.0',
-                    tags: ['xray', 'wallhack'],
-                    links: ['https://pastebin.com/raw/abc123'],
-                    downloads: 342,
-                    likes: 45,
-                    userId: 1,
-                    username: 'admin',
-                    created: new Date().toISOString(),
-                    featured: true
-                }, {
-                    id: 2,
-                    title: '🤖 Auto Clicker Pro',
-                    content: '-- Auto Clicker Pro\n-- Otomatik tıklama\n\nlocal mouse = game.Players.LocalPlayer:GetMouse()\nlocal enabled = false\n\nmouse.KeyDown:Connect(function(key)\n    if key == "F1" then\n        enabled = not enabled\n        print(enabled and "Aktif" or "Pasif")\n    end\nend)\n\nwhile true do\n    if enabled then\n        mouse1click()\n        wait(0.05)\n    end\n    wait()\nend',
-                    category: 'Otomasyon',
-                    version: 'v2.1',
-                    tags: ['clicker', 'auto'],
-                    links: [],
-                    downloads: 215,
-                    likes: 32,
-                    userId: 1,
-                    username: 'admin',
-                    created: new Date(Date.now() - 86400000).toISOString(),
-                    featured: false
-                }, {
-                    id: 3,
-                    title: '🎯 Aimbot Ultra',
-                    content: '-- Aimbot Ultra\n-- Otomatik hedef alma\n\nlocal Players = game:GetService("Players")\nlocal lp = Players.LocalPlayer\n\nRunService.RenderStepped:Connect(function()\n    local target = getClosestPlayer()\n    if target then\n        lp.Character.HumanoidRootPart.CFrame = CFrame.new(lp.Character.HumanoidRootPart.Position, target.Character.HumanoidRootPart.Position)\n    end\nend)',
-                    category: 'Aimbot',
-                    version: 'v2.0',
-                    tags: ['aimbot', 'lock'],
-                    links: ['https://pastebin.com/raw/def456'],
-                    downloads: 187,
-                    likes: 28,
-                    userId: 2,
-                    username: 'scriptmaster',
-                    created: new Date(Date.now() - 172800000).toISOString(),
-                    featured: false
-                }, {
-                    id: 4,
-                    title: '🦅 Fly Mode v2',
-                    content: '-- Fly Mode v2\n-- Uçma modu\n\nlocal player = game.Players.LocalPlayer\nlocal char = player.Character\nlocal humanoid = char.Humanoid\nlocal flying = false\n\ngame:GetService("UserInputService").InputBegan:Connect(function(input)\n    if input.KeyCode == Enum.KeyCode.F then\n        flying = not flying\n        humanoid.PlatformStand = flying\n        print(flying and "Fly Aktif" or "Fly Pasif")\n    end\nend)',
-                    category: 'Fly',
-                    version: 'v2.0',
-                    tags: ['fly', 'noclip'],
-                    links: [],
-                    downloads: 156,
-                    likes: 22,
-                    userId: 2,
-                    username: 'scriptmaster',
-                    created: new Date(Date.now() - 259200000).toISOString(),
-                    featured: false
-                }, {
-                    id: 5,
-                    title: '💨 Speed Hack Ultra',
-                    content: '-- Speed Hack Ultra\n-- Hızlandırma\n\nlocal player = game.Players.LocalPlayer\nlocal humanoid = player.Character.Humanoid\n\nhumanoid.WalkSpeed = humanoid.WalkSpeed * 2.5\nhumanoid.JumpPower = humanoid.JumpPower * 1.5\n\nprint("Speed: " .. humanoid.WalkSpeed)',
-                    category: 'Speed',
-                    version: 'v1.5',
-                    tags: ['speed', 'boost'],
-                    links: [],
-                    downloads: 134,
-                    likes: 18,
-                    userId: 2,
-                    username: 'scriptmaster',
-                    created: new Date(Date.now() - 345600000).toISOString(),
-                    featured: false
-                }];
-                sample.forEach(s => { scripts.push(s); });
-                DB.saveScripts(scripts);
-            }
+        function loginWithEmail(email, password) {
+            auth.signInWithEmailAndPassword(email, password)
+                .then(() => {
+                    closeModal();
+                    showToast('🎉 Giriş başarılı!', 'success');
+                })
+                .catch((err) => {
+                    showToast('❌ ' + err.message, 'error');
+                });
+        }
 
-            updateStats();
+        function registerWithEmail(email, password, username) {
+            auth.createUserWithEmailAndPassword(email, password)
+                .then((userCredential) => {
+                    const user = userCredential.user;
+                    user.updateProfile({ displayName: username }).then(() => {
+                        const rank = email === 'mm2ultimatehib@gmail.com' ? 'admin' : 'user';
+                        db.collection('users').doc(user.uid).set({
+                            uid: user.uid,
+                            username: username,
+                            email: email,
+                            rank: rank,
+                            photoURL: '',
+                            created: new Date().toISOString()
+                        });
+                        closeModal();
+                        showToast('🎉 Kayıt başarılı!', 'success');
+                    });
+                })
+                .catch((err) => {
+                    showToast('❌ ' + err.message, 'error');
+                });
+        }
+
+        function logout() {
+            if (!confirm('Çıkış yapmak istediğine emin misin?')) return;
+            auth.signOut().then(() => {
+                DB.logout();
+                updateNav();
+                showToast('Çıkış yapıldı.', 'info', 'Güle güle!');
+                goHome();
+            });
         }
 
         // ============================================================
@@ -1577,7 +995,6 @@
                 document.getElementById('navUpload').classList.remove('hidden');
                 document.getElementById('navProfile').classList.remove('hidden');
                 document.getElementById('navFavorites').classList.remove('hidden');
-
                 if (isAdmin()) {
                     document.getElementById('navAdmin').classList.remove('hidden');
                 } else {
@@ -1595,13 +1012,17 @@
 
         function updateStats() {
             const scripts = DB.getScripts();
-            const users = DB.getUsers();
             const likes = DB.getLikes();
             const favs = DB.getFavorites();
             document.getElementById('statScripts').textContent = scripts.length;
-            document.getElementById('statUsers').textContent = users.length;
             document.getElementById('statLikes').textContent = likes.length;
             document.getElementById('statFavorites').textContent = favs.length;
+            // Kullanıcı sayısını Firestore'dan al
+            db.collection('users').get().then(snapshot => {
+                document.getElementById('statUsers').textContent = snapshot.size || 0;
+            }).catch(() => {
+                document.getElementById('statUsers').textContent = '?';
+            });
         }
 
         // ============================================================
@@ -1615,11 +1036,9 @@
 
         function getFilteredAndSorted() {
             let scripts = DB.getScripts();
-
             if (currentFilter !== 'all') {
                 scripts = scripts.filter(s => s.category === currentFilter);
             }
-
             if (currentSearch) {
                 const search = currentSearch.toLowerCase();
                 scripts = scripts.filter(s =>
@@ -1629,21 +1048,12 @@
                     (s.tags && s.tags.some(t => t.toLowerCase().includes(search)))
                 );
             }
-
             switch (currentSort) {
-                case 'newest':
-                    scripts.sort((a, b) => new Date(b.created) - new Date(a.created));
-                    break;
-                case 'popular':
-                    scripts.sort((a, b) => (b.downloads || 0) - (a.downloads || 0));
-                    break;
-                case 'likes':
-                    scripts.sort((a, b) => (b.likes || 0) - (a.likes || 0));
-                    break;
-                default:
-                    scripts.sort((a, b) => new Date(b.created) - new Date(a.created));
+                case 'newest': scripts.sort((a, b) => new Date(b.created) - new Date(a.created)); break;
+                case 'popular': scripts.sort((a, b) => (b.downloads || 0) - (a.downloads || 0)); break;
+                case 'likes': scripts.sort((a, b) => (b.likes || 0) - (a.likes || 0)); break;
+                default: scripts.sort((a, b) => new Date(b.created) - new Date(a.created));
             }
-
             return scripts;
         }
 
@@ -1651,11 +1061,9 @@
             const allScripts = getFilteredAndSorted();
             const totalPages = Math.ceil(allScripts.length / PER_PAGE);
             if (currentPage > totalPages) currentPage = Math.max(1, totalPages);
-
             const start = (currentPage - 1) * PER_PAGE;
             const end = start + PER_PAGE;
             const scripts = allScripts.slice(start, end);
-
             const grid = document.getElementById('scriptGrid');
 
             if (scripts.length === 0) {
@@ -1712,7 +1120,6 @@
             });
             grid.innerHTML = html;
 
-            // Pagination
             const pagination = document.getElementById('pagination');
             if (totalPages > 1) {
                 let phtml = `<button onclick="goToPage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>‹</button>`;
@@ -1837,7 +1244,6 @@
                             ${isAdmin() ? `<button class="btn-admin" onclick="featureScript(${s.id})"><i class="fas fa-star"></i> ${s.featured ? 'Kaldır' : 'Öne Çıkar'}</button>` : ''}
                         </div>
                     </div>
-
                     <div class="comments-section">
                         <h3><i class="fas fa-comments"></i> Yorumlar (${comments.length})</h3>
                         ${user ? `
@@ -1969,7 +1375,8 @@
 
             const reports = DB.getReports();
             const allScripts = DB.getScripts();
-            const allUsers = DB.getUsers();
+            let usersCount = 0;
+            db.collection('users').get().then(snapshot => { usersCount = snapshot.size; }).catch(() => {});
 
             document.getElementById('heroSection').style.display = 'none';
             document.querySelectorAll('.nav button').forEach(b => b.classList.remove('active'));
@@ -1995,21 +1402,18 @@
                         <h2 style="font-size:20px;font-weight:800;"><i class="fas fa-shield-alt" style="color:var(--red);"></i> Admin Paneli</h2>
                         <button class="btn-back" onclick="goHome()"><i class="fas fa-arrow-left"></i> Ana Sayfa</button>
                     </div>
-
                     <div class="admin-panel">
                         <h3><i class="fas fa-chart-bar" style="color:var(--blue);"></i> İstatistikler</h3>
                         <div class="admin-stats">
                             <div>📜 Script: <span>${allScripts.length}</span></div>
-                            <div>👥 Kullanıcı: <span>${allUsers.length}</span></div>
+                            <div>👥 Kullanıcı: <span id="adminUserCount">${usersCount || '...'}</span></div>
                             <div>🚩 Bildirim: <span>${reports.length}</span></div>
                         </div>
                     </div>
-
                     <div class="admin-panel">
                         <h3><i class="fas fa-flag" style="color:var(--red);"></i> Bildirimler (${reports.length})</h3>
                         ${reportsHTML}
                     </div>
-
                     <div class="admin-panel">
                         <h3><i class="fas fa-database" style="color:var(--green);"></i> Veri Yönetimi</h3>
                         <div style="display:flex;gap:8px;flex-wrap:wrap;">
@@ -2021,6 +1425,10 @@
                 </div>
             `;
             closeModal();
+            db.collection('users').get().then(snapshot => {
+                const el = document.getElementById('adminUserCount');
+                if (el) el.textContent = snapshot.size;
+            }).catch(() => {});
         }
 
         function resolveReport(id) {
@@ -2428,7 +1836,7 @@
         }
 
         // ============================================================
-        // GİRİŞ & KAYIT (Google + GitHub + Normal)
+        // GİRİŞ & KAYIT (Google + GitHub + Email)
         // ============================================================
         function showLogin() {
             if (isLoggedIn()) { showToast('Zaten giriş yaptın!', 'info');
@@ -2438,8 +1846,6 @@
                     <h2><i class="fas fa-sign-in-alt" style="color:var(--red);"></i> Giriş Yap</h2>
                     <button class="modal-close" onclick="closeModal()">×</button>
                 </div>
-
-                <!-- Sosyal Giriş Butonları -->
                 <div class="social-login">
                     <button class="btn-social btn-google" onclick="loginWithGoogle()">
                         <i class="fab fa-google"></i> Google ile Giriş
@@ -2448,25 +1854,21 @@
                         <i class="fab fa-github"></i> GitHub ile Giriş
                     </button>
                 </div>
-
                 <div class="divider">veya</div>
-
-                <!-- Normal Giriş -->
-                <form onsubmit="loginUser();return false;">
+                <form onsubmit="loginWithEmail(document.getElementById('loginEmail').value, document.getElementById('loginPassword').value);return false;">
                     <div class="form-group">
-                        <label><i class="fas fa-user"></i> Kullanıcı Adı / Email</label>
-                        <input type="text" id="loginUsername" placeholder="Kullanıcı adı veya email..." required>
+                        <label><i class="fas fa-envelope"></i> Email</label>
+                        <input type="email" id="loginEmail" placeholder="Email adresiniz" required>
                     </div>
                     <div class="form-group">
                         <label><i class="fas fa-lock"></i> Şifre</label>
-                        <input type="password" id="loginPassword" placeholder="Şifre..." required>
+                        <input type="password" id="loginPassword" placeholder="Şifreniz" required>
                     </div>
                     <div class="form-actions">
                         <button type="submit" class="btn-submit"><i class="fas fa-sign-in-alt"></i> Giriş Yap</button>
                     </div>
                 </form>
                 <div class="form-footer">Hesabın yok mu? <a onclick="closeModal();showRegister();">Kayıt ol</a></div>
-                <div class="form-footer" style="font-size:12px;color:var(--text3);">🔑 Demo: admin / admin123</div>
             `);
         }
 
@@ -2478,8 +1880,6 @@
                     <h2><i class="fas fa-user-plus" style="color:var(--red);"></i> Kayıt Ol</h2>
                     <button class="modal-close" onclick="closeModal()">×</button>
                 </div>
-
-                <!-- Sosyal Kayıt Butonları -->
                 <div class="social-login">
                     <button class="btn-social btn-google" onclick="loginWithGoogle()">
                         <i class="fab fa-google"></i> Google ile Kayıt
@@ -2488,22 +1888,19 @@
                         <i class="fab fa-github"></i> GitHub ile Kayıt
                     </button>
                 </div>
-
                 <div class="divider">veya</div>
-
-                <!-- Normal Kayıt -->
-                <form onsubmit="registerUser();return false;">
+                <form onsubmit="registerWithEmail(document.getElementById('registerEmail').value, document.getElementById('registerPassword').value, document.getElementById('registerUsername').value);return false;">
                     <div class="form-group">
                         <label><i class="fas fa-user"></i> Kullanıcı Adı *</label>
-                        <input type="text" id="registerUsername" placeholder="Kullanıcı adı..." required>
+                        <input type="text" id="registerUsername" placeholder="Kullanıcı adınız" required>
                     </div>
                     <div class="form-group">
-                        <label><i class="fas fa-envelope"></i> Email</label>
-                        <input type="email" id="registerEmail" placeholder="Email (isteğe bağlı)">
+                        <label><i class="fas fa-envelope"></i> Email *</label>
+                        <input type="email" id="registerEmail" placeholder="Email adresiniz" required>
                     </div>
                     <div class="form-group">
                         <label><i class="fas fa-lock"></i> Şifre *</label>
-                        <input type="password" id="registerPassword" placeholder="En az 4 karakter..." required minlength="4">
+                        <input type="password" id="registerPassword" placeholder="En az 6 karakter" required minlength="6">
                     </div>
                     <div class="form-actions">
                         <button type="submit" class="btn-submit"><i class="fas fa-user-plus"></i> Kayıt Ol</button>
@@ -2511,77 +1908,6 @@
                 </form>
                 <div class="form-footer">Zaten hesabın var mı? <a onclick="closeModal();showLogin();">Giriş yap</a></div>
             `);
-        }
-
-        function loginUser() {
-            const input = document.getElementById('loginUsername').value.trim();
-            const p = document.getElementById('loginPassword').value.trim();
-
-            // Kullanıcı adı veya email ile ara
-            const user = DB.getUsers().find(u =>
-                u.username === input ||
-                u.email === input
-            );
-
-            if (user && user.password === p) {
-                DB.setCurrentUser({
-                    id: user.id,
-                    username: user.username,
-                    email: user.email || '',
-                    rank: user.rank || 'user',
-                    avatar: user.avatar || '',
-                    created: user.created
-                });
-                updateNav();
-                closeModal();
-                showToast('🎮 Hoş geldin, ' + user.username + '!', 'success', 'Hoş Geldin!');
-                updateStats();
-                goHome();
-            } else {
-                showToast('Kullanıcı adı/email veya şifre hatalı!', 'error', 'Hata');
-            }
-        }
-
-        function registerUser() {
-            const u = document.getElementById('registerUsername').value.trim();
-            const e = document.getElementById('registerEmail').value.trim();
-            const p = document.getElementById('registerPassword').value.trim();
-
-            if (!u || !p) { showToast('Kullanıcı adı ve şifre zorunlu!', 'error'); return; }
-            if (p.length < 4) { showToast('Şifre en az 4 karakter!', 'error'); return; }
-
-            const users = DB.getUsers();
-            if (users.find(u2 => u2.username === u)) { showToast('Bu kullanıcı adı alınmış!', 'error'); return; }
-            if (e && users.find(u2 => u2.email === e)) { showToast('Bu email zaten kullanılıyor!', 'error'); return; }
-
-            // Admin kontrolü
-            let rank = 'user';
-            if (e === 'mm2ultimatehib@gmail.com' || u === 'admin') {
-                rank = 'admin';
-            }
-
-            const newId = users.length > 0 ? Math.max(...users.map(u2 => u2.id)) + 1 : 1;
-            users.push({
-                id: newId,
-                username: u,
-                password: p,
-                email: e || '',
-                rank: rank,
-                avatar: '',
-                created: new Date().toISOString()
-            });
-            DB.saveUsers(users);
-            closeModal();
-            showToast('🎮 Kayıt başarılı! Şimdi giriş yap.', 'success', 'Başarılı!');
-            showLogin();
-        }
-
-        function logout() {
-            if (!confirm('Çıkış yapmak istediğine emin misin?')) return;
-            DB.logout();
-            updateNav();
-            showToast('Çıkış yapıldı.', 'info', 'Güle güle!');
-            goHome();
         }
 
         // ============================================================
@@ -2603,19 +1929,99 @@
         });
 
         // ============================================================
-        // START
+        // INIT - BAŞLAT
         // ============================================================
-        initData();
-        updateNav();
-        goHome();
+        function initDemoScripts() {
+            let scripts = DB.getScripts();
+            if (scripts.length === 0) {
+                const sample = [{
+                    id: 1,
+                    title: '🛡️ Ultimate ESP v3.0',
+                    content: '-- Ultimate ESP Script\n-- Tüm oyuncuları gösterir\n\nlocal Players = game:GetService("Players")\nlocal RunService = game:GetService("RunService")\n\nfor _, player in pairs(Players:GetPlayers()) do\n    if player ~= Players.LocalPlayer then\n        local highlight = Instance.new("Highlight")\n        highlight.Parent = player.Character\n        highlight.FillColor = Color3.new(1, 0.2, 0.2)\n        highlight.FillTransparency = 0.5\n        highlight.OutlineColor = Color3.new(1, 1, 1)\n    end\nend',
+                    category: 'ESP',
+                    version: 'v3.0',
+                    tags: ['xray', 'wallhack'],
+                    links: ['https://pastebin.com/raw/abc123'],
+                    downloads: 342,
+                    likes: 45,
+                    userId: 'admin',
+                    username: 'admin',
+                    created: new Date().toISOString(),
+                    featured: true
+                }, {
+                    id: 2,
+                    title: '🤖 Auto Clicker Pro',
+                    content: '-- Auto Clicker Pro\n-- Otomatik tıklama\n\nlocal mouse = game.Players.LocalPlayer:GetMouse()\nlocal enabled = false\n\nmouse.KeyDown:Connect(function(key)\n    if key == "F1" then\n        enabled = not enabled\n        print(enabled and "Aktif" or "Pasif")\n    end\nend)\n\nwhile true do\n    if enabled then\n        mouse1click()\n        wait(0.05)\n    end\n    wait()\nend',
+                    category: 'Otomasyon',
+                    version: 'v2.1',
+                    tags: ['clicker', 'auto'],
+                    links: [],
+                    downloads: 215,
+                    likes: 32,
+                    userId: 'admin',
+                    username: 'admin',
+                    created: new Date(Date.now() - 86400000).toISOString(),
+                    featured: false
+                }, {
+                    id: 3,
+                    title: '🎯 Aimbot Ultra',
+                    content: '-- Aimbot Ultra\n-- Otomatik hedef alma\n\nlocal Players = game:GetService("Players")\nlocal lp = Players.LocalPlayer\n\nRunService.RenderStepped:Connect(function()\n    local target = getClosestPlayer()\n    if target then\n        lp.Character.HumanoidRootPart.CFrame = CFrame.new(lp.Character.HumanoidRootPart.Position, target.Character.HumanoidRootPart.Position)\n    end\nend)',
+                    category: 'Aimbot',
+                    version: 'v2.0',
+                    tags: ['aimbot', 'lock'],
+                    links: ['https://pastebin.com/raw/def456'],
+                    downloads: 187,
+                    likes: 28,
+                    userId: 'admin',
+                    username: 'admin',
+                    created: new Date(Date.now() - 172800000).toISOString(),
+                    featured: false
+                }, {
+                    id: 4,
+                    title: '🦅 Fly Mode v2',
+                    content: '-- Fly Mode v2\n-- Uçma modu\n\nlocal player = game.Players.LocalPlayer\nlocal char = player.Character\nlocal humanoid = char.Humanoid\nlocal flying = false\n\ngame:GetService("UserInputService").InputBegan:Connect(function(input)\n    if input.KeyCode == Enum.KeyCode.F then\n        flying = not flying\n        humanoid.PlatformStand = flying\n        print(flying and "Fly Aktif" or "Fly Pasif")\n    end\nend)',
+                    category: 'Fly',
+                    version: 'v2.0',
+                    tags: ['fly', 'noclip'],
+                    links: [],
+                    downloads: 156,
+                    likes: 22,
+                    userId: 'admin',
+                    username: 'admin',
+                    created: new Date(Date.now() - 259200000).toISOString(),
+                    featured: false
+                }, {
+                    id: 5,
+                    title: '💨 Speed Hack Ultra',
+                    content: '-- Speed Hack Ultra\n-- Hızlandırma\n\nlocal player = game.Players.LocalPlayer\nlocal humanoid = player.Character.Humanoid\n\nhumanoid.WalkSpeed = humanoid.WalkSpeed * 2.5\nhumanoid.JumpPower = humanoid.JumpPower * 1.5\n\nprint("Speed: " .. humanoid.WalkSpeed)',
+                    category: 'Speed',
+                    version: 'v1.5',
+                    tags: ['speed', 'boost'],
+                    links: [],
+                    downloads: 134,
+                    likes: 18,
+                    userId: 'admin',
+                    username: 'admin',
+                    created: new Date(Date.now() - 345600000).toISOString(),
+                    featured: false
+                }];
+                sample.forEach(s => { scripts.push(s); });
+                DB.saveScripts(scripts);
+            }
+        }
 
-        console.log('🎮 Roblox Script Hub çalışıyor!');
-        console.log('🔵 Google ile giriş: butona tıkla');
-        console.log('⚫ GitHub ile giriş: butona tıkla');
-        console.log('👑 Admin: mm2ultimatehib@gmail.com (admin / admin123)');
-        console.log('📊 Script sayısı:', DB.getScripts().length);
-        console.log('👥 Kullanıcı sayısı:', DB.getUsers().length);
-        console.log('✅ 3 farklı giriş seçeneği aktif!');
+        function init() {
+            initDemoScripts();
+            updateNav();
+            updateStats();
+            goHome();
+            console.log('🎮 Roblox Script Hub 🔥 Firebase');
+            console.log('✅ Google, GitHub ve Email giriş aktif!');
+            console.log('👑 Admin: mm2ultimatehib@gmail.com');
+            console.log('📊 Script sayısı:', DB.getScripts().length);
+        }
+
+        document.addEventListener('DOMContentLoaded', init);
     </script>
 
 </body>
