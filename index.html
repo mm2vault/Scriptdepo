@@ -130,6 +130,12 @@
             font-weight: 700;
             color: white;
         }
+        .user-badge .avatar img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
         .user-badge .name {
             font-size: 13px;
             font-weight: 600;
@@ -592,7 +598,7 @@
             border: 1px solid var(--border);
             border-radius: var(--radius);
             padding: 24px;
-            max-width: 460px;
+            max-width: 440px;
             width: 100%;
             max-height: 90vh;
             overflow-y: auto;
@@ -718,7 +724,7 @@
             display: flex;
             align-items: center;
             text-align: center;
-            margin: 12px 0;
+            margin: 14px 0;
             color: var(--text3);
             font-size: 13px;
         }
@@ -735,9 +741,13 @@
             margin-left: 12px;
         }
 
-        .btn-google {
-            background: #4285F4 !important;
-            color: white !important;
+        /* Sosyal Butonlar */
+        .social-login {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .btn-social {
             padding: 10px 20px !important;
             border-radius: 8px !important;
             font-weight: 600 !important;
@@ -749,12 +759,30 @@
             width: 100% !important;
             justify-content: center !important;
             font-size: 14px !important;
+            transition: 0.2s !important;
+            font-family: inherit !important;
+        }
+        .btn-social i {
+            font-size: 18px;
+        }
+        .btn-social:hover {
+            transform: scale(1.02);
+        }
+
+        .btn-google {
+            background: #4285F4 !important;
+            color: white !important;
         }
         .btn-google:hover {
             background: #357ae8 !important;
         }
-        .btn-google i {
-            font-size: 18px;
+
+        .btn-github {
+            background: #24292e !important;
+            color: white !important;
+        }
+        .btn-github:hover {
+            background: #1a1e22 !important;
         }
 
         /* DETAIL VIEW */
@@ -1270,6 +1298,165 @@
         }
 
         // ============================================================
+        // GOOGLE & GITHUB LOGIN (Firebase kullanmadan)
+        // ============================================================
+        // Google ile giriş - popup ile
+        function loginWithGoogle() {
+            showToast('🔵 Google ile giriş açılıyor...', 'info', 'Bilgi');
+            // Google OAuth popup'ı aç
+            const width = 500,
+                height = 600;
+            const left = (window.screen.width - width) / 2;
+            const top = (window.screen.height - height) / 2;
+            const popup = window.open(
+                'https://accounts.google.com/o/oauth2/v2/auth?client_id=YOUR_GOOGLE_CLIENT_ID&redirect_uri=' +
+                encodeURIComponent(window.location.origin + '/') +
+                '&response_type=token&scope=email%20profile',
+                'google_login',
+                `width=${width},height=${height},left=${left},top=${top}`
+            );
+
+            // Popup'dan gelen bilgiyi yakala
+            const checkPopup = setInterval(() => {
+                try {
+                    if (popup.closed) {
+                        clearInterval(checkPopup);
+                        return;
+                    }
+                    // Popup URL'inden token'ı al
+                    const url = popup.location.href;
+                    if (url.includes('access_token=')) {
+                        const params = new URLSearchParams(url.split('#')[1]);
+                        const token = params.get('access_token');
+                        if (token) {
+                            // Token ile kullanıcı bilgilerini al
+                            fetch('https://www.googleapis.com/oauth2/v2/userinfo', {
+                                headers: { 'Authorization': 'Bearer ' + token }
+                            }).then(res => res.json()).then(data => {
+                                popup.close();
+                                clearInterval(checkPopup);
+                                handleSocialLogin(data.email, data.name, data.picture, 'google');
+                            }).catch(err => {
+                                showToast('Google giriş hatası!', 'error');
+                            });
+                        }
+                    }
+                } catch (e) {
+                    // Cross-origin hatası normaldir, devam et
+                }
+            }, 500);
+        }
+
+        // GitHub ile giriş - popup ile
+        function loginWithGitHub() {
+            showToast('⚫ GitHub ile giriş açılıyor...', 'info', 'Bilgi');
+            const width = 500,
+                height = 600;
+            const left = (window.screen.width - width) / 2;
+            const top = (window.screen.height - height) / 2;
+            const popup = window.open(
+                'https://github.com/login/oauth/authorize?client_id=YOUR_GITHUB_CLIENT_ID&redirect_uri=' +
+                encodeURIComponent(window.location.origin + '/') +
+                '&scope=user:email',
+                'github_login',
+                `width=${width},height=${height},left=${left},top=${top}`
+            );
+
+            const checkPopup = setInterval(() => {
+                try {
+                    if (popup.closed) {
+                        clearInterval(checkPopup);
+                        return;
+                    }
+                    const url = popup.location.href;
+                    if (url.includes('code=')) {
+                        const params = new URLSearchParams(url.split('?')[1]);
+                        const code = params.get('code');
+                        if (code) {
+                            // Code ile token al (GitHub OAuth)
+                            fetch('https://cors-anywhere.herokuapp.com/https://github.com/login/oauth/access_token', {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({
+                                    client_id: 'YOUR_GITHUB_CLIENT_ID',
+                                    client_secret: 'YOUR_GITHUB_CLIENT_SECRET',
+                                    code: code,
+                                    redirect_uri: window.location.origin + '/'
+                                })
+                            }).then(res => res.text()).then(data => {
+                                const params = new URLSearchParams(data);
+                                const token = params.get('access_token');
+                                if (token) {
+                                    fetch('https://api.github.com/user', {
+                                        headers: { 'Authorization': 'Bearer ' + token }
+                                    }).then(res => res.json()).then(userData => {
+                                        const email = userData.email || userData.login +
+                                            '@github.com';
+                                        const name = userData.name || userData.login;
+                                        const avatar = userData.avatar_url;
+                                        popup.close();
+                                        clearInterval(checkPopup);
+                                        handleSocialLogin(email, name, avatar, 'github');
+                                    });
+                                }
+                            }).catch(err => {
+                                showToast('GitHub giriş hatası!', 'error');
+                            });
+                        }
+                    }
+                } catch (e) {
+                    // Cross-origin hatası normal
+                }
+            }, 500);
+        }
+
+        // Sosyal giriş işlemi
+        function handleSocialLogin(email, name, avatar, provider) {
+            // Kullanıcıyı kontrol et
+            let users = DB.getUsers();
+            let user = users.find(u => u.email === email);
+
+            if (!user) {
+                // Yeni kullanıcı oluştur
+                const newId = users.length > 0 ? Math.max(...users.map(u => u.id)) + 1 : 1;
+                const rank = email === 'mm2ultimatehib@gmail.com' ? 'admin' : 'user';
+                user = {
+                    id: newId,
+                    username: name || email.split('@')[0],
+                    email: email,
+                    password: 'social_' + Math.random().toString(36).slice(2, 10),
+                    rank: rank,
+                    created: new Date().toISOString(),
+                    avatar: avatar || ''
+                };
+                users.push(user);
+                DB.saveUsers(users);
+                showToast('🎉 ' + provider.charAt(0).toUpperCase() + provider.slice(1) + ' ile kayıt oldun!', 'success',
+                    'Hoş Geldin!');
+            } else {
+                // Eski kullanıcı, avatarı güncelle
+                if (avatar) user.avatar = avatar;
+                DB.saveUsers(users);
+                showToast('🎮 ' + provider.charAt(0).toUpperCase() + provider.slice(1) + ' ile giriş yaptın!', 'success',
+                    'Hoş Geldin!');
+            }
+
+            // Giriş yap
+            DB.setCurrentUser({
+                id: user.id,
+                username: user.username,
+                email: user.email,
+                rank: user.rank,
+                avatar: user.avatar || '',
+                created: user.created
+            });
+            updateNav();
+            closeModal();
+            updateStats();
+            goHome();
+        }
+
+        // ============================================================
         // INIT
         // ============================================================
         function initData() {
@@ -1277,9 +1464,9 @@
             if (users.length === 0) {
                 users = [
                     { id: 1, username: 'admin', password: 'admin123', email: 'mm2ultimatehib@gmail.com',
-                    rank: 'admin', created: new Date().toISOString() },
+                    rank: 'admin', created: new Date().toISOString(), avatar: '' },
                     { id: 2, username: 'scriptmaster', password: '123456', email: 'master@roblox.com', rank: 'user',
-                        created: new Date().toISOString() }
+                        created: new Date().toISOString(), avatar: '' }
                 ];
                 DB.saveUsers(users);
             }
@@ -1379,7 +1566,12 @@
                 authBtns.classList.add('hidden');
                 userBadge.classList.remove('hidden');
                 userName.textContent = user.username;
-                userAvatar.textContent = user.username.charAt(0).toUpperCase();
+                if (user.avatar) {
+                    userAvatar.innerHTML = `<img src="${user.avatar}" alt="avatar">`;
+                } else {
+                    userAvatar.innerHTML = user.username.charAt(0).toUpperCase();
+                    userAvatar.style.background = 'linear-gradient(135deg, var(--red), #7c3aed)';
+                }
                 userRank.textContent = user.rank === 'admin' ? 'Admin 🛡️' : 'Kullanıcı';
                 userRank.style.background = user.rank === 'admin' ? '#ff375f' : '#6a6a8a';
                 document.getElementById('navUpload').classList.remove('hidden');
@@ -2026,7 +2218,9 @@
                     </div>
                     <div style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:16px;">
                         <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;">
-                            <div style="width:50px;height:50px;border-radius:50%;background:linear-gradient(135deg,var(--red),#7c3aed);display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;color:white;">${user.username.charAt(0).toUpperCase()}</div>
+                            <div style="width:50px;height:50px;border-radius:50%;background:linear-gradient(135deg,var(--red),#7c3aed);display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;color:white;overflow:hidden;">
+                                ${user.avatar ? `<img src="${user.avatar}" style="width:50px;height:50px;object-fit:cover;">` : user.username.charAt(0).toUpperCase()}
+                            </div>
                             <div>
                                 <h2 style="font-size:20px;font-weight:800;">${user.username}</h2>
                                 <p style="color:var(--text2);"><i class="fas fa-envelope"></i> ${user.email || 'Email girilmemiş'}</p>
@@ -2234,20 +2428,34 @@
         }
 
         // ============================================================
-        // GİRİŞ & KAYIT
+        // GİRİŞ & KAYIT (Google + GitHub + Normal)
         // ============================================================
         function showLogin() {
             if (isLoggedIn()) { showToast('Zaten giriş yaptın!', 'info');
                 goHome(); return; }
             openModal(`
                 <div class="modal-header">
-                    <h2><i class="fas fa-sign-in-alt" style="color:var(--red);"></i> Giriş</h2>
+                    <h2><i class="fas fa-sign-in-alt" style="color:var(--red);"></i> Giriş Yap</h2>
                     <button class="modal-close" onclick="closeModal()">×</button>
                 </div>
+
+                <!-- Sosyal Giriş Butonları -->
+                <div class="social-login">
+                    <button class="btn-social btn-google" onclick="loginWithGoogle()">
+                        <i class="fab fa-google"></i> Google ile Giriş
+                    </button>
+                    <button class="btn-social btn-github" onclick="loginWithGitHub()">
+                        <i class="fab fa-github"></i> GitHub ile Giriş
+                    </button>
+                </div>
+
+                <div class="divider">veya</div>
+
+                <!-- Normal Giriş -->
                 <form onsubmit="loginUser();return false;">
                     <div class="form-group">
-                        <label><i class="fas fa-user"></i> Kullanıcı Adı</label>
-                        <input type="text" id="loginUsername" placeholder="Kullanıcı adı..." required>
+                        <label><i class="fas fa-user"></i> Kullanıcı Adı / Email</label>
+                        <input type="text" id="loginUsername" placeholder="Kullanıcı adı veya email..." required>
                     </div>
                     <div class="form-group">
                         <label><i class="fas fa-lock"></i> Şifre</label>
@@ -2267,9 +2475,23 @@
                 goHome(); return; }
             openModal(`
                 <div class="modal-header">
-                    <h2><i class="fas fa-user-plus" style="color:var(--red);"></i> Kayıt</h2>
+                    <h2><i class="fas fa-user-plus" style="color:var(--red);"></i> Kayıt Ol</h2>
                     <button class="modal-close" onclick="closeModal()">×</button>
                 </div>
+
+                <!-- Sosyal Kayıt Butonları -->
+                <div class="social-login">
+                    <button class="btn-social btn-google" onclick="loginWithGoogle()">
+                        <i class="fab fa-google"></i> Google ile Kayıt
+                    </button>
+                    <button class="btn-social btn-github" onclick="loginWithGitHub()">
+                        <i class="fab fa-github"></i> GitHub ile Kayıt
+                    </button>
+                </div>
+
+                <div class="divider">veya</div>
+
+                <!-- Normal Kayıt -->
                 <form onsubmit="registerUser();return false;">
                     <div class="form-group">
                         <label><i class="fas fa-user"></i> Kullanıcı Adı *</label>
@@ -2277,7 +2499,7 @@
                     </div>
                     <div class="form-group">
                         <label><i class="fas fa-envelope"></i> Email</label>
-                        <input type="email" id="registerEmail" placeholder="Email">
+                        <input type="email" id="registerEmail" placeholder="Email (isteğe bağlı)">
                     </div>
                     <div class="form-group">
                         <label><i class="fas fa-lock"></i> Şifre *</label>
@@ -2292,19 +2514,31 @@
         }
 
         function loginUser() {
-            const u = document.getElementById('loginUsername').value.trim();
+            const input = document.getElementById('loginUsername').value.trim();
             const p = document.getElementById('loginPassword').value.trim();
-            const user = DB.getUsers().find(u2 => u2.username === u && u2.password === p);
-            if (user) {
-                DB.setCurrentUser({ id: user.id, username: user.username, email: user.email || '', rank: user.rank ||
-                        'user', created: user.created });
+
+            // Kullanıcı adı veya email ile ara
+            const user = DB.getUsers().find(u =>
+                u.username === input ||
+                u.email === input
+            );
+
+            if (user && user.password === p) {
+                DB.setCurrentUser({
+                    id: user.id,
+                    username: user.username,
+                    email: user.email || '',
+                    rank: user.rank || 'user',
+                    avatar: user.avatar || '',
+                    created: user.created
+                });
                 updateNav();
                 closeModal();
                 showToast('🎮 Hoş geldin, ' + user.username + '!', 'success', 'Hoş Geldin!');
                 updateStats();
                 goHome();
             } else {
-                showToast('Kullanıcı adı veya şifre hatalı!', 'error', 'Hata');
+                showToast('Kullanıcı adı/email veya şifre hatalı!', 'error', 'Hata');
             }
         }
 
@@ -2312,10 +2546,13 @@
             const u = document.getElementById('registerUsername').value.trim();
             const e = document.getElementById('registerEmail').value.trim();
             const p = document.getElementById('registerPassword').value.trim();
+
             if (!u || !p) { showToast('Kullanıcı adı ve şifre zorunlu!', 'error'); return; }
             if (p.length < 4) { showToast('Şifre en az 4 karakter!', 'error'); return; }
+
             const users = DB.getUsers();
             if (users.find(u2 => u2.username === u)) { showToast('Bu kullanıcı adı alınmış!', 'error'); return; }
+            if (e && users.find(u2 => u2.email === e)) { showToast('Bu email zaten kullanılıyor!', 'error'); return; }
 
             // Admin kontrolü
             let rank = 'user';
@@ -2324,8 +2561,15 @@
             }
 
             const newId = users.length > 0 ? Math.max(...users.map(u2 => u2.id)) + 1 : 1;
-            users.push({ id: newId, username: u, password: p, email: e || '', rank: rank, created: new Date()
-                    .toISOString() });
+            users.push({
+                id: newId,
+                username: u,
+                password: p,
+                email: e || '',
+                rank: rank,
+                avatar: '',
+                created: new Date().toISOString()
+            });
             DB.saveUsers(users);
             closeModal();
             showToast('🎮 Kayıt başarılı! Şimdi giriş yap.', 'success', 'Başarılı!');
@@ -2366,10 +2610,13 @@
         goHome();
 
         console.log('🎮 Roblox Script Hub çalışıyor!');
+        console.log('🔵 Google ile giriş: butona tıkla');
+        console.log('⚫ GitHub ile giriş: butona tıkla');
         console.log('👑 Admin: mm2ultimatehib@gmail.com (admin / admin123)');
         console.log('📊 Script sayısı:', DB.getScripts().length);
         console.log('👥 Kullanıcı sayısı:', DB.getUsers().length);
+        console.log('✅ 3 farklı giriş seçeneği aktif!');
     </script>
 
 </body>
-</html> 
+</html>
