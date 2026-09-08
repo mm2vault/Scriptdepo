@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🎮 ScriptHub - Roblox Scripts</title>
+    <title>ScriptHub - Roblox Scripts</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     
     <!-- Firebase -->
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
@@ -14,7 +14,7 @@
 
     <style>
         /* ============================================================
-           RESET & VARIABLES
+           RBLXSCRIPTS.NET TARZI TASARIM
            ============================================================ */
         * {
             margin: 0;
@@ -23,26 +23,18 @@
         }
 
         :root {
-            --bg: #06060f;
-            --bg2: #0c0c1a;
-            --bg3: #14142a;
-            --bg4: #1a1a3a;
+            --bg: #0d0d1a;
+            --bg2: #141425;
+            --bg3: #1a1a35;
             --text: #ffffff;
             --text2: #a0a0c0;
             --text3: #6a6a8a;
-            --border: rgba(120, 80, 255, 0.15);
-            --primary: #7c3aed;
-            --primary2: #6d28d9;
-            --secondary: #ec4899;
-            --blue: #3b82f6;
-            --cyan: #06b6d4;
-            --green: #10b981;
-            --yellow: #f59e0b;
-            --red: #ef4444;
-            --shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+            --primary: #6c3bd9;
+            --primary2: #7c4be9;
+            --secondary: #ff6b9d;
+            --border: rgba(108, 59, 217, 0.15);
             --radius: 12px;
-            --transition: all 0.3s ease;
-            --glow: 0 0 30px rgba(124, 58, 237, 0.15);
+            --shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
         }
 
         body {
@@ -50,185 +42,142 @@
             background: var(--bg);
             color: var(--text);
             min-height: 100vh;
-            padding: 16px;
-        }
-
-        ::-webkit-scrollbar {
-            width: 6px;
-        }
-        ::-webkit-scrollbar-track {
-            background: var(--bg);
-        }
-        ::-webkit-scrollbar-thumb {
-            background: var(--primary);
-            border-radius: 10px;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
         }
 
         /* ============================================================
            HEADER
            ============================================================ */
         .header {
+            background: var(--bg2);
+            border-bottom: 1px solid var(--border);
+            padding: 0 20px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-inner {
+            max-width: 1200px;
+            margin: 0 auto;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 12px 24px;
-            background: var(--bg2);
-            border-radius: var(--radius);
-            border: 1px solid var(--border);
-            margin-bottom: 24px;
-            flex-wrap: wrap;
-            gap: 12px;
-            position: sticky;
-            top: 12px;
-            z-index: 100;
-            backdrop-filter: blur(20px);
+            height: 64px;
         }
 
         .logo {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
             cursor: pointer;
+            font-weight: 800;
             font-size: 20px;
-            font-weight: 900;
-            font-family: 'Orbitron', sans-serif;
         }
         .logo i {
             color: var(--primary);
             font-size: 24px;
         }
         .logo span {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: var(--text);
         }
-        .logo .badge {
-            font-size: 9px;
-            background: var(--primary);
-            color: white;
-            padding: 2px 8px;
-            border-radius: 10px;
-            -webkit-text-fill-color: white;
-            font-family: 'Inter', sans-serif;
+        .logo .highlight {
+            color: var(--primary);
         }
 
-        .nav {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            flex-wrap: wrap;
-        }
-
-        .nav button {
-            padding: 6px 14px;
-            border-radius: 8px;
-            border: none;
-            background: transparent;
-            color: var(--text2);
-            font-size: 13px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: var(--transition);
-            font-family: 'Inter', sans-serif;
+        .nav-links {
             display: flex;
             align-items: center;
             gap: 6px;
         }
-
-        .nav button:hover {
-            color: white;
-            background: rgba(124, 58, 237, 0.08);
+        .nav-links a, .nav-links button {
+            padding: 8px 16px;
+            border-radius: 8px;
+            border: none;
+            background: transparent;
+            color: var(--text2);
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: 0.2s;
+            font-family: 'Inter', sans-serif;
+            text-decoration: none;
         }
-        .nav button.active {
-            color: white;
-            background: rgba(124, 58, 237, 0.15);
-            border: 1px solid rgba(124, 58, 237, 0.2);
+        .nav-links a:hover, .nav-links button:hover {
+            color: var(--text);
+            background: rgba(108, 59, 217, 0.08);
+        }
+        .nav-links a.active, .nav-links button.active {
+            color: var(--text);
+            background: rgba(108, 59, 217, 0.15);
         }
 
-        .btn-nav {
-            background: linear-gradient(135deg, var(--primary), var(--secondary)) !important;
+        .btn-primary {
+            background: var(--primary) !important;
             color: white !important;
             padding: 8px 20px !important;
             border-radius: 8px !important;
-            font-weight: 600 !important;
         }
-        .btn-nav:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 20px rgba(124, 58, 237, 0.3);
+        .btn-primary:hover {
+            background: var(--primary2) !important;
         }
 
-        .btn-outline-nav {
+        .btn-outline {
             border: 1px solid var(--border) !important;
-            background: transparent !important;
         }
-        .btn-outline-nav:hover {
+        .btn-outline:hover {
             border-color: var(--primary) !important;
-            color: white !important;
         }
 
         .user-badge {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
             padding: 4px 12px 4px 4px;
             border-radius: 30px;
-            background: rgba(124, 58, 237, 0.08);
-            border: 1px solid rgba(124, 58, 237, 0.15);
+            background: rgba(108, 59, 217, 0.1);
+            border: 1px solid var(--border);
             cursor: pointer;
-            transition: var(--transition);
         }
-        .user-badge:hover {
-            border-color: rgba(124, 58, 237, 0.3);
-        }
-
         .user-badge .avatar {
-            width: 30px;
-            height: 30px;
+            width: 32px;
+            height: 32px;
             border-radius: 50%;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            background: var(--primary);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 13px;
             font-weight: 700;
+            font-size: 14px;
             color: white;
             overflow: hidden;
         }
         .user-badge .avatar img {
-            width: 30px;
-            height: 30px;
+            width: 32px;
+            height: 32px;
             object-fit: cover;
         }
-
         .user-badge .name {
             font-size: 13px;
             font-weight: 600;
-            color: var(--text);
-            max-width: 100px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
         }
-
         .user-badge .rank {
             font-size: 10px;
-            padding: 2px 8px;
+            padding: 2px 10px;
             border-radius: 10px;
-            font-weight: 700;
             background: var(--primary);
             color: white;
         }
-        .rank.admin {
-            background: var(--red);
-        }
-
         .hidden {
             display: none !important;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: 24px;
+            cursor: pointer;
         }
 
         /* ============================================================
@@ -236,210 +185,129 @@
            ============================================================ */
         .hero {
             background: linear-gradient(135deg, var(--bg2), var(--bg3));
-            border-radius: var(--radius);
-            padding: 40px 44px;
-            border: 1px solid var(--border);
-            margin-bottom: 24px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -20%;
-            width: 500px;
-            height: 500px;
-            background: radial-gradient(circle, rgba(124, 58, 237, 0.08), transparent 70%);
-            border-radius: 50%;
-        }
-
-        .hero::after {
-            content: '';
-            position: absolute;
-            bottom: -30%;
-            left: -10%;
-            width: 300px;
-            height: 300px;
-            background: radial-gradient(circle, rgba(236, 72, 153, 0.05), transparent 70%);
-            border-radius: 50%;
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 1;
+            padding: 50px 20px 40px;
+            border-bottom: 1px solid var(--border);
+            text-align: center;
         }
 
         .hero h1 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 34px;
+            font-size: 42px;
             font-weight: 900;
-            margin-bottom: 10px;
-        }
-        .hero h1 span {
+            margin-bottom: 12px;
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-        .hero h1 i {
-            -webkit-text-fill-color: var(--primary);
-        }
 
         .hero p {
             color: var(--text2);
-            font-size: 16px;
-            max-width: 500px;
+            font-size: 18px;
+            max-width: 600px;
+            margin: 0 auto 24px;
             line-height: 1.7;
-            margin-bottom: 20px;
         }
 
-        .hero-actions {
+        .hero-search {
+            max-width: 600px;
+            margin: 0 auto;
             display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
-
-        .hero-actions button {
-            padding: 10px 24px;
-            border-radius: 8px;
-            border: none;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            font-family: 'Inter', sans-serif;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .hero-actions .btn-primary {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-        }
-        .hero-actions .btn-primary:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 30px rgba(124, 58, 237, 0.3);
-        }
-
-        .hero-actions .btn-secondary {
-            background: var(--bg3);
-            color: var(--text);
+            gap: 0;
+            background: var(--bg);
+            border-radius: 12px;
             border: 1px solid var(--border);
+            overflow: hidden;
         }
-        .hero-actions .btn-secondary:hover {
-            border-color: var(--primary);
-            transform: scale(1.04);
+        .hero-search input {
+            flex: 1;
+            padding: 14px 20px;
+            background: transparent;
+            border: none;
+            color: var(--text);
+            font-size: 15px;
+            outline: none;
+            font-family: 'Inter', sans-serif;
+        }
+        .hero-search input::placeholder {
+            color: var(--text3);
+        }
+        .hero-search button {
+            padding: 14px 28px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 15px;
+            transition: 0.2s;
+            font-family: 'Inter', sans-serif;
+        }
+        .hero-search button:hover {
+            background: var(--primary2);
         }
 
         .hero-stats {
             display: flex;
-            gap: 40px;
-            margin-top: 24px;
-            padding-top: 20px;
+            justify-content: center;
+            gap: 60px;
+            margin-top: 30px;
+            padding-top: 30px;
             border-top: 1px solid var(--border);
-            flex-wrap: wrap;
         }
-
         .hero-stats .stat .number {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 24px;
+            font-size: 28px;
             font-weight: 900;
             color: var(--primary);
         }
         .hero-stats .stat .label {
             color: var(--text3);
-            font-size: 13px;
+            font-size: 14px;
         }
 
         /* ============================================================
-           FILTER BAR
+           CATEGORIES
            ============================================================ */
-        .filter-bar {
+        .categories {
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
             display: flex;
-            gap: 6px;
+            gap: 8px;
             flex-wrap: wrap;
-            margin-bottom: 24px;
-            padding: 12px 16px;
-            background: var(--bg2);
-            border-radius: var(--radius);
-            border: 1px solid var(--border);
-            align-items: center;
+            border-bottom: 1px solid var(--border);
         }
-
-        .filter-bar .filter-btn {
-            padding: 6px 16px;
+        .categories button {
+            padding: 8px 20px;
             border-radius: 20px;
-            border: 1px solid transparent;
+            border: 1px solid var(--border);
             background: transparent;
             color: var(--text2);
-            font-size: 12px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: var(--transition);
-            font-family: 'Inter', sans-serif;
-        }
-
-        .filter-bar .filter-btn:hover {
-            color: var(--text);
-            border-color: var(--border);
-        }
-        .filter-bar .filter-btn.active {
-            background: rgba(124, 58, 237, 0.15);
-            border-color: var(--primary);
-            color: white;
-        }
-
-        .filter-bar .search-box {
-            margin-left: auto;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            background: var(--bg);
-            padding: 4px 14px;
-            border-radius: 20px;
-            border: 1px solid var(--border);
-        }
-
-        .filter-bar .search-box input {
-            background: none;
-            border: none;
-            color: var(--text);
-            padding: 6px 0;
             font-size: 13px;
-            outline: none;
-            width: 140px;
-            font-family: 'Inter', sans-serif;
-        }
-        .filter-bar .search-box input::placeholder {
-            color: var(--text3);
-        }
-        .filter-bar .search-box i {
-            color: var(--text3);
-        }
-
-        .filter-bar .sort-select {
-            padding: 6px 14px;
-            background: var(--bg);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            color: var(--text2);
-            font-size: 12px;
-            font-family: 'Inter', sans-serif;
             cursor: pointer;
+            transition: 0.2s;
+            font-family: 'Inter', sans-serif;
         }
-        .filter-bar .sort-select:focus {
-            outline: none;
+        .categories button:hover {
+            border-color: var(--primary);
+            color: var(--text);
+        }
+        .categories button.active {
+            background: var(--primary);
+            color: white;
             border-color: var(--primary);
         }
 
         /* ============================================================
            SCRIPT GRID
            ============================================================ */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
         .script-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 20px;
         }
 
@@ -448,95 +316,85 @@
             border-radius: var(--radius);
             border: 1px solid var(--border);
             padding: 20px;
-            transition: var(--transition);
-            position: relative;
+            transition: 0.3s;
+            cursor: pointer;
         }
-
         .script-card:hover {
             transform: translateY(-4px);
-            border-color: rgba(124, 58, 237, 0.3);
-            box-shadow: var(--glow);
+            border-color: var(--primary);
+            box-shadow: 0 8px 32px rgba(108, 59, 217, 0.1);
         }
 
         .script-card .top {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
-            gap: 8px;
+            gap: 10px;
             margin-bottom: 10px;
         }
-
         .script-card .top h3 {
             font-size: 16px;
             font-weight: 700;
             color: var(--text);
         }
-
         .script-card .top .badges {
             display: flex;
             gap: 4px;
             flex-wrap: wrap;
-            flex-shrink: 0;
         }
 
         .badge {
             padding: 2px 10px;
-            border-radius: 12px;
+            border-radius: 10px;
             font-size: 9px;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.3px;
         }
-
         .badge-lua {
-            background: #000080;
-            color: white;
+            background: #1a1a3a;
+            color: #6c8cff;
         }
         .badge-esp {
-            background: var(--primary);
-            color: white;
+            background: rgba(108, 59, 217, 0.2);
+            color: var(--primary);
         }
         .badge-otomasyon {
-            background: var(--green);
-            color: white;
+            background: rgba(16, 185, 129, 0.2);
+            color: #10b981;
         }
         .badge-aimbot {
-            background: var(--red);
-            color: white;
+            background: rgba(239, 68, 68, 0.2);
+            color: #ef4444;
         }
         .badge-fly {
-            background: var(--cyan);
-            color: white;
+            background: rgba(6, 182, 212, 0.2);
+            color: #06b6d4;
         }
         .badge-speed {
-            background: var(--yellow);
-            color: #0a0a0f;
+            background: rgba(245, 158, 11, 0.2);
+            color: #f59e0b;
         }
         .badge-gui {
-            background: var(--secondary);
-            color: white;
+            background: rgba(236, 72, 153, 0.2);
+            color: #ec4899;
         }
         .badge-utility {
-            background: var(--blue);
-            color: white;
+            background: rgba(59, 130, 246, 0.2);
+            color: #3b82f6;
         }
         .badge-diger {
-            background: var(--text3);
-            color: white;
+            background: rgba(107, 114, 128, 0.2);
+            color: #9ca3af;
         }
         .badge-featured {
-            background: linear-gradient(135deg, var(--yellow), #f97316);
-            color: #0a0a0f;
-        }
-        .badge-version {
-            background: rgba(255, 255, 255, 0.05);
-            color: var(--text2);
-            border: 1px solid var(--border);
+            background: rgba(245, 158, 11, 0.2);
+            color: #f59e0b;
         }
 
         .script-card .meta {
             display: flex;
-            gap: 12px;
+            gap: 14px;
             flex-wrap: wrap;
             font-size: 12px;
             color: var(--text3);
@@ -545,24 +403,6 @@
         .script-card .meta i {
             width: 14px;
         }
-        .script-card .meta .likes {
-            color: var(--secondary);
-        }
-
-        .script-card .tags {
-            display: flex;
-            gap: 4px;
-            flex-wrap: wrap;
-            margin-bottom: 10px;
-        }
-        .script-card .tags .tag {
-            padding: 2px 10px;
-            border-radius: 12px;
-            font-size: 10px;
-            background: rgba(124, 58, 237, 0.08);
-            border: 1px solid rgba(124, 58, 237, 0.1);
-            color: var(--text2);
-        }
 
         .script-card .code-preview {
             background: var(--bg);
@@ -570,10 +410,10 @@
             border-radius: 8px;
             font-family: 'Courier New', monospace;
             font-size: 12px;
-            color: var(--text2);
-            overflow-x: auto;
+            color: var(--text3);
+            overflow: hidden;
             white-space: pre-wrap;
-            max-height: 80px;
+            max-height: 70px;
             overflow-y: auto;
             border: 1px solid var(--border);
             margin-bottom: 12px;
@@ -585,19 +425,18 @@
             gap: 6px;
             flex-wrap: wrap;
         }
-
         .script-card .actions button {
-            padding: 6px 12px;
+            padding: 6px 14px;
             border-radius: 6px;
             border: none;
-            font-size: 11px;
+            font-size: 12px;
             font-weight: 600;
             cursor: pointer;
-            transition: var(--transition);
+            transition: 0.2s;
             font-family: 'Inter', sans-serif;
             display: flex;
             align-items: center;
-            gap: 4px;
+            gap: 6px;
         }
 
         .btn-view {
@@ -606,85 +445,46 @@
         }
         .btn-view:hover {
             background: var(--primary2);
-            transform: scale(1.04);
         }
 
         .btn-copy {
             background: var(--bg);
             color: var(--text2);
-            border: 1px solid var(--border) !important;
+            border: 1px solid var(--border);
         }
         .btn-copy:hover {
-            border-color: var(--primary) !important;
+            border-color: var(--primary);
             color: white;
         }
 
         .btn-fav {
             background: transparent;
             color: var(--text3);
-            border: 1px solid var(--border) !important;
+            border: 1px solid var(--border);
         }
         .btn-fav:hover {
-            border-color: var(--yellow) !important;
-            color: var(--yellow);
+            border-color: #f59e0b;
+            color: #f59e0b;
         }
         .btn-fav.active {
-            border-color: var(--yellow) !important;
-            color: var(--yellow);
+            border-color: #f59e0b;
+            color: #f59e0b;
             background: rgba(245, 158, 11, 0.05);
         }
 
         .btn-like {
             background: transparent;
             color: var(--text3);
-            border: 1px solid var(--border) !important;
+            border: 1px solid var(--border);
         }
         .btn-like:hover {
-            border-color: var(--secondary) !important;
-            color: var(--secondary);
+            border-color: #ec4899;
+            color: #ec4899;
         }
         .btn-like.active {
-            border-color: var(--secondary) !important;
-            color: var(--secondary);
+            border-color: #ec4899;
+            color: #ec4899;
             background: rgba(236, 72, 153, 0.05);
-        }
-
-        .btn-delete {
-            background: rgba(239, 68, 68, 0.1);
-            color: var(--red);
-        }
-        .btn-delete:hover {
-            background: rgba(239, 68, 68, 0.2);
-            transform: scale(1.04);
-        }
-
-        .btn-edit {
-            background: rgba(59, 130, 246, 0.1);
-            color: var(--blue);
-            border: 1px solid rgba(59, 130, 246, 0.15) !important;
-        }
-        .btn-edit:hover {
-            background: rgba(59, 130, 246, 0.2);
-            transform: scale(1.04);
-        }
-
-        .btn-back {
-            background: var(--bg);
-            color: var(--text2);
-            border: 1px solid var(--border) !important;
-        }
-        .btn-back:hover {
-            border-color: var(--text3) !important;
-            color: white;
-        }
-
-        .btn-admin {
-            background: var(--primary);
-            color: white;
-        }
-        .btn-admin:hover {
-            background: var(--primary2);
-            transform: scale(1.04);
         }
 
         /* ============================================================
@@ -694,11 +494,8 @@
             display: flex;
             justify-content: center;
             gap: 8px;
-            margin-top: 24px;
-            padding: 16px 0;
-            flex-wrap: wrap;
+            margin-top: 30px;
         }
-
         .pagination button {
             padding: 8px 16px;
             border-radius: 8px;
@@ -706,49 +503,18 @@
             background: var(--bg2);
             color: var(--text2);
             cursor: pointer;
-            transition: var(--transition);
+            transition: 0.2s;
             font-family: 'Inter', sans-serif;
-            font-size: 13px;
+            font-size: 14px;
         }
-
         .pagination button:hover {
             border-color: var(--primary);
-            color: var(--text);
+            color: white;
         }
-
         .pagination button.active {
             background: var(--primary);
             color: white;
             border-color: var(--primary);
-        }
-
-        .pagination button:disabled {
-            opacity: 0.3;
-            cursor: not-allowed;
-        }
-
-        /* ============================================================
-           EMPTY
-           ============================================================ */
-        .empty-state {
-            text-align: center;
-            padding: 60px 20px;
-            grid-column: 1 / -1;
-        }
-        .empty-state .emoji {
-            font-size: 60px;
-            display: block;
-            margin-bottom: 16px;
-        }
-        .empty-state h3 {
-            font-size: 20px;
-            margin-bottom: 8px;
-            color: var(--text);
-        }
-        .empty-state p {
-            color: var(--text2);
-            max-width: 400px;
-            margin: 0 auto 16px;
         }
 
         /* ============================================================
@@ -761,7 +527,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.85);
+            background: rgba(0, 0, 0, 0.8);
             backdrop-filter: blur(8px);
             z-index: 1000;
             justify-content: center;
@@ -787,11 +553,11 @@
         @keyframes modalIn {
             from {
                 opacity: 0;
-                transform: scale(0.9) translateY(20px);
+                transform: scale(0.95);
             }
             to {
                 opacity: 1;
-                transform: scale(1) translateY(0);
+                transform: scale(1);
             }
         }
 
@@ -801,36 +567,28 @@
             align-items: center;
             margin-bottom: 20px;
         }
-
         .modal-header h2 {
             font-size: 20px;
             font-weight: 800;
-            display: flex;
-            align-items: center;
-            gap: 10px;
             color: var(--text);
         }
         .modal-header h2 i {
             color: var(--primary);
         }
-
         .modal-close {
             background: none;
             border: none;
             color: var(--text3);
             font-size: 24px;
             cursor: pointer;
-            transition: var(--transition);
         }
         .modal-close:hover {
-            color: var(--red);
-            transform: rotate(90deg);
+            color: var(--text);
         }
 
         .form-group {
             margin-bottom: 16px;
         }
-
         .form-group label {
             display: block;
             margin-bottom: 4px;
@@ -839,36 +597,23 @@
             color: var(--text2);
         }
         .form-group label i {
-            margin-right: 6px;
             color: var(--primary);
+            margin-right: 6px;
         }
-
-        .form-group input,
-        .form-group textarea,
-        .form-group select {
+        .form-group input {
             width: 100%;
             padding: 10px 14px;
             background: var(--bg);
             border: 1px solid var(--border);
             border-radius: 8px;
             color: var(--text);
-            font-size: 13px;
+            font-size: 14px;
             font-family: 'Inter', sans-serif;
-            transition: var(--transition);
+            transition: 0.2s;
         }
-
-        .form-group input:focus,
-        .form-group textarea:focus,
-        .form-group select:focus {
+        .form-group input:focus {
             outline: none;
             border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
-        }
-
-        .form-group textarea {
-            min-height: 120px;
-            font-family: 'Courier New', monospace;
-            resize: vertical;
         }
 
         .form-actions {
@@ -876,34 +621,32 @@
             gap: 10px;
             margin-top: 6px;
         }
-
         .form-actions button {
             padding: 10px 24px;
             border-radius: 8px;
             border: none;
-            font-size: 13px;
+            font-size: 14px;
             font-weight: 600;
             cursor: pointer;
-            transition: var(--transition);
+            transition: 0.2s;
             font-family: 'Inter', sans-serif;
             flex: 1;
         }
 
         .btn-submit {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            background: var(--primary);
             color: white;
         }
         .btn-submit:hover {
-            transform: scale(1.02);
-            box-shadow: 0 0 20px rgba(124, 58, 237, 0.3);
+            background: var(--primary2);
         }
 
-        .btn-cancel-modal {
+        .btn-cancel {
             background: var(--bg);
             color: var(--text2);
             border: 1px solid var(--border);
         }
-        .btn-cancel-modal:hover {
+        .btn-cancel:hover {
             border-color: var(--text3);
             color: white;
         }
@@ -956,15 +699,10 @@
             width: 100% !important;
             justify-content: center !important;
             font-size: 14px !important;
-            transition: var(--transition) !important;
             font-family: 'Inter', sans-serif !important;
         }
         .btn-google:hover {
             background: #357ae8 !important;
-            transform: scale(1.02) !important;
-        }
-        .btn-google i {
-            font-size: 18px;
         }
 
         /* ============================================================
@@ -996,10 +734,6 @@
             border-bottom: 1px solid var(--border);
             margin-bottom: 12px;
         }
-        .detail-view .detail-meta i {
-            margin-right: 4px;
-            color: var(--text3);
-        }
 
         .detail-view .detail-actions {
             display: flex;
@@ -1015,18 +749,29 @@
             font-size: 13px;
             font-weight: 600;
             cursor: pointer;
-            transition: var(--transition);
+            transition: 0.2s;
             font-family: 'Inter', sans-serif;
             display: flex;
             align-items: center;
             gap: 6px;
         }
 
-        /* COMMENTS */
+        .btn-back {
+            background: var(--bg);
+            color: var(--text2);
+            border: 1px solid var(--border);
+        }
+        .btn-back:hover {
+            border-color: var(--text3);
+            color: white;
+        }
+
+        /* ============================================================
+           COMMENTS
+           ============================================================ */
         .comments-section {
             margin-top: 20px;
         }
-
         .comments-section h3 {
             font-size: 17px;
             margin-bottom: 12px;
@@ -1046,7 +791,6 @@
             margin-bottom: 10px;
             border: 1px solid var(--border);
         }
-
         .comment-item .comment-header {
             display: flex;
             justify-content: space-between;
@@ -1057,7 +801,6 @@
         .comment-item .comment-header strong {
             color: var(--text);
         }
-
         .comment-item p {
             color: var(--text2);
             font-size: 13px;
@@ -1069,7 +812,6 @@
             gap: 10px;
             margin-bottom: 16px;
         }
-
         .comment-form textarea {
             flex: 1;
             padding: 10px 14px;
@@ -1086,20 +828,19 @@
             outline: none;
             border-color: var(--primary);
         }
-
         .comment-form button {
             padding: 10px 20px;
             border-radius: 8px;
             border: none;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            background: var(--primary);
             color: white;
             font-weight: 600;
             cursor: pointer;
-            transition: var(--transition);
+            transition: 0.2s;
+            font-family: 'Inter', sans-serif;
         }
         .comment-form button:hover {
-            transform: scale(1.04);
-            box-shadow: 0 0 20px rgba(124, 58, 237, 0.3);
+            background: var(--primary2);
         }
 
         /* ============================================================
@@ -1114,15 +855,12 @@
             flex-direction: column;
             gap: 10px;
         }
-
         .toast {
             padding: 12px 20px;
             border-radius: var(--radius);
             color: white;
             font-weight: 500;
-            animation: toastIn 0.3s ease;
             font-size: 13px;
-            font-family: 'Inter', sans-serif;
             display: flex;
             align-items: center;
             gap: 10px;
@@ -1130,63 +868,34 @@
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.05);
             cursor: pointer;
-            min-width: 280px;
-            position: relative;
+            animation: slideIn 0.3s ease;
+            min-width: 250px;
         }
-
         .toast-success {
-            background: linear-gradient(135deg, rgba(16, 185, 129, 0.95), rgba(5, 150, 105, 0.95));
+            background: linear-gradient(135deg, #10b981, #059669);
         }
         .toast-error {
-            background: linear-gradient(135deg, rgba(239, 68, 68, 0.95), rgba(220, 38, 38, 0.95));
+            background: linear-gradient(135deg, #ef4444, #dc2626);
         }
         .toast-info {
-            background: linear-gradient(135deg, rgba(59, 130, 246, 0.95), rgba(37, 99, 235, 0.95));
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
         }
-        .toast-warning {
-            background: linear-gradient(135deg, rgba(245, 158, 11, 0.95), rgba(217, 119, 6, 0.95));
-            color: #0a0a0f;
-        }
-
         .toast .toast-close {
             background: none;
             border: none;
             color: rgba(255, 255, 255, 0.6);
             cursor: pointer;
-            font-size: 16px;
-            padding: 0 4px;
-            transition: var(--transition);
-        }
-        .toast .toast-close:hover {
-            color: white;
+            font-size: 14px;
         }
 
-        .toast .toast-progress {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            height: 3px;
-            background: rgba(255, 255, 255, 0.3);
-            animation: progressBar 4s linear forwards;
-        }
-
-        @keyframes progressBar {
-            from {
-                width: 100%;
-            }
-            to {
-                width: 0%;
-            }
-        }
-
-        @keyframes toastIn {
+        @keyframes slideIn {
             from {
                 opacity: 0;
-                transform: translateX(40px) scale(0.95);
+                transform: translateX(40px);
             }
             to {
                 opacity: 1;
-                transform: translateX(0) scale(1);
+                transform: translateX(0);
             }
         }
 
@@ -1195,67 +904,24 @@
            ============================================================ */
         .footer {
             text-align: center;
-            padding: 30px 0 16px;
+            padding: 30px 20px;
             border-top: 1px solid var(--border);
-            margin-top: 32px;
+            margin-top: 40px;
             color: var(--text3);
             font-size: 13px;
         }
-
         .footer .social {
             display: flex;
             justify-content: center;
             gap: 16px;
             margin-bottom: 12px;
         }
-
         .footer .social a {
             color: var(--text3);
             font-size: 18px;
-            transition: var(--transition);
+            transition: 0.2s;
         }
         .footer .social a:hover {
-            color: var(--primary);
-            transform: translateY(-2px);
-        }
-
-        .footer .disclaimer {
-            font-size: 11px;
-            opacity: 0.5;
-            margin-top: 4px;
-        }
-
-        /* ============================================================
-           ADMIN PANEL
-           ============================================================ */
-        .admin-panel {
-            background: var(--bg2);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 20px;
-            margin-bottom: 20px;
-        }
-        .admin-panel h3 {
-            color: var(--text);
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .admin-panel .admin-stats {
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-            margin-bottom: 16px;
-        }
-        .admin-panel .admin-stats div {
-            background: var(--bg);
-            padding: 8px 16px;
-            border-radius: 8px;
-            border: 1px solid var(--border);
-        }
-        .admin-panel .admin-stats div span {
-            font-weight: 700;
             color: var(--primary);
         }
 
@@ -1263,76 +929,64 @@
            RESPONSIVE
            ============================================================ */
         @media (max-width: 768px) {
-            .header {
+            .header-inner {
+                height: 56px;
+            }
+            .nav-links {
+                display: none;
+            }
+            .nav-links.open {
+                display: flex;
                 flex-direction: column;
-                align-items: stretch;
-                gap: 8px;
-                padding: 10px 14px;
+                position: absolute;
+                top: 56px;
+                left: 0;
+                right: 0;
+                background: var(--bg2);
+                padding: 16px;
+                border-bottom: 1px solid var(--border);
+                gap: 4px;
             }
-            .nav {
-                justify-content: center;
+            .mobile-menu-btn {
+                display: block;
             }
-            .nav button {
-                font-size: 12px;
-                padding: 4px 10px;
-            }
-            .hero {
-                padding: 24px 20px;
-            }
+
             .hero h1 {
-                font-size: 26px;
+                font-size: 28px;
+            }
+            .hero p {
+                font-size: 15px;
             }
             .hero-stats {
-                gap: 20px;
+                gap: 30px;
             }
             .hero-stats .stat .number {
-                font-size: 20px;
+                font-size: 22px;
             }
-            .filter-bar {
-                flex-direction: column;
-                align-items: stretch;
-            }
-            .filter-bar .search-box {
-                margin-left: 0;
-            }
-            .filter-bar .search-box input {
-                width: 100%;
-            }
+
             .script-grid {
                 grid-template-columns: 1fr;
             }
+
             .modal-content {
                 padding: 20px;
                 margin: 8px;
-            }
-            .form-actions {
-                flex-direction: column;
-            }
-            .toast-container {
-                left: 16px;
-                right: 16px;
-                bottom: 16px;
-            }
-            .toast {
-                min-width: auto;
             }
         }
 
         @media (max-width: 480px) {
             .hero h1 {
-                font-size: 22px;
+                font-size: 24px;
             }
-            .hero-actions button {
-                font-size: 12px;
-                padding: 8px 16px;
+            .hero-search {
+                flex-direction: column;
             }
-            .script-card .actions button {
-                font-size: 10px;
-                padding: 4px 8px;
+            .hero-search button {
+                border-radius: 0 0 12px 12px;
             }
-            .nav button {
-                font-size: 11px;
-                padding: 4px 8px;
+            .hero-stats {
+                gap: 16px;
+                flex-wrap: wrap;
             }
         }
 
@@ -1349,32 +1003,54 @@
                 transform: translateY(0);
             }
         }
+
+        /* EMPTY STATE */
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            grid-column: 1 / -1;
+        }
+        .empty-state .emoji {
+            font-size: 50px;
+            display: block;
+            margin-bottom: 12px;
+        }
+        .empty-state h3 {
+            font-size: 18px;
+            margin-bottom: 6px;
+        }
+        .empty-state p {
+            color: var(--text2);
+            max-width: 400px;
+            margin: 0 auto 12px;
+        }
     </style>
 </head>
 <body>
 
-    <div class="container">
-
-        <!-- ============ HEADER ============ -->
-        <header class="header">
+    <!-- ============================================================
+    HEADER
+    ============================================================ -->
+    <header class="header">
+        <div class="header-inner">
             <div class="logo" onclick="goHome()">
                 <i class="fas fa-cube"></i>
-                <span>Script</span><span style="-webkit-text-fill-color:white;">Hub</span>
-                <span class="badge">BETA</span>
+                <span>Script</span><span class="highlight">Hub</span>
             </div>
-            <nav class="nav" id="mainNav">
-                <button class="active" onclick="goHome()" id="navHome"><i class="fas fa-home"></i> Ana Sayfa</button>
-                <button onclick="showUpload()" id="navUpload" class="hidden"><i class="fas fa-upload"></i> Yükle</button>
-                <button onclick="showProfile()" id="navProfile" class="hidden"><i class="fas fa-user"></i> Profil</button>
-                <button onclick="showFavorites()" id="navFavorites" class="hidden"><i class="fas fa-star"></i> Favoriler</button>
-                <button onclick="showLeaderboard()"><i class="fas fa-trophy"></i> Liderlik</button>
-                <button onclick="showAdminPanel()" id="navAdmin" class="hidden"><i class="fas fa-shield-alt"></i> Admin</button>
+
+            <div class="nav-links" id="navLinks">
+                <a href="#" class="active" onclick="goHome()"><i class="fas fa-home"></i> Ana Sayfa</a>
+                <a href="#" id="navUpload" class="hidden" onclick="showUpload()"><i class="fas fa-upload"></i> Yükle</a>
+                <a href="#" id="navProfile" class="hidden" onclick="showProfile()"><i class="fas fa-user"></i> Profil</a>
+                <a href="#" id="navFavorites" class="hidden" onclick="showFavorites()"><i class="fas fa-star"></i> Favoriler</a>
+                <a href="#" onclick="showLeaderboard()"><i class="fas fa-trophy"></i> Liderlik</a>
+                <a href="#" id="navAdmin" class="hidden" onclick="showAdminPanel()"><i class="fas fa-shield-alt"></i> Admin</a>
 
                 <span style="width:1px;height:24px;background:var(--border);margin:0 4px;"></span>
 
                 <div id="authButtons">
-                    <button class="btn-outline-nav" onclick="showLogin()"><i class="fas fa-sign-in-alt"></i> Giriş</button>
-                    <button class="btn-nav" onclick="showRegister()"><i class="fas fa-user-plus"></i> Kayıt</button>
+                    <button class="btn-outline" onclick="showLogin()"><i class="fas fa-sign-in-alt"></i> Giriş</button>
+                    <button class="btn-primary" onclick="showRegister()"><i class="fas fa-user-plus"></i> Kayıt</button>
                 </div>
 
                 <div id="userBadge" class="user-badge hidden" onclick="showProfile()">
@@ -1385,84 +1061,85 @@
                         <i class="fas fa-sign-out-alt"></i>
                     </button>
                 </div>
-            </nav>
-        </header>
-
-        <!-- ============ HERO ============ -->
-        <div class="hero" id="heroSection">
-            <div class="hero-content">
-                <h1><i class="fas fa-cube"></i> <span>Script</span>Hub</h1>
-                <p>Roblox için en kapsamlı script platformu. Keşfet, paylaş ve kullan.</p>
-                <div class="hero-actions">
-                    <button class="btn-primary" onclick="showUpload()"><i class="fas fa-rocket"></i> Script Paylaş</button>
-                    <button class="btn-secondary" onclick="showLeaderboard()"><i class="fas fa-trophy"></i> Liderlik</button>
-                </div>
-                <div class="hero-stats">
-                    <div class="stat"><span class="number" id="statScripts">0</span><span class="label">📜 Script</span></div>
-                    <div class="stat"><span class="number" id="statUsers">0</span><span class="label">👥 Kullanıcı</span></div>
-                    <div class="stat"><span class="number" id="statLikes">0</span><span class="label">❤️ Beğeni</span></div>
-                    <div class="stat"><span class="number" id="statFavorites">0</span><span class="label">⭐ Favori</span></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- ============ FILTER BAR ============ -->
-        <div class="filter-bar">
-            <button class="filter-btn active" data-filter="all" onclick="filterScripts('all')"><i class="fas fa-fire"></i> Tümü</button>
-            <button class="filter-btn" data-filter="ESP" onclick="filterScripts('ESP')">👁️ ESP</button>
-            <button class="filter-btn" data-filter="Otomasyon" onclick="filterScripts('Otomasyon')">⚡ Otomasyon</button>
-            <button class="filter-btn" data-filter="Aimbot" onclick="filterScripts('Aimbot')">🎯 Aimbot</button>
-            <button class="filter-btn" data-filter="Fly" onclick="filterScripts('Fly')">🦅 Fly</button>
-            <button class="filter-btn" data-filter="Speed" onclick="filterScripts('Speed')">💨 Speed</button>
-            <button class="filter-btn" data-filter="GUI" onclick="filterScripts('GUI')">🖥️ GUI</button>
-            <button class="filter-btn" data-filter="Utility" onclick="filterScripts('Utility')">🔧 Utility</button>
-            <button class="filter-btn" data-filter="Diğer" onclick="filterScripts('Diğer')">📦 Diğer</button>
-
-            <div class="search-box">
-                <i class="fas fa-search"></i>
-                <input type="text" id="searchInput" placeholder="Script ara..." oninput="searchScripts(this.value)">
             </div>
 
-            <select class="sort-select" id="sortSelect" onchange="sortScripts(this.value)">
-                <option value="newest">📅 En Yeni</option>
-                <option value="popular">🔥 En Popüler</option>
-                <option value="likes">❤️ En Çok Beğeni</option>
-            </select>
+            <button class="mobile-menu-btn" onclick="document.getElementById('navLinks').classList.toggle('open')">
+                <i class="fas fa-bars"></i>
+            </button>
         </div>
+    </header>
 
-        <!-- ============ CONTENT ============ -->
-        <div id="content">
-            <div class="script-grid" id="scriptGrid"></div>
-            <div class="pagination" id="pagination"></div>
+    <!-- ============================================================
+    HERO
+    ============================================================ -->
+    <section class="hero" id="heroSection">
+        <h1>Roblox Scriptleri</h1>
+        <p>En popüler oyunlar için doğrulanmış scriptler. İhtiyacını bul, kopyala, çalıştır.</p>
+        <div class="hero-search">
+            <input type="text" id="heroSearch" placeholder="Script ara..." oninput="searchScripts(this.value)">
+            <button onclick="searchScripts(document.getElementById('heroSearch').value)"><i class="fas fa-search"></i> Ara</button>
         </div>
+        <div class="hero-stats">
+            <div class="stat"><span class="number" id="statScripts">0</span><span class="label">Script</span></div>
+            <div class="stat"><span class="number" id="statUsers">0</span><span class="label">Kullanıcı</span></div>
+            <div class="stat"><span class="number" id="statLikes">0</span><span class="label">Beğeni</span></div>
+        </div>
+    </section>
 
-        <!-- ============ FOOTER ============ -->
-        <footer class="footer">
-            <div class="social">
-                <a href="#"><i class="fab fa-github"></i></a>
-                <a href="#"><i class="fab fa-discord"></i></a>
-                <a href="#"><i class="fab fa-twitter"></i></a>
-                <a href="#"><i class="fab fa-youtube"></i></a>
-            </div>
-            <p>🎮 ScriptHub - Roblox Script Platformu</p>
-            <p class="disclaimer">⚠️ Sadece eğitim amaçlıdır. Roblox ToS'a uygun kullanın.</p>
-        </footer>
+    <!-- ============================================================
+    CATEGORIES
+    ============================================================ -->
+    <div class="categories" id="categories">
+        <button class="active" data-filter="all" onclick="filterScripts('all')">Tümü</button>
+        <button data-filter="ESP" onclick="filterScripts('ESP')">👁️ ESP</button>
+        <button data-filter="Otomasyon" onclick="filterScripts('Otomasyon')">⚡ Otomasyon</button>
+        <button data-filter="Aimbot" onclick="filterScripts('Aimbot')">🎯 Aimbot</button>
+        <button data-filter="Fly" onclick="filterScripts('Fly')">🦅 Fly</button>
+        <button data-filter="Speed" onclick="filterScripts('Speed')">💨 Speed</button>
+        <button data-filter="GUI" onclick="filterScripts('GUI')">🖥️ GUI</button>
+        <button data-filter="Utility" onclick="filterScripts('Utility')">🔧 Utility</button>
+        <button data-filter="Diğer" onclick="filterScripts('Diğer')">📦 Diğer</button>
     </div>
 
-    <!-- ============ MODAL ============ -->
+    <!-- ============================================================
+    CONTENT
+    ============================================================ -->
+    <div class="container" id="content">
+        <div class="script-grid" id="scriptGrid"></div>
+        <div class="pagination" id="pagination"></div>
+    </div>
+
+    <!-- ============================================================
+    FOOTER
+    ============================================================ -->
+    <footer class="footer">
+        <div class="social">
+            <a href="#"><i class="fab fa-github"></i></a>
+            <a href="#"><i class="fab fa-discord"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+        </div>
+        <p>ScriptHub - Roblox Script Platformu</p>
+        <p style="font-size:11px;opacity:0.5;margin-top:4px;">⚠️ Sadece eğitim amaçlıdır. Roblox ToS'a uygun kullanın.</p>
+    </footer>
+
+    <!-- ============================================================
+    MODAL
+    ============================================================ -->
     <div class="modal" id="modal">
         <div class="modal-content" id="modalContent"></div>
     </div>
 
-    <!-- ============ TOAST ============ -->
+    <!-- ============================================================
+    TOAST
+    ============================================================ -->
     <div class="toast-container" id="toastContainer"></div>
 
     <!-- ============================================================
-    JAVASCRIPT - FIREBASE
+    JAVASCRIPT
     ============================================================ -->
     <script>
         // ============================================================
-        // FIREBASE CONFIG - SENİN CONFIG'İN
+        // FIREBASE CONFIG
         // ============================================================
         const firebaseConfig = {
             apiKey: "AIzaSyDKdE947q36KwQxkrxbUzpmoynaMsssWB8",
@@ -1474,13 +1151,12 @@
             measurementId: "G-PVXHHBYLGR"
         };
 
-        // Firebase'i başlat
         firebase.initializeApp(firebaseConfig);
         const auth = firebase.auth();
         const db = firebase.firestore();
 
         // ============================================================
-        // DATABASE (LocalStorage yedek)
+        // DATABASE (LocalStorage)
         // ============================================================
         const DB = {
             getUsers() { return JSON.parse(localStorage.getItem('rbx_users') || '[]'); },
@@ -1551,32 +1227,20 @@
             const container = document.getElementById('toastContainer');
             const toast = document.createElement('div');
             toast.className = `toast toast-${type}`;
-
-            const icons = { success: '✅', error: '❌', info: 'ℹ️', warning: '⚠️' };
-            const titles = { success: 'Başarılı!', error: 'Hata!', info: 'Bilgi', warning: 'Uyarı' };
-
+            const icons = { success: '✅', error: '❌', info: 'ℹ️' };
             toast.innerHTML = `
                 <span>${icons[type] || 'ℹ️'}</span>
-                <span><strong>${title || titles[type] || 'Bilgi'}</strong> ${message}</span>
+                <span><strong>${title || 'Bilgi'}</strong> ${message}</span>
                 <button class="toast-close" onclick="this.parentElement.remove()">✕</button>
-                <div class="toast-progress"></div>
             `;
-
             container.appendChild(toast);
-
             setTimeout(() => {
                 if (toast.parentElement) {
                     toast.style.opacity = '0';
                     toast.style.transform = 'translateX(40px)';
                     setTimeout(() => toast.remove(), 300);
                 }
-            }, 4000);
-
-            toast.addEventListener('click', () => {
-                toast.style.opacity = '0';
-                toast.style.transform = 'translateX(40px)';
-                setTimeout(() => toast.remove(), 300);
-            });
+            }, 3500);
         }
 
         // ============================================================
@@ -1584,8 +1248,6 @@
         // ============================================================
         auth.onAuthStateChanged(user => {
             if (user) {
-                console.log('✅ Firebase ile giriş yapıldı:', user.displayName || user.email);
-
                 const userData = {
                     id: user.uid,
                     username: user.displayName || user.email.split('@')[0],
@@ -1594,51 +1256,28 @@
                     avatar: user.photoURL || '',
                     created: new Date().toISOString()
                 };
-
                 DB.setCurrentUser(userData);
-
                 db.collection('users').doc(user.uid).set(userData, { merge: true });
-
                 updateNav();
                 updateStats();
-                if (!document.querySelector('.detail-view') && !document.querySelector('.admin-panel')) {
-                    goHome();
-                }
-                showToast('🎮 Hoş geldin, ' + userData.username + '!', 'success', 'Hoş Geldin!');
+                showToast('Hoş geldin, ' + userData.username + '!', 'success', 'Hoş Geldin!');
             } else {
-                console.log('👋 Kullanıcı çıkış yaptı');
                 DB.logout();
                 updateNav();
-                goHome();
             }
         });
 
         function loginWithGoogle() {
             const provider = new firebase.auth.GoogleAuthProvider();
             auth.signInWithPopup(provider)
-                .then(() => {
-                    closeModal();
-                    showToast('🎉 Google ile giriş başarılı!', 'success');
-                })
-                .catch((err) => {
-                    console.error('Google hata:', err);
-                    if (err.code === 'auth/popup-closed-by-user') {
-                        showToast('Popup kapandı, tekrar dene.', 'info');
-                    } else {
-                        showToast('❌ Google hatası: ' + err.message, 'error');
-                    }
-                });
+                .then(() => { closeModal(); })
+                .catch((err) => { showToast(err.message, 'error'); });
         }
 
         function loginWithEmail(email, password) {
             auth.signInWithEmailAndPassword(email, password)
-                .then(() => {
-                    closeModal();
-                    showToast('🎉 Giriş başarılı!', 'success');
-                })
-                .catch((err) => {
-                    showToast('❌ ' + err.message, 'error');
-                });
+                .then(() => { closeModal(); })
+                .catch((err) => { showToast(err.message, 'error'); });
         }
 
         function registerWithEmail(email, password, username) {
@@ -1656,12 +1295,10 @@
                             created: new Date().toISOString()
                         });
                         closeModal();
-                        showToast('🎉 Kayıt başarılı!', 'success');
+                        showToast('Kayıt başarılı!', 'success');
                     });
                 })
-                .catch((err) => {
-                    showToast('❌ ' + err.message, 'error');
-                });
+                .catch((err) => { showToast(err.message, 'error'); });
         }
 
         function logout() {
@@ -1669,7 +1306,7 @@
             auth.signOut().then(() => {
                 DB.logout();
                 updateNav();
-                showToast('Çıkış yapıldı.', 'info', 'Güle güle!');
+                showToast('Çıkış yapıldı.', 'info');
                 goHome();
             });
         }
@@ -1690,17 +1327,14 @@
                 userBadge.classList.remove('hidden');
                 userName.textContent = user.username;
                 if (user.avatar) {
-                    userAvatar.innerHTML = `<img src="${user.avatar}" alt="avatar">`;
+                    userAvatar.innerHTML = `<img src="${user.avatar}">`;
                 } else {
-                    userAvatar.innerHTML = user.username.charAt(0).toUpperCase();
-                    userAvatar.style.background = 'linear-gradient(135deg, var(--primary), var(--secondary))';
+                    userAvatar.textContent = user.username.charAt(0).toUpperCase();
                 }
-                userRank.textContent = user.rank === 'admin' ? 'Admin 🛡️' : 'Kullanıcı';
-                userRank.className = 'rank ' + (user.rank === 'admin' ? 'admin' : '');
+                userRank.textContent = user.rank === 'admin' ? 'Admin' : 'Kullanıcı';
                 document.getElementById('navUpload').classList.remove('hidden');
                 document.getElementById('navProfile').classList.remove('hidden');
                 document.getElementById('navFavorites').classList.remove('hidden');
-
                 if (isAdmin()) {
                     document.getElementById('navAdmin').classList.remove('hidden');
                 } else {
@@ -1719,16 +1353,11 @@
         function updateStats() {
             const scripts = DB.getScripts();
             const likes = DB.getLikes();
-            const favs = DB.getFavorites();
             document.getElementById('statScripts').textContent = scripts.length;
             document.getElementById('statLikes').textContent = likes.length;
-            document.getElementById('statFavorites').textContent = favs.length;
-
             db.collection('users').get().then(snapshot => {
                 document.getElementById('statUsers').textContent = snapshot.size || 0;
-            }).catch(() => {
-                document.getElementById('statUsers').textContent = '?';
-            });
+            }).catch(() => {});
         }
 
         // ============================================================
@@ -1736,17 +1365,14 @@
         // ============================================================
         let currentFilter = 'all';
         let currentSearch = '';
-        let currentSort = 'newest';
         let currentPage = 1;
         const PER_PAGE = 6;
 
         function getFilteredAndSorted() {
             let scripts = DB.getScripts();
-
             if (currentFilter !== 'all') {
                 scripts = scripts.filter(s => s.category === currentFilter);
             }
-
             if (currentSearch) {
                 const search = currentSearch.toLowerCase();
                 scripts = scripts.filter(s =>
@@ -1756,21 +1382,7 @@
                     (s.tags && s.tags.some(t => t.toLowerCase().includes(search)))
                 );
             }
-
-            switch (currentSort) {
-                case 'newest':
-                    scripts.sort((a, b) => new Date(b.created) - new Date(a.created));
-                    break;
-                case 'popular':
-                    scripts.sort((a, b) => (b.downloads || 0) - (a.downloads || 0));
-                    break;
-                case 'likes':
-                    scripts.sort((a, b) => (b.likes || 0) - (a.likes || 0));
-                    break;
-                default:
-                    scripts.sort((a, b) => new Date(b.created) - new Date(a.created));
-            }
-
+            scripts.sort((a, b) => new Date(b.created) - new Date(a.created));
             return scripts;
         }
 
@@ -1778,16 +1390,14 @@
             const allScripts = getFilteredAndSorted();
             const totalPages = Math.ceil(allScripts.length / PER_PAGE);
             if (currentPage > totalPages) currentPage = Math.max(1, totalPages);
-
             const start = (currentPage - 1) * PER_PAGE;
             const end = start + PER_PAGE;
             const scripts = allScripts.slice(start, end);
-
             const grid = document.getElementById('scriptGrid');
 
             if (scripts.length === 0) {
                 grid.innerHTML =
-                    `<div class="empty-state"><span class="emoji">🔍</span><h3>Hiç script bulunamadı</h3><p>${currentSearch ? 'Arama kriterlerine uygun script yok.' : 'Henüz bu kategoride script yok.'}</p><button class="btn-view" onclick="showUpload()"><i class="fas fa-upload"></i> İlk Scripti Paylaş</button></div>`;
+                    `<div class="empty-state"><span class="emoji">🔍</span><h3>Script bulunamadı</h3><p>${currentSearch ? 'Arama kriterlerine uygun script yok.' : 'Henüz bu kategoride script yok.'}</p><button class="btn-view" onclick="showUpload()">İlk Scripti Paylaş</button></div>`;
                 document.getElementById('pagination').innerHTML = '';
                 return;
             }
@@ -1812,27 +1422,24 @@
                                 <span class="badge badge-lua">Lua</span>
                                 <span class="badge ${getCategoryBadge(s.category)}">${s.category || 'Diğer'}</span>
                                 ${s.featured ? '<span class="badge badge-featured">⭐ Öne Çıkan</span>' : ''}
-                                ${s.downloads > 100 ? '<span class="badge" style="background:var(--yellow);color:#0a0a0f;">🔥 Popüler</span>' : ''}
-                                ${isNew(s.created) ? '<span class="badge" style="background:var(--green);color:white;">✨ Yeni</span>' : ''}
-                                ${s.version ? `<span class="badge badge-version">${s.version}</span>` : ''}
+                                ${isNew(s.created) ? '<span class="badge" style="background:rgba(16,185,129,0.2);color:#10b981;">✨ Yeni</span>' : ''}
                             </div>
                         </div>
                         <div class="meta">
                             <span><i class="fas fa-user"></i> ${s.username}</span>
                             <span><i class="fas fa-clock"></i> ${formatDate(s.created)}</span>
                             <span><i class="fas fa-eye"></i> ${s.downloads || 0}</span>
-                            <span class="likes"><i class="fas fa-heart"></i> ${s.likes || 0}</span>
+                            <span><i class="fas fa-heart" style="color:#ec4899;"></i> ${s.likes || 0}</span>
                         </div>
-                        ${tags.length > 0 ? `<div class="tags">${tags.map(t => `<span class="tag">#${t}</span>`).join('')}</div>` : ''}
+                        ${tags.length > 0 ? `<div style="display:flex;gap:4px;flex-wrap:wrap;margin-bottom:8px;">${tags.map(t => `<span style="padding:2px 10px;border-radius:10px;font-size:10px;background:rgba(108,59,217,0.08);color:var(--text2);border:1px solid var(--border);">#${t}</span>`).join('')}</div>` : ''}
                         <div class="code-preview">${escapeHtml(preview)}</div>
                         <div class="actions">
                             <button class="btn-view" onclick="showDetail(${s.id})"><i class="fas fa-eye"></i> İncele</button>
                             <button class="btn-copy" onclick="copyScript(${s.id})"><i class="fas fa-copy"></i></button>
                             <button class="btn-fav ${isFav ? 'active' : ''}" onclick="toggleFavorite(${s.id})"><i class="fas ${isFav ? 'fa-star' : 'fa-star-o'}"></i></button>
                             <button class="btn-like ${isLiked ? 'active' : ''}" onclick="toggleLike(${s.id})"><i class="fas ${isLiked ? 'fa-heart' : 'fa-heart-o'}"></i></button>
-                            ${isOwner || isAdmin() ? `<button class="btn-edit" onclick="editScript(${s.id})"><i class="fas fa-edit"></i></button>` : ''}
-                            ${isOwner || isAdmin() ? `<button class="btn-delete" onclick="deleteScript(${s.id})"><i class="fas fa-trash"></i></button>` : ''}
-                            ${isAdmin() ? `<button class="btn-admin" onclick="featureScript(${s.id})"><i class="fas fa-star"></i></button>` : ''}
+                            ${isOwner || isAdmin() ? `<button class="btn-view" style="background:#3b82f6;" onclick="editScript(${s.id})"><i class="fas fa-edit"></i></button>` : ''}
+                            ${isOwner || isAdmin() ? `<button class="btn-view" style="background:#ef4444;" onclick="deleteScript(${s.id})"><i class="fas fa-trash"></i></button>` : ''}
                         </div>
                     </div>
                 `;
@@ -1860,43 +1467,41 @@
             if (page < 1 || page > totalPages) return;
             currentPage = page;
             renderScripts();
-            window.scrollTo({ top: document.getElementById('content').offsetTop - 100, behavior: 'smooth' });
+            window.scrollTo({ top: 300, behavior: 'smooth' });
         }
 
         // ============================================================
-        // SAYFA FONKSİYONLARI
+        // SAYFALAR
         // ============================================================
         function goHome() {
             document.getElementById('heroSection').style.display = 'block';
+            document.getElementById('categories').style.display = 'flex';
             currentFilter = 'all';
             currentSearch = '';
             currentPage = 1;
-            document.getElementById('searchInput').value = '';
-            document.querySelectorAll('.filter-btn').forEach(b => b.classList.toggle('active', b.dataset.filter === 'all'));
+            document.getElementById('heroSearch').value = '';
+            document.querySelectorAll('.categories button').forEach(b => b.classList.toggle('active', b.dataset.filter ===
+            'all'));
             document.getElementById('content').innerHTML =
                 `<div class="script-grid" id="scriptGrid"></div><div class="pagination" id="pagination"></div>`;
             renderScripts();
             closeModal();
             updateStats();
-            document.querySelectorAll('.nav button').forEach(b => b.classList.remove('active'));
-            document.getElementById('navHome').classList.add('active');
+            document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+            document.querySelector('.nav-links a[href="#"]').classList.add('active');
+            document.getElementById('navLinks').classList.remove('open');
         }
 
         function filterScripts(category) {
             currentFilter = category;
             currentPage = 1;
-            document.querySelectorAll('.filter-btn').forEach(b => b.classList.toggle('active', b.dataset.filter === category));
+            document.querySelectorAll('.categories button').forEach(b => b.classList.toggle('active', b.dataset.filter ===
+                category));
             renderScripts();
         }
 
         function searchScripts(query) {
             currentSearch = query.toLowerCase().trim();
-            currentPage = 1;
-            renderScripts();
-        }
-
-        function sortScripts(sort) {
-            currentSort = sort;
             currentPage = 1;
             renderScripts();
         }
@@ -1924,7 +1529,8 @@
                 ).join('');
 
             document.getElementById('heroSection').style.display = 'none';
-            document.querySelectorAll('.nav button').forEach(b => b.classList.remove('active'));
+            document.getElementById('categories').style.display = 'none';
+            document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
 
             document.getElementById('content').innerHTML = `
                 <div class="detail-view fade-in">
@@ -1935,21 +1541,19 @@
                                 <span class="badge badge-lua">Lua</span>
                                 <span class="badge ${getCategoryBadge(s.category)}">${s.category || 'Diğer'}</span>
                                 ${s.featured ? '<span class="badge badge-featured">⭐ Öne Çıkan</span>' : ''}
-                                ${s.version ? `<span class="badge badge-version">${s.version}</span>` : ''}
                             </div>
                         </div>
                         <div class="detail-meta">
                             <span><i class="fas fa-user"></i> ${s.username}</span>
                             <span><i class="fas fa-clock"></i> ${formatDate(s.created)}</span>
                             <span><i class="fas fa-eye"></i> ${s.downloads || 0}</span>
-                            <span><i class="fas fa-heart" style="color:var(--secondary);"></i> ${s.likes || 0}</span>
-                            <span><i class="fas fa-star"></i> ${isFav ? '⭐ Favorilerde' : '☆ Favori değil'}</span>
+                            <span><i class="fas fa-heart" style="color:#ec4899;"></i> ${s.likes || 0}</span>
                         </div>
-                        ${s.tags && s.tags.length > 0 ? `<div class="detail-tags" style="display:flex;gap:4px;flex-wrap:wrap;margin:8px 0;">${s.tags.map(t => `<span class="tag" style="padding:2px 12px;border-radius:12px;font-size:11px;background:rgba(124,58,237,0.08);border:1px solid rgba(124,58,237,0.1);color:var(--text2);">#${t}</span>`).join('')}</div>` : ''}
+                        ${s.tags && s.tags.length > 0 ? `<div style="display:flex;gap:4px;flex-wrap:wrap;margin:8px 0;">${s.tags.map(t => `<span style="padding:2px 12px;border-radius:10px;font-size:11px;background:rgba(108,59,217,0.08);border:1px solid var(--border);color:var(--text2);">#${t}</span>`).join('')}</div>` : ''}
                         ${s.links && s.links.length > 0 ? `
                             <div style="margin:8px 0;padding:10px 14px;background:var(--bg);border-radius:8px;border:1px solid var(--border);">
                                 <i class="fas fa-link" style="color:var(--primary);"></i>
-                                ${s.links.map(l => `<a href="${l}" target="_blank" style="color:var(--blue);text-decoration:none;margin-right:10px;">${l}</a>`).join('')}
+                                ${s.links.map(l => `<a href="${l}" target="_blank" style="color:#3b82f6;text-decoration:none;margin-right:10px;">${l}</a>`).join('')}
                             </div>
                         ` : ''}
                         <div class="detail-code">${escapeHtml(s.content)}</div>
@@ -1958,9 +1562,8 @@
                             <button class="btn-fav ${isFav ? 'active' : ''}" onclick="toggleFavorite(${s.id})"><i class="fas ${isFav ? 'fa-star' : 'fa-star-o'}"></i> ${isFav ? 'Çıkar' : 'Ekle'}</button>
                             <button class="btn-like ${isLiked ? 'active' : ''}" onclick="toggleLike(${s.id})"><i class="fas ${isLiked ? 'fa-heart' : 'fa-heart-o'}"></i> ${isLiked ? 'Beğenme' : 'Beğen'}</button>
                             <button class="btn-back" onclick="goHome()"><i class="fas fa-arrow-left"></i> Ana Sayfa</button>
-                            ${isOwner || isAdmin() ? `<button class="btn-edit" onclick="editScript(${s.id})"><i class="fas fa-edit"></i> Düzenle</button>` : ''}
-                            ${isOwner || isAdmin() ? `<button class="btn-delete" onclick="deleteScript(${s.id})"><i class="fas fa-trash"></i> Sil</button>` : ''}
-                            ${isAdmin() ? `<button class="btn-admin" onclick="featureScript(${s.id})"><i class="fas fa-star"></i> ${s.featured ? 'Kaldır' : 'Öne Çıkar'}</button>` : ''}
+                            ${isOwner || isAdmin() ? `<button class="btn-view" style="background:#3b82f6;" onclick="editScript(${s.id})"><i class="fas fa-edit"></i> Düzenle</button>` : ''}
+                            ${isOwner || isAdmin() ? `<button class="btn-view" style="background:#ef4444;" onclick="deleteScript(${s.id})"><i class="fas fa-trash"></i> Sil</button>` : ''}
                         </div>
                     </div>
 
@@ -1977,16 +1580,18 @@
                 </div>
             `;
             closeModal();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         // ============================================================
-        // YÜKLEME SAYFASI
+        // YÜKLEME
         // ============================================================
         function showUpload() {
             if (!isLoggedIn()) { showToast('Lütfen giriş yapın!', 'error');
                 showLogin(); return; }
             document.getElementById('heroSection').style.display = 'none';
-            document.querySelectorAll('.nav button').forEach(b => b.classList.remove('active'));
+            document.getElementById('categories').style.display = 'none';
+            document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
 
             document.getElementById('content').innerHTML = `
                 <div class="fade-in" style="max-width:600px;margin:0 auto;">
@@ -1995,7 +1600,7 @@
                             <h2 style="font-size:22px;font-weight:800;color:var(--text);"><i class="fas fa-upload" style="color:var(--primary);"></i> Script Yükle</h2>
                             <button class="btn-back" onclick="goHome()"><i class="fas fa-arrow-left"></i> Ana Sayfa</button>
                         </div>
-                        <p style="color:var(--text2);margin-bottom:20px;">Scriptini paylaş ve topluluğa katkıda bulun! 🚀</p>
+                        <p style="color:var(--text2);margin-bottom:20px;">Scriptini paylaş ve topluluğa katkıda bulun!</p>
                         <form onsubmit="uploadScript();return false;">
                             <div class="form-group">
                                 <label><i class="fas fa-heading"></i> Başlık *</label>
@@ -2003,11 +1608,11 @@
                             </div>
                             <div class="form-group">
                                 <label><i class="fas fa-code"></i> Kod *</label>
-                                <textarea id="scriptContent" placeholder="Lua kodunu yapıştır..." required></textarea>
+                                <textarea id="scriptContent" placeholder="Lua kodunu yapıştır..." required style="width:100%;padding:10px 14px;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:13px;font-family:'Courier New',monospace;min-height:120px;resize:vertical;"></textarea>
                             </div>
                             <div class="form-group">
                                 <label><i class="fas fa-tag"></i> Kategori</label>
-                                <select id="scriptCategory">
+                                <select id="scriptCategory" style="width:100%;padding:10px 14px;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:13px;">
                                     <option value="ESP">👁️ ESP</option>
                                     <option value="Otomasyon">⚡ Otomasyon</option>
                                     <option value="Aimbot">🎯 Aimbot</option>
@@ -2032,7 +1637,7 @@
                             </div>
                             <div class="form-actions">
                                 <button type="submit" class="btn-submit"><i class="fas fa-rocket"></i> Yayınla</button>
-                                <button type="button" class="btn-cancel-modal" onclick="goHome()">İptal</button>
+                                <button type="button" class="btn-cancel" onclick="goHome()">İptal</button>
                             </div>
                         </form>
                     </div>
@@ -2071,158 +1676,103 @@
                 featured: false
             });
             DB.saveScripts(scripts);
-            showToast('🎮 Script başarıyla yüklendi!', 'success', 'Harika!');
+            showToast('Script başarıyla yüklendi!', 'success', 'Harika!');
             updateStats();
             goHome();
         }
 
         // ============================================================
-        // ADMIN FUNCTIONS
+        // AKSİYONLAR
         // ============================================================
-        function featureScript(id) {
-            if (!isAdmin()) { showToast('Bu işlem için admin yetkisi gerekli!', 'error'); return; }
-            const scripts = DB.getScripts();
-            const s = scripts.find(s => s.id === id);
+        function deleteScript(id) {
+            if (!confirm('Bu scripti silmek istediğine emin misin?')) return;
+            if (!isAdmin() && !(getCurrentUser() && DB.getScripts().find(s => s.id === id)?.userId === getCurrentUser().id)) {
+                showToast('Bu scripti silme yetkin yok!', 'error');
+                return;
+            }
+            let scripts = DB.getScripts().filter(s => s.id !== id);
+            DB.saveScripts(scripts);
+            let comments = DB.getComments().filter(c => c.scriptId !== id);
+            DB.saveComments(comments);
+            let likes = DB.getLikes().filter(l => l !== id);
+            DB.saveLikes(likes);
+            let favs = DB.getFavorites().filter(f => f !== id);
+            DB.saveFavorites(favs);
+            showToast('Script silindi!', 'success');
+            updateStats();
+            goHome();
+        }
+
+        function copyScript(id) {
+            const s = DB.getScripts().find(s => s.id === id);
             if (s) {
-                s.featured = !s.featured;
-                DB.saveScripts(scripts);
-                showToast(s.featured ? '⭐ Script öne çıkarıldı!' : '⭐ Öne çıkarma kaldırıldı.', 'success', 'Admin');
-                renderScripts();
+                navigator.clipboard.writeText(s.content).then(() => showToast('Kopyalandı!', 'success'))
+                    .catch(() => {
+                        const t = document.createElement('textarea');
+                        t.value = s.content;
+                        document.body.appendChild(t);
+                        t.select();
+                        document.execCommand('copy');
+                        document.body.removeChild(t);
+                        showToast('Kopyalandı!', 'success');
+                    });
             }
         }
 
-        function showAdminPanel() {
-            if (!isAdmin()) { showToast('Bu sayfaya erişim yetkin yok!', 'error'); return; }
-
-            const reports = DB.getReports();
-            const allScripts = DB.getScripts();
-            let usersCount = 0;
-            db.collection('users').get().then(snapshot => { usersCount = snapshot.size; }).catch(() => {});
-
-            document.getElementById('heroSection').style.display = 'none';
-            document.querySelectorAll('.nav button').forEach(b => b.classList.remove('active'));
-
-            let reportsHTML = reports.length === 0 ?
-                '<p style="color:var(--text3);">Bildirim yok.</p>' :
-                reports.map(id => {
-                    const s = allScripts.find(sc => sc.id === id);
-                    return s ? `
-                        <div style="background:var(--bg);padding:10px 14px;border-radius:8px;margin-bottom:6px;border:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;">
-                            <div><strong>${s.title}</strong> <span style="color:var(--text3);font-size:12px;">${s.username}</span></div>
-                            <div style="display:flex;gap:6px;">
-                                <button class="btn-view" onclick="showDetail(${s.id})"><i class="fas fa-eye"></i></button>
-                                <button class="btn-delete" onclick="resolveReport(${id})"><i class="fas fa-check"></i></button>
-                            </div>
-                        </div>
-                    ` : '';
-                }).join('');
-
-            document.getElementById('content').innerHTML = `
-                <div class="fade-in">
-                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:10px;">
-                        <h2 style="font-size:22px;font-weight:800;color:var(--text);"><i class="fas fa-shield-alt" style="color:var(--primary);"></i> Admin Paneli</h2>
-                        <button class="btn-back" onclick="goHome()"><i class="fas fa-arrow-left"></i> Ana Sayfa</button>
-                    </div>
-
-                    <div class="admin-panel">
-                        <h3><i class="fas fa-chart-bar" style="color:var(--blue);"></i> İstatistikler</h3>
-                        <div class="admin-stats">
-                            <div>📜 Script: <span>${allScripts.length}</span></div>
-                            <div>👥 Kullanıcı: <span id="adminUserCount">${usersCount || '...'}</span></div>
-                            <div>🚩 Bildirim: <span>${reports.length}</span></div>
-                        </div>
-                    </div>
-
-                    <div class="admin-panel">
-                        <h3><i class="fas fa-flag" style="color:var(--red);"></i> Bildirimler (${reports.length})</h3>
-                        ${reportsHTML}
-                    </div>
-
-                    <div class="admin-panel">
-                        <h3><i class="fas fa-database" style="color:var(--green);"></i> Veri Yönetimi</h3>
-                        <div style="display:flex;gap:8px;flex-wrap:wrap;">
-                            <button class="btn-view" onclick="backupData()"><i class="fas fa-download"></i> Yedek Al</button>
-                            <button class="btn-view" onclick="restoreData()"><i class="fas fa-upload"></i> Yedek Yükle</button>
-                            <button class="btn-delete" onclick="clearAllData()"><i class="fas fa-trash"></i> Temizle</button>
-                        </div>
-                    </div>
-                </div>
-            `;
-            closeModal();
-
-            db.collection('users').get().then(snapshot => {
-                const el = document.getElementById('adminUserCount');
-                if (el) el.textContent = snapshot.size;
-            }).catch(() => {});
+        function toggleFavorite(id) {
+            let favs = DB.getFavorites();
+            const idx = favs.indexOf(id);
+            if (idx > -1) {
+                favs.splice(idx, 1);
+                showToast('Favorilerden çıkarıldı', 'info');
+            } else {
+                favs.push(id);
+                showToast('Favorilere eklendi!', 'success');
+            }
+            DB.saveFavorites(favs);
+            updateStats();
+            renderScripts();
+            if (document.querySelector('.detail-view')) { showDetail(id); }
         }
 
-        function resolveReport(id) {
-            let reports = DB.getReports();
-            reports = reports.filter(r => r !== id);
-            DB.saveReports(reports);
-            showToast('📋 Bildirim çözüldü.', 'success', 'Admin');
-            showAdminPanel();
+        function toggleLike(id) {
+            let likes = DB.getLikes();
+            const idx = likes.indexOf(id);
+            const scripts = DB.getScripts();
+            const s = scripts.find(s => s.id === id);
+
+            if (idx > -1) {
+                likes.splice(idx, 1);
+                if (s) s.likes = Math.max(0, (s.likes || 0) - 1);
+                showToast('Beğenin geri alındı', 'info');
+            } else {
+                likes.push(id);
+                if (s) s.likes = (s.likes || 0) + 1;
+                showToast('Beğendin!', 'success');
+            }
+
+            DB.saveLikes(likes);
+            DB.saveScripts(scripts);
+            updateStats();
+            renderScripts();
+            if (document.querySelector('.detail-view')) { showDetail(id); }
         }
 
-        function backupData() {
-            const data = {
-                users: DB.getUsers(),
-                scripts: DB.getScripts(),
-                comments: DB.getComments(),
-                favorites: DB.getFavorites(),
-                likes: DB.getLikes(),
-                reports: DB.getReports()
-            };
-            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `script_hub_backup_${new Date().toISOString().slice(0,10)}.json`;
-            a.click();
-            URL.revokeObjectURL(url);
-            showToast('💾 Yedek alındı!', 'success', 'Yedekleme');
+        function addComment(scriptId) {
+            const input = document.getElementById('commentInput');
+            const content = input.value.trim();
+            const user = getCurrentUser();
+            if (!content) { showToast('Yorum boş olamaz!', 'error'); return; }
+            const comments = DB.getComments();
+            comments.push({ id: generateId(), scriptId, userId: user.id, username: user.username, content,
+                created: new Date().toISOString() });
+            DB.saveComments(comments);
+            input.value = '';
+            showToast('Yorum eklendi!', 'success');
+            updateStats();
+            showDetail(scriptId);
         }
 
-        function restoreData() {
-            const input = document.createElement('input');
-            input.type = 'file';
-            input.accept = '.json';
-            input.onchange = function(e) {
-                const file = e.target.files[0];
-                if (!file) return;
-                const reader = new FileReader();
-                reader.onload = function(ev) {
-                    try {
-                        const data = JSON.parse(ev.target.result);
-                        if (data.users) DB.saveUsers(data.users);
-                        if (data.scripts) DB.saveScripts(data.scripts);
-                        if (data.comments) DB.saveComments(data.comments);
-                        if (data.favorites) DB.saveFavorites(data.favorites);
-                        if (data.likes) DB.saveLikes(data.likes);
-                        if (data.reports) DB.saveReports(data.reports);
-                        showToast('✅ Yedek yüklendi!', 'success', 'Geri Yükleme');
-                        updateStats();
-                        goHome();
-                    } catch (err) {
-                        showToast('❌ Geçersiz dosya!', 'error', 'Hata');
-                    }
-                };
-                reader.readAsText(file);
-            };
-            input.click();
-        }
-
-        function clearAllData() {
-            if (!confirm('TÜM veriler silinecek! Emin misiniz?')) return;
-            if (!confirm('GERÇEKTEN emin misiniz? Bu işlem geri alınamaz!')) return;
-            localStorage.clear();
-            showToast('🗑️ Tüm veriler temizlendi! Sayfa yenileniyor...', 'warning', 'Uyarı');
-            setTimeout(() => location.reload(), 1500);
-        }
-
-        // ============================================================
-        // DÜZENLEME SAYFASI
-        // ============================================================
         function editScript(id) {
             const scripts = DB.getScripts();
             const s = scripts.find(s => s.id === id);
@@ -2233,13 +1783,13 @@
             }
 
             document.getElementById('heroSection').style.display = 'none';
-            document.querySelectorAll('.nav button').forEach(b => b.classList.remove('active'));
+            document.getElementById('categories').style.display = 'none';
 
             document.getElementById('content').innerHTML = `
                 <div class="fade-in" style="max-width:600px;margin:0 auto;">
                     <div style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:28px;">
                         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
-                            <h2 style="font-size:22px;font-weight:800;color:var(--text);"><i class="fas fa-edit" style="color:var(--blue);"></i> Script Düzenle</h2>
+                            <h2 style="font-size:22px;font-weight:800;color:var(--text);"><i class="fas fa-edit" style="color:var(--primary);"></i> Script Düzenle</h2>
                             <button class="btn-back" onclick="goHome()"><i class="fas fa-arrow-left"></i> Ana Sayfa</button>
                         </div>
                         <form onsubmit="updateScript(${id});return false;">
@@ -2249,11 +1799,11 @@
                             </div>
                             <div class="form-group">
                                 <label><i class="fas fa-code"></i> Kod *</label>
-                                <textarea id="editScriptContent" required>${escapeHtml(s.content)}</textarea>
+                                <textarea id="editScriptContent" required style="width:100%;padding:10px 14px;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:13px;font-family:'Courier New',monospace;min-height:120px;resize:vertical;">${escapeHtml(s.content)}</textarea>
                             </div>
                             <div class="form-group">
                                 <label><i class="fas fa-tag"></i> Kategori</label>
-                                <select id="editScriptCategory">
+                                <select id="editScriptCategory" style="width:100%;padding:10px 14px;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:13px;">
                                     <option value="ESP" ${s.category === 'ESP' ? 'selected' : ''}>👁️ ESP</option>
                                     <option value="Otomasyon" ${s.category === 'Otomasyon' ? 'selected' : ''}>⚡ Otomasyon</option>
                                     <option value="Aimbot" ${s.category === 'Aimbot' ? 'selected' : ''}>🎯 Aimbot</option>
@@ -2278,7 +1828,7 @@
                             </div>
                             <div class="form-actions">
                                 <button type="submit" class="btn-submit"><i class="fas fa-save"></i> Güncelle</button>
-                                <button type="button" class="btn-cancel-modal" onclick="showDetail(${id})">İptal</button>
+                                <button type="button" class="btn-cancel" onclick="showDetail(${id})">İptal</button>
                             </div>
                         </form>
                     </div>
@@ -2307,13 +1857,13 @@
                 s.links = link ? [link] : [];
                 s.version = version || 'v1.0';
                 DB.saveScripts(scripts);
-                showToast('✅ Script güncellendi!', 'success', 'Başarılı');
+                showToast('Script güncellendi!', 'success');
                 showDetail(id);
             }
         }
 
         // ============================================================
-        // PROFİL SAYFASI
+        // PROFİL
         // ============================================================
         function showProfile() {
             if (!isLoggedIn()) { showToast('Lütfen giriş yapın!', 'error');
@@ -2323,22 +1873,20 @@
             const comments = DB.getComments().filter(c => c.userId === user.id);
             const favorites = DB.getFavorites();
 
-            const totalDownloads = scripts.reduce((sum, s) => sum + (s.downloads || 0), 0);
-            const totalLikes = scripts.reduce((sum, s) => sum + (s.likes || 0), 0);
-
             document.getElementById('heroSection').style.display = 'none';
-            document.querySelectorAll('.nav button').forEach(b => b.classList.remove('active'));
+            document.getElementById('categories').style.display = 'none';
+            document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
 
             let cards = scripts.length === 0 ?
-                `<div class="empty-state" style="grid-column:1/-1;"><span class="emoji">📝</span><h3>Henüz scriptin yok!</h3><button class="btn-view" onclick="showUpload()"><i class="fas fa-upload"></i> Script Yükle</button></div>` :
+                `<div class="empty-state" style="grid-column:1/-1;"><span class="emoji">📝</span><h3>Henüz scriptin yok!</h3><button class="btn-view" onclick="showUpload()">Script Yükle</button></div>` :
                 scripts.map(s => `
                     <div class="script-card">
                         <div class="top"><h3>${s.title}</h3><span class="badge ${getCategoryBadge(s.category)}">${s.category || 'Diğer'}</span></div>
                         <div class="meta"><span><i class="fas fa-clock"></i> ${formatDate(s.created)}</span><span><i class="fas fa-eye"></i> ${s.downloads || 0}</span></div>
                         <div class="actions">
                             <button class="btn-view" onclick="showDetail(${s.id})"><i class="fas fa-eye"></i></button>
-                            <button class="btn-edit" onclick="editScript(${s.id})"><i class="fas fa-edit"></i></button>
-                            <button class="btn-delete" onclick="deleteScript(${s.id})"><i class="fas fa-trash"></i></button>
+                            <button class="btn-view" style="background:#3b82f6;" onclick="editScript(${s.id})"><i class="fas fa-edit"></i></button>
+                            <button class="btn-view" style="background:#ef4444;" onclick="deleteScript(${s.id})"><i class="fas fa-trash"></i></button>
                         </div>
                     </div>
                 `).join('');
@@ -2351,21 +1899,18 @@
                     </div>
                     <div style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:24px;margin-bottom:20px;">
                         <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
-                            <div style="width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--secondary));display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:700;color:white;overflow:hidden;">
+                            <div style="width:60px;height:60px;border-radius:50%;background:var(--primary);display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:700;color:white;overflow:hidden;">
                                 ${user.avatar ? `<img src="${user.avatar}" style="width:60px;height:60px;object-fit:cover;">` : user.username.charAt(0).toUpperCase()}
                             </div>
                             <div>
                                 <h2 style="font-size:22px;font-weight:800;color:var(--text);">${user.username}</h2>
                                 <p style="color:var(--text2);"><i class="fas fa-envelope"></i> ${user.email || 'Email girilmemiş'}</p>
-                                <p style="color:var(--text3);font-size:13px;"><i class="fas fa-shield-alt"></i> ${user.rank === 'admin' ? '🛡️ Admin' : '👤 Kullanıcı'}</p>
                             </div>
                         </div>
                         <div style="display:flex;gap:24px;margin-top:16px;padding-top:16px;border-top:1px solid var(--border);flex-wrap:wrap;">
                             <div><span style="font-size:20px;font-weight:700;color:var(--text);">${scripts.length}</span> <span style="color:var(--text3);">Script</span></div>
                             <div><span style="font-size:20px;font-weight:700;color:var(--text);">${comments.length}</span> <span style="color:var(--text3);">Yorum</span></div>
                             <div><span style="font-size:20px;font-weight:700;color:var(--text);">${favorites.length}</span> <span style="color:var(--text3);">Favori</span></div>
-                            <div><span style="font-size:20px;font-weight:700;color:var(--text);">${totalDownloads}</span> <span style="color:var(--text3);">İndirme</span></div>
-                            <div><span style="font-size:20px;font-weight:700;color:var(--text);">${totalLikes}</span> <span style="color:var(--text3);">Beğeni</span></div>
                         </div>
                     </div>
                     <h3 style="margin-bottom:12px;color:var(--text);"><i class="fas fa-archive" style="color:var(--primary);"></i> Scriptlerim (${scripts.length})</h3>
@@ -2376,7 +1921,7 @@
         }
 
         // ============================================================
-        // FAVORİLER SAYFASI
+        // FAVORİLER
         // ============================================================
         function showFavorites() {
             if (!isLoggedIn()) { showToast('Lütfen giriş yapın!', 'error');
@@ -2384,10 +1929,11 @@
             const favs = DB.getFavorites();
             const scripts = DB.getScripts().filter(s => favs.includes(s.id));
             document.getElementById('heroSection').style.display = 'none';
-            document.querySelectorAll('.nav button').forEach(b => b.classList.remove('active'));
+            document.getElementById('categories').style.display = 'none';
+            document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
 
             let html = scripts.length === 0 ?
-                `<div class="empty-state" style="grid-column:1/-1;"><span class="emoji">⭐</span><h3>Favori scriptin yok</h3><p>Beğendiğin scriptleri favorilere ekle.</p></div>` :
+                `<div class="empty-state" style="grid-column:1/-1;"><span class="emoji">⭐</span><h3>Favori scriptin yok</h3></div>` :
                 scripts.map(s => `
                     <div class="script-card">
                         <div class="top"><h3>${s.title}</h3><span class="badge ${getCategoryBadge(s.category)}">${s.category || 'Diğer'}</span></div>
@@ -2402,7 +1948,7 @@
             document.getElementById('content').innerHTML = `
                 <div class="fade-in">
                     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:10px;">
-                        <h2 style="font-size:22px;font-weight:800;color:var(--text);"><i class="fas fa-star" style="color:var(--yellow);"></i> Favorilerim (${scripts.length})</h2>
+                        <h2 style="font-size:22px;font-weight:800;color:var(--text);"><i class="fas fa-star" style="color:#f59e0b;"></i> Favorilerim (${scripts.length})</h2>
                         <button class="btn-back" onclick="goHome()"><i class="fas fa-arrow-left"></i> Ana Sayfa</button>
                     </div>
                     <div class="script-grid">${html}</div>
@@ -2412,7 +1958,7 @@
         }
 
         // ============================================================
-        // LİDERLİK TABLOSU
+        // LİDERLİK
         // ============================================================
         function showLeaderboard() {
             const scripts = DB.getScripts();
@@ -2420,17 +1966,18 @@
             const top = sorted.slice(0, 10);
 
             document.getElementById('heroSection').style.display = 'none';
-            document.querySelectorAll('.nav button').forEach(b => b.classList.remove('active'));
+            document.getElementById('categories').style.display = 'none';
+            document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
 
             const medals = ['🥇', '🥈', '🥉', '4️⃣', '5️⃣', '6️⃣', '7️⃣', '8️⃣', '9️⃣', '🔟'];
             let html = top.length === 0 ?
                 '<p style="text-align:center;color:var(--text3);padding:40px;">Henüz veri yok.</p>' :
                 top.map((s, i) => `
-                    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:14px 18px;margin-bottom:10px;display:flex;align-items:center;gap:14px;transition:var(--transition);">
+                    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:14px 18px;margin-bottom:10px;display:flex;align-items:center;gap:14px;">
                         <span style="font-size:28px;">${medals[i] || '🏅'}</span>
                         <div style="flex:1;">
                             <strong style="font-size:15px;color:var(--text);">${s.title}</strong>
-                            <div style="color:var(--text3);font-size:12px;">👤 ${s.username} • ${s.category || 'Diğer'} • ❤️ ${s.likes || 0}</div>
+                            <div style="color:var(--text3);font-size:12px;">👤 ${s.username} • ❤️ ${s.likes || 0}</div>
                         </div>
                         <div style="text-align:right;">
                             <div style="font-size:20px;font-weight:700;color:var(--primary);">${s.downloads || 0}</div>
@@ -2443,7 +1990,7 @@
             document.getElementById('content').innerHTML = `
                 <div class="fade-in">
                     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:10px;">
-                        <h2 style="font-size:22px;font-weight:800;color:var(--text);"><i class="fas fa-trophy" style="color:var(--yellow);"></i> En Popüler Scriptler</h2>
+                        <h2 style="font-size:22px;font-weight:800;color:var(--text);"><i class="fas fa-trophy" style="color:#f59e0b;"></i> En Popüler Scriptler</h2>
                         <button class="btn-back" onclick="goHome()"><i class="fas fa-arrow-left"></i> Ana Sayfa</button>
                     </div>
                     ${html}
@@ -2453,111 +2000,71 @@
         }
 
         // ============================================================
-        // AKSİYONLAR
+        // ADMIN PANEL
         // ============================================================
-        function deleteScript(id) {
-            if (!confirm('Bu scripti silmek istediğine emin misin?')) return;
-            if (!isAdmin() && !(getCurrentUser() && DB.getScripts().find(s => s.id === id)?.userId === getCurrentUser().id)) {
-                showToast('Bu scripti silme yetkin yok!', 'error');
-                return;
-            }
-            let scripts = DB.getScripts().filter(s => s.id !== id);
-            DB.saveScripts(scripts);
-            let comments = DB.getComments().filter(c => c.scriptId !== id);
-            DB.saveComments(comments);
-            let likes = DB.getLikes().filter(l => l !== id);
-            DB.saveLikes(likes);
-            let favs = DB.getFavorites().filter(f => f !== id);
-            DB.saveFavorites(favs);
-            let reports = DB.getReports().filter(r => r !== id);
-            DB.saveReports(reports);
-            showToast('Script silindi!', 'success', 'Tamam');
-            updateStats();
-            goHome();
-        }
+        function showAdminPanel() {
+            if (!isAdmin()) { showToast('Bu sayfaya erişim yetkin yok!', 'error'); return; }
 
-        function copyScript(id) {
-            const s = DB.getScripts().find(s => s.id === id);
-            if (s) {
-                navigator.clipboard.writeText(s.content).then(() => showToast('📋 Kopyalandı!', 'success', 'Başarılı'))
-                    .catch(() => {
-                        const t = document.createElement('textarea');
-                        t.value = s.content;
-                        document.body.appendChild(t);
-                        t.select();
-                        document.execCommand('copy');
-                        document.body.removeChild(t);
-                        showToast('📋 Kopyalandı!', 'success', 'Başarılı');
-                    });
-            }
-        }
-
-        function toggleFavorite(id) {
-            let favs = DB.getFavorites();
-            const idx = favs.indexOf(id);
-            if (idx > -1) {
-                favs.splice(idx, 1);
-                showToast('⭐ Favorilerden çıkarıldı', 'info', 'Bilgi');
-            } else {
-                favs.push(id);
-                showToast('⭐ Favorilere eklendi!', 'success', 'Harika!');
-            }
-            DB.saveFavorites(favs);
-            updateStats();
-            renderScripts();
-            if (document.querySelector('.detail-view')) {
-                showDetail(id);
-            }
-        }
-
-        function toggleLike(id) {
-            let likes = DB.getLikes();
-            const idx = likes.indexOf(id);
-            const scripts = DB.getScripts();
-            const s = scripts.find(s => s.id === id);
-
-            if (idx > -1) {
-                likes.splice(idx, 1);
-                if (s) s.likes = Math.max(0, (s.likes || 0) - 1);
-                showToast('❤️ Beğenin geri alındı', 'info', 'Bilgi');
-            } else {
-                likes.push(id);
-                if (s) s.likes = (s.likes || 0) + 1;
-                showToast('❤️ Beğendin!', 'success', 'Harika!');
-            }
-
-            DB.saveLikes(likes);
-            DB.saveScripts(scripts);
-            updateStats();
-            renderScripts();
-            if (document.querySelector('.detail-view')) {
-                showDetail(id);
-            }
-        }
-
-        function reportScript(id) {
-            if (!isLoggedIn()) { showToast('Raporlamak için giriş yapın!', 'error');
-                showLogin(); return; }
             const reports = DB.getReports();
-            if (reports.includes(id)) { showToast('Zaten raporlanmış.', 'info', 'Bilgi'); return; }
-            reports.push(id);
-            DB.saveReports(reports);
-            showToast('🚩 Raporlandı! Admin inceliyor.', 'warning', 'Rapor');
+            const allScripts = DB.getScripts();
+            let usersCount = 0;
+            db.collection('users').get().then(snapshot => { usersCount = snapshot.size; }).catch(() => {});
+
+            document.getElementById('heroSection').style.display = 'none';
+            document.getElementById('categories').style.display = 'none';
+            document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+
+            let reportsHTML = reports.length === 0 ?
+                '<p style="color:var(--text3);">Bildirim yok.</p>' :
+                reports.map(id => {
+                    const s = allScripts.find(sc => sc.id === id);
+                    return s ? `
+                        <div style="background:var(--bg);padding:10px 14px;border-radius:8px;margin-bottom:6px;border:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;">
+                            <div><strong>${s.title}</strong> <span style="color:var(--text3);font-size:12px;">${s.username}</span></div>
+                            <div style="display:flex;gap:6px;">
+                                <button class="btn-view" onclick="showDetail(${s.id})"><i class="fas fa-eye"></i></button>
+                                <button class="btn-view" style="background:#10b981;" onclick="resolveReport(${id})"><i class="fas fa-check"></i></button>
+                            </div>
+                        </div>
+                    ` : '';
+                }).join('');
+
+            document.getElementById('content').innerHTML = `
+                <div class="fade-in">
+                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:10px;">
+                        <h2 style="font-size:22px;font-weight:800;color:var(--text);"><i class="fas fa-shield-alt" style="color:var(--primary);"></i> Admin Paneli</h2>
+                        <button class="btn-back" onclick="goHome()"><i class="fas fa-arrow-left"></i> Ana Sayfa</button>
+                    </div>
+
+                    <div class="admin-panel" style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:20px;">
+                        <h3 style="color:var(--text);margin-bottom:12px;display:flex;align-items:center;gap:8px;"><i class="fas fa-chart-bar" style="color:#3b82f6;"></i> İstatistikler</h3>
+                        <div style="display:flex;gap:20px;flex-wrap:wrap;margin-bottom:16px;">
+                            <div style="background:var(--bg);padding:8px 16px;border-radius:8px;border:1px solid var(--border);">📜 Script: <span style="font-weight:700;color:var(--primary);">${allScripts.length}</span></div>
+                            <div style="background:var(--bg);padding:8px 16px;border-radius:8px;border:1px solid var(--border);">👥 Kullanıcı: <span style="font-weight:700;color:var(--primary);" id="adminUserCount">${usersCount || '...'}</span></div>
+                            <div style="background:var(--bg);padding:8px 16px;border-radius:8px;border:1px solid var(--border);">🚩 Bildirim: <span style="font-weight:700;color:var(--primary);">${reports.length}</span></div>
+                        </div>
+                    </div>
+
+                    <div class="admin-panel" style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:20px;">
+                        <h3 style="color:var(--text);margin-bottom:12px;display:flex;align-items:center;gap:8px;"><i class="fas fa-flag" style="color:#ef4444;"></i> Bildirimler (${reports.length})</h3>
+                        ${reportsHTML}
+                    </div>
+                </div>
+            `;
+            closeModal();
+
+            db.collection('users').get().then(snapshot => {
+                const el = document.getElementById('adminUserCount');
+                if (el) el.textContent = snapshot.size;
+            }).catch(() => {});
         }
 
-        function addComment(scriptId) {
-            const input = document.getElementById('commentInput');
-            const content = input.value.trim();
-            const user = getCurrentUser();
-            if (!content) { showToast('Yorum boş olamaz!', 'error'); return; }
-            const comments = DB.getComments();
-            comments.push({ id: generateId(), scriptId, userId: user.id, username: user.username, content,
-                created: new Date().toISOString() });
-            DB.saveComments(comments);
-            input.value = '';
-            showToast('💬 Yorum eklendi!', 'success', 'Başarılı');
-            updateStats();
-            showDetail(scriptId);
+        function resolveReport(id) {
+            let reports = DB.getReports();
+            reports = reports.filter(r => r !== id);
+            DB.saveReports(reports);
+            showToast('Bildirim çözüldü.', 'success', 'Admin');
+            showAdminPanel();
         }
 
         // ============================================================
